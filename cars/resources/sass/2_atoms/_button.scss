@@ -1,0 +1,51 @@
+.btn {
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    cursor: pointer;
+    padding: 12px 20px;
+    color: $white;
+    background-color: $dark;
+    transition: all .2s ease-in-out;
+
+    &:hover, 
+    &:focus,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled):active:focus {
+        outline: none;
+        box-shadow: none;
+        color: $white;
+        background-color: $brandPrimaryDark;
+    }
+
+    &.btn-primary {
+        background-color: $brandPrimaryDark;
+        &:hover, 
+        &:focus,
+        &:not(:disabled):not(.disabled):active,
+        &:not(:disabled):not(.disabled):active:focus {
+            outline: none;
+            box-shadow: none;
+            color: $white;
+            background-color: $dark;
+        }
+    }
+
+    &.CTA {
+        font-size: $size_m;
+        padding: 15px 25px;
+        text-transform: uppercase;
+
+        &.disabled {
+            background-color: transparent;
+            color: $brandSecondaryDark;
+            pointer-events: none;
+
+            &:hover,
+            &:focus {
+                background-color: none;
+                color: $dark;
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+$font_title:'Source Sans Pro', sans-serif;
+$font_txt:	'Open Sans', sans-serif;
+
+$size_xxl: 	em(48px);
+$size_xl: 	em(40px);
+$size_l: 	em(32px);
+$size_m: 	em(24px);
+$size_s: 	em(20px);
+$size_xs:	em(18px);
+$size_xxs: 	em(16px);
+
+
+html, body {
+	font-family: $font_txt;
+	font-weight: normal;
+	font-size: $size_xxs;
+	font-weight: 400;
+	line-height: 1.5em;
+	letter-spacing: 0.5px;
+	color: $black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $font_title;
+	margin: 0 0 10px;
+	letter-spacing: 1.5px;
+	text-align: center;
+	color: $dark;
+}
+
+p { margin: 0 0 1em; }
+
+h1 { font-size: $size_xxl; }
+h2 { font-size: $size_xl; }
+h3 { font-size: $size_l; }
+h4 { font-size: $size_m; }
+h5 { font-size: $size_s; }
+h6 { font-size: $size_xs; }

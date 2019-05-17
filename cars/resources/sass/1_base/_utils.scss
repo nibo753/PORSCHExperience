@@ -1,0 +1,49 @@
+/* calc width */
+$columns: 12;
+@function col($num) {
+	@return 100% / $columns * $num;
+}
+
+/* convert px to em */
+@function em($pixels, $context: 16) {
+	@if (unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
+
+	@if (unitless($context)) {
+		$context: $context * 1px;
+	}
+
+	@return $pixels / $context * 1em;
+}
+
+
+/* img path */
+@function path($src, $dir: '') {
+	$src: unquote($src);
+	$dir: unquote($dir);
+
+	@if $dir == '' {
+		@return url(/img/$src);
+	} @else {
+		@return url(/img/$dir/$src);
+	}
+}
+
+
+
+/*
+ *
+ * Example
+ *
+ *
+
+   .sidebar {
+        width: 		col(4);
+        font-size:	em(22px);
+        background: path('bg.jpg') center no-repeat;
+        background: path('1.jpg', 'member');
+    }
+
+*
+*/
