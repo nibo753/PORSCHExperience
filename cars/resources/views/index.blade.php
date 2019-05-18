@@ -22,22 +22,22 @@
     <div class="parallax"></div>
 </section>
 
-<div class="overview">
-    <nav id="sideNav">
-        <ul>
-            @foreach ($categories as $category => $value)
-            <li>
-                <a href="#_{{ $value->name }}" data-car="{{ $value->id }}" class="list-group-item"><span>{{ $value->name }}</span><img src="/img/cars/overview/{{ $value->name }}.png"></a>
-            </li>
-            @endforeach
-            <li>
-                <a href="#mission-e" class="list-group-item"><span>Mission-E</span><img src="/img/cars/overview/mission-e.png"></a>
-            </li>
-        </ul>
-    </nav>
+<nav id="sideNav">
+    <ul>
+        @foreach ($categories as $category => $value)
+        <li>
+            <a href="#_{{ $value->name }}" data-car="{{ $value->id }}" class="list-group-item"><span>{{ $value->name }}</span><img src="/img/cars/overview/{{ $value->name }}.png"></a>
+        </li>
+        @endforeach
+        <li>
+            <a href="#mission-e" class="list-group-item"><span>Mission-E</span><img src="/img/cars/overview/mission-e.png"></a>
+        </li>
+    </ul>
+</nav>
 
+<div class="overview">
     @foreach ($categories as $category => $value)
-    <section class="car category" id="_{{ $value->name }}" data-car="{{ $value->id }}">
+    <section class="car" id="_{{ $value->name }}" data-car="{{ $value->id }}">
         <div class="container content">
             <div class="row">
                 <div class="col">
@@ -54,10 +54,26 @@
         <div class="parallax"></div>
     </section>
     @endforeach
+</div>
 
-    <section class="car" id="mission-e">
-        <div class="parallax"></div>
-    </section>
+<div id="mission-e">
+    <div class="title">
+        <h2>This is Porsche</h2>
+        <h2>This is Porsche</h2>
+        <h2>This is Porsche</h2>
+        <h2>This is Porsche</h2>
+        <h2>This is Porsche</h2>
+        <h2>This is Porsche</h2>
+        <h2>This is Porsche</h2>
+    </div>
+    <div id="sequence">
+        <section class="panel p1 right"><img src="/img/cars/mission-e/01.jpg"></section>
+        <section class="panel p2 left"><img src="/img/cars/mission-e/02.jpg"></section>
+        <section class="panel p3 left"><img src="/img/cars/mission-e/03.png"></section>
+        <section class="panel p4 left"><img src="/img/cars/mission-e/04.jpg"></section>
+        <section class="panel p5 right"><img src="/img/cars/mission-e/05.jpg"></section>
+        <section class="panel p6 right"><img src="/img/cars/mission-e/06.jpg"></section>
+    </div>
 </div>
 
 @endsection

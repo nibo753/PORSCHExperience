@@ -1,7 +1,7 @@
 $(function() {
     var controller = new ScrollMagic.Controller(),
-        w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-        h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+        w   = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+        h   = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
         tmp = document.querySelector('.overview');
 
     if ( tmp ) {
@@ -23,7 +23,7 @@ $(function() {
 
 
         // CAR CONTENT FADE IN
-        $('.overview section.category').each(function(){
+        $('.overview section.car').each(function(){
             var id = '#' + this.id;
 
             var title = TweenMax.to(id + " .content .title", 0.4, {opacity: 1, ease:Linear.easeNone});
@@ -50,23 +50,6 @@ $(function() {
                 duration: "15%"
             })
             .setTween(content_inner)
-            .addTo(controller);
-        });
-
-        // SIDE NAV ANCHOR BG COLOR
-        $('.overview #sideNav .list-group-item').each(function(){
-            var anchor = TweenMax.fromTo(this, 0.4, {backgroundColor: '#f1f1f1', color: '#f1f1f1'}, {backgroundColor: '#000', color: '#000'});
-            //from required to 'reset', otherwise stays .active/:hover color
-
-            var y = $(this).position().top + $('#sideNav').position().top;
-
-            new ScrollMagic.Scene({
-                triggerElement: "#mission-e",
-                triggerHook: y/h,
-                offset: - $(this).outerHeight(true),
-                duration: $(this).outerHeight(true)
-            })
-            .setTween(anchor)
             .addTo(controller);
         });
     }

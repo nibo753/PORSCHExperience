@@ -37,7 +37,7 @@ body.home {
 	}
 }
 
-.category .parallax__container {
+.car .parallax__container {
 	z-index: auto;
 
 	.parallax {
@@ -64,21 +64,3 @@ _Cayenne 	= 4.918 x 1.696
 _mission-e 	= xxxx x 1.300
 scale 6.62598425197
 */
-
-#mission-e {
-	color: $white !important;
-	margin-top: 300px;
-	margin-top: 30vh;
-	
-
-	.parallax {
-		background-color: transparent;
-		background-image: path('01.jpg','cars/mission-e');
-		background-size: 90%;
-		transform: rotate(180deg);
-	}
-}
-
-
-
-

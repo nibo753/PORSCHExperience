@@ -36963,19 +36963,92 @@ setDataOffset(); //window.addEventListener('resize', setDataOffset);
 /***/ (function(module, exports) {
 
 $(function () {
-  var controller = new ScrollMagic.Controller(),
-      tmp = document.querySelector('#mission-e');
+  var controllerX = new ScrollMagic.Controller(),
+      controllerY = new ScrollMagic.Controller({
+    vertical: false
+  });
+  tmp = document.querySelector('#mission-e');
 
   if (tmp) {
-    // BACKGROUND
-    var bg = TweenMax.to("#mission-e .parallax", 0.2, {
+    // BACKGROUND COLOR
+    var bg = new TimelineMax().to("#mission-e", 0.4, {
       backgroundColor: '#000'
-    });
+    }).to(".home .overview", 0.4, {
+      backgroundColor: '#000'
+    }, 0);
     new ScrollMagic.Scene({
       triggerElement: "#mission-e",
-      triggerHook: 0.8,
-      duration: "5%"
-    }).setTween(bg).addTo(controller);
+      triggerHook: 0.8
+    }).setTween(bg).addTo(controllerX); // MOVEMENT PANELS
+    // number at end => moves at same time as prev tween
+
+    var wipeAnimation = new TimelineMax().fromTo("#sequence .panel.p1", 1, {
+      x: "100%"
+    }, {
+      x: "0%",
+      ease: Linear.easeNone
+    }).fromTo("#sequence .panel.p1 img", 1, {
+      x: "0"
+    }, {
+      x: "100%",
+      ease: Linear.easeNone
+    }, 0).fromTo("#sequence .panel.p2", 1, {
+      x: "-100%"
+    }, {
+      x: "0%",
+      ease: Linear.easeNone
+    }).fromTo("#sequence .panel.p2 img", 1, {
+      x: "0"
+    }, {
+      x: "-100%",
+      ease: Linear.easeNone
+    }, 1).fromTo("#sequence .panel.p3", 1, {
+      x: "-100%"
+    }, {
+      x: "0%",
+      ease: Linear.easeNone
+    }).fromTo("#sequence .panel.p3 img", 1, {
+      x: "0%"
+    }, {
+      x: "-100%",
+      ease: Linear.easeNone
+    }, 2).fromTo("#sequence .panel.p4", 1, {
+      x: "-100%"
+    }, {
+      x: "0%",
+      ease: Linear.easeNone
+    }).fromTo("#sequence .panel.p4 img", 1, {
+      x: "0%"
+    }, {
+      x: "-100%",
+      ease: Linear.easeNone
+    }, 3).fromTo("#sequence .panel.p5", 1, {
+      x: "100%"
+    }, {
+      x: "0%",
+      ease: Linear.easeNone
+    }).fromTo("#sequence .panel.p5 img", 1, {
+      x: "0%"
+    }, {
+      x: "100%",
+      ease: Linear.easeNone
+    }, 4).fromTo("#sequence .panel.p6", 1, {
+      x: "100%"
+    }, {
+      x: "0%",
+      ease: Linear.easeNone
+    }).fromTo("#sequence .panel.p6 img", 1, {
+      x: "0%"
+    }, {
+      x: "100%",
+      ease: Linear.easeNone
+    }, 5); // create scene to pin and link animation
+
+    new ScrollMagic.Scene({
+      triggerElement: "#mission-e #sequence",
+      triggerHook: "onLeave",
+      duration: "300%"
+    }).setPin("#mission-e #sequence").setTween(wipeAnimation).addTo(controllerX);
   }
 });
 
@@ -37040,7 +37113,7 @@ $(function () {
       offset: -+$('header').outerHeight(true)
     }).setClassToggle("#sideNav", "visible").addTo(controller); // CAR CONTENT FADE IN
 
-    $('.overview section.category').each(function () {
+    $('.overview section.car').each(function () {
       var id = '#' + this.id;
       var title = TweenMax.to(id + " .content .title", 0.4, {
         opacity: 1,
@@ -37066,24 +37139,6 @@ $(function () {
         triggerHook: 0.20,
         duration: "15%"
       }).setTween(content_inner).addTo(controller);
-    }); // SIDE NAV ANCHOR BG COLOR
-
-    $('.overview #sideNav .list-group-item').each(function () {
-      var anchor = TweenMax.fromTo(this, 0.4, {
-        backgroundColor: '#f1f1f1',
-        color: '#f1f1f1'
-      }, {
-        backgroundColor: '#000',
-        color: '#000'
-      }); //from required to 'reset', otherwise stays .active/:hover color
-
-      var y = $(this).position().top + $('#sideNav').position().top;
-      new ScrollMagic.Scene({
-        triggerElement: "#mission-e",
-        triggerHook: y / h,
-        offset: -$(this).outerHeight(true),
-        duration: $(this).outerHeight(true)
-      }).setTween(anchor).addTo(controller);
     });
   }
 });
