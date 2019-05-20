@@ -1,22 +1,32 @@
-.home .intro .container {
-	position: relative;
-	height: 100%;
+body.home {
+	background: path('bg.jpg','cars') no-repeat fixed;
+	background-size: cover;
+	background-position: center bottom;
 
-	.txt .col{
-		padding-top: 10%;
-		padding-left: calc(15px + 10%);
+	.intro .container {
+		position: relative;
+		height: 100%;
+
+		.txt .col{
+			padding-top: 10%;
+			padding-left: calc(15px + 10%);
+		}
+		
+		.start_btn {
+			position: absolute;
+			bottom: 10%;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 	}
-	
-	.start_btn {
-		position: absolute;
-		bottom: 10%;
-		left: 50%;
-		transform: translateX(-50%);
+
+	.overview {
+		background-color: transparent; //required for animation
+		padding-bottom: 500px;
+		padding-bottom: 40vh;
 	}
 }
 
-.home .overview {
-	background-color: transparent; //required for animation
-	padding-bottom: 500px;
-	padding-bottom: 40vh;
-}
+
+
+

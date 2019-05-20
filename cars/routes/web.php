@@ -12,4 +12,6 @@
 */
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 				'CarController@index');
+
+Route::get('/{category}', 		'CarController@carByCategory');

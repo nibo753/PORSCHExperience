@@ -15,7 +15,7 @@ $('.home #start').click(function (e) {
 });
 
 // SIDENAV SCROLL
-$('#sideNav a[href^="#"]').on('click', function(event) {
+$('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function(event) {
     var target = $(this.getAttribute('href'));
     if( target.length ) {
         event.preventDefault();

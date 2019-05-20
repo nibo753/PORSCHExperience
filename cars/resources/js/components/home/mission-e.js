@@ -37,7 +37,7 @@ $(function() {
         new ScrollMagic.Scene({
             triggerElement: "#mission-e #sequence",
             triggerHook: "onLeave",
-            duration: "300%"
+            duration: "400%"
         })
         .setPin("#mission-e #sequence")
         .setTween(wipeAnimation)

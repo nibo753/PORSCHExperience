@@ -37047,7 +37047,7 @@ $(function () {
     new ScrollMagic.Scene({
       triggerElement: "#mission-e #sequence",
       triggerHook: "onLeave",
-      duration: "300%"
+      duration: "400%"
     }).setPin("#mission-e #sequence").setTween(wipeAnimation).addTo(controllerX);
   }
 });
@@ -37077,7 +37077,7 @@ $('.home #start').click(function (e) {
   $("#audio_motor").trigger("play"); // plays the audio
 }); // SIDENAV SCROLL
 
-$('#sideNav a[href^="#"]').on('click', function (event) {
+$('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
   var target = $(this.getAttribute('href'));
 
   if (target.length) {

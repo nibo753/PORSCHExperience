@@ -12,4 +12,11 @@ class Car extends Model
     {
     	return $this->belongsTo('App\Category');
     }
+
+    public function scopeFindByCategoryName($query, $categoryName)
+	{
+		return $query->whereHas('category', function ($query) use ($categoryName) {
+			$query->where('name', $categoryName);
+		});
+	}
 }

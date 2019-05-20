@@ -10923,12 +10923,6 @@ ul {
   background-size: cover;
 }
 
-body.home {
-  background: url(/img/cars/bg.jpg) no-repeat fixed;
-  background-size: cover;
-  background-position: center bottom;
-}
-
 .overview .car,
 .intro {
   width: 100%;
@@ -10965,8 +10959,11 @@ body.home {
 
 .car .content .desc .content-inner {
   margin-top: 10px;
-  text-align: center;
   opacity: 0;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .car .parallax__container {
@@ -11156,17 +11153,23 @@ header.visible {
   margin-left: 90px;
 }
 
-.home .intro .container {
+body.home {
+  background: url(/img/cars/bg.jpg) no-repeat fixed;
+  background-size: cover;
+  background-position: center bottom;
+}
+
+body.home .intro .container {
   position: relative;
   height: 100%;
 }
 
-.home .intro .container .txt .col {
+body.home .intro .container .txt .col {
   padding-top: 10%;
   padding-left: calc(15px + 10%);
 }
 
-.home .intro .container .start_btn {
+body.home .intro .container .start_btn {
   position: absolute;
   bottom: 10%;
   left: 50%;
@@ -11174,7 +11177,7 @@ header.visible {
           transform: translateX(-50%);
 }
 
-.home .overview {
+body.home .overview {
   background-color: transparent;
   padding-bottom: 500px;
   padding-bottom: 40vh;

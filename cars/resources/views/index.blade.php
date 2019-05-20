@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@if ($categories->isEmpty())
+    no category
+@endif
+<?php //echo ($categories) ?>
+
 @section('content')
 <section class="intro" id="intro" data-car="0">
     <div class="container">
@@ -45,7 +50,9 @@
                         <h1 class="title">{{ $value->name }}</h1>
                         <hr>
                         <div class="content-inner">
-                            The history of Porsche goes back to 1875 - the birth year of Ferdinand Porsche. It is he who laid the foundations for a unique company with strong ideals.
+                            <div>5,2s van 0 tot 100 km / h</div>
+                            <div>300 pk</div>
+                            <div>vanaf EUR 56.950</div>
                         </div>
                     </div>
                 </div>
