@@ -10,8 +10,7 @@ require('./lib/jpreloader.min');
 	$('body.home').jpreLoader({
 		showSplash: false,
 		autoClose: false,
-		closeBtnText: "",
-		startBtnText: "Experience Porsche",
+		closeBtnText: "Experience Porsche",
 	}, function() {	//callback function
 
 	});

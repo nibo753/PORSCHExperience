@@ -36848,8 +36848,7 @@ __webpack_require__(/*! ./lib/jpreloader.min */ "./resources/js/lib/jpreloader.m
 $('body.home').jpreLoader({
   showSplash: false,
   autoClose: false,
-  closeBtnText: "",
-  startBtnText: "Experience Porsche"
+  closeBtnText: "Experience Porsche"
 }, function () {//callback function
 });
 
@@ -37121,14 +37120,14 @@ $(function () {
       });
       new ScrollMagic.Scene({
         triggerElement: id,
-        duration: "15%"
+        duration: "10%"
       }).setTween(title).addTo(controller);
       var hr = TweenMax.to(id + " .content hr", 0.4, {
         opacity: 1
       });
       new ScrollMagic.Scene({
         triggerElement: id,
-        triggerHook: 0.35,
+        triggerHook: 0.4,
         duration: "10%"
       }).setTween(hr).addTo(controller);
       var content_inner = TweenMax.to(id + " .content .content-inner", 0.4, {
@@ -37136,8 +37135,8 @@ $(function () {
       });
       new ScrollMagic.Scene({
         triggerElement: id,
-        triggerHook: 0.20,
-        duration: "15%"
+        triggerHook: 0.25,
+        duration: "10%"
       }).setTween(content_inner).addTo(controller);
     });
   }
@@ -37193,8 +37192,7 @@ $(window).bind('resize', function (e) {
     showSplash: true,
     showPercentage: true,
     autoClose: true,
-    closeBtnText: 'Start!',
-    startBtnText: 'Discover',
+    closeBtnText: 'Discover',
     onetimeLoad: false,
     debugMode: false,
     splashFunction: function splashFunction() {} //cookie
@@ -37360,7 +37358,7 @@ $(window).bind('resize', function (e) {
       setCookie(); //create cookie
 
       if (jpreOptions.showPercentage) {
-        $('#discover').val(jpreOptions.startBtnText).removeClass('disabled');
+        $('#discover').val(jpreOptions.closeBtnText).removeClass('disabled');
         $('a.button0').removeClass('disabled');
         $('#mute').fadeIn();
       } //fire debug mode

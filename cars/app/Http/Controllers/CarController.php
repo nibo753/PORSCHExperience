@@ -16,12 +16,11 @@ class CarController extends Controller
 	public function index() {
 		$categories = Category::all();
 
+		//add data of cheapest car to category
 		foreach ($categories as $category) {
-			$data = Car::findByCategoryName($category->name)->select('price', 'pk', 'topspeed', 'acceleration_sport')->first();
+			$data = Car::findByCategoryName($category->name)->orderBy('price')->select('price', 'pk', 'kw', 'topspeed', 'acceleration_sport')->first();
 
-			echo $data;
 		}
-		//echo $categories;
 
 		return view('index', ["categories" => $categories]);
 	}

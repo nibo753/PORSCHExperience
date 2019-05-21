@@ -29,7 +29,7 @@ $(function() {
             var title = TweenMax.to(id + " .content .title", 0.4, {opacity: 1, ease:Linear.easeNone});
             new ScrollMagic.Scene({
                 triggerElement: id,
-                duration: "15%"
+                duration: "10%"
             })
             .setTween(title)
             .addTo(controller);
@@ -37,7 +37,7 @@ $(function() {
             var hr = TweenMax.to(id + " .content hr", 0.4, {opacity: 1});
             new ScrollMagic.Scene({
                 triggerElement: id,
-                triggerHook: 0.35,
+                triggerHook: 0.4,
                 duration: "10%"
             })
             .setTween(hr)
@@ -46,8 +46,8 @@ $(function() {
             var content_inner = TweenMax.to(id + " .content .content-inner", 0.4, {opacity: 1});
             new ScrollMagic.Scene({
                 triggerElement: id,
-                triggerHook: 0.20,
-                duration: "15%"
+                triggerHook: 0.25,
+                duration: "10%"
             })
             .setTween(content_inner)
             .addTo(controller);

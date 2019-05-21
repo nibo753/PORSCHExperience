@@ -10836,6 +10836,13 @@ h6 {
   color: #32313c;
 }
 
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
 hr {
   width: 10%;
   border-color: #B13C3C;
@@ -10931,8 +10938,13 @@ ul {
 }
 
 .intro {
-  margin-bottom: 47vm;
-  margin-bottom: 47vmax;
+  margin-bottom: 32vm;
+  margin-bottom: 32vmax;
+}
+
+.intro .parallax__container .parallax {
+  background-size: 50%;
+  background-position: center 70%;
 }
 
 .car .content {
@@ -10958,12 +10970,10 @@ ul {
 }
 
 .car .content .desc .content-inner {
+  position: relative;
+  z-index: 2;
   margin-top: 10px;
   opacity: 0;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  flex-wrap: wrap;
 }
 
 .car .parallax__container {
@@ -10972,7 +10982,7 @@ ul {
 
 .car .parallax__container .parallax {
   background-position: 50% 75%;
-  background-size: 70%;
+  background-size: 50%;
 }
 
 @media only screen and (max-width: 630px) {
@@ -10982,7 +10992,7 @@ ul {
 }
 
 #intro .parallax {
-  background-image: url(/img/cars/intro.jpg);
+  background-image: url(/img/cars/intro.webp);
 }
 
 #_718 .parallax {

@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@if ($categories->isEmpty())
-    no category
-@endif
-<?php //echo ($categories) ?>
-
 @section('content')
 <section class="intro" id="intro" data-car="0">
     <div class="container">
@@ -48,12 +43,18 @@
                 <div class="col">
                     <div class="desc">
                         <h1 class="title">{{ $value->name }}</h1>
+                        @if ($value->price != 0)
                         <hr>
                         <div class="content-inner">
-                            <div>5,2s van 0 tot 100 km / h</div>
-                            <div>300 pk</div>
-                            <div>vanaf EUR 56.950</div>
+                            <div class="flex">
+                                <div class="price">EUR {{ $value->price }}</div>
+                                <div class="pk">PK {{ $value->pk }} / KW {{ $value->kw }}</div>
+                                <div class="speed">Topspeed {{ $value->topspeed }} km/h</div>
+                                <div class="acc">{{ $value->acceleration_sport }}</div>
+                            </div>
+                            <a href="/models/{{ $value->name }}" class="models">Show all {{ $value->name }} models</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

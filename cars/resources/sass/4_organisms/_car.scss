@@ -6,46 +6,54 @@
 }
 
 .intro {
-	margin-bottom: 47vm; // IE9
-	margin-bottom: 47vmax;
-}
+	margin-bottom: 32vm; // IE9
+	margin-bottom: 32vmax;
 
-.car .content {
-	position: relative;
-	top: calc(65px + 5%);
-
-	.desc {
-		width: 50%;
-		display: block;
-		margin: 0 auto;
-
-		@include respond-to(phone) { width: 100%; }
-
-		.title, hr { opacity: 0; }
-
-		.content-inner {
-			margin-top: 10px;
-			opacity: 0;
-			display: flex;
-			justify-content: space-between;
-			align-content: center;
-			flex-wrap: wrap;
+	.parallax__container {
+		//z-index: auto;
+		.parallax {
+			background-size: 50%;
+			background-position: center 70%;
 		}
 	}
 }
 
-.car .parallax__container {
-	z-index: auto;
+.car {
+	.content {
+		position: relative;
+		top: calc(65px + 5%);
 
-	.parallax {
-		background-position: 50% 75%;
-		background-size: 70%;
+		.desc {
+			width: 50%;
+			display: block;
+			margin: 0 auto;
 
-		@include respond-to(phone) { background-position: 50% 100%; }
+			@include respond-to(phone) { width: 100%; }
+
+			.title, hr { opacity: 0; }
+
+			.content-inner {
+				position: relative;
+				z-index: 2;
+				margin-top: 10px;
+				opacity: 0;				
+			}
+		}
 	}
-}
 
-#intro .parallax { background-image: path('intro.jpg','cars'); }
+	.parallax__container {
+		z-index: auto;
+
+		.parallax {
+			background-position: 50% 75%;
+			background-size: 50%;
+
+			@include respond-to(phone) { background-position: 50% 100%; }
+		}
+	}
+} 
+
+#intro .parallax { background-image: path('intro.webp','cars'); }
 #_718 .parallax { background-image: path('718.png','cars/overview'); }
 #_911 .parallax { background-image: path('911.png','cars/overview'); }
 #_Panamera .parallax { background-image: path('panamera.png','cars/overview'); }
