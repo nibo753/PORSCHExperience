@@ -48,9 +48,15 @@
                         <div class="content-inner">
                             <div class="flex">
                                 <div class="price">EUR {{ $value->price }}</div>
+                                @if ($value->pk != 0)
                                 <div class="pk">PK {{ $value->pk }} / KW {{ $value->kw }}</div>
+                                @endif
+                                @if ($value->topspeed != 0)
                                 <div class="speed">Topspeed {{ $value->topspeed }} km/h</div>
+                                @endif
+                                @if ($value->acceleration_sport != 0)
                                 <div class="acc">{{ $value->acceleration_sport }}</div>
+                                @endif
                             </div>
                             <a href="/models/{{ $value->name }}" class="models">Show all {{ $value->name }} models</a>
                         </div>

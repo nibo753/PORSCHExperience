@@ -20,14 +20,20 @@ class CarController extends Controller
 		foreach ($categories as $category) {
 			$data = Car::findByCategoryName($category->name)->orderBy('price')->select('price', 'pk', 'kw', 'topspeed', 'acceleration_sport')->first();
 
+			$category->price = number_format($data['price'], 2, ',', '.');
+			$category->pk = number_format($data['pk'], 0, ',', '.');
+			$category->kw = number_format($data['kw'], 0, ',', '.');
+			$category->topspeed = number_format($data['topspeed'], 0, ',', '.');
+			$category->acceleration_sport = number_format($data['acceleration_sport'], 1, ',', '.');
 		}
 
 		return view('index', ["categories" => $categories]);
 	}
 
-	public function carByCategory(Request $request, $name) {
-		$categories = Car::findByCategoryName($name)->get();
+	public function models(Request $request, $name) {
+		$cars = Car::findByCategoryName($name)->get();
+		echo $cars;
 
-		return view('index', ["categories" => $categories]);
+		return view('models', ["cars" => $cars]);
 	}
 }

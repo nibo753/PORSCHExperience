@@ -13,5 +13,4 @@
 
 
 Route::get('/', 					'CarController@index');
-
-Route::get('models/{category}', 	'CarController@carByCategory');
+Route::get('models/{category}', 	'CarController@models');

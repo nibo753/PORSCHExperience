@@ -32,7 +32,7 @@
 
     </style>
 </head>
-<body class="no-scroll {{ ($_SERVER['REQUEST_URI'] == '/') ? 'home' : $_SERVER['REQUEST_URI'] }}" data-spy="scroll" data-target="#sideNav" data-offset="400">
+<body class="no-scroll {{ (Request::segment(1) !== NULL ) ? Request::segment(1) : 'home' }}" data-spy="scroll" data-target="#sideNav" data-offset="200">
     <header>
         <div class="container">
             <div class="row">
