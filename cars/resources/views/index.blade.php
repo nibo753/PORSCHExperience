@@ -52,13 +52,21 @@
                                     <span class="unit">EUR</span>
                                 </div>
                                 @if ($value->pk != 0)
-                                <div class="pk">PK {{ $value->pk }} / KW {{ $value->kw }}</div>
+                                <div class="pk">
+                                    <span class="value" data="{{ $value->pk }}">0</span>
+                                    <span class="unit">PK</span>
+                                </div>
                                 @endif
                                 @if ($value->topspeed != 0)
-                                <div class="speed">Topspeed {{ $value->topspeed }} km/h</div>
+                                <div class="speed">
+                                    <span class="value" data="{{ $value->topspeed }}">0</span>
+                                    <span class="unit">km/h</span>
+                                </div>
                                 @endif
                                 @if ($value->acceleration_sport != 0)
-                                <div class="acc">{{ $value->acceleration_sport }}</div>
+                                <div class="acc">
+                                    <span class="value" data="{{ $value->acceleration_sport }}">0</span>
+                                </div>
                                 @endif
                             </div>
                             <a href="/models/{{ $value->name }}" class="models">Show all {{ $value->name }} models</a>
@@ -75,8 +83,8 @@
 
 <div id="mission-e">
     <div class="title">
-        <h2>The future is now</h2>
-        <h1>This is Mission-E</h1>
+        <h1 class="fade">The future is now</h1>
+        <h1 class="fade">This is Mission-E</h1>
     </div>
     <div id="sequence">
         <section class="panel p1 right"><img src="/img/cars/mission-e/01.jpg"></section>

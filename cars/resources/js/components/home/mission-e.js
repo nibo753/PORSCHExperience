@@ -18,12 +18,10 @@ $(function() {
 
         // FADE IN TEASER TXT
         var fadeAnimation = new TimelineMax()
-        .to("#mission-e .title h2:first-child", 0.6, {opacity: 1, ease:Linear.easeNone})
-        .to("#mission-e .title h1:nth-child(2)", 0.6, {opacity: 1, ease:Linear.easeNone});
 
         new ScrollMagic.Scene({
             triggerElement: "#mission-e .title",
-            triggerHook: 0.4,
+            triggerHook: 0.6,
         })
         .setTween(fadeAnimation)
         .addTo(controllerX);

@@ -36864,13 +36864,15 @@ __webpack_require__(/*! ./lib/universal-parallax */ "./resources/js/lib/universa
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
 
+__webpack_require__(/*! ./components/home/car */ "./resources/js/components/home/car.js");
+
 __webpack_require__(/*! ./components/home/data-offset */ "./resources/js/components/home/data-offset.js");
 
 __webpack_require__(/*! ./components/home/mission-e */ "./resources/js/components/home/mission-e.js");
 
 __webpack_require__(/*! ./components/home/scroll-smooth */ "./resources/js/components/home/scroll-smooth.js");
 
-__webpack_require__(/*! ./components/home/scrollMagic */ "./resources/js/components/home/scrollMagic.js");
+__webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components/home/slide-in.js");
 
 /***/ }),
 
@@ -36932,6 +36934,147 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/components/home/car.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/home/car.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var controller = new ScrollMagic.Controller();
+  tmp = document.querySelector('.overview');
+
+  if (tmp) {
+    var thousandSeparator = function thousandSeparator(x, separator) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+    };
+
+    var rnd = function rnd(min, max) {
+      return Math.random() * (max - min) + min;
+    };
+
+    // CONTENT FADE IN
+    $('.overview section.car').each(function () {
+      var id = '#' + this.id;
+      var title = TweenMax.to(id + " .content .title", 0.4, {
+        opacity: 1,
+        ease: Linear.easeNone
+      });
+      new ScrollMagic.Scene({
+        triggerElement: this,
+        duration: "10%"
+      }).setTween(title).addTo(controller);
+      var hr = TweenMax.to(id + " .content hr", 0.4, {
+        opacity: 1
+      });
+      new ScrollMagic.Scene({
+        triggerElement: this,
+        triggerHook: 0.4,
+        duration: "10%"
+      }).setTween(hr).addTo(controller);
+      var content_inner = TweenMax.to(id + " .content .content-inner", 0.4, {
+        opacity: 1
+      }),
+          fade_in_trigger = 0.25;
+      new ScrollMagic.Scene({
+        triggerElement: this,
+        triggerHook: fade_in_trigger,
+        duration: "10%"
+      }).setTween(content_inner).addTo(controller);
+      /*
+       * 
+       * ANIMATE CAR NUMBERS
+       * 
+       */
+
+      var nrTL = new TimelineMax(),
+          price = $(this).find('.price .value'),
+          pk = $(this).find('.pk .value'),
+          speed = $(this).find('.speed .value'),
+          acc = $(this).find('.acc .value');
+
+      function updatePrice() {
+        price.html(thousandSeparator(priceAnimate.val.toFixed(2).split('.').join(","), '.'));
+      }
+
+      function updatePk() {
+        pk.html(pkAnimate.val.toFixed(0));
+      }
+
+      function updateSpeed() {
+        speed.html(speedAnimate.val.toFixed(0));
+      }
+
+      function updateAcceleration() {
+        acc.html(accAnimate.val.toFixed(1).split('.').join(","));
+      } //price
+
+
+      if (price.length > 0) {
+        var priceVal = price.attr('data').split('.').join("").split(',').join("."),
+            priceAnimate = {
+          val: parseFloat(priceVal) + 30000
+        };
+        nrTL.to(priceAnimate, rnd(3.2, 3.8), {
+          val: priceVal,
+          onUpdate: updatePrice,
+          ease: Expo.easeOut
+        }, 0);
+      } //pk
+
+
+      if (pk.length > 0) {
+        var pkVal = pk.attr('data'),
+            pkAnimate = {
+          val: 150
+        };
+        nrTL.to(pkAnimate, rnd(2.2, 3), {
+          val: pkVal,
+          onUpdate: updatePk,
+          ease: Sine.easeOut
+        }, 0);
+      } //topspeed
+
+
+      if (speed.length > 0) {
+        var speedVal = speed.attr('data'),
+            speedAnimate = {
+          val: 120
+        };
+        nrTL.to(speedAnimate, rnd(2.2, 3), {
+          val: speedVal,
+          onUpdate: updateSpeed,
+          ease: Sine.easeOut
+        }, 0);
+      } //acceleration
+
+
+      if (acc.length > 0) {
+        var accVal = acc.attr('data').split('.').join("").split(',').join("."),
+            accAnimate = {
+          val: 0
+        };
+        nrTL.to(accAnimate, accVal, {
+          val: accVal,
+          onUpdate: updateAcceleration,
+          ease: Linear.easeNone
+        }, 0);
+      } //scene
+
+
+      new ScrollMagic.Scene({
+        triggerElement: id,
+        triggerHook: fade_in_trigger,
+        reverse: false
+      }).setTween(nrTL).addTo(controller);
+    });
+    ;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/home/data-offset.js":
 /*!*****************************************************!*\
   !*** ./resources/js/components/home/data-offset.js ***!
@@ -36980,16 +37123,13 @@ $(function () {
       triggerHook: 0.8
     }).setTween(bg).addTo(controllerX); // FADE IN TEASER TXT
 
-    var fadeAnimation = new TimelineMax().to("#mission-e .title h2:first-child", 0.6, {
+    var fadeAnimation = new TimelineMax().staggerTo("#mission-e .title .fade", 0.3, {
       opacity: 1,
       ease: Linear.easeNone
-    }).to("#mission-e .title h1:nth-child(2)", 0.6, {
-      opacity: 1,
-      ease: Linear.easeNone
-    });
+    }, 0.3);
     new ScrollMagic.Scene({
       triggerElement: "#mission-e .title",
-      triggerHook: 0.4
+      triggerHook: 0.6
     }).setTween(fadeAnimation).addTo(controllerX); // MOVEMENT PANELS
     // number at end => moves at same time as prev tween
 
@@ -37099,73 +37239,28 @@ $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function 
 
 /***/ }),
 
-/***/ "./resources/js/components/home/scrollMagic.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/home/scrollMagic.js ***!
-  \*****************************************************/
+/***/ "./resources/js/components/home/slide-in.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/home/slide-in.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(function () {
-  var controller = new ScrollMagic.Controller(),
-      w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-      h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+  var c = new ScrollMagic.Controller(),
       tmp = document.querySelector('.overview');
 
   if (tmp) {
-    var numberWithDots = function numberWithDots(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    };
-
     // HEADER SLIDE IN
     new ScrollMagic.Scene({
       triggerElement: ".overview",
       offset: -+$('header').outerHeight(true)
-    }).setClassToggle("header", "visible").addTo(controller); // SIDENAV SLIDE IN
+    }).setClassToggle("header", "visible").addTo(c); // SIDENAV SLIDE IN
 
     new ScrollMagic.Scene({
       triggerElement: ".overview",
       offset: -+$('header').outerHeight(true)
-    }).setClassToggle("#sideNav", "visible").addTo(controller); // CAR CONTENT FADE IN
-
-    $('.overview section.car').each(function () {
-      var id = '#' + this.id;
-      var title = TweenMax.to(id + " .content .title", 0.4, {
-        opacity: 1,
-        ease: Linear.easeNone
-      });
-      new ScrollMagic.Scene({
-        triggerElement: id,
-        duration: "10%"
-      }).setTween(title).addTo(controller);
-      var hr = TweenMax.to(id + " .content hr", 0.4, {
-        opacity: 1
-      });
-      new ScrollMagic.Scene({
-        triggerElement: id,
-        triggerHook: 0.4,
-        duration: "10%"
-      }).setTween(hr).addTo(controller);
-      var content_inner = TweenMax.to(id + " .content .content-inner", 0.4, {
-        opacity: 1
-      });
-      new ScrollMagic.Scene({
-        triggerElement: id,
-        triggerHook: 0.25,
-        duration: "10%"
-      }).setTween(content_inner).addTo(controller); //ANIMATE NUMBERS
-
-      var price = $(this).find('.price .value'),
-          priceVal = price.attr('data').split('.').join("").split(',').join("."),
-          priceAnimate = {
-        val: 0
-      };
-
-      new ScrollMagic.Scene({
-        triggerElement: id,
-        triggerHook: 0.25,
-        reverse: false
-    });
+    }).setClassToggle("#sideNav", "visible").addTo(c);
   }
 });
 
