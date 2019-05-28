@@ -16,6 +16,18 @@ $(function() {
         .setTween(bg)
         .addTo(controllerX);
 
+        // FADE IN TEASER TXT
+        var fadeAnimation = new TimelineMax()
+        .to("#mission-e .title h2:first-child", 0.6, {opacity: 1, ease:Linear.easeNone})
+        .to("#mission-e .title h1:nth-child(2)", 0.6, {opacity: 1, ease:Linear.easeNone});
+
+        new ScrollMagic.Scene({
+            triggerElement: "#mission-e .title",
+            triggerHook: 0.4,
+        })
+        .setTween(fadeAnimation)
+        .addTo(controllerX);
+
 
         // MOVEMENT PANELS
         // number at end => moves at same time as prev tween
@@ -31,7 +43,7 @@ $(function() {
         .fromTo("#sequence .panel.p5", 1, {x:  "100%"}, {x: "0%", ease: Linear.easeNone})
         .fromTo("#sequence .panel.p5 img", 1, {x:  "0%"}, {x: "100%", ease: Linear.easeNone}, 4)
         .fromTo("#sequence .panel.p6", 1, {x:  "100%"}, {x: "0%", ease: Linear.easeNone})
-        .fromTo("#sequence .panel.p6 img", 1, {x:  "0%"}, {x: "100%", ease: Linear.easeNone}, 5)
+        .fromTo("#sequence .panel.p6 img", 1, {x:  "0%"}, {x: "100%", ease: Linear.easeNone}, 5);
 
         // create scene to pin and link animation
         new ScrollMagic.Scene({

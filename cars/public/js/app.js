@@ -36978,7 +36978,19 @@ $(function () {
     new ScrollMagic.Scene({
       triggerElement: "#mission-e",
       triggerHook: 0.8
-    }).setTween(bg).addTo(controllerX); // MOVEMENT PANELS
+    }).setTween(bg).addTo(controllerX); // FADE IN TEASER TXT
+
+    var fadeAnimation = new TimelineMax().to("#mission-e .title h2:first-child", 0.6, {
+      opacity: 1,
+      ease: Linear.easeNone
+    }).to("#mission-e .title h1:nth-child(2)", 0.6, {
+      opacity: 1,
+      ease: Linear.easeNone
+    });
+    new ScrollMagic.Scene({
+      triggerElement: "#mission-e .title",
+      triggerHook: 0.4
+    }).setTween(fadeAnimation).addTo(controllerX); // MOVEMENT PANELS
     // number at end => moves at same time as prev tween
 
     var wipeAnimation = new TimelineMax().fromTo("#sequence .panel.p1", 1, {
@@ -37101,11 +37113,15 @@ $(function () {
       tmp = document.querySelector('.overview');
 
   if (tmp) {
-    // HEADER FADE IN
+    var numberWithDots = function numberWithDots(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    };
+
+    // HEADER SLIDE IN
     new ScrollMagic.Scene({
       triggerElement: ".overview",
       offset: -+$('header').outerHeight(true)
-    }).setClassToggle("header", "visible").addTo(controller); // SIDENAV FADE IN
+    }).setClassToggle("header", "visible").addTo(controller); // SIDENAV SLIDE IN
 
     new ScrollMagic.Scene({
       triggerElement: ".overview",
@@ -37137,7 +37153,18 @@ $(function () {
         triggerElement: id,
         triggerHook: 0.25,
         duration: "10%"
-      }).setTween(content_inner).addTo(controller);
+      }).setTween(content_inner).addTo(controller); //ANIMATE NUMBERS
+
+      var price = $(this).find('.price .value'),
+          priceVal = price.attr('data').split('.').join("").split(',').join("."),
+          priceAnimate = {
+        val: 0
+      };
+
+      new ScrollMagic.Scene({
+        triggerElement: id,
+        triggerHook: 0.25,
+        reverse: false
     });
   }
 });

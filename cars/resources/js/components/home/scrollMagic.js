@@ -5,7 +5,7 @@ $(function() {
         tmp = document.querySelector('.overview');
 
     if ( tmp ) {
-        // HEADER FADE IN
+        // HEADER SLIDE IN
         new ScrollMagic.Scene({
             triggerElement: ".overview",
             offset: - + $('header').outerHeight(true)
@@ -13,7 +13,7 @@ $(function() {
         .setClassToggle("header", "visible")
         .addTo(controller);
 
-        // SIDENAV FADE IN
+        // SIDENAV SLIDE IN
         new ScrollMagic.Scene({
             triggerElement: ".overview",
             offset: - + $('header').outerHeight(true)
@@ -51,6 +51,36 @@ $(function() {
             })
             .setTween(content_inner)
             .addTo(controller);
+
+            //ANIMATE NUMBERS
+            var price = $(this).find('.price .value'),
+                priceVal = price.attr('data').split('.').join("").split(',').join("."),
+                priceAnimate = { val: 0 };
+
+            function updatePriceHandler() {
+                // score to 2 decimals > dot replaced by comma > dot set between thousands
+                price.html(numberWithDots(priceAnimate.val.toFixed(2).split('.').join(",")));
+            }
+
+            var numberAnimation = new TimelineMax()
+            .to(priceAnimate, 1, {val: priceVal, onUpdate:updatePriceHandler, ease:Linear.easeNone});
+
+
+            new ScrollMagic.Scene({
+                triggerElement: id,
+                triggerHook: 0.25,
+                reverse: false
+            })
+            .setTween(numberAnimation)
+            .addIndicators()
+            .addTo(controller);
         });
+
+
+        function numberWithDots(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+
     }
 });

@@ -47,7 +47,10 @@
                         <hr>
                         <div class="content-inner">
                             <div class="flex">
-                                <div class="price">EUR {{ $value->price }}</div>
+                                <div class="price">
+                                    <span class="value" data="{{ $value->price }}">0</span>
+                                    <span class="unit">EUR</span>
+                                </div>
                                 @if ($value->pk != 0)
                                 <div class="pk">PK {{ $value->pk }} / KW {{ $value->kw }}</div>
                                 @endif
@@ -72,13 +75,8 @@
 
 <div id="mission-e">
     <div class="title">
-        <h2>This is Porsche</h2>
-        <h2>This is Porsche</h2>
-        <h2>This is Porsche</h2>
-        <h2>This is Porsche</h2>
-        <h2>This is Porsche</h2>
-        <h2>This is Porsche</h2>
-        <h2>This is Porsche</h2>
+        <h2>The future is now</h2>
+        <h1>This is Mission-E</h1>
     </div>
     <div id="sequence">
         <section class="panel p1 right"><img src="/img/cars/mission-e/01.jpg"></section>

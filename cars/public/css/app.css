@@ -11048,11 +11048,26 @@ header.visible {
 
 #mission-e {
   overflow: hidden;
+  position: relative;
+}
+
+#mission-e .title {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 #mission-e .title h1,
 #mission-e .title h2 {
   color: #F1F1F1;
+  opacity: 0;
+}
+
+#mission-e .title h1:first-child,
+#mission-e .title h2:first-child {
+  margin-bottom: 1em;
 }
 
 #mission-e #sequence {
