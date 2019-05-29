@@ -7,7 +7,7 @@ $(function() {
         new ScrollMagic.Scene({
             triggerElement: ".overview",
             offset: - + $('header').outerHeight(true),
-            triggerHook: 0,
+            triggerHook: 0.9, //same as marginbot
         })
         .setClassToggle("header", "visible")
         .addTo(c);
@@ -16,7 +16,7 @@ $(function() {
         new ScrollMagic.Scene({
             triggerElement: ".overview",
             offset: - + $('header').outerHeight(true),
-            triggerHook: 0,
+            triggerHook: 0.9,
         })
         .setClassToggle("#sideNav", "visible")
         .addTo(c);

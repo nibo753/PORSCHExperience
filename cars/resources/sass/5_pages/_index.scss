@@ -7,6 +7,8 @@ body.home {
 
 	.intro {
 
+		margin-bottom: 90vh;
+
 		.container {
 			position: relative;
 			height: 100%;
@@ -56,35 +58,4 @@ body.home {
 		padding-bottom: 500px;
 		padding-bottom: 40vh;
 	}
-}
-
-
-.logo {
-    color: $brandSecondary;
-    text-decoration: none;
-    font-size: $size_s;
-
-    span {
-        color: $brandPrimary;
-        font-weight: bold;
-        margin-right: 2px;
-        text-transform: uppercase;
-    }
-
-    &:hover span,
-    &:focus span {
-        color: $brandPrimary;
-    }
-
-    &:hover,
-    &:focus {
-        color: $brandSecondary;
-        text-decoration: none;
-    }
-}
-
-.slogan {
-    color: $brandSecondary;
-    letter-spacing: 0.5px;
-    font-weight: bold;
 }

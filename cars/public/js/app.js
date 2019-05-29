@@ -36995,7 +36995,7 @@ $(function () {
           acc = $(this).find('.acc .value');
 
       function updatePrice() {
-        price.html(thousandSeparator(priceAnimate.val.toFixed(2).split('.').join(","), '.'));
+        price.html(thousandSeparator(priceAnimate.val.toFixed(2).split('.').join(", "), '.'));
       }
 
       function updatePk() {
@@ -37016,7 +37016,7 @@ $(function () {
             priceAnimate = {
           val: parseFloat(priceVal) + 30000
         };
-        nrTL.to(priceAnimate, rnd(2, 3), {
+        nrTL.to(priceAnimate, rnd(1.6, 2), {
           val: priceVal,
           onUpdate: updatePrice,
           ease: Expo.easeOut
@@ -37029,7 +37029,7 @@ $(function () {
             pkAnimate = {
           val: 150
         };
-        nrTL.to(pkAnimate, rnd(1.4, 2), {
+        nrTL.to(pkAnimate, rnd(1.2, 1.6), {
           val: pkVal,
           onUpdate: updatePk,
           ease: Sine.easeOut
@@ -37042,7 +37042,7 @@ $(function () {
             speedAnimate = {
           val: 120
         };
-        nrTL.to(speedAnimate, rnd(1.4, 2), {
+        nrTL.to(speedAnimate, rnd(1.2, 1.6), {
           val: speedVal,
           onUpdate: updateSpeed,
           ease: Sine.easeOut
@@ -37129,7 +37129,7 @@ $(function () {
     }, 0.3);
     new ScrollMagic.Scene({
       triggerElement: "#mission-e .title",
-      triggerHook: 0.6
+      triggerHook: 0.7
     }).setTween(fadeAnimation).addTo(controllerX); // MOVEMENT PANELS
     // number at end => moves at same time as prev tween
 
@@ -37262,13 +37262,14 @@ $(function () {
     new ScrollMagic.Scene({
       triggerElement: ".overview",
       offset: -+$('header').outerHeight(true),
-      triggerHook: 0
+      triggerHook: 0.9 //same as marginbot
+
     }).setClassToggle("header", "visible").addTo(c); // SIDENAV SLIDE IN
 
     new ScrollMagic.Scene({
       triggerElement: ".overview",
       offset: -+$('header').outerHeight(true),
-      triggerHook: 0
+      triggerHook: 0.9
     }).setClassToggle("#sideNav", "visible").addTo(c);
   }
 });

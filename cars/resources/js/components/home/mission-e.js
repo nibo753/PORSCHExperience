@@ -22,7 +22,7 @@ $(function() {
 
         new ScrollMagic.Scene({
             triggerElement: "#mission-e .title",
-            triggerHook: 0.6,
+            triggerHook: 0.7,
         })
         .setTween(fadeAnimation)
         .addTo(controllerX);

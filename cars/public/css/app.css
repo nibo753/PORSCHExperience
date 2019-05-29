@@ -11054,11 +11054,7 @@ header.visible {
 }
 
 #mission-e .title {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  margin-top: calc(65px + 5%);
 }
 
 #mission-e .title h1,
@@ -11188,6 +11184,10 @@ body.home {
   background-attachment: fixed;
 }
 
+body.home .intro {
+  margin-bottom: 90vh;
+}
+
 body.home .intro .container {
   position: relative;
   height: 100%;
@@ -11238,35 +11238,5 @@ body.home .overview {
   background-color: transparent;
   padding-bottom: 500px;
   padding-bottom: 40vh;
-}
-
-.logo {
-  color: #7D7D7D;
-  text-decoration: none;
-  font-size: 1.25em;
-}
-
-.logo span {
-  color: #B13C3C;
-  font-weight: bold;
-  margin-right: 2px;
-  text-transform: uppercase;
-}
-
-.logo:hover span,
-.logo:focus span {
-  color: #B13C3C;
-}
-
-.logo:hover,
-.logo:focus {
-  color: #7D7D7D;
-  text-decoration: none;
-}
-
-.slogan {
-  color: #7D7D7D;
-  letter-spacing: 0.5px;
-  font-weight: bold;
 }
 

@@ -3,10 +3,7 @@
 	position: relative;
 
 	.title {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
+		margin-top: calc(65px + 5%);
 
 		h1, h2 {
 			color: $white;
