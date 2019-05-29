@@ -26,11 +26,11 @@
     <ul>
         @foreach ($categories as $category => $value)
         <li>
-            <a href="#_{{ $value->name }}" data-car="{{ $value->id }}" class="list-group-item"><span>{{ $value->name }}</span><img src="/img/cars/overview/{{ $value->name }}.png"></a>
+            <a href="#_{{ $value->name }}" data-car="{{ $value->id }}" class="list-group-item"><span>{{ $value->name }}</span><img src="/img/overview/{{ $value->name }}.png"></a>
         </li>
         @endforeach
         <li>
-            <a href="#mission-e" class="list-group-item"><span>Mission-E</span><img src="/img/cars/overview/mission-e.png"></a>
+            <a href="#mission-e" class="list-group-item"><span>Mission-E</span><img src="/img/overview/mission-e.png"></a>
         </li>
     </ul>
 </nav>
@@ -66,6 +66,7 @@
                                 @if ($value->acceleration_sport != 0)
                                 <div class="acc">
                                     <span class="value" data="{{ $value->acceleration_sport }}">0</span>
+                                    <span class="unit">seconds</span>
                                 </div>
                                 @endif
                             </div>
@@ -87,12 +88,12 @@
         <h1 class="fade">This is Mission-E</h1>
     </div>
     <div id="sequence">
-        <section class="panel p1 right"><img src="/img/cars/mission-e/01.jpg"></section>
-        <section class="panel p2 left"><img src="/img/cars/mission-e/02.jpg"></section>
-        <section class="panel p3 left"><img src="/img/cars/mission-e/03.png"></section>
-        <section class="panel p4 left"><img src="/img/cars/mission-e/04.jpg"></section>
-        <section class="panel p5 right"><img src="/img/cars/mission-e/05.jpg"></section>
-        <section class="panel p6 right"><img src="/img/cars/mission-e/06.jpg"></section>
+        <section class="panel p1 right"><img src="/img/mission-e/01.jpg"></section>
+        <section class="panel p2 left"><img src="/img/mission-e/02.jpg"></section>
+        <section class="panel p3 left"><img src="/img/mission-e/03.png"></section>
+        <section class="panel p4 left"><img src="/img/mission-e/04.jpg"></section>
+        <section class="panel p5 right"><img src="/img/mission-e/05.jpg"></section>
+        <section class="panel p6 right"><img src="/img/mission-e/06.jpg"></section>
     </div>
 </div>
 

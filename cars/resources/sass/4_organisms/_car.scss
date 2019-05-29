@@ -56,12 +56,12 @@
 	}
 } 
 
-#intro .parallax { background-image: path('intro.webp','cars'); }
-#_718 .parallax { background-image: path('718.png','cars/overview'); }
-#_911 .parallax { background-image: path('911.png','cars/overview'); }
-#_Panamera .parallax { background-image: path('panamera.png','cars/overview'); }
-#_Macan .parallax { background-image: path('macan.png','cars/overview'); }
-#_Cayenne .parallax { background-image: path('cayenne.png','cars/overview'); }
+#intro .parallax { background-image: path('intro.webp'); }
+#_718 .parallax { background-image: path('718.png','overview'); }
+#_911 .parallax { background-image: path('911.png','overview'); }
+#_Panamera .parallax { background-image: path('panamera.png','overview'); }
+#_Macan .parallax { background-image: path('macan.png','overview'); }
+#_Cayenne .parallax { background-image: path('cayenne.png','overview'); }
 
 /*
 _718 		= 4.379 x 1.281

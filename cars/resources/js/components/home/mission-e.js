@@ -18,6 +18,7 @@ $(function() {
 
         // FADE IN TEASER TXT
         var fadeAnimation = new TimelineMax()
+        .staggerTo("#mission-e .title .fade", 0.3, {opacity: 1, ease:Linear.easeNone}, 0.3);
 
         new ScrollMagic.Scene({
             triggerElement: "#mission-e .title",

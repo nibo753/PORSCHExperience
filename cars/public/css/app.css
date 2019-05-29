@@ -10993,27 +10993,27 @@ ul {
 }
 
 #intro .parallax {
-  background-image: url(/img/cars/intro.webp);
+  background-image: url(/img/intro.webp);
 }
 
 #_718 .parallax {
-  background-image: url(/img/cars/overview/718.png);
+  background-image: url(/img/overview/718.png);
 }
 
 #_911 .parallax {
-  background-image: url(/img/cars/overview/911.png);
+  background-image: url(/img/overview/911.png);
 }
 
 #_Panamera .parallax {
-  background-image: url(/img/cars/overview/panamera.png);
+  background-image: url(/img/overview/panamera.png);
 }
 
 #_Macan .parallax {
-  background-image: url(/img/cars/overview/macan.png);
+  background-image: url(/img/overview/macan.png);
 }
 
 #_Cayenne .parallax {
-  background-image: url(/img/cars/overview/cayenne.png);
+  background-image: url(/img/overview/cayenne.png);
 }
 
 /*
@@ -11180,7 +11180,7 @@ header.visible {
 }
 
 body.home {
-  background: url(/img/cars/bg.jpg) no-repeat fixed;
+  background: url(/img/bg.jpg) no-repeat fixed;
   background-size: cover;
   background-position: center bottom;
 }
