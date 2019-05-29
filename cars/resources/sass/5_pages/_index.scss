@@ -1,22 +1,53 @@
 body.home {
-	background: path('bg.jpg') no-repeat fixed;
+	background-color: black;
 	background-size: cover;
-	background-position: center bottom;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	//background set in jpreload
 
-	.intro .container {
-		position: relative;
-		height: 100%;
+	.intro {
 
-		.txt .col{
-			padding-top: 10%;
-			padding-left: calc(15px + 10%);
+		.container {
+			position: relative;
+			height: 100%;
+
+			.txt .col {
+				padding-top: 10%;
+				padding-left: calc(15px + 10%);
+			}
+
+			.logo {
+			    color: $white;
+
+				&:hover,
+				&:focus {
+					color: $white;
+				}
+			}
+
+			.slogan {
+				color: $white;
+			}
+			
+			.start_btn {
+				position: absolute;
+				bottom: 10%;
+				left: 50%;
+				transform: translateX(-50%);
+			}
 		}
-		
-		.start_btn {
-			position: absolute;
-			bottom: 10%;
-			left: 50%;
-			transform: translateX(-50%);
+
+		.parallax.dark {
+			background-image: path('intro_lights_off.jpg');
+		}
+
+		.parallax.light {
+			background-image: path('intro_lights_on.jpg');
+			opacity: 0;
+			transition: .4s opacity ease-in-out;
+
+			&.show,
+			&.on { opacity: 1;}
 		}
 	}
 
@@ -28,5 +59,32 @@ body.home {
 }
 
 
+.logo {
+    color: $brandSecondary;
+    text-decoration: none;
+    font-size: $size_s;
 
+    span {
+        color: $brandPrimary;
+        font-weight: bold;
+        margin-right: 2px;
+        text-transform: uppercase;
+    }
 
+    &:hover span,
+    &:focus span {
+        color: $brandPrimary;
+    }
+
+    &:hover,
+    &:focus {
+        color: $brandSecondary;
+        text-decoration: none;
+    }
+}
+
+.slogan {
+    color: $brandSecondary;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+}

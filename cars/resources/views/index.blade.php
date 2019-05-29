@@ -19,7 +19,8 @@
            <source src="sounds/start.mp3" type="audio/mpeg">
         </audio>
     </div>
-    <div class="parallax"></div>
+    <div class="parallax dark"></div>
+    <div class="parallax light"></div>
 </section>
 
 <nav id="sideNav">

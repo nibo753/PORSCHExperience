@@ -186,6 +186,12 @@
         if(current >= items.length) {
             current = items.length;
             setCookie();    //create cookie
+
+            //set BG img
+            var home = document.querySelector('body.home');
+            if (home) {
+                document.body.style.backgroundImage = "url(../img/bg.jpg) ";
+            }
             
             if(jpreOptions.showPercentage) {
                 $('#discover').val(jpreOptions.closeBtnText).removeClass('disabled');

@@ -1,12 +1,13 @@
 $(function() {
-    var c   = new ScrollMagic.Controller(),
-        tmp = document.querySelector('.overview');
+    var c     = new ScrollMagic.Controller(),
+        check = document.querySelector('.overview');
 
-    if ( tmp ) {
+    if ( check ) {
         // HEADER SLIDE IN
         new ScrollMagic.Scene({
             triggerElement: ".overview",
-            offset: - + $('header').outerHeight(true)
+            offset: - + $('header').outerHeight(true),
+            triggerHook: 0,
         })
         .setClassToggle("header", "visible")
         .addTo(c);
@@ -14,7 +15,8 @@ $(function() {
         // SIDENAV SLIDE IN
         new ScrollMagic.Scene({
             triggerElement: ".overview",
-            offset: - + $('header').outerHeight(true)
+            offset: - + $('header').outerHeight(true),
+            triggerHook: 0,
         })
         .setClassToggle("#sideNav", "visible")
         .addTo(c);

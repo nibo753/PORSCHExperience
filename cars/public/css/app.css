@@ -10794,6 +10794,7 @@ h6 {
   transition: all 0.2s ease-in-out;
 }
 
+.btn.active,
 .btn:hover,
 .btn:focus,
 .btn:not(:disabled):not(.disabled):active,
@@ -10808,6 +10809,7 @@ h6 {
   background-color: #8b2f2f;
 }
 
+.btn.btn-primary.active,
 .btn.btn-primary:hover,
 .btn.btn-primary:focus,
 .btn.btn-primary:not(:disabled):not(.disabled):active,
@@ -10822,12 +10824,26 @@ h6 {
   font-size: 1.5em;
   padding: 15px 25px;
   text-transform: uppercase;
+  color: #F1F1F1;
+  background-color: transparent;
+  border: 1px solid #F1F1F1;
+}
+
+.btn.CTA.active,
+.btn.CTA:hover,
+.btn.CTA:focus,
+.btn.CTA:not(:disabled):not(.disabled):active,
+.btn.CTA:not(:disabled):not(.disabled):active:focus {
+  color: #F1F1F1;
+  background-color: transparent;
+  border-color: #F1F1F1;
 }
 
 .btn.CTA.disabled {
   background-color: transparent;
-  color: #646464;
+  color: #F1F1F1;
   pointer-events: none;
+  border: none;
 }
 
 .btn.CTA.disabled:hover,
@@ -10937,16 +10953,6 @@ ul {
   position: relative;
 }
 
-.intro {
-  margin-bottom: 32vm;
-  margin-bottom: 32vmax;
-}
-
-.intro .parallax__container .parallax {
-  background-size: 50%;
-  background-position: center 70%;
-}
-
 .car .content {
   position: relative;
   top: calc(65px + 5%);
@@ -10990,10 +10996,6 @@ ul {
     background-position: 50% 90%;
     background-size: 80%;
   }
-}
-
-#intro .parallax {
-  background-image: url(/img/intro.webp);
 }
 
 #_718 .parallax {
@@ -11180,9 +11182,10 @@ header.visible {
 }
 
 body.home {
-  background: url(/img/bg.jpg) no-repeat fixed;
+  background-color: black;
   background-size: cover;
-  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body.home .intro .container {
@@ -11195,6 +11198,19 @@ body.home .intro .container .txt .col {
   padding-left: calc(15px + 10%);
 }
 
+body.home .intro .container .logo {
+  color: #F1F1F1;
+}
+
+body.home .intro .container .logo:hover,
+body.home .intro .container .logo:focus {
+  color: #F1F1F1;
+}
+
+body.home .intro .container .slogan {
+  color: #F1F1F1;
+}
+
 body.home .intro .container .start_btn {
   position: absolute;
   bottom: 10%;
@@ -11203,9 +11219,54 @@ body.home .intro .container .start_btn {
           transform: translateX(-50%);
 }
 
+body.home .intro .parallax.dark {
+  background-image: url(/img/intro_lights_off.jpg);
+}
+
+body.home .intro .parallax.light {
+  background-image: url(/img/intro_lights_on.jpg);
+  opacity: 0;
+  transition: 0.4s opacity ease-in-out;
+}
+
+body.home .intro .parallax.light.show,
+body.home .intro .parallax.light.on {
+  opacity: 1;
+}
+
 body.home .overview {
   background-color: transparent;
   padding-bottom: 500px;
   padding-bottom: 40vh;
+}
+
+.logo {
+  color: #7D7D7D;
+  text-decoration: none;
+  font-size: 1.25em;
+}
+
+.logo span {
+  color: #B13C3C;
+  font-weight: bold;
+  margin-right: 2px;
+  text-transform: uppercase;
+}
+
+.logo:hover span,
+.logo:focus span {
+  color: #B13C3C;
+}
+
+.logo:hover,
+.logo:focus {
+  color: #7D7D7D;
+  text-decoration: none;
+}
+
+.slogan {
+  color: #7D7D7D;
+  letter-spacing: 0.5px;
+  font-weight: bold;
 }
 

@@ -1,9 +1,9 @@
 $(function() {
     var controllerX = new ScrollMagic.Controller(),
         controllerY = new ScrollMagic.Controller({vertical: false});
-        tmp = document.querySelector('#mission-e');
+        check = document.querySelector('#mission-e');
 
-    if ( tmp ) {
+    if ( check ) {
         // BACKGROUND COLOR
         var bg = new TimelineMax()
         .to("#mission-e", 0.4, {backgroundColor: '#000'})

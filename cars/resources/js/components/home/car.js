@@ -1,8 +1,8 @@
 $(function() {
     var controller = new ScrollMagic.Controller()
-        tmp = document.querySelector('.overview');
+        check = document.querySelector('.overview');
 
-    if ( tmp ) {
+    if ( check ) {
         // CONTENT FADE IN
         $('.overview section.car').each(function(){
             var id = '#' + this.id;
@@ -67,21 +67,21 @@ $(function() {
             if (price.length > 0) {
                 var priceVal = price.attr('data').split('.').join("").split(',').join("."),
                     priceAnimate = { val: (parseFloat(priceVal) + 30000) };
-                nrTL.to(priceAnimate, rnd(3.2, 3.8), {val: priceVal, onUpdate:updatePrice, ease: Expo.easeOut}, 0);
+                nrTL.to(priceAnimate, rnd(2, 3), {val: priceVal, onUpdate:updatePrice, ease: Expo.easeOut}, 0);
             }
 
             //pk
             if (pk.length > 0) {
                 var pkVal = pk.attr('data'),
                     pkAnimate = { val: 150 };
-                nrTL.to(pkAnimate, rnd(2.2, 3), {val: pkVal, onUpdate:updatePk, ease: Sine.easeOut}, 0);
+                nrTL.to(pkAnimate, rnd(1.4, 2), {val: pkVal, onUpdate:updatePk, ease: Sine.easeOut}, 0);
             }
 
             //topspeed
             if (speed.length > 0) {
                 var speedVal = speed.attr('data'),
                     speedAnimate = { val: 120 };
-                nrTL.to(speedAnimate, rnd(2.2, 3), {val: speedVal, onUpdate:updateSpeed, ease: Sine.easeOut}, 0);
+                nrTL.to(speedAnimate, rnd(1.4, 2), {val: speedVal, onUpdate:updateSpeed, ease: Sine.easeOut}, 0);
             }
 
             //acceleration

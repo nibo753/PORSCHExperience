@@ -8,6 +8,7 @@
     background-color: $dark;
     transition: all .2s ease-in-out;
 
+    &.active,
     &:hover, 
     &:focus,
     &:not(:disabled):not(.disabled):active,
@@ -20,6 +21,8 @@
 
     &.btn-primary {
         background-color: $brandPrimaryDark;
+
+        &.active,
         &:hover, 
         &:focus,
         &:not(:disabled):not(.disabled):active,
@@ -35,11 +38,25 @@
         font-size: $size_m;
         padding: 15px 25px;
         text-transform: uppercase;
+        color: $white;
+        background-color: transparent;
+        border: 1px solid $white;
+
+        &.active,
+        &:hover, 
+        &:focus,
+        &:not(:disabled):not(.disabled):active,
+        &:not(:disabled):not(.disabled):active:focus {
+            color: $white;
+            background-color: transparent;
+            border-color: $white;
+        }
 
         &.disabled {
             background-color: transparent;
-            color: $brandSecondaryDark;
+            color: $white;
             pointer-events: none;
+            border: none;
 
             &:hover,
             &:focus {

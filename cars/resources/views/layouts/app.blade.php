@@ -32,7 +32,7 @@
 
     </style>
 </head>
-<body class="no-scroll {{ (Request::segment(1) !== NULL ) ? Request::segment(1) : 'home' }}" data-spy="scroll" data-target="#sideNav" data-offset="200">
+<body class="{{ (Request::segment(1) !== NULL ) ? Request::segment(1) : 'home no-scroll' }}" data-spy="scroll" data-target="#sideNav" data-offset="200">
     <header>
         <div class="container">
             <div class="row">

@@ -36843,7 +36843,7 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./lib/jpreloader.min */ "./resources/js/lib/jpreloader.min.js");
+__webpack_require__(/*! ./lib/jpreloader */ "./resources/js/lib/jpreloader.js");
 
 $('body.home').jpreLoader({
   showSplash: false,
@@ -36943,9 +36943,9 @@ if (token) {
 
 $(function () {
   var controller = new ScrollMagic.Controller();
-  tmp = document.querySelector('.overview');
+  check = document.querySelector('.overview');
 
-  if (tmp) {
+  if (check) {
     var thousandSeparator = function thousandSeparator(x, separator) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
     };
@@ -37016,7 +37016,7 @@ $(function () {
             priceAnimate = {
           val: parseFloat(priceVal) + 30000
         };
-        nrTL.to(priceAnimate, rnd(3.2, 3.8), {
+        nrTL.to(priceAnimate, rnd(2, 3), {
           val: priceVal,
           onUpdate: updatePrice,
           ease: Expo.easeOut
@@ -37029,7 +37029,7 @@ $(function () {
             pkAnimate = {
           val: 150
         };
-        nrTL.to(pkAnimate, rnd(2.2, 3), {
+        nrTL.to(pkAnimate, rnd(1.4, 2), {
           val: pkVal,
           onUpdate: updatePk,
           ease: Sine.easeOut
@@ -37042,7 +37042,7 @@ $(function () {
             speedAnimate = {
           val: 120
         };
-        nrTL.to(speedAnimate, rnd(2.2, 3), {
+        nrTL.to(speedAnimate, rnd(1.4, 2), {
           val: speedVal,
           onUpdate: updateSpeed,
           ease: Sine.easeOut
@@ -37109,9 +37109,9 @@ $(function () {
       controllerY = new ScrollMagic.Controller({
     vertical: false
   });
-  tmp = document.querySelector('#mission-e');
+  check = document.querySelector('#mission-e');
 
-  if (tmp) {
+  if (check) {
     // BACKGROUND COLOR
     var bg = new TimelineMax().to("#mission-e", 0.4, {
       backgroundColor: '#000'
@@ -37216,17 +37216,8 @@ function scrollTo(target) {
   $('html,body').stop().animate({
     scrollTop: target.offset().top
   }, 1500, 'easeInOutQuint');
-} // START BUTTON SCROLL
+} // SIDENAV SMOOTH SCROLL
 
-
-$('.home #start').click(function (e) {
-  e.preventDefault();
-  var target = $(this).attr('data-car');
-  target = $('.car[data-car="' + target + '"]');
-  scrollTo(target);
-  $('body').removeClass('noscroll');
-  $("#audio_motor").trigger("play"); // plays the audio
-}); // SIDENAV SCROLL
 
 $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
   var target = $(this.getAttribute('href'));
@@ -37235,6 +37226,22 @@ $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function 
     event.preventDefault();
     scrollTo(target);
   }
+}); // START BUTTON SMOOTH SCROLL
+
+$('.home .intro #start').click(function (e) {
+  e.preventDefault();
+  var target = $(this).attr('data-car');
+  target = $('.car[data-car="' + target + '"]');
+  scrollTo(target);
+  $('.home .intro .parallax.light').addClass('on');
+  $('body.home').removeClass('noscroll');
+  $(".home #audio_motor").trigger("play"); // plays the audio
+}); // START BUTTON HOVER
+
+$('.home .intro #start').hover(function () {
+  $('.home .intro .parallax.light').addClass('show');
+}, function () {
+  $('.home .intro .parallax.light').removeClass('show');
 });
 
 /***/ }),
@@ -37248,18 +37255,20 @@ $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function 
 
 $(function () {
   var c = new ScrollMagic.Controller(),
-      tmp = document.querySelector('.overview');
+      check = document.querySelector('.overview');
 
-  if (tmp) {
+  if (check) {
     // HEADER SLIDE IN
     new ScrollMagic.Scene({
       triggerElement: ".overview",
-      offset: -+$('header').outerHeight(true)
+      offset: -+$('header').outerHeight(true),
+      triggerHook: 0
     }).setClassToggle("header", "visible").addTo(c); // SIDENAV SLIDE IN
 
     new ScrollMagic.Scene({
       triggerElement: ".overview",
-      offset: -+$('header').outerHeight(true)
+      offset: -+$('header').outerHeight(true),
+      triggerHook: 0
     }).setClassToggle("#sideNav", "visible").addTo(c);
   }
 });
@@ -37283,10 +37292,10 @@ $(window).bind('resize', function (e) {
 
 /***/ }),
 
-/***/ "./resources/js/lib/jpreloader.min.js":
-/*!********************************************!*\
-  !*** ./resources/js/lib/jpreloader.min.js ***!
-  \********************************************/
+/***/ "./resources/js/lib/jpreloader.js":
+/*!****************************************!*\
+  !*** ./resources/js/lib/jpreloader.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -37478,6 +37487,13 @@ $(window).bind('resize', function (e) {
     if (current >= items.length) {
       current = items.length;
       setCookie(); //create cookie
+      //set BG img
+
+      var home = document.querySelector('body.home');
+
+      if (home) {
+        document.body.style.backgroundImage = "url(../img/bg.jpg) ";
+      }
 
       if (jpreOptions.showPercentage) {
         $('#discover').val(jpreOptions.closeBtnText).removeClass('disabled');

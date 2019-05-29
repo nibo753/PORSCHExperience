@@ -5,19 +5,6 @@
 	position: relative;
 }
 
-.intro {
-	margin-bottom: 32vm; // IE9
-	margin-bottom: 32vmax;
-
-	.parallax__container {
-		//z-index: auto;
-		.parallax {
-			background-size: 50%;
-			background-position: center 70%;
-		}
-	}
-}
-
 .car {
 	.content {
 		position: relative;
@@ -54,9 +41,9 @@
 			}
 		}
 	}
-} 
+}
 
-#intro .parallax { background-image: path('intro.webp'); }
+
 #_718 .parallax { background-image: path('718.png','overview'); }
 #_911 .parallax { background-image: path('911.png','overview'); }
 #_Panamera .parallax { background-image: path('panamera.png','overview'); }

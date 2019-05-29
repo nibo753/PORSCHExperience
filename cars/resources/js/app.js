@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-require('./lib/jpreloader.min');
+require('./lib/jpreloader');
 
 	$('body.home').jpreLoader({
 		showSplash: false,
