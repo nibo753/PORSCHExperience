@@ -11276,15 +11276,19 @@ body:not(.home) main {
 }
 
 .models #modelContainer nav {
-  width: 300px;
   text-align: center;
 }
 
-.models #modelContainer .model {
+.models #modelContainer .carousel-indicators {
+  position: static;
+  margin: 0 -15px;
+}
+
+.models #modelContainer section.model {
   display: none;
 }
 
-.models #modelContainer .model.active {
+.models #modelContainer section.model.active {
   display: block;
 }
 

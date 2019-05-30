@@ -14,12 +14,13 @@
 		color: white;
 		min-height: calc(100vh - 65px);
 
-		nav {
-			width: 300px;
-			text-align: center;
+		nav { text-align: center; }
+		.carousel-indicators {
+			position: static;
+			margin: 0 -15px;
 		}
 
-		.model {
+		section.model {
 			display: none;
 			&.active { display: block; }
 		}

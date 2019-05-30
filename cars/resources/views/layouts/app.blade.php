@@ -16,7 +16,6 @@
 
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="http://cdnjs.cloudflare.com">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:400" rel="stylesheet">
@@ -42,11 +41,10 @@
     </main>
     
     <!-- Scripts -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/ScrollMagic.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/animation.gsap.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.3/plugins/debug.addIndicators.js"></script>
-
+    <script src="{{ asset('js/lib/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('js/lib/ScrollMagic.js') }}"></script>
+    <script src="{{ asset('js/lib/animation.gsap.js') }}"></script>
+    <script src="{{ asset('js/lib/debug.addIndicators.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ $(function () {
     if ( check ) {
     	// change active section on nav change
 		$('#modelNav').on('slide.bs.carousel', function () {
-			var items = document.querySelectorAll('#modelNav carousel-inner li'),
+			var items = document.querySelectorAll('#modelNav .model-list li'),
 			  section = document.querySelectorAll('#modelContainer section.model');
 
 			for (var i = items.length - 1; i >= 0; i--) {
@@ -17,6 +17,15 @@ $(function () {
 				}
 			}
 		})
+
+		/*
+		$('#modelNav').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			arrows: false,
+			fade: true,
+			asNavFor: '.slider-nav'
+		});*/
 
 
 
