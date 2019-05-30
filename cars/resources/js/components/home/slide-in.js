@@ -1,6 +1,6 @@
 $(function() {
     var c     = new ScrollMagic.Controller(),
-        check = document.querySelector('.overview');
+        check = document.querySelector('.home');
 
     if ( check ) {
         // HEADER SLIDE IN

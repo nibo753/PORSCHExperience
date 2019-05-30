@@ -31,8 +31,8 @@ class CarController extends Controller
 
 	public function models(Request $request, $name) {
 		$cars = Car::findByCategoryName($name)->get();
-		echo $cars;
+		$categories = Category::all();
 
-		return view('models', ["cars" => $cars]);
+		return view('models', ["cars" => $cars, "categories" => $categories]);
 	}
 }

@@ -1,0 +1,27 @@
+.models {
+	.not_found {
+		.msg { text-align: center; }
+		li {
+			padding: 0 15px;
+			border-right: 1px solid $dark;
+
+			&:last-child { border-right: none; }
+		}
+	}
+
+	#modelContainer {
+		background-color: black;
+		color: white;
+		min-height: calc(100vh - 65px);
+
+		nav {
+			width: 300px;
+			text-align: center;
+		}
+
+		.model {
+			display: none;
+			&.active { display: block; }
+		}
+	}
+}

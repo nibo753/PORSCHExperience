@@ -36864,15 +36864,17 @@ __webpack_require__(/*! ./lib/universal-parallax */ "./resources/js/lib/universa
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
 
+__webpack_require__(/*! ./components/scroll-smooth */ "./resources/js/components/scroll-smooth.js");
+
 __webpack_require__(/*! ./components/home/car */ "./resources/js/components/home/car.js");
 
 __webpack_require__(/*! ./components/home/data-offset */ "./resources/js/components/home/data-offset.js");
 
 __webpack_require__(/*! ./components/home/mission-e */ "./resources/js/components/home/mission-e.js");
 
-__webpack_require__(/*! ./components/home/scroll-smooth */ "./resources/js/components/home/scroll-smooth.js");
-
 __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components/home/slide-in.js");
+
+__webpack_require__(/*! ./components/models/script */ "./resources/js/components/models/script.js");
 
 /***/ }),
 
@@ -37205,47 +37207,6 @@ $(function () {
 
 /***/ }),
 
-/***/ "./resources/js/components/home/scroll-smooth.js":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/home/scroll-smooth.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function scrollTo(target) {
-  $('html,body').stop().animate({
-    scrollTop: target.offset().top
-  }, 1500, 'easeInOutQuint');
-} // SIDENAV SMOOTH SCROLL
-
-
-$('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
-  var target = $(this.getAttribute('href'));
-
-  if (target.length) {
-    event.preventDefault();
-    scrollTo(target);
-  }
-}); // START BUTTON SMOOTH SCROLL
-
-$('.home .intro #start').click(function (e) {
-  e.preventDefault();
-  var target = $(this).attr('data-car');
-  target = $('.car[data-car="' + target + '"]');
-  scrollTo(target);
-  $('.home .intro .parallax.light').addClass('on');
-  $('body.home').removeClass('noscroll');
-  $(".home #audio_motor").trigger("play"); // plays the audio
-}); // START BUTTON HOVER
-
-$('.home .intro #start').hover(function () {
-  $('.home .intro .parallax.light').addClass('show');
-}, function () {
-  $('.home .intro .parallax.light').removeClass('show');
-});
-
-/***/ }),
-
 /***/ "./resources/js/components/home/slide-in.js":
 /*!**************************************************!*\
   !*** ./resources/js/components/home/slide-in.js ***!
@@ -37255,7 +37216,7 @@ $('.home .intro #start').hover(function () {
 
 $(function () {
   var c = new ScrollMagic.Controller(),
-      check = document.querySelector('.overview');
+      check = document.querySelector('.home');
 
   if (check) {
     // HEADER SLIDE IN
@@ -37276,6 +37237,36 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/components/models/script.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/models/script.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var c = new ScrollMagic.Controller(),
+      check = document.querySelector('.models');
+
+  if (check) {
+    // change active section on nav change
+    $('#modelNav').on('slide.bs.carousel', function () {
+      var items = document.querySelectorAll('#modelNav carousel-inner li'),
+          section = document.querySelectorAll('#modelContainer section.model');
+
+      for (var i = items.length - 1; i >= 0; i--) {
+        if (items[i].classList.contains('active')) {
+          section[i].classList.add('active');
+        } else {
+          section[i].classList.remove('active');
+        }
+      }
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/refresh.js":
 /*!********************************************!*\
   !*** ./resources/js/components/refresh.js ***!
@@ -37289,6 +37280,47 @@ $(window).bind('resize', function (e) {
     this.location.reload(false);
     /* false to get page from cache */
   }, 100);
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/scroll-smooth.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/scroll-smooth.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function scrollTo(target) {
+  $('html,body').stop().animate({
+    scrollTop: target.offset().top
+  }, 1500, 'easeInOutQuint');
+} // SIDENAV SMOOTH SCROLL
+
+
+$('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
+  var target = $(this.getAttribute('href'));
+
+  if (target.length) {
+    event.preventDefault();
+    scrollTo(target);
+  }
+}); // HOME START BUTTON SMOOTH SCROLL
+
+$('.home .intro #start').click(function (e) {
+  e.preventDefault();
+  var target = $(this).attr('data-car');
+  target = $('.car[data-car="' + target + '"]');
+  scrollTo(target);
+  $('.home .intro .parallax.light').addClass('on');
+  $('body.home').removeClass('noscroll');
+  $(".home #audio_motor").trigger("play"); // plays the audio
+}); // HOME START BUTTON HOVER
+
+$('.home .intro #start').hover(function () {
+  $('.home .intro .parallax.light').addClass('show');
+}, function () {
+  $('.home .intro .parallax.light').removeClass('show');
 });
 
 /***/ }),

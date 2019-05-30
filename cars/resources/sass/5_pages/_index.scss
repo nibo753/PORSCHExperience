@@ -1,12 +1,17 @@
-body.home {
+body:not(.home) main {
+	padding-top: 65px;
+}
+
+.home {
 	background-color: black;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	//background set in jpreload
+	//background set in jpreload onComplete()
+
+	h1, h2, h3 { text-align: center; }
 
 	.intro {
-
 		margin-bottom: 90vh;
 
 		.container {
@@ -58,4 +63,66 @@ body.home {
 		padding-bottom: 500px;
 		padding-bottom: 40vh;
 	}
+
+	.overview .car,
+	.intro {
+		width: 100%;
+		height: 100vh;
+		position: relative;
+	}
+
+	.car {
+		.content {
+			position: relative;
+			top: calc(65px + 5%);
+
+			.desc {
+				width: 50%;
+				display: block;
+				margin: 0 auto;
+
+				@include respond-to(phone) { width: 100%; }
+
+				.title, hr { opacity: 0; }
+
+				.content-inner {
+					position: relative;
+					z-index: 2;
+					margin-top: 10px;
+					opacity: 0;				
+				}
+			}
+		}
+
+		.parallax__container {
+			z-index: auto;
+
+			.parallax {
+				background-position: 50% 75%;
+				background-size: 55%;
+
+				@include respond-to(phone) {
+					background-position: 50% 90%;
+					background-size: 80%;
+				}
+			}
+		}
+	}
+
+
+	#_718 .parallax { background-image: path('718.png','overview'); }
+	#_911 .parallax { background-image: path('911.png','overview'); }
+	#_Panamera .parallax { background-image: path('panamera.png','overview'); }
+	#_Macan .parallax { background-image: path('macan.png','overview'); }
+	#_Cayenne .parallax { background-image: path('cayenne.png','overview'); }
+
+	/*
+	_718 		= 4.379 x 1.281
+	_911 		= 4.562 x 1.250
+	_Panamera 	= 5.049 x 1.432
+	_Macan 		= 4.696 x 1.624
+	_Cayenne 	= 4.918 x 1.696
+	_mission-e 	= xxxx x 1.300
+	scale 6.62598425197
+	*/
 }

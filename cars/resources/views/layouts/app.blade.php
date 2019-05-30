@@ -25,24 +25,19 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Favicons -->
-
-    <style type="text/css">
-
-
-
-    </style>
 </head>
-<body class="{{ (Request::segment(1) !== NULL ) ? Request::segment(1) : 'home no-scroll' }}" data-spy="scroll" data-target="#sideNav" data-offset="200">
-    <header>
+<?php ((Request::segment(1) == NULL ) ? $isHome = true : $isHome = false); ?>
+<body class="{{ ( $isHome ) ? 'home no-scroll' : Request::segment(1) }}" data-spy="scroll" data-target="#sideNav" data-offset="200">
+    <header class="{{ ($isHome ) ? '' : 'visible' }}">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="#intro" class="logo"><span>Porsche</span>xperience</a>
+                    <a href="{{ ( $isHome ) ? '#intro' : '/' }}" class="logo"><span>Porsche</span>xperience</a>
                 </div>
             </div>
         </div>
     </header>
-    <main class="">
+    <main>
         @yield('content')
     </main>
     

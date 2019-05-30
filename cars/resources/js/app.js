@@ -26,9 +26,11 @@ require('./lib/universal-parallax');
  */
 
 require('./components/refresh');
+require('./components/scroll-smooth');
 
 require('./components/home/car');
 require('./components/home/data-offset');
 require('./components/home/mission-e');
-require('./components/home/scroll-smooth');
 require('./components/home/slide-in');
+
+require('./components/models/script');

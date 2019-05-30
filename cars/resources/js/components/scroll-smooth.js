@@ -14,7 +14,7 @@ $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function(
 });
 
 
-// START BUTTON SMOOTH SCROLL
+// HOME START BUTTON SMOOTH SCROLL
 $('.home .intro #start').click(function (e) {
     e.preventDefault();
     var target = $(this).attr('data-car');
@@ -26,7 +26,7 @@ $('.home .intro #start').click(function (e) {
 });
 
 
-// START BUTTON HOVER
+// HOME START BUTTON HOVER
 $('.home .intro #start').hover(
    function(){ $('.home .intro .parallax.light').addClass('show') },
    function(){ $('.home .intro .parallax.light').removeClass('show') }
