@@ -10,19 +10,18 @@
 	}
 
 	#modelContainer {
-		background-color: black;
-		color: white;
-		min-height: calc(100vh - 65px);
 
-		nav { text-align: center; }
-		.carousel-indicators {
-			position: static;
-			margin: 0 -15px;
+		.model_slider {
+			text-align: center;
+			img {
+				max-width: 65%;
+				max-height: 100%;
+				margin: 0 auto;
+			}
 		}
 
 		section.model {
-			display: none;
-			&.active { display: block; }
+			
 		}
 	}
 }

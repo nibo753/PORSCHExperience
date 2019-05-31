@@ -40246,27 +40246,37 @@ $(function () {
       check = document.querySelector('.models');
 
   if (check) {
-    // change active section on nav change
-    $('#modelNav').on('slide.bs.carousel', function () {
-      var items = document.querySelectorAll('#modelNav .model-list li'),
-          section = document.querySelectorAll('#modelContainer section.model');
-
-      for (var i = items.length - 1; i >= 0; i--) {
-        if (items[i].classList.contains('active')) {
-          section[i].classList.add('active');
-        } else {
-          section[i].classList.remove('active');
+    $('.model_slider').slick({
+      asNavFor: '.model_info',
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      arrows: false,
+      centerMode: true,
+      centerPadding: '0px',
+      focusOnSelect: true,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3
         }
-      }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1
+        }
+      }]
     });
-    /*
-    $('#modelNav').slick({
-    	slidesToShow: 1,
-    	slidesToScroll: 1,
-    	arrows: false,
-    	fade: true,
-    	asNavFor: '.slider-nav'
-    });*/
+    $('.model_info').slick({
+      asNavFor: '.model_slider',
+      lazyLoad: 'ondemand',
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      draggable: false,
+      touchMove: false,
+      speed: 0,
+      fade: true
+    });
   }
 });
 
