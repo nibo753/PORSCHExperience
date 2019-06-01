@@ -39959,8 +39959,8 @@ $(function () {
         audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
         audio_drive_off = new Audio('sounds/drive_off.mp3');
     music.volume = musicVol;
-    music.loop = true;
-    music.play(); // START BUTTON CLICK
+    music.loop = true; //music.play();
+    // START BUTTON CLICK
 
     $('.home .intro #start').click(function (e) {
       e.preventDefault();
@@ -40063,25 +40063,36 @@ $(function () {
       });
       new ScrollMagic.Scene({
         triggerElement: this,
-        duration: "10%"
+        triggerHook: 0.65,
+        duration: "8%"
       }).setTween(title).addTo(controller);
-      var hr = TweenMax.to(id + " .content hr", 0.4, {
-        opacity: 1
+      var hr = TweenMax.to(id + " .content hr", 0.3, {
+        opacity: 1,
+        ease: Linear.easeNone
       });
       new ScrollMagic.Scene({
         triggerElement: this,
-        triggerHook: 0.4,
-        duration: "10%"
+        triggerHook: 0.35,
+        duration: "8%"
       }).setTween(hr).addTo(controller);
-      var content_inner = TweenMax.to(id + " .content .content-inner", 0.4, {
-        opacity: 1
+      var svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {
+        opacity: 1,
+        ease: Linear.easeNone
       }),
           fade_in_trigger = 0.25;
       new ScrollMagic.Scene({
         triggerElement: this,
         triggerHook: fade_in_trigger,
-        duration: "10%"
-      }).setTween(content_inner).addTo(controller);
+        duration: "8%"
+      }).setTween(svg_container).addTo(controller);
+      var link = TweenMax.to(id + " .content .model_link", 0.3, {
+        opacity: 1,
+        ease: Linear.easeNone
+      });
+      new ScrollMagic.Scene({
+        triggerElement: this,
+        triggerHook: 0.10
+      }).setTween(link).addTo(controller);
       /*
        * 
        * ANIMATE CAR NUMBERS
@@ -40092,10 +40103,13 @@ $(function () {
           price = $(this).find('.price .value'),
           pk = $(this).find('.pk .value'),
           speed = $(this).find('.speed .value'),
-          acc = $(this).find('.acc .value');
+          acc = $(this).find('.acc .value'),
+          time = rnd(1.4, 2),
+          delay = "-=0.8",
+          delaySVG = "-=" + time;
 
       function updatePrice() {
-        price.html(thousandSeparator(priceAnimate.val.toFixed(2).split('.').join(", "), '.'));
+        price.html(thousandSeparator(priceAnimate.val.toFixed(0).split('.').join(", "), '.'));
       }
 
       function updatePk() {
@@ -40114,13 +40128,13 @@ $(function () {
       if (price.length > 0) {
         var priceVal = price.attr('data').split('.').join("").split(',').join("."),
             priceAnimate = {
-          val: parseFloat(priceVal) + 30000
+          val: parseFloat(priceVal) + 15000
         };
-        nrTL.to(priceAnimate, rnd(1.6, 2), {
+        nrTL.to(priceAnimate, time, {
           val: priceVal,
           onUpdate: updatePrice,
-          ease: Expo.easeOut
-        }, 0);
+          ease: Power1.easeOut
+        }, delay);
       } //pk
 
 
@@ -40129,11 +40143,11 @@ $(function () {
             pkAnimate = {
           val: 150
         };
-        nrTL.to(pkAnimate, rnd(1.2, 1.6), {
+        nrTL.to(pkAnimate, time, {
           val: pkVal,
           onUpdate: updatePk,
           ease: Sine.easeOut
-        }, 0);
+        }, delay);
       } //topspeed
 
 
@@ -40142,11 +40156,16 @@ $(function () {
             speedAnimate = {
           val: 120
         };
-        nrTL.to(speedAnimate, rnd(1.2, 1.6), {
+        nrTL.to(speedAnimate, time, {
           val: speedVal,
           onUpdate: updateSpeed,
           ease: Sine.easeOut
-        }, 0);
+        }, delay);
+        nrTL.fromTo($(this).find('.speed svg ellipse'), time, {
+          strokeDasharray: "0, 1000"
+        }, {
+          strokeDasharray: "220, 1000"
+        }, delaySVG);
       } //acceleration
 
 
@@ -40155,11 +40174,11 @@ $(function () {
             accAnimate = {
           val: 0
         };
-        nrTL.to(accAnimate, accVal, {
+        nrTL.to(accAnimate, time, {
           val: accVal,
           onUpdate: updateAcceleration,
           ease: Linear.easeNone
-        }, 0);
+        }, delay);
       } //scene
 
 
@@ -40232,7 +40251,7 @@ $(function () {
     var fadeAnimation = new TimelineMax().staggerTo("#mission-e .title .fade", 0.3, {
       opacity: 1,
       ease: Linear.easeNone
-    }, 0.3);
+    }, 0.4);
     new ScrollMagic.Scene({
       triggerElement: "#mission-e .title",
       triggerHook: 0.7
@@ -40348,44 +40367,44 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(function () {
-  var c = new ScrollMagic.Controller(),
-      check = document.querySelector('.models');
+var c = new ScrollMagic.Controller(),
+    check = document.querySelector('.models');
 
-  if (check) {
-    $('.model_slider').slick({
-      asNavFor: '.model_info',
-      slidesToScroll: 1,
-      slidesToShow: 3,
-      arrows: false,
-      centerMode: true,
-      centerPadding: '0px',
-      focusOnSelect: true,
-      responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3
-        }
-      }, {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1
-        }
-      }]
-    });
-    $('.model_info').slick({
-      asNavFor: '.model_slider',
-      lazyLoad: 'ondemand',
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      draggable: false,
-      touchMove: false,
-      speed: 0,
-      fade: true
-    });
-  }
-});
+if (check) {
+  $('.model_slider').slick({
+    asNavFor: '.model_info',
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    arrows: false,
+    centerMode: true,
+    centerPadding: '0px',
+    focusOnSelect: true,
+    responsive: [{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
+  });
+  $('.model_info').slick({
+    asNavFor: '.model_slider',
+    lazyLoad: 'ondemand',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    draggable: false,
+    touchMove: false,
+    speed: 0,
+    fade: true
+  });
+}
+
+$(function () {});
 
 /***/ }),
 

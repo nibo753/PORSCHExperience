@@ -52,31 +52,38 @@
                         @if ($value->price != 0)
                         <hr>
                         <div class="content-inner">
-                            <div class="flex">
-                                <div class="price">
-                                    <span class="value" data="{{ $value->price }}">0</span>
-                                    <span class="unit">EUR</span>
+                            <div class="flex svg_container">
+                                <?php $svg = file_get_contents( URL::to('/') . "/img/svg/speed.svg") ?>
+                                <div class="price svg">
+                                        <div class="value" data="{{ $value->price }}">0</div>
+                                    </span>
+                                    <?= $svg ?>
                                 </div>
-                                @if ($value->pk != 0)
-                                <div class="pk">
-                                    <span class="value" data="{{ $value->pk }}">0</span>
-                                    <span class="unit">PK</span>
+                                @if ($value->pk == 0)
+                                <div class="pk svg">
+                                        <div class="value" data="{{ $value->pk }}">0</div>
+                                        <div class="unit">PK</div>
+                                    </span>
+                                    <?= $svg ?>
                                 </div>
                                 @endif
                                 @if ($value->topspeed != 0)
-                                <div class="speed">
-                                    <span class="value" data="{{ $value->topspeed }}">0</span>
-                                    <span class="unit">km/h</span>
+                                <div class="speed svg">
+                                        <div class="value" data="{{ $value->topspeed }}">0</div>
+                                        <div class="unit">km/h</div>
+                                    </span>
+                                    <?= $svg ?>
                                 </div>
                                 @endif
                                 @if ($value->acceleration_sport != 0)
-                                <div class="acc">
-                                    <span class="value" data="{{ $value->acceleration_sport }}">0</span>
-                                    <span class="unit">seconds</span>
+                                <div class="acc svg">
+                                        <div class="value" data="{{ $value->acceleration_sport }}">0</div>
+                                    </span>
+                                    <?= file_get_contents( URL::to('/') . "/img/svg/speed.svg") ?>
                                 </div>
                                 @endif
                             </div>
-                            <a href="/models/{{ $value->name }}" class="models">Show all {{ $value->name }} models</a>
+                            <a href="/models/{{ $value->name }}" class="model_link">Show all {{ $value->name }} models</a>
                         </div>
                         @endif
                     </div>

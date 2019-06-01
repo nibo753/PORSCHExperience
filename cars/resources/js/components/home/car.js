@@ -10,28 +10,37 @@ $(function() {
             var title = TweenMax.to(id + " .content .title", 0.4, {opacity: 1, ease:Linear.easeNone});
             new ScrollMagic.Scene({
                 triggerElement: this,
-                duration: "10%"
+                triggerHook: 0.65,
+                duration: "8%"
             })
             .setTween(title)
             .addTo(controller);
 
-            var hr = TweenMax.to(id + " .content hr", 0.4, {opacity: 1});
+            var hr = TweenMax.to(id + " .content hr", 0.3, {opacity: 1, ease:Linear.easeNone});
             new ScrollMagic.Scene({
                 triggerElement: this,
-                triggerHook: 0.4,
-                duration: "10%"
+                triggerHook: 0.35,
+                duration: "8%"
             })
             .setTween(hr)
             .addTo(controller);
 
-            var content_inner = TweenMax.to(id + " .content .content-inner", 0.4, {opacity: 1}),
+            var svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {opacity: 1, ease:Linear.easeNone}),
                 fade_in_trigger = 0.25;
             new ScrollMagic.Scene({
                 triggerElement: this,
                 triggerHook: fade_in_trigger,
-                duration: "10%"
+                duration: "8%"
             })
-            .setTween(content_inner)
+            .setTween(svg_container)
+            .addTo(controller);
+
+            var link = TweenMax.to(id + " .content .model_link", 0.3, {opacity: 1, ease:Linear.easeNone});
+            new ScrollMagic.Scene({
+                triggerElement: this,
+                triggerHook: 0.10
+            })
+            .setTween(link)
             .addTo(controller);
 
 
@@ -45,10 +54,13 @@ $(function() {
                 price   = $(this).find('.price .value'),
                 pk      = $(this).find('.pk .value'),
                 speed   = $(this).find('.speed .value'),
-                acc     = $(this).find('.acc .value');
+                acc     = $(this).find('.acc .value'),
+                time    = rnd(1.4, 2),
+                delay   = "-=0.8",
+                delaySVG= "-=" + time;
 
             function updatePrice() {
-                price.html(thousandSeparator(priceAnimate.val.toFixed(2).split('.').join(", "), '.'));
+                price.html(thousandSeparator(priceAnimate.val.toFixed(0).split('.').join(", "), '.'));
             }
 
             function updatePk() {
@@ -66,30 +78,32 @@ $(function() {
             //price
             if (price.length > 0) {
                 var priceVal = price.attr('data').split('.').join("").split(',').join("."),
-                    priceAnimate = { val: (parseFloat(priceVal) + 30000) };
-                nrTL.to(priceAnimate, rnd(1.6, 2), {val: priceVal, onUpdate:updatePrice, ease: Expo.easeOut}, 0);
+                    priceAnimate = { val: (parseFloat(priceVal) + 15000) };
+                nrTL.to(priceAnimate, time, {val: priceVal, onUpdate:updatePrice, ease: Power1.easeOut}, delay);
             }
 
             //pk
             if (pk.length > 0) {
                 var pkVal = pk.attr('data'),
                     pkAnimate = { val: 150 };
-                nrTL.to(pkAnimate, rnd(1.2, 1.6), {val: pkVal, onUpdate:updatePk, ease: Sine.easeOut}, 0);
+                nrTL.to(pkAnimate, time, {val: pkVal, onUpdate:updatePk, ease: Sine.easeOut}, delay);
             }
 
             //topspeed
             if (speed.length > 0) {
-                var speedVal = speed.attr('data'),
-                    speedAnimate = { val: 120 };
-                nrTL.to(speedAnimate, rnd(1.2, 1.6), {val: speedVal, onUpdate:updateSpeed, ease: Sine.easeOut}, 0);
+                var speedVal        = speed.attr('data'),
+                    speedAnimate    = { val: 120 };
+                    
+                nrTL.to(speedAnimate, time, {val: speedVal, onUpdate:updateSpeed, ease: Sine.easeOut}, delay);
+                nrTL.fromTo($(this).find('.speed svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: "220, 1000"}, delaySVG );
             }
 
             //acceleration
             if (acc.length > 0) {
                 var accVal = acc.attr('data').split('.').join("").split(',').join("."),
                     accAnimate = { val: 0 };
-                nrTL.to(accAnimate, accVal, {val: accVal, onUpdate:updateAcceleration, ease:Linear.easeNone}, 0);
-            }            
+                nrTL.to(accAnimate, time, {val: accVal, onUpdate:updateAcceleration, ease:Linear.easeNone}, delay);
+            }
 
             //scene
             new ScrollMagic.Scene({

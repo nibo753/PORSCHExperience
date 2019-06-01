@@ -119,7 +119,7 @@ body:not(.home) main {
 			top: calc(65px + 5%);
 
 			.desc {
-				width: 50%;
+				width: 70%;
 				display: block;
 				margin: 0 auto;
 
@@ -128,10 +128,31 @@ body:not(.home) main {
 				.title, hr { opacity: 0; }
 
 				.content-inner {
-					position: relative;
-					z-index: 2;
-					margin-top: 10px;
-					opacity: 0;				
+					text-align: center;
+
+					a, btn { position: relative; z-index: 2; opacity: 0;}
+
+					.svg_container {
+						opacity: 0;
+						position: relative;
+						min-height: 200px;
+						margin-bottom: 20px;
+
+						.svg {
+							position: relative;
+							min-height: inherit;
+							width: 33%;
+							position: absolute;
+							bottom: -20px; left: 50%;
+
+							&:nth-child(1) {transform:  translateX(-100%);}
+							&:nth-child(2) {
+								transform:  translateX(-50%) translateY(-20px);
+								z-index: 1;
+							}
+							&:nth-child(3) { transform: translateX(0%); }
+						}
+					}
 				}
 			}
 		}
@@ -140,11 +161,10 @@ body:not(.home) main {
 			z-index: auto;
 
 			.parallax {
-				background-position: 50% 75%;
+				background-position: 50% 90%;
 				background-size: 55%;
 
 				@include respond-to(phone) {
-					background-position: 50% 90%;
 					background-size: 80%;
 				}
 			}

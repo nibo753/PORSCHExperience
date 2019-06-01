@@ -13,7 +13,7 @@
 </div>
 
 @else
-<div id="modelContainer">
+<div id="model_container">
     <nav class="">
         <ul class="model_slider">
             @foreach ($cars as $key => $model)

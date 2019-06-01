@@ -10953,6 +10953,44 @@ ul {
   background-size: cover;
 }
 
+.svg {
+  display: table;
+  position: relative;
+}
+
+.svg .svg_content {
+  display: table-cell;
+  vertical-align: bottom;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+}
+
+.svg .svg_content .value {
+  font-size: 1.25em;
+  color: #646464;
+  margin-bottom: 30px;
+}
+
+.svg .svg_content .unit {
+  font-size: 0.875em;
+  color: #979797;
+  margin-bottom: 35px;
+}
+
+.svg svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.svg svg .text {
+  display: none;
+}
+
 header {
   background: white;
   width: 100%;
@@ -11404,7 +11442,7 @@ body:not(.home) main {
 }
 
 .home .car .content .desc {
-  width: 50%;
+  width: 70%;
   display: block;
   margin: 0 auto;
 }
@@ -11421,10 +11459,46 @@ body:not(.home) main {
 }
 
 .home .car .content .desc .content-inner {
+  text-align: center;
+}
+
+.home .car .content .desc .content-inner a,
+.home .car .content .desc .content-inner btn {
   position: relative;
   z-index: 2;
-  margin-top: 10px;
   opacity: 0;
+}
+
+.home .car .content .desc .content-inner .svg_container {
+  opacity: 0;
+  position: relative;
+  min-height: 200px;
+  margin-bottom: 20px;
+}
+
+.home .car .content .desc .content-inner .svg_container .svg {
+  position: relative;
+  min-height: inherit;
+  width: 33%;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+}
+
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(1) {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(2) {
+  -webkit-transform: translateX(-50%) translateY(-20px);
+          transform: translateX(-50%) translateY(-20px);
+  z-index: 1;
+}
+
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(3) {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
 }
 
 .home .car .parallax__container {
@@ -11432,13 +11506,12 @@ body:not(.home) main {
 }
 
 .home .car .parallax__container .parallax {
-  background-position: 50% 75%;
+  background-position: 50% 90%;
   background-size: 55%;
 }
 
 @media only screen and (max-width: 630px) {
   .home .car .parallax__container .parallax {
-    background-position: 50% 90%;
     background-size: 80%;
   }
 }
@@ -11481,11 +11554,11 @@ body:not(.home) main {
   border-right: none;
 }
 
-.models #modelContainer .model_slider {
+.models #model_container .model_slider {
   text-align: center;
 }
 
-.models #modelContainer .model_slider img {
+.models #model_container .model_slider img {
   max-width: 65%;
   max-height: 100%;
   margin: 0 auto;

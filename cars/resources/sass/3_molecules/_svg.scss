@@ -1,0 +1,47 @@
+.svg {
+	display: table;
+	position: relative;
+
+	.svg_content {
+		display: table-cell;
+		vertical-align: bottom;
+		text-align: center;
+		font-weight: bold;
+		position: relative;
+		z-index: 2;
+
+		.value {
+			font-size: $size_s;
+			color: $brandSecondaryDark;
+			margin-bottom: 30px;
+		}
+		.unit {
+			font-size: $size_xxxs;
+			color: $brandSecondaryLight;
+			margin-bottom: 35px;
+		}
+	}
+
+	svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		.text { display: none; }
+	}
+
+
+
+	&:nth-child(1) svg .glow {
+		//stroke-dashoffset: -70 !important;
+		//fill: $brandSecondary;
+	}
+
+	&:nth-child(2) svg .circle { }//fill: $brandSecondary; }
+
+	&:nth-child(3) svg .glow {
+		//stroke-dashoffset: -90 !important;
+		//fill: $brandSecondary;
+	}
+}
