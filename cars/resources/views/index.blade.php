@@ -53,22 +53,17 @@
                         <hr>
                         <div class="content-inner">
                             <div class="flex svg_container">
-                                <?php $svg = file_get_contents( URL::to('/') . "/img/svg/speed.svg") ?>
+                                <?php $svg = file_get_contents( URL::to('/') . "/img/svg/speedometer.svg") ?>
                                 <div class="price svg">
+                                    <span class="svg_content">
                                         <div class="value" data="{{ $value->price }}">0</div>
+                                        <div class="unit">EURO</div>
                                     </span>
                                     <?= $svg ?>
                                 </div>
-                                @if ($value->pk == 0)
-                                <div class="pk svg">
-                                        <div class="value" data="{{ $value->pk }}">0</div>
-                                        <div class="unit">PK</div>
-                                    </span>
-                                    <?= $svg ?>
-                                </div>
-                                @endif
                                 @if ($value->topspeed != 0)
                                 <div class="speed svg">
+                                    <span class="svg_content">
                                         <div class="value" data="{{ $value->topspeed }}">0</div>
                                         <div class="unit">km/h</div>
                                     </span>
@@ -77,9 +72,11 @@
                                 @endif
                                 @if ($value->acceleration_sport != 0)
                                 <div class="acc svg">
+                                    <span class="svg_content">
                                         <div class="value" data="{{ $value->acceleration_sport }}">0</div>
+                                        <div class="unit">0 - 100<br>km/h</div>
                                     </span>
-                                    <?= file_get_contents( URL::to('/') . "/img/svg/speed.svg") ?>
+                                    <?= $svg ?>
                                 </div>
                                 @endif
                             </div>
