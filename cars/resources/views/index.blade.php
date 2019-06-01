@@ -5,8 +5,17 @@
     <div class="container">
         <div class="row txt">
             <div class="col">
-                <div class="logo"><span>Porsche</span>xperience</div>
-                <div class="slogan">Designed to experience</div>
+                <div class="audio flex active">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <div>
+                    <div class="logo"><span>Porsche</span>xperience</div>
+                    <div class="slogan">Designed to experience</div>
+                </div>
             </div>
         </div>
         <div class="start_btn">
@@ -14,10 +23,6 @@
                 <input id="discover" class="disabled btn btn-primary CTA" type="submit" value="Loading ..." />
             </a>
         </div>
-        <audio id="audio_motor">
-           <source src="sounds/start.ogg" type="audio/ogg">
-           <source src="sounds/start.mp3" type="audio/mpeg">
-        </audio>
     </div>
     <div class="parallax dark"></div>
     <div class="parallax light"></div>

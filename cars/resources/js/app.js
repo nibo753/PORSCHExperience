@@ -35,9 +35,10 @@ require('slick-carousel');
 require('./components/refresh');
 require('./components/scroll-smooth');
 
+require('./components/home/audio');
 require('./components/home/car');
 require('./components/home/data-offset');
 require('./components/home/mission-e');
 require('./components/home/slide-in');
 
-require('./components/models/script');
+require('./components/models/slick');

@@ -100,13 +100,13 @@ $(function() {
             .setTween(nrTL)
             .addTo(controller);
         });
-
-        function thousandSeparator(x, separator) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
-        }
-
-        function rnd(min, max) {
-            return (Math.random() * (max - min) + min);
-        };
     }
 });
+
+function thousandSeparator(x, separator) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
+
+function rnd(min, max) {
+    return (Math.random() * (max - min) + min);
+};

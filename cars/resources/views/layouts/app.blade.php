@@ -33,6 +33,11 @@
                 <div class="col">
                     <a href="{{ ( $isHome ) ? '#intro' : '/' }}" class="logo"><span>Porsche</span>xperience</a>
                 </div>
+                @if (Request::segment(1) == 'models' && !$cars->isEmpty() )
+                <div class="col">
+                    <span class="model_header">{{$cars[0]->category->name}}</span>
+                </div>
+                @endif
             </div>
         </div>
     </header>

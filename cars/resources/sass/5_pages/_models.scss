@@ -1,4 +1,9 @@
 .models {
+	.model_header {
+		color: $brandSecondary;
+    	font-size: $size_s;
+    }
+    
 	.not_found {
 		.msg { text-align: center; }
 		li {
