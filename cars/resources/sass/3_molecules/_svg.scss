@@ -28,20 +28,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		.text { display: none; }
-	}
 
-
-
-	&:nth-child(1) svg .glow {
-		//stroke-dashoffset: -70 !important;
-		//fill: $brandSecondary;
-	}
-
-	&:nth-child(2) svg .circle { }//fill: $brandSecondary; }
-
-	&:nth-child(3) svg .glow {
-		//stroke-dashoffset: -90 !important;
-		//fill: $brandSecondary;
+		* { transform-origin: center; }
 	}
 }

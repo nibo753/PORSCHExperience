@@ -10987,8 +10987,9 @@ ul {
   height: 100%;
 }
 
-.svg svg .text {
-  display: none;
+.svg svg * {
+  -webkit-transform-origin: center;
+          transform-origin: center;
 }
 
 header {
@@ -11490,15 +11491,26 @@ body:not(.home) main {
           transform: translateX(-100%);
 }
 
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(1) svg {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
 .home .car .content .desc .content-inner .svg_container .svg:nth-child(2) {
   -webkit-transform: translateX(-50%) translateY(-20px);
           transform: translateX(-50%) translateY(-20px);
   z-index: 1;
 }
 
-.home .car .content .desc .content-inner .svg_container .svg:nth-child(3) {
-  -webkit-transform: translateX(0%);
-          transform: translateX(0%);
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(1) svg .inner_1,
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(3) svg .inner_1 {
+  display: none;
+}
+
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(1) svg ellipse,
+.home .car .content .desc .content-inner .svg_container .svg:nth-child(3) svg ellipse {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
 }
 
 .home .car .parallax__container {

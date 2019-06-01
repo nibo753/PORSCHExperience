@@ -40091,7 +40091,7 @@ $(function () {
       });
       new ScrollMagic.Scene({
         triggerElement: this,
-        triggerHook: 0.10
+        triggerHook: 0.15
       }).setTween(link).addTo(controller);
       /*
        * 
@@ -40135,19 +40135,11 @@ $(function () {
           onUpdate: updatePrice,
           ease: Power1.easeOut
         }, delay);
-      } //pk
-
-
-      if (pk.length > 0) {
-        var pkVal = pk.attr('data'),
-            pkAnimate = {
-          val: 150
-        };
-        nrTL.to(pkAnimate, time, {
-          val: pkVal,
-          onUpdate: updatePk,
-          ease: Sine.easeOut
-        }, delay);
+        nrTL.fromTo($(this).find('.price svg ellipse'), time, {
+          strokeDasharray: "350, 1000"
+        }, {
+          strokeDasharray: "220, 1000"
+        }, delaySVG);
       } //topspeed
 
 
@@ -40164,7 +40156,7 @@ $(function () {
         nrTL.fromTo($(this).find('.speed svg ellipse'), time, {
           strokeDasharray: "0, 1000"
         }, {
-          strokeDasharray: "220, 1000"
+          strokeDasharray: "310, 1000"
         }, delaySVG);
       } //acceleration
 
@@ -40179,13 +40171,18 @@ $(function () {
           onUpdate: updateAcceleration,
           ease: Linear.easeNone
         }, delay);
+        nrTL.fromTo($(this).find('.acc svg ellipse'), time, {
+          strokeDasharray: "0, 1000"
+        }, {
+          strokeDasharray: "220, 1000"
+        }, delaySVG);
       } //scene
 
 
       new ScrollMagic.Scene({
         triggerElement: id,
-        triggerHook: fade_in_trigger,
-        reverse: false
+        triggerHook: fade_in_trigger //reverse: false
+
       }).setTween(nrTL).addTo(controller);
     });
   }

@@ -18,10 +18,9 @@ class CarController extends Controller
 
 		//add data of cheapest car to category
 		foreach ($categories as $category) {
-			$data = Car::findByCategoryName($category->name)->orderBy('price')->select('price', 'pk', 'topspeed', 'acceleration_sport')->first();
+			$data = Car::findByCategoryName($category->name)->orderBy('price')->select('price', 'topspeed', 'acceleration_sport')->first();
 
 			$category->price = number_format($data['price'], 2, ',', '.');
-			$category->pk = number_format($data['pk'], 0, ',', '.');
 			$category->topspeed = number_format($data['topspeed'], 0, ',', '.');
 			$category->acceleration_sport = number_format($data['acceleration_sport'], 1, ',', '.');
 		}

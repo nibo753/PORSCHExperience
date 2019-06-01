@@ -38,7 +38,7 @@ $(function() {
             var link = TweenMax.to(id + " .content .model_link", 0.3, {opacity: 1, ease:Linear.easeNone});
             new ScrollMagic.Scene({
                 triggerElement: this,
-                triggerHook: 0.10
+                triggerHook: 0.15
             })
             .setTween(link)
             .addTo(controller);
@@ -80,13 +80,7 @@ $(function() {
                 var priceVal = price.attr('data').split('.').join("").split(',').join("."),
                     priceAnimate = { val: (parseFloat(priceVal) + 15000) };
                 nrTL.to(priceAnimate, time, {val: priceVal, onUpdate:updatePrice, ease: Power1.easeOut}, delay);
-            }
-
-            //pk
-            if (pk.length > 0) {
-                var pkVal = pk.attr('data'),
-                    pkAnimate = { val: 150 };
-                nrTL.to(pkAnimate, time, {val: pkVal, onUpdate:updatePk, ease: Sine.easeOut}, delay);
+                nrTL.fromTo($(this).find('.price svg ellipse'), time, {strokeDasharray: "350, 1000"},{strokeDasharray: "220, 1000"}, delaySVG );
             }
 
             //topspeed
@@ -95,7 +89,7 @@ $(function() {
                     speedAnimate    = { val: 120 };
                     
                 nrTL.to(speedAnimate, time, {val: speedVal, onUpdate:updateSpeed, ease: Sine.easeOut}, delay);
-                nrTL.fromTo($(this).find('.speed svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: "220, 1000"}, delaySVG );
+                nrTL.fromTo($(this).find('.speed svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: "310, 1000"}, delaySVG );
             }
 
             //acceleration
@@ -103,13 +97,14 @@ $(function() {
                 var accVal = acc.attr('data').split('.').join("").split(',').join("."),
                     accAnimate = { val: 0 };
                 nrTL.to(accAnimate, time, {val: accVal, onUpdate:updateAcceleration, ease:Linear.easeNone}, delay);
+                nrTL.fromTo($(this).find('.acc svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: "220, 1000"}, delaySVG );
             }
 
             //scene
             new ScrollMagic.Scene({
                 triggerElement: id,
                 triggerHook: fade_in_trigger,
-                reverse: false
+                //reverse: false
             })
             .setTween(nrTL)
             .addTo(controller);
