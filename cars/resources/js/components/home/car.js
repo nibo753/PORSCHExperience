@@ -47,7 +47,8 @@ $(function() {
             /*
              * 
              * ANIMATE CAR NUMBERS
-             * 
+             *
+             * strokeLength = carValue / (maxVal/300 strokelength), 1000
              */
 
             var nrTL    = new TimelineMax(),
@@ -63,10 +64,6 @@ $(function() {
                 price.html(thousandSeparator(priceAnimate.val.toFixed(0).split('.').join(", "), '.'));
             }
 
-            function updatePk() {
-                pk.html(pkAnimate.val.toFixed(0));
-            }
-
             function updateSpeed() {
                 speed.html(speedAnimate.val.toFixed(0));
             }
@@ -78,26 +75,31 @@ $(function() {
             //price
             if (price.length > 0) {
                 var priceVal = price.attr('data').split('.').join("").split(',').join("."),
-                    priceAnimate = { val: (parseFloat(priceVal) + 15000) };
+                    priceAnimate = { val: (parseFloat(priceVal) + 15000) },
+                    strokeLength = ( (priceVal) /515 + ", 1000");
+
                 nrTL.to(priceAnimate, time, {val: priceVal, onUpdate:updatePrice, ease: Power1.easeOut}, delay);
-                nrTL.fromTo($(this).find('.price svg ellipse'), time, {strokeDasharray: "350, 1000"},{strokeDasharray: "220, 1000"}, delaySVG );
+                nrTL.fromTo($(this).find('.price svg ellipse'), time, {strokeDasharray: "300, 1000"},{strokeDasharray: strokeLength}, delaySVG );
             }
 
             //topspeed
             if (speed.length > 0) {
                 var speedVal        = speed.attr('data'),
-                    speedAnimate    = { val: 120 };
-                    
+                    speedAnimate    = { val: 120 },
+                    strokeLength    = ( (parseInt(speedVal) - 125 )/0.635 + ", 1000");
+
                 nrTL.to(speedAnimate, time, {val: speedVal, onUpdate:updateSpeed, ease: Sine.easeOut}, delay);
-                nrTL.fromTo($(this).find('.speed svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: "310, 1000"}, delaySVG );
+                nrTL.fromTo($(this).find('.speed svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: strokeLength}, delaySVG );
             }
 
             //acceleration
             if (acc.length > 0) {
                 var accVal = acc.attr('data').split('.').join("").split(',').join("."),
-                    accAnimate = { val: 0 };
+                    accAnimate      = { val: 0 },
+                    strokeLength    = ( (8.5 - accVal)/0.018 + ", 1000");
+
                 nrTL.to(accAnimate, time, {val: accVal, onUpdate:updateAcceleration, ease:Linear.easeNone}, delay);
-                nrTL.fromTo($(this).find('.acc svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: "220, 1000"}, delaySVG );
+                nrTL.fromTo($(this).find('.acc svg ellipse'), time, {strokeDasharray: "0, 1000"},{strokeDasharray: strokeLength}, delaySVG );
             }
 
             //scene

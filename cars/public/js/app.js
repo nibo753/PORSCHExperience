@@ -39966,9 +39966,9 @@ $(function () {
       e.preventDefault();
 
       if (!drivenOff) {
-        $('.home .intro .parallax.light').addClass('on');
-        $('.home .intro .audio').removeClass('active');
-        $('.home .intro .audio').addClass('disabled');
+        $('.intro .parallax.light').addClass('on');
+        $('.intro .audio').removeClass('active');
+        $('.intro .audio').addClass('disabled');
         $(music).animate({
           volume: 0
         }, 3000);
@@ -40096,7 +40096,8 @@ $(function () {
       /*
        * 
        * ANIMATE CAR NUMBERS
-       * 
+       *
+       * strokeLength = carValue / (maxVal/300 strokelength), 1000
        */
 
       var nrTL = new TimelineMax(),
@@ -40112,10 +40113,6 @@ $(function () {
         price.html(thousandSeparator(priceAnimate.val.toFixed(0).split('.').join(", "), '.'));
       }
 
-      function updatePk() {
-        pk.html(pkAnimate.val.toFixed(0));
-      }
-
       function updateSpeed() {
         speed.html(speedAnimate.val.toFixed(0));
       }
@@ -40129,16 +40126,17 @@ $(function () {
         var priceVal = price.attr('data').split('.').join("").split(',').join("."),
             priceAnimate = {
           val: parseFloat(priceVal) + 15000
-        };
+        },
+            strokeLength = priceVal / 515 + ", 1000";
         nrTL.to(priceAnimate, time, {
           val: priceVal,
           onUpdate: updatePrice,
           ease: Power1.easeOut
         }, delay);
         nrTL.fromTo($(this).find('.price svg ellipse'), time, {
-          strokeDasharray: "350, 1000"
+          strokeDasharray: "300, 1000"
         }, {
-          strokeDasharray: "220, 1000"
+          strokeDasharray: strokeLength
         }, delaySVG);
       } //topspeed
 
@@ -40147,7 +40145,8 @@ $(function () {
         var speedVal = speed.attr('data'),
             speedAnimate = {
           val: 120
-        };
+        },
+            strokeLength = (parseInt(speedVal) - 125) / 0.635 + ", 1000";
         nrTL.to(speedAnimate, time, {
           val: speedVal,
           onUpdate: updateSpeed,
@@ -40156,7 +40155,7 @@ $(function () {
         nrTL.fromTo($(this).find('.speed svg ellipse'), time, {
           strokeDasharray: "0, 1000"
         }, {
-          strokeDasharray: "310, 1000"
+          strokeDasharray: strokeLength
         }, delaySVG);
       } //acceleration
 
@@ -40165,7 +40164,8 @@ $(function () {
         var accVal = acc.attr('data').split('.').join("").split(',').join("."),
             accAnimate = {
           val: 0
-        };
+        },
+            strokeLength = (8.5 - accVal) / 0.018 + ", 1000";
         nrTL.to(accAnimate, time, {
           val: accVal,
           onUpdate: updateAcceleration,
@@ -40174,7 +40174,7 @@ $(function () {
         nrTL.fromTo($(this).find('.acc svg ellipse'), time, {
           strokeDasharray: "0, 1000"
         }, {
-          strokeDasharray: "220, 1000"
+          strokeDasharray: strokeLength
         }, delaySVG);
       } //scene
 

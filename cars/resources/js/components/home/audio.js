@@ -20,9 +20,9 @@ $(function(){
 			e.preventDefault();
 
 			if (!drivenOff) {
-				$('.home .intro .parallax.light').addClass('on');
-				$('.home .intro .audio').removeClass('active');
-				$('.home .intro .audio').addClass('disabled');
+				$('.intro .parallax.light').addClass('on');
+				$('.intro .audio').removeClass('active');
+				$('.intro .audio').addClass('disabled');
 
 				$(music).animate({volume: 0}, 3000);
 				setTimeout(function(){ music.pause() }, 3000);

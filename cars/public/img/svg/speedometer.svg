@@ -36,9 +36,9 @@
 			<feBlend in="SourceGraphic" in2="blurOut"></feBlend>
 		</filter>
 		<linearGradient id="grad" x1="0%" y1="0%" y2="100%">
-			<stop offset="30%" stop-color="#33B3CC"></stop>
-			<stop offset="50%" stop-color="#8EECFE"></stop>
-			<stop offset="70%" stop-color="#33B3CC"></stop>
+			<stop offset="30%" stop-color="#FFF"></stop>
+			<stop offset="50%" stop-color="#F1F1F1"></stop>
+			<stop offset="70%" stop-color="#FFF"></stop>
 		</linearGradient>
 	</defs>
 	<ellipse class="glow" cx="140" cy="140" fill="none" stroke="url(#grad)" stroke-width="6" rx="121" ry="121" filter="url(#filter-glow)" data-svg-origin="115 115" style="stroke-dashoffset: -307; stroke-dasharray: 220, 1000;"></ellipse>
