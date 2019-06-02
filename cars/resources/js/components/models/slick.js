@@ -1,5 +1,5 @@
 var c     = new ScrollMagic.Controller(),
-    check = document.querySelector('.models');
+    check = document.querySelector('body.models');
 
 if ( check ) {
 	$('.model_slider').slick({
@@ -20,7 +20,8 @@ if ( check ) {
 		{
 		breakpoint: 600,
 			settings: {
-				slidesToShow: 1
+				slidesToShow: 1,
+				centerPadding: '50px',
 			}
 		}]
 	});

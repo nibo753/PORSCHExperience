@@ -98,17 +98,3 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
-
-
-/*
- * CUSTOM
- */
-
-.slick-slide {
-    img {
-        opacity: 0.2;
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    &.slick-current img { opacity: 1; }
-}

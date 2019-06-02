@@ -29,6 +29,18 @@
 		width: 100%;
 		height: 100%;
 
+		
+	}
+
+	svg.speedometer {
 		* { transform-origin: center; }
+
+		.circle { fill: $light; stroke: $white; }
+		.inner_1 { fill: none; stroke: $white; }
+		.inner_2 { fill: none; stroke: $accent; }
+		.stripes { fill: none; stroke: $white; }
+		#grad stop:nth-child(1),
+		#grad stop:nth-child(3) { stop-color: #FFF ; }
+		#grad stop:nth-child(2) { stop-color: $white; }
 	}
 }

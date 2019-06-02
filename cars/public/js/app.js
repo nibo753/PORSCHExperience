@@ -39860,7 +39860,7 @@ module.exports = function(module) {
 window.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 window.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 /*
- * Libraries
+ * Local Libraries
  */
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -39903,6 +39903,8 @@ __webpack_require__(/*! ./components/home/data-offset */ "./resources/js/compone
 __webpack_require__(/*! ./components/home/mission-e */ "./resources/js/components/home/mission-e.js");
 
 __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components/home/slide-in.js");
+
+__webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
 __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/models/slick.js");
 
@@ -40056,38 +40058,38 @@ $(function () {
   if (check) {
     // CONTENT FADE IN
     $('.overview section.car').each(function () {
-      var id = '#' + this.id;
+      var id = '#' + this.id; // TITLE FADE
+
       var title = TweenMax.to(id + " .content .title", 0.4, {
-        opacity: 1,
-        ease: Linear.easeNone
+        opacity: 1
       });
       new ScrollMagic.Scene({
         triggerElement: this,
         triggerHook: 0.65,
         duration: "8%"
-      }).setTween(title).addTo(controller);
+      }).setTween(title).addTo(controller); // HR FADE
+
       var hr = TweenMax.to(id + " .content hr", 0.3, {
-        opacity: 1,
-        ease: Linear.easeNone
+        opacity: 1
       });
       new ScrollMagic.Scene({
         triggerElement: this,
         triggerHook: 0.35,
         duration: "8%"
-      }).setTween(hr).addTo(controller);
+      }).setTween(hr).addTo(controller); // SVG FADE
+
       var svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {
-        opacity: 1,
-        ease: Linear.easeNone
+        opacity: 1
       }),
           fade_in_trigger = 0.25;
       new ScrollMagic.Scene({
         triggerElement: this,
         triggerHook: fade_in_trigger,
         duration: "8%"
-      }).setTween(svg_container).addTo(controller);
+      }).setTween(svg_container).addTo(controller); // LINK FADE
+
       var link = TweenMax.to(id + " .content .model_link", 0.3, {
-        opacity: 1,
-        ease: Linear.easeNone
+        opacity: 1
       });
       new ScrollMagic.Scene({
         triggerElement: this,
@@ -40097,7 +40099,6 @@ $(function () {
        * 
        * ANIMATE CAR NUMBERS
        *
-       * strokeLength = carValue / (maxVal/300 strokelength), 1000
        */
 
       var nrTL = new TimelineMax(),
@@ -40105,22 +40106,12 @@ $(function () {
           pk = $(this).find('.pk .value'),
           speed = $(this).find('.speed .value'),
           acc = $(this).find('.acc .value'),
-          time = rnd(1.4, 2),
-          delay = "-=0.8",
+          time = rnd(1.4, 1.8),
+          delay = "-=" + time / 2,
           delaySVG = "-=" + time;
-
-      function updatePrice() {
-        price.html(thousandSeparator(priceAnimate.val.toFixed(0).split('.').join(", "), '.'));
-      }
-
-      function updateSpeed() {
-        speed.html(speedAnimate.val.toFixed(0));
-      }
-
-      function updateAcceleration() {
-        acc.html(accAnimate.val.toFixed(1).split('.').join(","));
-      } //price
-
+      /*
+       * PRICE
+       */
 
       if (price.length > 0) {
         var priceVal = price.attr('data').split('.').join("").split(',').join("."),
@@ -40130,15 +40121,20 @@ $(function () {
             strokeLength = priceVal / 515 + ", 1000";
         nrTL.to(priceAnimate, time, {
           val: priceVal,
-          onUpdate: updatePrice,
-          ease: Power1.easeOut
+          ease: Power1.easeOut,
+          onUpdate: function onUpdate() {
+            price.html(thousandSeparator(priceAnimate.val.toFixed(0).split('.').join(", ")));
+          }
         }, delay);
         nrTL.fromTo($(this).find('.price svg ellipse'), time, {
           strokeDasharray: "300, 1000"
         }, {
           strokeDasharray: strokeLength
         }, delaySVG);
-      } //topspeed
+      }
+      /*
+       * SPEED
+       */
 
 
       if (speed.length > 0) {
@@ -40149,15 +40145,20 @@ $(function () {
             strokeLength = (parseInt(speedVal) - 125) / 0.635 + ", 1000";
         nrTL.to(speedAnimate, time, {
           val: speedVal,
-          onUpdate: updateSpeed,
-          ease: Sine.easeOut
+          ease: Sine.easeOut,
+          onUpdate: function onUpdate() {
+            speed.html(speedAnimate.val.toFixed(0));
+          }
         }, delay);
         nrTL.fromTo($(this).find('.speed svg ellipse'), time, {
           strokeDasharray: "0, 1000"
         }, {
           strokeDasharray: strokeLength
         }, delaySVG);
-      } //acceleration
+      }
+      /*
+       * ACCELERATION
+       */
 
 
       if (acc.length > 0) {
@@ -40168,15 +40169,21 @@ $(function () {
             strokeLength = (8.5 - accVal) / 0.018 + ", 1000";
         nrTL.to(accAnimate, time, {
           val: accVal,
-          onUpdate: updateAcceleration,
-          ease: Linear.easeNone
+          onUpdate: function onUpdate() {
+            acc.html(accAnimate.val.toFixed(1).split('.').join(","));
+          }
         }, delay);
         nrTL.fromTo($(this).find('.acc svg ellipse'), time, {
           strokeDasharray: "0, 1000"
         }, {
           strokeDasharray: strokeLength
         }, delaySVG);
-      } //scene
+      }
+      /*
+       *
+       * SCENE
+       *
+       */
 
 
       new ScrollMagic.Scene({
@@ -40188,8 +40195,8 @@ $(function () {
   }
 });
 
-function thousandSeparator(x, separator) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+function thousandSeparator(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
 function rnd(min, max) {
@@ -40357,6 +40364,50 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/components/models/img-sequence.js":
+/*!********************************************************!*\
+  !*** ./resources/js/components/models/img-sequence.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var c = new ScrollMagic.Controller(),
+      check = document.querySelector('body.models #image_sequence');
+
+  if (check) {
+    var images = [],
+        obj = {
+      curImg: 0 // fill image array
+
+    };
+
+    for (var i = 0; i < imageSequenceCounter; i++) {
+      var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
+      images.push(img);
+    }
+
+    var imageTween = TweenMax.to(obj, 0.5, {
+      curImg: images.length - 1,
+      // animate propery curImg to number of images
+      roundProps: "curImg",
+      // only integers so it can be used as an array index
+      immediateRender: true,
+      // load first image automatically
+      onUpdate: function onUpdate() {
+        $("#image_sequence img").attr("src", images[obj.curImg]);
+      }
+    });
+    new ScrollMagic.Scene({
+      triggerElement: "#model_container nav",
+      duration: "10%"
+    }).setTween(imageTween).addIndicators() // add indicators (requires plugin)
+    .addTo(c);
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/models/slick.js":
 /*!*************************************************!*\
   !*** ./resources/js/components/models/slick.js ***!
@@ -40365,7 +40416,7 @@ $(function () {
 /***/ (function(module, exports) {
 
 var c = new ScrollMagic.Controller(),
-    check = document.querySelector('.models');
+    check = document.querySelector('body.models');
 
 if (check) {
   $('.model_slider').slick({
@@ -40384,7 +40435,8 @@ if (check) {
     }, {
       breakpoint: 600,
       settings: {
-        slidesToShow: 1
+        slidesToShow: 1,
+        centerPadding: '50px'
       }
     }]
   });

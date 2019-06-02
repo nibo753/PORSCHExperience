@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Car;
 use App\Category;
+use File;
 
 class CarController extends Controller
 {
@@ -28,7 +29,6 @@ class CarController extends Controller
 			else {
 				$category->acceleration_sport = number_format($data['acceleration'], 1, ',', '.');
 			}
-			
 		}
 
 		return view('index', ["categories" => $categories]);
@@ -38,6 +38,13 @@ class CarController extends Controller
 		$categories = Category::all();
 		$cars = Car::findByCategoryName($name)->get();
 
-		return view('models', ["cars" => $cars, "categories" => $categories]);
+		//count images for image sequence
+		$path = public_path('/img/'.$name.'/sequence/');
+		$imgCount = 0;
+
+		if (File::exists($path)) { $images = File::files($path); }
+        if (isset($images)) { $imgCount = count($images); }
+
+		return view('models', ["cars" => $cars, "categories" => $categories, "imgCount" => $imgCount]);
 	}
 }

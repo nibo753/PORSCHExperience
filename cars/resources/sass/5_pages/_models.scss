@@ -16,12 +16,26 @@
 
 	#model_container {
 
-		.model_slider {
+		.model_slider .slick-slide {
 			text-align: center;
+			cursor: pointer;
+
 			img {
-				max-width: 65%;
+				max-width: 90%;
 				max-height: 100%;
 				margin: 0 auto;
+			}
+
+			&.slick-current li,
+			&:hover li {
+				$top: $white;
+				$bot: $light;
+
+				background: -moz-linear-gradient(top, rgba($top,1) 50%, rgba($bot,1) 100%); // FF3.6-15
+
+				background: -webkit-linear-gradient(top, rgba($top,1) 50%,rgba($bot,1) 100%); // Chrome10-25,Safari5.1-6
+
+				background: linear-gradient(to bottom, rgba($top,1) 50%,rgba($bot,1) 100%); // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
 			}
 		}
 

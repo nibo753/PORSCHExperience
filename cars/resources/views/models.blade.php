@@ -14,6 +14,17 @@
 
 @else
 <div id="model_container">
+    @if ( $imgCount != 0)
+    <div id="image_sequence">
+        <img src="/img/{{ $cars[0]->category->name }}/sequence/0.webp" alt="image of {{ $cars[0]->category->name }}">
+    </div>
+    <script type="text/javascript">
+        var imageSequenceCounter = <?= json_encode($imgCount); ?>;
+        var imageSequenceModel = <?= json_encode($cars[0]->category->name); ?>;
+    </script>
+    @endif
+
+
     <nav class="">
         <ul class="model_slider">
             @foreach ($cars as $key => $model)
@@ -33,21 +44,21 @@
     <div class="model_info">
         @foreach ($cars as $key => $model)
         <section class="model" id="car_{{$model->id}}">
-            {{$model->name}}
-            {{$model->price}}
-            {{$model->pk}}
-            {{$model->kw}}
-            {{$model->topspeed}}
-            {{$model->acceleration}}
-            {{$model->acceleration_sport}}
-            {{$model->fuel_consuption}}
-            {{$model->emission}}
-            {{$model->drive}}
-            {{$model->height}}
-            {{$model->width}}
-            {{$model->length}}
-            {{$model->weight}}
-            {{$model->luggage}}
+            <p>{{$model->name}}</p>
+            <p>{{$model->price}}</p>
+            <p>{{$model->pk}}</p>
+            <p>{{$model->kw}}</p>
+            <p>{{$model->topspeed}}</p>
+            <p>{{$model->acceleration}}</p>
+            <p>{{$model->acceleration_sport}}</p>
+            <p>{{$model->fuel_consuption}}</p>
+            <p>{{$model->emission}}</p>
+            <p>{{$model->drive}}</p>
+            <p>{{$model->height}}</p>
+            <p>{{$model->width}}</p>
+            <p>{{$model->length}}</p>
+            <p>{{$model->weight}}</p>
+            <p>{{$model->luggage}}</p>
             
             <!--<img data-lazy="img/lazyfonz1.png"/> -->
         </section>
