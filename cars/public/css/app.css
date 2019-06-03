@@ -11598,6 +11598,32 @@ body:not(.home) main {
   border-right: none;
 }
 
+.models #model_container #image_sequence img {
+  width: 100%;
+}
+
+.models #model_container #image_sequence div {
+  position: relative;
+}
+
+.models #model_container #image_sequence h1,
+.models #model_container #image_sequence h2 {
+  position: absolute;
+  left: 0;
+  top: -100px;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  color: #F1F1F1;
+}
+
+.models #model_container #image_sequence h1 {
+  top: -125px;
+}
+
+.models #model_container #image_sequence h2 {
+  font-size: 1.5em;
+}
+
 .models #model_container .model_slider .slick-slide {
   text-align: center;
   cursor: pointer;

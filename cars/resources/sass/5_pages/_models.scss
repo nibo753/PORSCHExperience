@@ -16,6 +16,22 @@
 
 	#model_container {
 
+		#image_sequence {
+			img { width: 100%; }
+
+			div { position: relative; }
+			h1, h2 {
+				position: absolute;
+				left: 0;
+				top: -100px;
+				transform: translateY(-100%);
+				color: $white;
+			}
+
+			h1 { top: -125px; }
+			h2 { font-size: $size_m }
+		}
+
 		.model_slider .slick-slide {
 			text-align: center;
 			cursor: pointer;

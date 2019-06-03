@@ -40116,7 +40116,7 @@ $(function () {
       for (var i = 0; i < loopLength; i++) {
         var element = $(this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') .value'); //skip to next loop if element doesn't exist
 
-        if (element.length <= 0) continue; // SET DEFAULTS
+        if (element.length == 0) continue; // SET DEFAULTS
 
         data[i] = {
           'txt': element,
@@ -40377,7 +40377,7 @@ $(function () {
 
     };
 
-    for (var i = 0; i < imageSequenceCounter; i++) {
+    for (var i = 1; i <= imageSequenceCounter; i++) {
       var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
       images.push(img);
     }
@@ -40386,7 +40386,7 @@ $(function () {
       curImg: images.length - 1,
       // animate propery curImg to number of images
       roundProps: "curImg",
-      // only integers so it can be used as an array index
+      // round to integers so it can be used as an array index
       immediateRender: true,
       // load first image automatically
       onUpdate: function onUpdate() {
@@ -40394,10 +40394,13 @@ $(function () {
       }
     });
     new ScrollMagic.Scene({
-      triggerElement: "#model_container nav",
-      duration: "10%"
-    }).setTween(imageTween).addIndicators() // add indicators (requires plugin)
-    .addTo(c);
+      triggerElement: "#image_sequence",
+      triggerHook: 0,
+      duration: imageSequenceCounter * 50,
+      offset: -+$('header').outerHeight(true)
+    }).setTween(imageTween).setPin('#image_sequence', {
+      pushFollowers: true
+    }).addTo(c);
   }
 });
 
@@ -40410,8 +40413,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var c = new ScrollMagic.Controller(),
-    check = document.querySelector('body.models');
+var check = document.querySelector('body.models');
 
 if (check) {
   $('.model_slider').slick({
@@ -40448,8 +40450,6 @@ if (check) {
   });
 }
 
-$(function () {});
-
 /***/ }),
 
 /***/ "./resources/js/components/refresh.js":
@@ -40476,11 +40476,15 @@ $(window).bind('resize', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function scrollTo(target) {
+function scrollTo(target, duration) {
   $('html,body').stop().animate({
     scrollTop: target.offset().top
-  }, 1500, 'easeInOutQuint');
-} // SMOOTH SCROLL SIDENAV + LOGO
+  }, duration, 'easeInOutQuint');
+}
+/*
+ * #sideNav
+ * home .logo
+ */
 
 
 $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
@@ -40488,15 +40492,18 @@ $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function 
 
   if (target.length) {
     event.preventDefault();
-    scrollTo(target);
+    scrollTo(target, 1500);
   }
-}); // HOME START BUTTON SMOOTH SCROLL
+});
+/*
+ * home start button
+ */
 
 $('.home .intro #start').click(function (e) {
   e.preventDefault();
   var target = $(this).attr('data-car');
   target = $('.car[data-car="' + target + '"]');
-  scrollTo(target);
+  scrollTo(target, 1500);
   $('body.home').removeClass('noscroll');
 });
 

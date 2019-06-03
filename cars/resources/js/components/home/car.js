@@ -72,7 +72,7 @@ $(function() {
                 var element = $(this).find('.svg_container > .svg:nth-child(' + (i+1) +') .value');
 
                 //skip to next loop if element doesn't exist
-                if (element.length <= 0) continue; 
+                if (element.length == 0) continue; 
 
                 // SET DEFAULTS
                 data[i] = {

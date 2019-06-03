@@ -16,7 +16,11 @@
 <div id="model_container">
     @if ( $imgCount != 0)
     <div id="image_sequence">
-        <img src="/img/{{ $cars[0]->category->name }}/sequence/0.webp" alt="image of {{ $cars[0]->category->name }}">
+        <img src="/img/{{ $cars[0]->category->name }}/sequence/1.webp" alt="image of {{ $cars[0]->category->name }}">
+        <div class="container">
+            <div class="row"><h1 class="col">{{ $cars[0]->category->name }} Models</h1></div>
+            <div class="row"><h2 class="col">From &euro; {{ $cars[0]->price }} <span>incl. tax</span></h2></div>
+        </div>
     </div>
     <script type="text/javascript">
         var imageSequenceCounter = <?= json_encode($imgCount); ?>;
@@ -25,7 +29,7 @@
     @endif
 
 
-    <nav class="">
+    <nav class="" id="model_nav">
         <ul class="model_slider">
             @foreach ($cars as $key => $model)
             <li>

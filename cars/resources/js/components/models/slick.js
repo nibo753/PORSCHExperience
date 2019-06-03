@@ -1,5 +1,4 @@
-var c     = new ScrollMagic.Controller(),
-    check = document.querySelector('body.models');
+var check = document.querySelector('body.models');
 
 if ( check ) {
 	$('.model_slider').slick({
@@ -38,8 +37,3 @@ if ( check ) {
 		fade: true
 	});
 }
-
-$(function () {
-    
-    
-});
