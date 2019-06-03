@@ -38,6 +38,9 @@
                     <span class="model_header">{{$cars[0]->category->name}}</span>
                 </div>
                 @endif
+                <div class="col menu">
+                    MENU
+                </div>
             </div>
         </div>
     </header>

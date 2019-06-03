@@ -11029,6 +11029,10 @@ ul {
   font-weight: bold;
 }
 
+header .menu {
+  text-align: right;
+}
+
 .parallax__container {
   clip: rect(0, auto, auto, 0);
   height: 100%;
@@ -11580,9 +11584,10 @@ body:not(.home) main {
   background-image: url(/img/overview/cayenne.png);
 }
 
-.models .model_header {
-  color: #7D7D7D;
+.models .model_name {
   font-size: 1.25em;
+  text-align: center;
+  font-weight: bold;
 }
 
 .models .not_found .msg {
@@ -11598,30 +11603,66 @@ body:not(.home) main {
   border-right: none;
 }
 
-.models #model_container #image_sequence img {
-  width: 100%;
-}
-
-.models #model_container #image_sequence div {
+.models #model_container #image_sequence {
   position: relative;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
-.models #model_container #image_sequence h1,
-.models #model_container #image_sequence h2 {
+.models #model_container #image_sequence img {
+  min-width: 100%;
+  max-width: 125%;
+  max-height: 80vh;
+}
+
+.models #model_container #image_sequence .img_cover {
+  background-color: rgba(0, 0, 0, 0.75);
   position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+}
+
+.models #model_container #image_sequence .img_cover.left {
   left: 0;
-  top: -100px;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+}
+
+.models #model_container #image_sequence .img_cover.right {
+  right: 0;
+}
+
+.models #model_container #image_sequence .container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   color: #F1F1F1;
 }
 
-.models #model_container #image_sequence h1 {
-  top: -125px;
+.models #model_container #image_sequence .content {
+  color: #D6D6D6;
+  font-weight: bold;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
-.models #model_container #image_sequence h2 {
-  font-size: 1.5em;
+.models #model_container #image_sequence .content:not(:first-child) {
+  opacity: 0;
+  -webkit-transform: translate(-50%, 25%);
+          transform: translate(-50%, 25%);
+}
+
+.models #model_container #image_sequence .content h1,
+.models #model_container #image_sequence .content h2 {
+  color: #F1F1F1;
 }
 
 .models #model_container .model_slider .slick-slide {

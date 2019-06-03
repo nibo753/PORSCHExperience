@@ -13,7 +13,7 @@ $(function(){
 
 	 	music.volume = musicVol;
 		music.loop = true;
-		//music.play();
+		music.play();
 
 		// START BUTTON CLICK
 		$('.home .intro #start').click(function (e) {

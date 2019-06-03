@@ -16,16 +16,26 @@
 <div id="model_container">
     @if ( $imgCount != 0)
     <div id="image_sequence">
+        <script type="text/javascript">
+            var imageSequenceCounter = <?= json_encode($imgCount); ?>;
+            var imageSequenceModel = <?= json_encode($cars[0]->category->name); ?>;
+        </script>
         <img src="/img/{{ $cars[0]->category->name }}/sequence/1.webp" alt="image of {{ $cars[0]->category->name }}">
-        <div class="container">
-            <div class="row"><h1 class="col">{{ $cars[0]->category->name }} Models</h1></div>
-            <div class="row"><h2 class="col">From &euro; {{ $cars[0]->price }} <span>incl. tax</span></h2></div>
+        <div class="img_cover left">
+            <div class="content c1 flex">
+                <h1>Design</h1>
+                <p>Tijdloos en eigentijds waren nog nooit zo dicht bij elkaar.</p>
+            </div>
+            <div class="content c2 flex">
+                <h1>Tijdloos</h1>
+                <p>De nieuwe 911 is het resultaat van alle voorgangers – en zodoende zowel retrospectief als een toekomstvisie. Het silhouet: iconisch. Het design: tijdloos. De technologie: geïnspireerd op grote overwinningen en altijd een stap vooruit. Met de 8e generatie van de 911 stevenen we af op de toekomst.</p>
+            </div>
+            <div class="content c3 flex">
+                <h1>{{ $cars[0]->category->name }} Modellen</h1>
+                <p>Vanaf &euro;{{ $cars[0]->price }} incl. BTW</p>
+            </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var imageSequenceCounter = <?= json_encode($imgCount); ?>;
-        var imageSequenceModel = <?= json_encode($cars[0]->category->name); ?>;
-    </script>
     @endif
 
 
