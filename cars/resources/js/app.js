@@ -2,38 +2,78 @@ window.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0
 window.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
 /*
- * Local Libraries
+ * Load jQuery and preLoader
  */
-
 require('./bootstrap');
 require('./lib/jpreloader');
 
-	$('body.home').jpreLoader({
+/*
+ * Create export functions for page-transition.js
+ * required for files that use $(document).ready()
+ * 
+ */
+export function home()
+{
+	$('.home').jpreLoader({
 		showSplash: false,
 		autoClose: false,
 		closeBtnText: "Experience Porsche",
-	}, function() {	
-		//callback function
+	}, function onComplete() {	
+		var home = document.querySelector('.home');
+		if (home) { home.style.backgroundImage = "url(../img/bg.jpg) " }
 	});
 
-require('./lib/jquery.easing');
-require('./lib/universal-parallax');
+	$('.home').SmoothScroll();
+	
+	$('.home').Audio();
+	$('.home').Car();
+	$('.home').DataOffset();
+	$('.home').MissionE();
+	$('.home').SlideIn();
+	
+}
+
+export function models()
+{
+	$('.models').ImgSequence();
+	$('.models').SlickFunc();
+}
+
+
 
 /*
- * NPM Libraries
+ * Load functions on $(document).ready()
+ * recall in page-transition after animation
  */
- 
+$(function(){
+	if ( $('.home').length) 	{ home(); 	}
+	if ( $('.models').length) 	{ models(); }
+})
+
+
+
+
+/*
+ *
+ * IMPORT JS FILES
+ *
+ */
+
+require('./page-transition');
+
+
+// Libraries
+require('./lib/jquery.easing');
+require('./lib/universal-parallax');
+require('./lib/smoothState');
+
+// NPM Libraries
 require('slick-carousel');
 
 
-/*
- *
- * Components
- *
- */
-
+// Components
 require('./components/refresh');
-require('./components/scroll-smooth');
+require('./components/smooth-scroll');
 
 require('./components/home/audio');
 require('./components/home/car');

@@ -1,6 +1,7 @@
-$(function () {
+$.fn.ImgSequence = function()
+{
 	var c	= new ScrollMagic.Controller(),
-	check 	= document.querySelector('body.models #image_sequence');
+	check 	= document.querySelector('.models #image_sequence');
 
 	if ( check ) {
 		var images 			= [],
@@ -37,7 +38,7 @@ $(function () {
 
 
 		// ANIMATE CONTENT INSIDE IMG
-		var contentTimeline = new TimelineMax();
+		var contentTimeline = new TimelineMax(),
 			contentContainers = $('#image_sequence .content');
 
 		for (var i = 1; i <= contentContainers.length; i++) {
@@ -68,4 +69,4 @@ $(function () {
 		.setTween(contentTimeline)
 		.addTo(c);
 	}
-});
+}

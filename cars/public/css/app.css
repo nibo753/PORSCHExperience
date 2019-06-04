@@ -10904,7 +10904,7 @@ ul {
 
 .noscroll {
   position: fixed;
-  overflow-y: scroll;
+  width: 100%;
 }
 
 .audio ~ div {
@@ -11377,7 +11377,7 @@ header.visible {
   display: none;
 }
 
-body:not(.home) main {
+#content:not(.home) main {
   padding-top: 65px;
   background-color: #F1F1F1;
 }
@@ -11410,6 +11410,7 @@ body:not(.home) main {
 
 .home .intro .container {
   position: relative;
+  z-index: 5;
   height: 100%;
 }
 
@@ -11437,6 +11438,10 @@ body:not(.home) main {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+
+.home .intro .parallax__container {
+  z-index: auto;
 }
 
 .home .intro .parallax.dark {

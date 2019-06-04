@@ -1,6 +1,7 @@
-$(function() {
+$.fn.MissionE = function()
+{
     var controllerX = new ScrollMagic.Controller(),
-        controllerY = new ScrollMagic.Controller({vertical: false});
+        controllerY = new ScrollMagic.Controller({vertical: false}),
         check = document.querySelector('#mission-e');
 
     if ( check ) {
@@ -54,4 +55,4 @@ $(function() {
         .setTween(wipeAnimation)
         .addTo(controllerX);
     }
-});
+}

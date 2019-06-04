@@ -187,11 +187,7 @@
             current = items.length;
             setCookie();    //create cookie
 
-            //set BG img
-            var home = document.querySelector('body.home');
-            if (home) {
-                document.body.style.backgroundImage = "url(../img/bg.jpg) ";
-            }
+            
             
             if(jpreOptions.showPercentage) {
                 $('#discover').val(jpreOptions.closeBtnText).removeClass('disabled');
@@ -203,6 +199,8 @@
             if (jpreOptions.debugMode) {
                 var error = debug();
             }
+
+            onComplete();
             
             
             //max progress bar
@@ -249,11 +247,6 @@
             onComplete = callback;
         }
         
-        //show preloader once JS loaded
-        $('body').css({
-            'display': 'block'
-        });
-        
         return this.each(function() {
             if( !(getCookie()) ) {
                 createContainer();
@@ -266,5 +259,4 @@
             }
         });
     };
-
 })(jQuery);

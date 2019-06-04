@@ -1,1 +1,5 @@
-.noscroll { position: fixed; overflow-y:scroll }
+.noscroll {
+	position: fixed;
+	//overflow-y: scroll; set in js
+	width: 100%;
+}

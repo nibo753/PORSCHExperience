@@ -39854,45 +39854,88 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: home, models */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "home", function() { return home; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "models", function() { return models; });
 window.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 window.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 /*
- * Local Libraries
+ * Load jQuery and preLoader
  */
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./lib/jpreloader */ "./resources/js/lib/jpreloader.js");
+/*
+ * Create export functions for page-transition.js
+ * required for files that use $(document).ready()
+ * 
+ */
 
-$('body.home').jpreLoader({
-  showSplash: false,
-  autoClose: false,
-  closeBtnText: "Experience Porsche"
-}, function () {//callback function
+
+function home() {
+  $('.home').jpreLoader({
+    showSplash: false,
+    autoClose: false,
+    closeBtnText: "Experience Porsche"
+  }, function onComplete() {
+    var home = document.querySelector('.home');
+
+    if (home) {
+      home.style.backgroundImage = "url(../img/bg.jpg) ";
+    }
+  });
+  $('.home').SmoothScroll();
+  $('.home').Audio();
+  $('.home').Car();
+  $('.home').DataOffset();
+  $('.home').MissionE();
+  $('.home').SlideIn();
+}
+function models() {
+  $('.models').ImgSequence();
+  $('.models').SlickFunc();
+}
+/*
+ * Load functions on $(document).ready()
+ * recall in page-transition after animation
+ */
+
+$(function () {
+  if ($('.home').length) {
+    home();
+  }
+
+  if ($('.models').length) {
+    models();
+  }
 });
+/*
+ *
+ * IMPORT JS FILES
+ *
+ */
+
+__webpack_require__(/*! ./page-transition */ "./resources/js/page-transition.js"); // Libraries
+
 
 __webpack_require__(/*! ./lib/jquery.easing */ "./resources/js/lib/jquery.easing.js");
 
 __webpack_require__(/*! ./lib/universal-parallax */ "./resources/js/lib/universal-parallax.js");
-/*
- * NPM Libraries
- */
+
+__webpack_require__(/*! ./lib/smoothState */ "./resources/js/lib/smoothState.js"); // NPM Libraries
 
 
-__webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
-/*
- *
- * Components
- *
- */
+__webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js"); // Components
 
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
 
-__webpack_require__(/*! ./components/scroll-smooth */ "./resources/js/components/scroll-smooth.js");
+__webpack_require__(/*! ./components/smooth-scroll */ "./resources/js/components/smooth-scroll.js");
 
 __webpack_require__(/*! ./components/home/audio */ "./resources/js/components/home/audio.js");
 
@@ -39944,10 +39987,15 @@ if (token) {
 /*!***********************************************!*\
   !*** ./resources/js/components/home/audio.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-$(function () {
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+
+
+$.fn.Audio = function () {
   var home = document.querySelector('.home .intro #start');
 
   if (home) {
@@ -39955,14 +40003,18 @@ $(function () {
     var motorIsOn = false,
         drivenOff = false,
         musicVol = 0.5,
-        muteTime = 1200,
+        fadeTime = 1200,
         music = new Audio('sounds/music.mp3'),
         audio_start_motor = new Audio('sounds/start_motor.mp3'),
         audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
         audio_drive_off = new Audio('sounds/drive_off.mp3');
     music.volume = musicVol;
     music.loop = true;
-    music.play(); // START BUTTON CLICK
+
+    if (!_functions__WEBPACK_IMPORTED_MODULE_0__["isPlaying"](music)) {
+      music.play();
+    } // START BUTTON CLICK
+
 
     $('.home .intro #start').click(function (e) {
       e.preventDefault();
@@ -39978,24 +40030,27 @@ $(function () {
           music.pause();
         }, 3000);
         audio_drive_off.play();
-        audioFadeOut(audio_start_motor, 300);
-        audioFadeOut(audio_gas_pedal, 300);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, 300);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_gas_pedal, 300);
         drivenOff = true;
       }
     }); // START BUTTON HOVER
 
-    $('.home .intro #start').hover( // onMouseEnter
+    $('.home .intro #start #discover').hover( // onMouseEnter
     function () {
-      $('.home .intro .parallax.light').addClass('show');
+      if (!$(this).hasClass('.disabled')) {
+        // check if loading finished
+        $('.home .intro .parallax.light').addClass('show');
 
-      if (!motorIsOn && !drivenOff) {
-        audio_start_motor.play();
-      } else if (!drivenOff) {
-        audioFadeOut(audio_start_motor, 300);
-        audio_gas_pedal.play();
+        if (!motorIsOn && !drivenOff) {
+          audio_start_motor.play();
+        } else if (!drivenOff) {
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, 300);
+          audio_gas_pedal.play();
+        }
+
+        motorIsOn = true;
       }
-
-      motorIsOn = true;
     }, // onMouseLeave
     function () {
       $('.home .intro .parallax.light').removeClass('show');
@@ -40007,40 +40062,20 @@ $(function () {
 
         if ($(this).hasClass('active')) {
           music.play();
-          audioFadeIn(music, musicVol, muteTime);
-          audioFadeIn(audio_start_motor, 1, muteTime);
-          audioFadeIn(audio_gas_pedal, 1, muteTime);
-          audioFadeIn(audio_drive_off, 1, muteTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](music, musicVol, fadeTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_start_motor, 1, fadeTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_gas_pedal, 1, fadeTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_drive_off, 1, fadeTime);
         } else {
-          audioFadeOut(music, muteTime);
-          audioFadeOut(audio_start_motor, muteTime);
-          audioFadeOut(audio_gas_pedal, muteTime);
-          audioFadeOut(audio_drive_off, muteTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](music, fadeTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, fadeTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_gas_pedal, fadeTime);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_drive_off, fadeTime);
         }
       }
     });
   }
-});
-
-function audioFadeOut(element, duration) {
-  var x = $(element);
-  x.animate({
-    volume: 0
-  }, duration);
-  setTimeout(function () {
-    x.trigger('pause');
-  }, duration);
-}
-
-function audioFadeIn(element, volume, duration) {
-  var x = $(element);
-  x.animate({
-    volume: 0
-  }, 0);
-  x.animate({
-    volume: volume
-  }, duration);
-}
+};
 
 /***/ }),
 
@@ -40048,12 +40083,17 @@ function audioFadeIn(element, volume, duration) {
 /*!*********************************************!*\
   !*** ./resources/js/components/home/car.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-$(function () {
-  var controller = new ScrollMagic.Controller();
-  check = document.querySelector('.overview');
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+
+
+$.fn.Car = function () {
+  var controller = new ScrollMagic.Controller(),
+      check = document.querySelector('.overview');
 
   if (check) {
     // CONTENT FADE IN
@@ -40109,7 +40149,7 @@ $(function () {
       var numberTimeline = new TimelineMax(),
           loopLength = $(this).find('.svg_container > .svg').length,
           data = {},
-          duration = rnd(1.4, 1.8),
+          duration = _functions__WEBPACK_IMPORTED_MODULE_0__["rnd"](1.4, 1.8),
           delay = "-=" + duration / 2,
           delaySVG = "-=" + duration;
 
@@ -40145,7 +40185,7 @@ $(function () {
           data[i].easing = Power1.easeOut;
 
           var updateHandler = function updateHandler() {
-            data[0].txt.html(thousandSeparator(data[0].startAt.val.toFixed(0)));
+            data[0].txt.html(_functions__WEBPACK_IMPORTED_MODULE_0__["thousandSeparator"](data[0].startAt.val.toFixed(0)));
           };
         } else if (i == 1) {
           // SPEED
@@ -40188,17 +40228,7 @@ $(function () {
       }).setTween(numberTimeline).addTo(controller);
     });
   }
-});
-
-function thousandSeparator(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
-
-function rnd(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-;
+};
 
 /***/ }),
 
@@ -40209,15 +40239,13 @@ function rnd(min, max) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function setDataOffset() {
-  var body = document.querySelector('body.home');
+$.fn.DataOffset = function () {
+  var check = document.querySelector('.home');
 
-  if (body) {
-    body.setAttribute('data-offset', window.h * 0.5);
+  if (check) {
+    document.body.setAttribute('data-offset', window.h * 0.5);
   }
-}
-
-setDataOffset(); //window.addEventListener('resize', setDataOffset);
+};
 
 /***/ }),
 
@@ -40228,12 +40256,12 @@ setDataOffset(); //window.addEventListener('resize', setDataOffset);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(function () {
+$.fn.MissionE = function () {
   var controllerX = new ScrollMagic.Controller(),
       controllerY = new ScrollMagic.Controller({
     vertical: false
-  });
-  check = document.querySelector('#mission-e');
+  }),
+      check = document.querySelector('#mission-e');
 
   if (check) {
     // BACKGROUND COLOR
@@ -40325,7 +40353,7 @@ $(function () {
       duration: "400%"
     }).setPin("#mission-e #sequence").setTween(wipeAnimation).addTo(controllerX);
   }
-});
+};
 
 /***/ }),
 
@@ -40336,7 +40364,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(function () {
+$.fn.SlideIn = function () {
   var c = new ScrollMagic.Controller(),
       check = document.querySelector('.home');
 
@@ -40355,7 +40383,7 @@ $(function () {
       triggerHook: 0.9
     }).setClassToggle("#sideNav", "visible").addTo(c);
   }
-});
+};
 
 /***/ }),
 
@@ -40366,9 +40394,9 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(function () {
+$.fn.ImgSequence = function () {
   var c = new ScrollMagic.Controller(),
-      check = document.querySelector('body.models #image_sequence');
+      check = document.querySelector('.models #image_sequence');
 
   if (check) {
     var images = [],
@@ -40403,8 +40431,8 @@ $(function () {
       pushFollowers: true
     }).addTo(c); // ANIMATE CONTENT INSIDE IMG
 
-    var contentTimeline = new TimelineMax();
-    contentContainers = $('#image_sequence .content');
+    var contentTimeline = new TimelineMax(),
+        contentContainers = $('#image_sequence .content');
 
     for (var i = 1; i <= contentContainers.length; i++) {
       // SET DEFAULTS
@@ -40439,7 +40467,7 @@ $(function () {
       offset: -+$('header').outerHeight(true)
     }).setTween(contentTimeline).addTo(c);
   }
-});
+};
 
 /***/ }),
 
@@ -40450,42 +40478,44 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var check = document.querySelector('body.models');
+$.fn.SlickFunc = function () {
+  var check = document.querySelector('.models');
 
-if (check) {
-  $('.model_slider').slick({
-    asNavFor: '.model_info',
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    arrows: false,
-    centerMode: true,
-    centerPadding: '0px',
-    focusOnSelect: true,
-    responsive: [{
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3
-      }
-    }, {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 1,
-        centerPadding: '50px'
-      }
-    }]
-  });
-  $('.model_info').slick({
-    asNavFor: '.model_slider',
-    lazyLoad: 'ondemand',
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    draggable: false,
-    touchMove: false,
-    speed: 0,
-    fade: true
-  });
-}
+  if (check) {
+    $('.model_slider').slick({
+      asNavFor: '.model_info',
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      arrows: false,
+      centerMode: true,
+      centerPadding: '0px',
+      focusOnSelect: true,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: '50px'
+        }
+      }]
+    });
+    $('.model_info').slick({
+      asNavFor: '.model_slider',
+      lazyLoad: 'ondemand',
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      draggable: false,
+      touchMove: false,
+      speed: 0,
+      fade: true
+    });
+  }
+};
 
 /***/ }),
 
@@ -40506,43 +40536,88 @@ $(window).bind('resize', function (e) {
 
 /***/ }),
 
-/***/ "./resources/js/components/scroll-smooth.js":
+/***/ "./resources/js/components/smooth-scroll.js":
 /*!**************************************************!*\
-  !*** ./resources/js/components/scroll-smooth.js ***!
+  !*** ./resources/js/components/smooth-scroll.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions */ "./resources/js/functions.js");
+
+
+$.fn.SmoothScroll = function () {
+  // #sideNav + home .logo
+  $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
+    var target = $(this.getAttribute('href'));
+
+    if (target.length) {
+      event.preventDefault();
+      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+    }
+  }); //home start button
+
+  $('.home .intro #start').click(function (e) {
+    e.preventDefault();
+    var target = $(this).attr('data-car');
+    target = $('.car[data-car="' + target + '"]');
+    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+    $('.home').removeClass('noscroll');
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/functions.js":
+/*!***********************************!*\
+  !*** ./resources/js/functions.js ***!
+  \***********************************/
+/*! exports provided: scrollTo, audioFadeOut, audioFadeIn, isPlaying, thousandSeparator, rnd */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollTo", function() { return scrollTo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "audioFadeOut", function() { return audioFadeOut; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "audioFadeIn", function() { return audioFadeIn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlaying", function() { return isPlaying; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thousandSeparator", function() { return thousandSeparator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rnd", function() { return rnd; });
 function scrollTo(target, duration) {
   $('html,body').stop().animate({
     scrollTop: target.offset().top
   }, duration, 'easeInOutQuint');
 }
-/*
- * #sideNav
- * home .logo
- */
-
-
-$('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
-  var target = $(this.getAttribute('href'));
-
-  if (target.length) {
-    event.preventDefault();
-    scrollTo(target, 1500);
-  }
-});
-/*
- * home start button
- */
-
-$('.home .intro #start').click(function (e) {
-  e.preventDefault();
-  var target = $(this).attr('data-car');
-  target = $('.car[data-car="' + target + '"]');
-  scrollTo(target, 1500);
-  $('body.home').removeClass('noscroll');
-});
+function audioFadeOut(element, duration) {
+  var x = $(element);
+  x.animate({
+    volume: 0
+  }, duration);
+  setTimeout(function () {
+    x.trigger('pause');
+  }, duration);
+}
+function audioFadeIn(element, volume, duration) {
+  var x = $(element);
+  x.animate({
+    volume: 0
+  }, 0);
+  x.animate({
+    volume: volume
+  }, duration);
+}
+function isPlaying(audio) {
+  return audio.currentAudio && audio.currentAudio.currentTime > 0 && !audio.currentAudio.paused && !audio.currentAudio.ended && audio.currentAudio.readyState > 2;
+}
+function thousandSeparator(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+function rnd(min, max) {
+  return Math.random() * (max - min) + min;
+}
+;
 
 /***/ }),
 
@@ -40741,13 +40816,6 @@ $('.home .intro #start').click(function (e) {
     if (current >= items.length) {
       current = items.length;
       setCookie(); //create cookie
-      //set BG img
-
-      var home = document.querySelector('body.home');
-
-      if (home) {
-        document.body.style.backgroundImage = "url(../img/bg.jpg) ";
-      }
 
       if (jpreOptions.showPercentage) {
         $('#discover').val(jpreOptions.closeBtnText).removeClass('disabled');
@@ -40758,7 +40826,9 @@ $('.home .intro #start').click(function (e) {
 
       if (jpreOptions.debugMode) {
         var error = debug();
-      } //max progress bar
+      }
+
+      onComplete(); //max progress bar
 
       /*$(jBar).stop().animate({
           width: '100%'
@@ -40769,7 +40839,6 @@ $('.home .intro #start').click(function (e) {
           else
               $(jButton).fadeIn(1000);
       });*/
-
     }
   }; //triggered when all images are loaded
 
@@ -40805,12 +40874,8 @@ $('.home .intro #start').click(function (e) {
 
     if (typeof callback == 'function') {
       onComplete = callback;
-    } //show preloader once JS loaded
+    }
 
-
-    $('body').css({
-      'display': 'block'
-    });
     return this.each(function () {
       if (!getCookie()) {
         createContainer();
@@ -41062,6 +41127,835 @@ jQuery.extend(jQuery.easing, {
 
 /***/ }),
 
+/***/ "./resources/js/lib/smoothState.js":
+/*!*****************************************!*\
+  !*** ./resources/js/lib/smoothState.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
+ * smoothState.js is jQuery plugin that progressively enhances
+ * page loads to behave more like a single-page application.
+ *
+ * @author  Miguel Ángel Pérez   reachme@miguel-perez.com
+ * @see     http://smoothstate.com
+ *
+ */
+(function (factory) {
+  'use strict';
+
+  if (( false ? undefined : _typeof(module)) === 'object' && _typeof(module.exports) === 'object') {
+    factory(__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), window, document);
+  } else {
+    factory(jQuery, window, document);
+  }
+})(function ($, window, document, undefined) {
+  'use strict';
+  /** Abort if browser does not support pushState */
+
+  if (!window.history.pushState) {
+    // setup a dummy fn, but don't intercept on link clicks
+    $.fn.smoothState = function () {
+      return this;
+    };
+
+    $.fn.smoothState.options = {};
+    return;
+  }
+  /** Abort if smoothState is already present **/
+
+
+  if ($.fn.smoothState) {
+    return;
+  }
+
+  var
+  /** Used later to scroll page to the top */
+  $body = $('html, body'),
+
+  /** Used in debug mode to console out useful warnings */
+  consl = window.console,
+
+  /** Plugin default options, will be exposed as $fn.smoothState.options */
+  defaults = {
+    /** If set to true, smoothState will log useful debug information instead of aborting */
+    debug: false,
+
+    /** jQuery selector to specify which anchors smoothState should bind to */
+    anchors: 'a',
+
+    /** Regex to specify which href smoothState should load. If empty, every href will be permitted. */
+    hrefRegex: '',
+
+    /** jQuery selector to specify which forms smoothState should bind to */
+    forms: 'form',
+
+    /** If set to true, smoothState will store form responses in the cache. */
+    allowFormCaching: false,
+
+    /** Minimum number of milliseconds between click/submit events. Events ignored beyond this rate are ignored. */
+    repeatDelay: 500,
+
+    /** A selector that defines what should be ignored by smoothState */
+    blacklist: '.no-smoothState',
+
+    /** If set to true, smoothState will prefetch a link's contents on hover */
+    prefetch: false,
+
+    /** The name of the event we will listen to from anchors if we're prefetching */
+    prefetchOn: 'mouseover touchstart',
+
+    /** jQuery selector to specify elements which should not be prefetched */
+    prefetchBlacklist: '.no-prefetch',
+
+    /** The response header field name defining the request's final URI. Useful for resolving redirections. */
+    locationHeader: 'X-SmoothState-Location',
+
+    /** The number of pages smoothState will try to store in memory */
+    cacheLength: 0,
+
+    /** Class that will be applied to the body while the page is loading */
+    loadingClass: 'is-loading',
+
+    /** Scroll to top after onStart and scroll to hash after onReady */
+    scroll: true,
+
+    /**
+     * A function that can be used to alter the ajax request settings before it is called
+     * @param  {Object} request - jQuery.ajax settings object that will be used to make the request
+     * @return {Object}         Altered request object
+     */
+    alterRequest: function alterRequest(request) {
+      return request;
+    },
+
+    /**
+     * A function that can be used to alter the state object before it is updated or added to the browsers history
+     * @param  {Object} state - An object that will be assigned to history entry
+     * @param  {string} title - The history entry's title. For reference only
+     * @param  {string} url   - The history entry's URL. For reference only
+     * @return {Object}         Altered state object
+     */
+    alterChangeState: function alterChangeState(state, title, url) {
+      return state;
+    },
+
+    /** Run before a page load has been activated */
+    onBefore: function onBefore($currentTarget, $container) {},
+
+    /** Run when a page load has been activated */
+    onStart: {
+      duration: 0,
+      render: function render($container) {}
+    },
+
+    /** Run if the page request is still pending and onStart has finished animating */
+    onProgress: {
+      duration: 0,
+      render: function render($container) {}
+    },
+
+    /** Run when requested content is ready to be injected into the page  */
+    onReady: {
+      duration: 0,
+      render: function render($container, $newContent) {
+        $container.html($newContent);
+      }
+    },
+
+    /** Run when content has been injected and all animations are complete  */
+    onAfter: function onAfter($container, $newContent) {}
+  },
+
+  /** Utility functions that are decoupled from smoothState */
+  utility = {
+    /**
+     * Checks to see if the url is external
+     * @param   {string}    url - url being evaluated
+     * @see     http://stackoverflow.com/questions/6238351/fastest-way-to-detect-external-urls
+     *
+     */
+    isExternal: function isExternal(url) {
+      var match = url.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);
+
+      if (typeof match[1] === 'string' && match[1].length > 0 && match[1].toLowerCase() !== window.location.protocol) {
+        return true;
+      }
+
+      if (typeof match[2] === 'string' && match[2].length > 0 && match[2].replace(new RegExp(':(' + {
+        'http:': 80,
+        'https:': 443
+      }[window.location.protocol] + ')?$'), '') !== window.location.host) {
+        return true;
+      }
+
+      return false;
+    },
+
+    /**
+     * Strips the hash from a url and returns the new href
+     * @param   {string}    href - url being evaluated
+     *
+     */
+    stripHash: function stripHash(href) {
+      return href.replace(/#.*/, '');
+    },
+
+    /**
+     * Checks to see if the url is an internal hash
+     * @param   {string}    href - url being evaluated
+     * @param   {string}    prev - previous url (optional)
+     *
+     */
+    isHash: function isHash(href, prev) {
+      prev = prev || window.location.href;
+      var hasHash = href.indexOf('#') > -1 ? true : false,
+          samePath = utility.stripHash(href) === utility.stripHash(prev) ? true : false;
+      return hasHash && samePath;
+    },
+
+    /**
+     * Translates a url string into a $.ajax settings obj
+     * @param  {Object|String} request url or settings obj
+     * @return {Object}        settings object
+     */
+    translate: function translate(request) {
+      var defaults = {
+        dataType: 'html',
+        type: 'GET'
+      };
+
+      if (typeof request === 'string') {
+        request = $.extend({}, defaults, {
+          url: request
+        });
+      } else {
+        request = $.extend({}, defaults, request);
+      }
+
+      return request;
+    },
+
+    /**
+     * Checks to see if we should be loading this URL
+     * @param   {string}    url - url being evaluated
+     * @param   {string}    blacklist - jquery selector
+     *
+     */
+    shouldLoadAnchor: function shouldLoadAnchor($anchor, blacklist, hrefRegex) {
+      var href = $anchor.prop('href'); // URL will only be loaded if it's not an external link, hash, or
+      // blacklisted
+
+      return !utility.isExternal(href) && !utility.isHash(href) && !$anchor.is(blacklist) && !$anchor.prop('target') && (_typeof(hrefRegex) === undefined || hrefRegex === '' || $anchor.prop('href').search(hrefRegex) !== -1);
+    },
+
+    /**
+     * Resets an object if it has too many properties
+     *
+     * This is used to clear the 'cache' object that stores
+     * all of the html. This would prevent the client from
+     * running out of memory and allow the user to hit the
+     * server for a fresh copy of the content.
+     *
+     * @param   {object}    obj
+     * @param   {number}    cap
+     *
+     */
+    clearIfOverCapacity: function clearIfOverCapacity(cache, cap) {
+      // Polyfill Object.keys if it doesn't exist
+      if (!Object.keys) {
+        Object.keys = function (obj) {
+          var keys = [],
+              k;
+
+          for (k in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, k)) {
+              keys.push(k);
+            }
+          }
+
+          return keys;
+        };
+      }
+
+      if (Object.keys(cache).length > cap) {
+        cache = {};
+      }
+
+      return cache;
+    },
+
+    /**
+     * Stores a document fragment into an object
+     * @param   {object}           object - object where it will be stored
+     * @param   {string}           url - name of the entry
+     * @param   {string|document}  doc - entire html
+     * @param   {string}           id - the id of the fragment
+     * @param   {object}           [state] - the history entry's object
+     * @param   {string}           [destUrl] - the destination url
+     * @return  {object}           updated object store
+     */
+    storePageIn: function storePageIn(object, url, doc, id, state, destUrl) {
+      var $html = $('<html></html>').append($(doc));
+
+      if (typeof state === 'undefined') {
+        state = {};
+      }
+
+      if (typeof destUrl === 'undefined') {
+        destUrl = url;
+      }
+
+      object[url] = {
+        // Content is indexed by the url
+        status: 'loaded',
+        // Stores the title of the page, .first() prevents getting svg titles
+        title: $html.find('title').first().text(),
+        html: $html.find('#' + id),
+        // Stores the contents of the page
+        doc: doc,
+        // Stores the whole page document
+        state: state,
+        // Stores the history entry for comparisons,
+        destUrl: destUrl // URL, which will be pushed to history stack
+
+      };
+      return object;
+    },
+
+    /**
+     * Triggers an 'allanimationend' event when all animations are complete
+     * @param   {object}    $element - jQuery object that should trigger event
+     * @param   {string}    resetOn - which other events to trigger allanimationend on
+     *
+     */
+    triggerAllAnimationEndEvent: function triggerAllAnimationEndEvent($element, resetOn) {
+      resetOn = ' ' + resetOn || false;
+
+      var animationCount = 0,
+          animationstart = 'animationstart webkitAnimationStart oanimationstart MSAnimationStart',
+          animationend = 'animationend webkitAnimationEnd oanimationend MSAnimationEnd',
+          eventname = 'allanimationend',
+          onAnimationStart = function onAnimationStart(e) {
+        if ($(e.delegateTarget).is($element)) {
+          e.stopPropagation();
+          animationCount++;
+        }
+      },
+          onAnimationEnd = function onAnimationEnd(e) {
+        if ($(e.delegateTarget).is($element)) {
+          e.stopPropagation();
+          animationCount--;
+
+          if (animationCount === 0) {
+            $element.trigger(eventname);
+          }
+        }
+      };
+
+      $element.on(animationstart, onAnimationStart);
+      $element.on(animationend, onAnimationEnd);
+      $element.on('allanimationend' + resetOn, function () {
+        animationCount = 0;
+        utility.redraw($element);
+      });
+    },
+
+    /** Forces browser to redraw elements */
+    redraw: function redraw($element) {
+      $element.height();
+    }
+  },
+
+  /** Handles the popstate event, like when the user hits 'back' */
+  onPopState = function onPopState(e) {
+    if (e.state !== null) {
+      var url = window.location.href,
+          $page = $('#' + e.state.id),
+          page = $page.data('smoothState'),
+          diffUrl = page.href !== url && !utility.isHash(url, page.href),
+          diffState = e.state !== page.cache[page.href].state;
+
+      if (diffUrl || diffState) {
+        if (diffState) {
+          page.clear(page.href);
+        }
+
+        page.load(url, false);
+      }
+    }
+  },
+
+  /** Constructor function */
+  Smoothstate = function Smoothstate(element, options) {
+    var
+    /** Container element smoothState is run on */
+    $container = $(element),
+
+    /** ID of the main container */
+    elementId = $container.prop('id'),
+
+    /** If a hash was clicked, we'll store it here so we
+     *  can scroll to it once the new page has been fully
+     *  loaded.
+     */
+    targetHash = null,
+
+    /** Used to prevent fetching while we transition so
+     *  that we don't mistakenly override a cache entry
+     *  we need.
+     */
+    isTransitioning = false,
+
+    /** Variable that stores pages after they are requested */
+    cache = {},
+
+    /** Variable that stores data for a history entry */
+    state = {},
+
+    /** Url of the content that is currently displayed */
+    currentHref = window.location.href,
+
+    /**
+     * Clears a given page from the cache, if no url is provided
+     * it will clear the entire cache.
+     * @param  {String} url entry that is to be deleted.
+     */
+    clear = function clear(url) {
+      url = url || false;
+
+      if (url && cache.hasOwnProperty(url)) {
+        delete cache[url];
+      } else {
+        cache = {};
+      }
+
+      $container.data('smoothState').cache = cache;
+    },
+
+    /**
+     * Fetches the contents of a url and stores it in the 'cache' variable
+     * @param  {String|Object}   request  - url or request settings object
+     * @param  {Function}        callback - function that will run as soon as it finishes
+     */
+    fetch = function fetch(request, callback) {
+      // Sets a default in case a callback is not defined
+      callback = callback || $.noop; // Allows us to accept a url string or object as the ajax settings
+
+      var settings = utility.translate(request); // Check the length of the cache and clear it if needed
+
+      cache = utility.clearIfOverCapacity(cache, options.cacheLength); // Don't prefetch if we have the content already or if it's a form
+
+      if (cache.hasOwnProperty(settings.url) && typeof settings.data === 'undefined') {
+        return;
+      } // Let other parts of the code know we're working on getting the content
+
+
+      cache[settings.url] = {
+        status: 'fetching'
+      }; // Make the ajax request
+
+      var ajaxRequest = $.ajax(settings); // Store contents in cache variable if successful
+
+      ajaxRequest.done(function (html) {
+        utility.storePageIn(cache, settings.url, html, elementId);
+        $container.data('smoothState').cache = cache;
+      }); // Mark as error to be acted on later
+
+      ajaxRequest.fail(function () {
+        cache[settings.url].status = 'error';
+      });
+
+      if (options.locationHeader) {
+        ajaxRequest.always(function (htmlOrXhr, status, errorOrXhr) {
+          // Resolve where the XHR is based on done() or fail() argument positions
+          var xhr = htmlOrXhr.statusCode ? htmlOrXhr : errorOrXhr,
+              redirectedLocation = xhr.getResponseHeader(options.locationHeader);
+
+          if (redirectedLocation) {
+            cache[settings.url].destUrl = redirectedLocation;
+          }
+        });
+      } // Call fetch callback
+
+
+      if (callback) {
+        ajaxRequest.always(callback);
+      }
+    },
+        repositionWindow = function repositionWindow() {
+      // Scroll to a hash anchor on destination page
+      if (targetHash) {
+        var $targetHashEl = $(targetHash, $container);
+
+        if ($targetHashEl.length) {
+          var newPosition = $targetHashEl.offset().top;
+          $body.scrollTop(newPosition);
+        }
+
+        targetHash = null;
+      }
+    },
+
+    /** Updates the contents from cache[url] */
+    updateContent = function updateContent(url) {
+      // If the content has been requested and is done:
+      var containerId = '#' + elementId,
+          $newContent = cache[url] ? $(cache[url].html.html()) : null;
+
+      if ($newContent.length) {
+        // Update the title
+        document.title = cache[url].title; // Update current url
+
+        $container.data('smoothState').href = url; // Remove loading class
+
+        if (options.loadingClass) {
+          $body.removeClass(options.loadingClass);
+        } // Call the onReady callback and set delay
+
+
+        options.onReady.render($container, $newContent);
+        $container.one('ss.onReadyEnd', function () {
+          // Allow prefetches to be made again
+          isTransitioning = false; // Run callback
+
+          options.onAfter($container, $newContent);
+
+          if (options.scroll) {
+            repositionWindow();
+          }
+
+          bindPrefetchHandlers($container);
+        });
+        window.setTimeout(function () {
+          $container.trigger('ss.onReadyEnd');
+        }, options.onReady.duration);
+      } else if (!$newContent && options.debug && consl) {
+        // Throw warning to help debug in debug mode
+        consl.warn('No element with an id of ' + containerId + ' in response from ' + url + ' in ' + cache);
+      } else {
+        // No content availble to update with, aborting...
+        window.location = url;
+      }
+    },
+
+    /**
+     * Loads the contents of a url into our container
+     * @param   {string}    url
+     * @param   {bool}      push - used to determine if we should
+     *                      add a new item into the history object
+     * @param   {bool}      cacheResponse - used to determine if
+     *                      we should allow the cache to forget this
+     *                      page after thid load completes.
+     */
+    load = function load(request, push, cacheResponse) {
+      var settings = utility.translate(request);
+      /** Makes these optional variables by setting defaults. */
+
+      if (typeof push === 'undefined') {
+        push = true;
+      }
+
+      if (typeof cacheResponse === 'undefined') {
+        cacheResponse = true;
+      }
+
+      var
+      /** Used to check if the onProgress function has been run */
+      hasRunCallback = false,
+          callbBackEnded = false,
+
+      /** List of responses for the states of the page request */
+      responses = {
+        /** Page is ready, update the content */
+        loaded: function loaded() {
+          var eventName = hasRunCallback ? 'ss.onProgressEnd' : 'ss.onStartEnd';
+
+          if (!callbBackEnded || !hasRunCallback) {
+            $container.one(eventName, function () {
+              updateContent(settings.url);
+
+              if (!cacheResponse) {
+                clear(settings.url);
+              }
+            });
+          } else if (callbBackEnded) {
+            updateContent(settings.url);
+          }
+
+          if (push) {
+            var destUrl = cache[settings.url].destUrl;
+            /** Prepare a history entry */
+
+            state = options.alterChangeState({
+              id: elementId
+            }, cache[settings.url].title, destUrl);
+            /** Update the cache to include the history entry for future comparisons */
+
+            cache[settings.url].state = state;
+            /** Add history entry */
+
+            window.history.pushState(state, cache[settings.url].title, destUrl);
+          }
+
+          if (callbBackEnded && !cacheResponse) {
+            clear(settings.url);
+          }
+        },
+
+        /** Loading, wait 10 ms and check again */
+        fetching: function fetching() {
+          if (!hasRunCallback) {
+            hasRunCallback = true; // Run the onProgress callback and set trigger
+
+            $container.one('ss.onStartEnd', function () {
+              // Add loading class
+              if (options.loadingClass) {
+                $body.addClass(options.loadingClass);
+              }
+
+              options.onProgress.render($container);
+              window.setTimeout(function () {
+                $container.trigger('ss.onProgressEnd');
+                callbBackEnded = true;
+              }, options.onProgress.duration);
+            });
+          }
+
+          window.setTimeout(function () {
+            // Might of been canceled, better check!
+            if (cache.hasOwnProperty(settings.url)) {
+              responses[cache[settings.url].status]();
+            }
+          }, 10);
+        },
+
+        /** Error, abort and redirect */
+        error: function error() {
+          if (options.debug && consl) {
+            consl.log('There was an error loading: ' + settings.url);
+          } else {
+            window.location = settings.url;
+          }
+        }
+      };
+
+      if (!cache.hasOwnProperty(settings.url)) {
+        fetch(settings);
+      } // Run the onStart callback and set trigger
+
+
+      options.onStart.render($container);
+      window.setTimeout(function () {
+        if (options.scroll) {
+          $body.scrollTop(0);
+        }
+
+        $container.trigger('ss.onStartEnd');
+      }, options.onStart.duration); // Start checking for the status of content
+
+      responses[cache[settings.url].status]();
+    },
+
+    /**
+     * Binds to the hover event of a link, used for prefetching content
+     * @param   {object}    event
+     */
+    hoverAnchor = function hoverAnchor(event) {
+      var request,
+          $anchor = $(event.currentTarget);
+
+      if (utility.shouldLoadAnchor($anchor, options.blacklist, options.hrefRegex) && !isTransitioning) {
+        event.stopPropagation();
+        request = utility.translate($anchor.prop('href'));
+        request = options.alterRequest(request);
+        fetch(request);
+      }
+    },
+
+    /**
+     * Binds to the click event of a link, used to show the content
+     * @param   {object}    event
+     */
+    clickAnchor = function clickAnchor(event) {
+      // Ctrl (or Cmd) + click must open a new tab
+      var $anchor = $(event.currentTarget);
+
+      if (!event.metaKey && !event.ctrlKey && utility.shouldLoadAnchor($anchor, options.blacklist, options.hrefRegex)) {
+        // stopPropagation so that event doesn't fire on parent containers.
+        event.stopPropagation();
+        event.preventDefault(); // Apply rate limiting.
+
+        if (!isRateLimited()) {
+          // Set the delay timeout until the next event is allowed.
+          setRateLimitRepeatTime();
+          var request = utility.translate($anchor.prop('href'));
+          isTransitioning = true;
+          targetHash = $anchor.prop('hash'); // Allows modifications to the request
+
+          request = options.alterRequest(request);
+          options.onBefore($anchor, $container);
+          load(request);
+        }
+      }
+    },
+
+    /**
+     * Binds to form submissions
+     * @param  {Event} event
+     */
+    submitForm = function submitForm(event) {
+      var $form = $(event.currentTarget);
+
+      if (!$form.is(options.blacklist)) {
+        event.preventDefault();
+        event.stopPropagation(); // Apply rate limiting.
+
+        if (!isRateLimited()) {
+          // Set the delay timeout until the next event is allowed.
+          setRateLimitRepeatTime();
+          var request = {
+            url: $form.prop('action'),
+            data: $form.serialize(),
+            type: $form.prop('method')
+          };
+          isTransitioning = true;
+          request = options.alterRequest(request);
+
+          if (request.type.toLowerCase() === 'get') {
+            request.url = request.url + '?' + request.data;
+          } // Call the onReady callback and set delay
+
+
+          options.onBefore($form, $container);
+          load(request, undefined, options.allowFormCaching);
+        }
+      }
+    },
+
+    /**
+     * DigitalMachinist (Jeff Rose)
+     * I figured to keep these together with this above functions since they're all related.
+     * Feel free to move these somewhere more appropriate if you have such places.
+     */
+    rateLimitRepeatTime = 0,
+        isRateLimited = function isRateLimited() {
+      var isFirstClick = options.repeatDelay === null;
+      var isDelayOver = parseInt(Date.now()) > rateLimitRepeatTime;
+      return !(isFirstClick || isDelayOver);
+    },
+        setRateLimitRepeatTime = function setRateLimitRepeatTime() {
+      rateLimitRepeatTime = parseInt(Date.now()) + parseInt(options.repeatDelay);
+    },
+
+    /**
+     * Binds prefetch events
+     * @param   {object}    event
+     */
+    bindPrefetchHandlers = function bindPrefetchHandlers($element) {
+      if (options.anchors && options.prefetch) {
+        $element.find(options.anchors).not(options.prefetchBlacklist).on(options.prefetchOn, null, hoverAnchor);
+      }
+    },
+
+    /**
+     * Binds all events and inits functionality
+     * @param   {object}    event
+     */
+    bindEventHandlers = function bindEventHandlers($element) {
+      if (options.anchors) {
+        $element.on('click', options.anchors, clickAnchor);
+        bindPrefetchHandlers($element);
+      }
+
+      if (options.forms) {
+        $element.on('submit', options.forms, submitForm);
+      }
+    },
+
+    /** Restart the container's css animations */
+    restartCSSAnimations = function restartCSSAnimations() {
+      var classes = $container.prop('class');
+      $container.removeClass(classes);
+      utility.redraw($container);
+      $container.addClass(classes);
+    };
+    /** Merge defaults and global options into current configuration */
+
+
+    options = $.extend({}, $.fn.smoothState.options, options);
+    /** Sets a default state */
+
+    if (window.history.state === null) {
+      state = options.alterChangeState({
+        id: elementId
+      }, document.title, currentHref);
+      /** Update history entry */
+
+      window.history.replaceState(state, document.title, currentHref);
+    } else {
+      state = {};
+    }
+    /** Stores the current page in cache variable */
+
+
+    utility.storePageIn(cache, currentHref, document.documentElement.outerHTML, elementId, state);
+    /** Bind all of the event handlers on the container, not anchors */
+
+    utility.triggerAllAnimationEndEvent($container, 'ss.onStartEnd ss.onProgressEnd ss.onEndEnd');
+    /** Bind all of the event handlers on the container, not anchors */
+
+    bindEventHandlers($container);
+    /** Public methods */
+
+    return {
+      href: currentHref,
+      cache: cache,
+      clear: clear,
+      load: load,
+      fetch: fetch,
+      restartCSSAnimations: restartCSSAnimations
+    };
+  },
+
+  /** Returns elements with smoothState attached to it */
+  declaresmoothState = function declaresmoothState(options) {
+    return this.each(function () {
+      var tagname = this.tagName.toLowerCase(); // Checks to make sure the smoothState element has an id and isn't already bound
+
+      if (this.id && tagname !== 'body' && tagname !== 'html' && !$.data(this, 'smoothState')) {
+        // Makes public methods available via $('element').data('smoothState');
+        $.data(this, 'smoothState', new Smoothstate(this, options));
+      } else if (!this.id && consl) {
+        // Throw warning if in debug mode
+        consl.warn('Every smoothState container needs an id but the following one does not have one:', this);
+      } else if ((tagname === 'body' || tagname === 'html') && consl) {
+        // We dont support making th html or the body element the smoothstate container
+        consl.warn('The smoothstate container cannot be the ' + this.tagName + ' tag');
+      }
+    });
+  };
+  /** Sets the popstate function */
+
+
+  window.onpopstate = onPopState;
+  /** Makes utility functions public for unit tests */
+
+  $.smoothStateUtility = utility;
+  /** Defines the smoothState plugin */
+
+  $.fn.smoothState = declaresmoothState;
+  /* expose the default options */
+
+  $.fn.smoothState.options = defaults;
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
 /***/ "./resources/js/lib/universal-parallax.js":
 /*!************************************************!*\
   !*** ./resources/js/lib/universal-parallax.js ***!
@@ -41196,6 +42090,75 @@ var universalParallax = function universalParallax() {
 
 new universalParallax().init({
   speed: 10000
+});
+
+/***/ }),
+
+/***/ "./resources/js/page-transition.js":
+/*!*****************************************!*\
+  !*** ./resources/js/page-transition.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app */ "./resources/js/app.js");
+/*
+ * https://github.com/miguel-perez/smoothState.js
+ *
+ * smoothState.load(url)
+ * This loads the contents of a URL into our container.
+ *
+ * smoothState.fetch(url)
+ * This fetches the contents of a URL and caches it.
+ *
+ * smoothState.clear(url)
+ * This clears a given page from the cache. If no URL is provided it will clear the entire cache.
+ *
+ * smoothState.restartCSSAnimations()
+ * This restarts any CSS animations applying to elements within the smoothState container.
+ *
+ */
+
+$(function () {
+  var options = {
+    prefetch: true,
+    cacheLength: 5,
+    hrefRegex: '/',
+    //required for smooth scroll on #
+    // on link click
+    onBefore: function onBefore($container, $currentTarget) {},
+    // ANIMATION content exit
+    onStart: {
+      duration: 250,
+      render: function render($container) {}
+    },
+    // Loading Indicator
+    onProgress: {
+      duration: 0,
+      render: function render($container) {}
+    },
+    // ANIMATION content in
+    onReady: {
+      duration: 250,
+      render: function render($container, $newContent) {
+        // Inject the new content
+        $container.html($newContent);
+      }
+    },
+    // re-initialize JS files
+    onAfter: function onAfter($container, $newContent) {
+      if ($('.home').length) {
+        _app__WEBPACK_IMPORTED_MODULE_0__["home"]();
+      }
+
+      if ($('.models').length) {
+        _app__WEBPACK_IMPORTED_MODULE_0__["models"]();
+      }
+    }
+  },
+      smoothState = $('#smoothState').smoothState(options).data('smoothState');
 });
 
 /***/ }),

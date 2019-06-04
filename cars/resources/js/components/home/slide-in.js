@@ -1,4 +1,5 @@
-$(function() {
+$.fn.SlideIn = function()
+{
     var c     = new ScrollMagic.Controller(),
         check = document.querySelector('.home');
 
@@ -21,4 +22,4 @@ $(function() {
         .setClassToggle("#sideNav", "visible")
         .addTo(c);
     }
-});
+}

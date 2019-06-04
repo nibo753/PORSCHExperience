@@ -1,4 +1,4 @@
-body:not(.home) main {
+#content:not(.home) main {
 	padding-top: 65px;
 	background-color: $white;
 }
@@ -8,7 +8,7 @@ body:not(.home) main {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	//background set in jpreload onComplete()
+	//bg set in jpreLoader onComplete() to prevent white on load
 
 	h1, h2, h3 { text-align: center; }
 
@@ -17,6 +17,7 @@ body:not(.home) main {
 
 		.container {
 			position: relative;
+			z-index: 5;
 			height: 100%;
 
 			.txt .col {
@@ -44,6 +45,8 @@ body:not(.home) main {
 				transform: translateX(-50%);
 			}
 		}
+
+		.parallax__container { z-index: auto;}
 
 		.parallax.dark {
 			background-image: path('intro_lights_off.jpg');

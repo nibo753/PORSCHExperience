@@ -1,5 +1,8 @@
-$(function() {
-    var controller = new ScrollMagic.Controller()
+import * as f from './../../functions';
+
+$.fn.Car = function()
+{
+    var controller = new ScrollMagic.Controller(),
         check = document.querySelector('.overview');
 
     if ( check ) {
@@ -62,7 +65,7 @@ $(function() {
             var numberTimeline  = new TimelineMax(),
                 loopLength      = $(this).find('.svg_container > .svg').length,
                 data            = {},
-                duration        = rnd(1.4, 1.8),
+                duration        = f.rnd(1.4, 1.8),
                 delay           = "-=" + (duration/2),
                 delaySVG        = "-=" + duration;
 
@@ -98,7 +101,7 @@ $(function() {
                     data[i].easing      = Power1.easeOut;
 
                     var updateHandler = function(){
-                        data[0].txt.html(thousandSeparator(data[0].startAt.val.toFixed(0)));
+                        data[0].txt.html(f.thousandSeparator(data[0].startAt.val.toFixed(0)));
                     }
                 }
                 else if ( i == 1) { // SPEED
@@ -146,12 +149,4 @@ $(function() {
             .addTo(controller);
         });
     }
-});
-
-function thousandSeparator(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
-
-function rnd(min, max) {
-    return (Math.random() * (max - min) + min);
-};
