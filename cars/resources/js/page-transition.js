@@ -22,7 +22,7 @@ $(function() {
 	var options = {
 		prefetch: true,
 		cacheLength: 5,
-		hrefRegex: '/', //required for smooth scroll on #
+		hrefRegex: '/', //required for smooth scroll on #ids
 
 		// on link click
 		onBefore: function($container, $currentTarget){
@@ -41,7 +41,7 @@ $(function() {
 		onProgress: {
 			duration: 0,
 			render: function($container){
-
+				$('#content:not(.models').destroySlick();
 			}
 		},
 
@@ -49,8 +49,6 @@ $(function() {
 		onReady: {
 			duration: 250,
 			render: function ($container, $newContent) {
-
-
 				// Inject the new content
 				$container.html($newContent);
 			}
@@ -58,10 +56,10 @@ $(function() {
 
 		// re-initialize JS files
 		onAfter: function($container, $newContent){
-			if ( $('.home').length) 	{ app.home(); 	}
-			if ( $('.models').length) 	{ app.models(); }
+			if ( $('.home').length) 	{ app.home(); }
+			if ( $('.models').length) 	{ app.models();  }
 		}
-	},
+	};
 
-	smoothState = $('#smoothState').smoothState(options).data('smoothState');
+	//smoothState = $('#smoothState').smoothState(options).data('smoothState');
 });

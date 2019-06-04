@@ -1,4 +1,4 @@
-$.fn.SlickFunc = function()
+$.fn.createSlick = function()
 {
 	var check = document.querySelector('.models');
 	if ( check ) {
@@ -38,4 +38,10 @@ $.fn.SlickFunc = function()
 			fade: true
 		});
 	}
+}
+
+$.fn.destroySlick = function()
+{
+	$('.model_slider').slick('unslick');
+	$('.model_info').slick('unslick');
 }

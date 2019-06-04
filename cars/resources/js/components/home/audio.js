@@ -1,6 +1,6 @@
 import * as f from './../../functions';
 
-$.fn.Audio = function()
+$.fn.createAudio = function()
 {
 	var home = document.querySelector('.home .intro #start');
 	if (home) {
@@ -16,7 +16,7 @@ $.fn.Audio = function()
 
 	 	music.volume = musicVol;
 		music.loop = true;
-		if (!f.isPlaying(music)) {music.play();}
+		//if (!f.isPlaying(music)) {music.play();}
 
 		// START BUTTON CLICK
 		$('.home .intro #start').click(function (e) {

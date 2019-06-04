@@ -57,6 +57,7 @@
     <script src="{{ asset('js/lib/ScrollMagic.js') }}"></script>
     <script src="{{ asset('js/lib/animation.gsap.js') }}"></script>
     <script src="{{ asset('js/lib/debug.addIndicators.js') }}"></script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

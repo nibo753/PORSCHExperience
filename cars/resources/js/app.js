@@ -12,31 +12,42 @@ require('./lib/jpreloader');
  * required for files that use $(document).ready()
  * 
  */
+
+export let loaded_home       = false;
+export let loaded_models     = false;
+
 export function home()
 {
-	$('.home').jpreLoader({
-		showSplash: false,
-		autoClose: false,
-		closeBtnText: "Experience Porsche",
-	}, function onComplete() {	
-		var home = document.querySelector('.home');
-		if (home) { home.style.backgroundImage = "url(../img/bg.jpg) " }
-	});
+	if (!loaded_home) {
+		$('.home').jpreLoader({
+			showSplash: false,
+			autoClose: false,
+			closeBtnText: "Experience Porsche",
+		}, function onComplete() {	
+			var home = document.querySelector('.home');
+			if (home) { home.style.backgroundImage = "url(../img/bg.jpg) " }
+		});
 
-	$('.home').SmoothScroll();
-	
-	$('.home').Audio();
-	$('.home').Car();
-	$('.home').DataOffset();
-	$('.home').MissionE();
-	$('.home').SlideIn();
-	
+		$('.home').createSmoothScroll();
+		
+		$('.home').createAudio();
+		$('.home').createCar();
+		$('.home').createDataOffset();
+		$('.home').createMissionE();
+		$('.home').createSlideIn();
+
+		loaded_home = true;
+	}
 }
 
 export function models()
 {
-	$('.models').ImgSequence();
-	$('.models').SlickFunc();
+	if (!loaded_models) {
+		$('.models').createImgSequence();
+		$('.models').createSlick();
+
+		loaded_models = true;
+	}
 }
 
 
@@ -45,11 +56,11 @@ export function models()
  * Load functions on $(document).ready()
  * recall in page-transition after animation
  */
+
 $(function(){
 	if ( $('.home').length) 	{ home(); 	}
 	if ( $('.models').length) 	{ models(); }
 })
-
 
 
 
@@ -64,8 +75,9 @@ require('./page-transition');
 
 // Libraries
 require('./lib/jquery.easing');
+require('./lib/smooth-state');
 require('./lib/universal-parallax');
-require('./lib/smoothState');
+$('.home').createParallax();
 
 // NPM Libraries
 require('slick-carousel');

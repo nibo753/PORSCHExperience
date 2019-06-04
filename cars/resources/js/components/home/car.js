@@ -1,6 +1,6 @@
 import * as f from './../../functions';
 
-$.fn.Car = function()
+$.fn.createCar = function()
 {
     var controller = new ScrollMagic.Controller(),
         check = document.querySelector('.overview');

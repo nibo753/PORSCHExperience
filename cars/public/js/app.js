@@ -39854,11 +39854,13 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! exports provided: home, models */
+/*! exports provided: loaded_home, loaded_models, home, models */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loaded_home", function() { return loaded_home; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loaded_models", function() { return loaded_models; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "home", function() { return home; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "models", function() { return models; });
 window.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -39877,28 +39879,36 @@ __webpack_require__(/*! ./lib/jpreloader */ "./resources/js/lib/jpreloader.js");
  */
 
 
+var loaded_home = false;
+var loaded_models = false;
 function home() {
-  $('.home').jpreLoader({
-    showSplash: false,
-    autoClose: false,
-    closeBtnText: "Experience Porsche"
-  }, function onComplete() {
-    var home = document.querySelector('.home');
+  if (!loaded_home) {
+    $('.home').jpreLoader({
+      showSplash: false,
+      autoClose: false,
+      closeBtnText: "Experience Porsche"
+    }, function onComplete() {
+      var home = document.querySelector('.home');
 
-    if (home) {
-      home.style.backgroundImage = "url(../img/bg.jpg) ";
-    }
-  });
-  $('.home').SmoothScroll();
-  $('.home').Audio();
-  $('.home').Car();
-  $('.home').DataOffset();
-  $('.home').MissionE();
-  $('.home').SlideIn();
+      if (home) {
+        home.style.backgroundImage = "url(../img/bg.jpg) ";
+      }
+    });
+    $('.home').createSmoothScroll();
+    $('.home').createAudio();
+    $('.home').createCar();
+    $('.home').createDataOffset();
+    $('.home').createMissionE();
+    $('.home').createSlideIn();
+    loaded_home = true;
+  }
 }
 function models() {
-  $('.models').ImgSequence();
-  $('.models').SlickFunc();
+  if (!loaded_models) {
+    $('.models').createImgSequence();
+    $('.models').createSlick();
+    loaded_models = true;
+  }
 }
 /*
  * Load functions on $(document).ready()
@@ -39925,10 +39935,11 @@ __webpack_require__(/*! ./page-transition */ "./resources/js/page-transition.js"
 
 __webpack_require__(/*! ./lib/jquery.easing */ "./resources/js/lib/jquery.easing.js");
 
+__webpack_require__(/*! ./lib/smooth-state */ "./resources/js/lib/smooth-state.js");
+
 __webpack_require__(/*! ./lib/universal-parallax */ "./resources/js/lib/universal-parallax.js");
 
-__webpack_require__(/*! ./lib/smoothState */ "./resources/js/lib/smoothState.js"); // NPM Libraries
-
+$('.home').createParallax(); // NPM Libraries
 
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js"); // Components
 
@@ -39995,7 +40006,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
 
-$.fn.Audio = function () {
+$.fn.createAudio = function () {
   var home = document.querySelector('.home .intro #start');
 
   if (home) {
@@ -40009,12 +40020,8 @@ $.fn.Audio = function () {
         audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
         audio_drive_off = new Audio('sounds/drive_off.mp3');
     music.volume = musicVol;
-    music.loop = true;
-
-    if (!_functions__WEBPACK_IMPORTED_MODULE_0__["isPlaying"](music)) {
-      music.play();
-    } // START BUTTON CLICK
-
+    music.loop = true; //if (!f.isPlaying(music)) {music.play();}
+    // START BUTTON CLICK
 
     $('.home .intro #start').click(function (e) {
       e.preventDefault();
@@ -40091,7 +40098,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
 
-$.fn.Car = function () {
+$.fn.createCar = function () {
   var controller = new ScrollMagic.Controller(),
       check = document.querySelector('.overview');
 
@@ -40239,7 +40246,7 @@ $.fn.Car = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.DataOffset = function () {
+$.fn.createDataOffset = function () {
   var check = document.querySelector('.home');
 
   if (check) {
@@ -40256,7 +40263,7 @@ $.fn.DataOffset = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.MissionE = function () {
+$.fn.createMissionE = function () {
   var controllerX = new ScrollMagic.Controller(),
       controllerY = new ScrollMagic.Controller({
     vertical: false
@@ -40364,7 +40371,7 @@ $.fn.MissionE = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.SlideIn = function () {
+$.fn.createSlideIn = function () {
   var c = new ScrollMagic.Controller(),
       check = document.querySelector('.home');
 
@@ -40394,7 +40401,7 @@ $.fn.SlideIn = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.ImgSequence = function () {
+$.fn.createImgSequence = function () {
   var c = new ScrollMagic.Controller(),
       check = document.querySelector('.models #image_sequence');
 
@@ -40478,7 +40485,7 @@ $.fn.ImgSequence = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.SlickFunc = function () {
+$.fn.createSlick = function () {
   var check = document.querySelector('.models');
 
   if (check) {
@@ -40517,6 +40524,11 @@ $.fn.SlickFunc = function () {
   }
 };
 
+$.fn.destroySlick = function () {
+  $('.model_slider').slick('unslick');
+  $('.model_info').slick('unslick');
+};
+
 /***/ }),
 
 /***/ "./resources/js/components/refresh.js":
@@ -40548,7 +40560,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions */ "./resources/js/functions.js");
 
 
-$.fn.SmoothScroll = function () {
+$.fn.createSmoothScroll = function () {
   // #sideNav + home .logo
   $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
     var target = $(this.getAttribute('href'));
@@ -41127,10 +41139,10 @@ jQuery.extend(jQuery.easing, {
 
 /***/ }),
 
-/***/ "./resources/js/lib/smoothState.js":
-/*!*****************************************!*\
-  !*** ./resources/js/lib/smoothState.js ***!
-  \*****************************************/
+/***/ "./resources/js/lib/smooth-state.js":
+/*!******************************************!*\
+  !*** ./resources/js/lib/smooth-state.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42088,9 +42100,11 @@ var universalParallax = function universalParallax() {
   };
 };
 
-new universalParallax().init({
-  speed: 10000
-});
+$.fn.createParallax = function () {
+  new universalParallax().init({
+    speed: 10000
+  });
+};
 
 /***/ }),
 
@@ -42126,7 +42140,7 @@ $(function () {
     prefetch: true,
     cacheLength: 5,
     hrefRegex: '/',
-    //required for smooth scroll on #
+    //required for smooth scroll on #ids
     // on link click
     onBefore: function onBefore($container, $currentTarget) {},
     // ANIMATION content exit
@@ -42137,7 +42151,9 @@ $(function () {
     // Loading Indicator
     onProgress: {
       duration: 0,
-      render: function render($container) {}
+      render: function render($container) {
+        $('#content:not(.models').destroySlick();
+      }
     },
     // ANIMATION content in
     onReady: {
@@ -42157,8 +42173,7 @@ $(function () {
         _app__WEBPACK_IMPORTED_MODULE_0__["models"]();
       }
     }
-  },
-      smoothState = $('#smoothState').smoothState(options).data('smoothState');
+  }; //smoothState = $('#smoothState').smoothState(options).data('smoothState');
 });
 
 /***/ }),

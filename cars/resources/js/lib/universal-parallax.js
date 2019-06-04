@@ -129,6 +129,8 @@ var universalParallax = function universalParallax() {
 };
 
 
-new universalParallax().init({
-	speed: 10000
-});
+$.fn.createParallax = function(){
+	new universalParallax().init({
+		speed: 10000
+	});
+}

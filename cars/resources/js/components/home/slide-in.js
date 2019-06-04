@@ -1,4 +1,4 @@
-$.fn.SlideIn = function()
+$.fn.createSlideIn = function()
 {
     var c     = new ScrollMagic.Controller(),
         check = document.querySelector('.home');

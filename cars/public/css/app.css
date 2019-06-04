@@ -11199,6 +11199,27 @@ header.visible {
   background-color: white;
 }
 
+.page_transition {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page_transition .color {
+  width: 100%;
+  height: 100%;
+}
+
+.page_transition .c1 {
+  background-color: #B13C3C;
+}
+
+.page_transition .c2 {
+  background-color: #32313c;
+}
+
 #sideNav {
   position: fixed;
   top: 50%;

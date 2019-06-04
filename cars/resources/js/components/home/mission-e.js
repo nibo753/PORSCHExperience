@@ -1,4 +1,4 @@
-$.fn.MissionE = function()
+$.fn.createMissionE = function()
 {
     var controllerX = new ScrollMagic.Controller(),
         controllerY = new ScrollMagic.Controller({vertical: false}),

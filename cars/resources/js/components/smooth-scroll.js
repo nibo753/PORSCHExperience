@@ -1,6 +1,6 @@
 import * as f from './../functions';
 
-$.fn.SmoothScroll = function()
+$.fn.createSmoothScroll = function()
 {   
     // #sideNav + home .logo
     $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function(event) {

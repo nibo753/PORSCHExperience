@@ -1,4 +1,4 @@
-$.fn.ImgSequence = function()
+$.fn.createImgSequence = function()
 {
 	var c	= new ScrollMagic.Controller(),
 	check 	= document.querySelector('.models #image_sequence');
