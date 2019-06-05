@@ -43,7 +43,7 @@ $(function() {
 		onStart: {
 			duration: (SlideIn.duration() * 1000 + 400), //400 for header transition
 			render: function ($container) {
-				$('.page_transition').css({opacity: 1, zIndex: 500});
+				$('.page_transition').css({display: 'block', zIndex: 500});
 				SlideIn.play(0);
 				setTimeout(function(){
 					$('header').removeClass('show');

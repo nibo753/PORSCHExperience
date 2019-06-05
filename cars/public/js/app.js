@@ -42189,7 +42189,7 @@ $(function () {
       //400 for header transition
       render: function render($container) {
         $('.page_transition').css({
-          opacity: 1,
+          display: 'block',
           zIndex: 500
         });
         SlideIn.play(0);

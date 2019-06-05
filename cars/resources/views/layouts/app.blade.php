@@ -60,6 +60,11 @@
                         @endif
                         <div class="col menu">
                             MENU
+                            @foreach ($categories as $category)
+                                @foreach ($category->cars as $name)
+                                    {{ $name }}
+                                @endforeach
+                            @endforeach
                         </div>
                     </div>
                 </div>

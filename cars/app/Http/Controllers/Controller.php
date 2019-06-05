@@ -31,10 +31,10 @@ class Controller extends BaseController
 
 			$category->price 	= $data['price'];
 			$category->topspeed = $data['topspeed'];
-
 			($data['acceleration_sport'] != 0) ? $category->acceleration_sport = $data['acceleration_sport'] : $category->acceleration_sport = $data['acceleration'];
 		}
 
+		$categories = $this->addAllCarsToAllCategories($categories);
 		$categories = $this->formatNumbers($categories);
 
 		return view('index', ["categories" => $categories]);
@@ -43,6 +43,8 @@ class Controller extends BaseController
 	// ROUTE: url/models/$name
 	public function models(Request $request, $name) {
 		$categories = Category::all();
+		$categories = $this->addAllCarsToAllCategories($categories);
+
 		$cars = Car::findByCategoryName($name)->get();
 		$cars = $this->formatNumbers($cars);
 
@@ -75,4 +77,17 @@ class Controller extends BaseController
 		return $data;
 	}
 
+	function addAllCarsToAllCategories($categories)
+	{
+		foreach ($categories as $category) {
+			$allCarNames 	= Car::findByCategoryName($category->name)->select('name')->get();
+			$carNameArray 	= array();
+
+			foreach ($allCarNames as $car) {
+				array_push($carNameArray, $car->name);
+			}
+			$category->cars = $carNameArray;
+		}
+		return $categories;
+	}
 }
