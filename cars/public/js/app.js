@@ -40256,10 +40256,13 @@ $.fn.createCar = function () {
 /***/ (function(module, exports) {
 
 $.fn.createDataOffset = function () {
-  var check = document.querySelector('.home');
+  var home = document.querySelector('.home');
 
-  if (check) {
-    document.body.setAttribute('data-offset', window.h * 0.5);
+  if (home) {
+    $('body').scrollspy({
+      target: '#sideNav',
+      offset: window.h * 0.62
+    });
   }
 };
 
@@ -42142,7 +42145,7 @@ $(function () {
       slideTwo = document.querySelector('.page_transition .c2'),
       slideTest = document.querySelector('.page_transition .c2 .test'),
       slideLogo = document.querySelector('.page_transition .c2 .logo'),
-      duration = 1.6;
+      duration = 1.1;
   var SlideIn = new TimelineMax({
     paused: true
   }).fromTo(slideOne, duration, {
@@ -42167,10 +42170,10 @@ $(function () {
     paused: true
   }).to(slideTwo, duration, {
     x: "100%",
-    ease: Power4.easeInOut
+    ease: Power3.easeInOut
   }).to(slideLogo, duration, {
     x: "-200%",
-    ease: Power4.easeInOut
+    ease: Power3.easeInOut
   }, "=-" + duration),
       options = {
     prefetch: true,
@@ -42178,8 +42181,9 @@ $(function () {
     hrefRegex: '/',
     //required for smooth scroll on #ids
     // on link click
+    // doesn't trigger on going a page back/forward
     onBefore: function onBefore($container, $currentTarget) {},
-    // ANIMATION content exit
+    // ANIMATION exit
     onStart: {
       duration: SlideIn.duration() * 1000 + 400,
       //400 for header transition
@@ -42194,17 +42198,22 @@ $(function () {
         }, SlideIn.duration() * 1000);
       }
     },
-    // ANIMATION content in
+    // Inject the new content
     onReady: {
       duration: SlideOut.duration() * 1000,
       render: function render($container, $newContent) {
-        console.log('change content'); // Inject the new content
-
         $container.html($newContent);
         $('#content').removeClass('animate').css({
           opacity: 0
-        });
-        console.log('slide out');
+        }); //if target is home page, use black bg
+
+        if ($newContent.hasClass('home')) {
+          document.body.style.backgroundColor = '#000';
+        } else {
+          //overwrite class 'dark'
+          document.body.style.backgroundColor = '#FFF';
+        }
+
         SlideOut.play(0);
       }
     },

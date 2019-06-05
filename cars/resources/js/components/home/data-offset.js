@@ -1,5 +1,7 @@
 $.fn.createDataOffset = function()
 {
-	const check = document.querySelector('.home');
-	if (check) { document.body.setAttribute('data-offset', window.h*0.5); }
+	const home = document.querySelector('.home');
+	if (home) {
+		$('body').scrollspy({target: '#sideNav', offset: window.h*0.62})
+	}
 }

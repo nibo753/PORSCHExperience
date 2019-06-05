@@ -15,7 +15,7 @@ $(function() {
 		  slideTwo  = document.querySelector('.page_transition .c2'),
 		  slideTest  = document.querySelector('.page_transition .c2 .test'),
 		  slideLogo = document.querySelector('.page_transition .c2 .logo'),
-		  duration = 1.6;
+		  duration = 1.1;
 
 	let
 	SlideIn = new TimelineMax({paused:true})
@@ -25,8 +25,8 @@ $(function() {
 		.set(slideOne, {x: "100%"}),
 
 	SlideOut = new TimelineMax({paused:true})
-		.to(slideTwo , duration,  {x: "100%", ease: Power4.easeInOut} )
-		.to(slideLogo , duration, {x: "-200%", ease: Power4.easeInOut }, ("=-"+duration)),
+		.to(slideTwo , duration,  {x: "100%", ease: Power3.easeInOut} )
+		.to(slideLogo , duration, {x: "-200%", ease: Power3.easeInOut }, ("=-"+duration)),
 
 	options = {
 		prefetch: true,
@@ -34,11 +34,12 @@ $(function() {
 		hrefRegex: '/', //required for smooth scroll on #ids
 
 		// on link click
+		// doesn't trigger on going a page back/forward
 		onBefore: function($container, $currentTarget){
 			
 		},
 
-		// ANIMATION content exit
+		// ANIMATION exit
 		onStart: {
 			duration: (SlideIn.duration() * 1000 + 400), //400 for header transition
 			render: function ($container) {
@@ -50,16 +51,20 @@ $(function() {
 			}
 		},
 
-		// ANIMATION content in
+		// Inject the new content
 		onReady: {
 			duration: (SlideOut.duration() * 1000),
 			render: function ($container, $newContent) {
-				console.log('change content');
-				// Inject the new content
 				$container.html($newContent);
 				$('#content').removeClass('animate').css({opacity: 0});
 
-				console.log('slide out');
+				//if target is home page, use black bg
+				if ($newContent.hasClass('home')) {
+					document.body.style.backgroundColor = '#000';
+				} else { //overwrite class 'dark'
+					document.body.style.backgroundColor = '#FFF';
+				}
+
 				SlideOut.play(0);
 			}
 		},

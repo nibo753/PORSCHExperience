@@ -1,6 +1,6 @@
-body { 
-	background-color: black;
-	//&.dark { background-color: white; }
+body {
+	background-color: white;
+	&.dark { background-color: black;}
 }
 
 #content {
@@ -16,7 +16,7 @@ body {
 		 * in smoothState.onReady
 		 * location.reload -> animation plays
 		 */
-		animation: fadeInContent 1s;
+		animation: fadeInContent .8s ease-in;
 
 		@keyframes fadeInContent {
 			from { opacity: 0; }

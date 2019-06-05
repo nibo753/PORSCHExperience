@@ -11213,6 +11213,10 @@ header.show {
 }
 
 body {
+  background-color: white;
+}
+
+body.dark {
   background-color: black;
 }
 
@@ -11228,8 +11232,8 @@ body {
    * in smoothState.onReady
    * location.reload -> animation plays
    */
-  -webkit-animation: fadeInContent 1s;
-          animation: fadeInContent 1s;
+  -webkit-animation: fadeInContent 0.8s ease-in;
+          animation: fadeInContent 0.8s ease-in;
 }
 
 @-webkit-keyframes fadeInContent {
