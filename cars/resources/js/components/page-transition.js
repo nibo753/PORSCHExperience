@@ -8,7 +8,7 @@
  * 
  */
 
-import * as app from './app';
+import * as app from './../app';
 
 $(function() {
 	const slideOne  = document.querySelector('.page_transition .c1'),

@@ -55,37 +55,23 @@ export function models()
 
 
 /*
- * Load functions on $(document).ready()
- * recall in page-transition after animation
- */
-
-$(function(){
-	if ( $('.home').length) 	{ home(); 	}
-	if ( $('.models').length) 	{ models(); }
-})
-
-
-
-/*
  *
  * IMPORT JS FILES
  *
  */
 
-require('./page-transition');
-
-
 // Libraries
 require('./lib/jquery.easing');
 require('./lib/smooth-state');
 require('./lib/universal-parallax');
-$('.home').createParallax();
+require('./lib/multi-level-push-menu');
 
 // NPM Libraries
 require('slick-carousel');
 
 
 // Components
+require('./components/page-transition');
 require('./components/refresh');
 require('./components/smooth-scroll');
 
@@ -97,3 +83,22 @@ require('./components/home/slide-in');
 
 require('./components/models/img-sequence');
 require('./components/models/slick');
+
+
+/*
+ * Load functions on $(document).ready()
+ * callback in page-transition after animation
+ */
+
+
+$(function(){
+	if ( $('.home').length) 	{ home(); 	}
+	if ( $('.models').length) 	{ models(); }
+})
+
+$('.home').createParallax();
+
+new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'mp-trigger' ), {
+	type : 'cover' 		// cover or overlap
+	//levelSpacing : 40 // space on overlap
+} );

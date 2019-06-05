@@ -46,7 +46,7 @@
 </head>
 <body class="{{ ( $isHome ) ? 'no-scroll dark' : '' }}">
     <div id="smoothState">
-        <div id="content" class="animate {{ ( $isHome ) ? 'home' : Request::segment(1) }}">
+        <div id="content" class="mp-pusher animate {{ ( $isHome ) ? 'home' : Request::segment(1) }}">
             <header class="{{ ($isHome ) ? '' : 'show' }}">
                 <div class="container">
                     <div class="row">
@@ -58,19 +58,17 @@
                             <span class="model_header">{{$cars[0]->category->name}}</span>
                         </div>
                         @endif
-                        <div class="col menu">
+                        <div class="col hamburger" id="mp-trigger">
                             MENU
-                            @foreach ($categories as $category)
-                                @foreach ($category->cars as $name)
-                                    {{ $name }}
-                                @endforeach
-                            @endforeach
                         </div>
                     </div>
                 </div>
             </header>
-            <main>
-                @yield('content')
+            @include('inc.nav')
+            <main class="scroller">
+                <div class="scroller-inner">
+                    @yield('content')
+                </div>
             </main>
         </div>
     </div>
