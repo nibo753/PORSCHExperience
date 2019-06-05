@@ -26,10 +26,10 @@
     <!-- Favicons -->
 </head>
 <?php ((Request::segment(1) == NULL ) ? $isHome = true : $isHome = false); ?>
-<body data-spy="scroll" data-target="#sideNav" data-offset="200">
-    <div id="smoothState" class="">
-        <div id="content" class="{{ ( $isHome ) ? 'home no-scroll' : Request::segment(1) }}">
-            <header class="{{ ($isHome ) ? '' : 'visible' }}">
+<body class="{{ ( $isHome ) ? 'no-scroll dark' : '' }}" data-spy="scroll" data-target="#sideNav" data-offset="200">
+    <div id="smoothState">
+        <div id="content" class="animate {{ ( $isHome ) ? 'home' : Request::segment(1) }}">
+            <header class="{{ ($isHome ) ? '' : 'show' }}">
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -50,6 +50,10 @@
                 @yield('content')
             </main>
         </div>
+    </div>
+    <div class="page_transition">
+        <div class="color c1"></div>
+        <div class="color c2"><div class="logo white"><span>Porsche</span>xperience</div></div>
     </div>
     
     <!-- Scripts -->

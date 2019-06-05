@@ -1,6 +1,6 @@
 $.fn.createSlick = function()
 {
-	var check = document.querySelector('.models');
+	const check = document.querySelector('.models');
 	if ( check ) {
 		$('.model_slider').slick({
 			asNavFor: '.model_info',

@@ -2,16 +2,16 @@ import * as f from './../../functions';
 
 $.fn.createCar = function()
 {
-    var controller = new ScrollMagic.Controller(),
-        check = document.querySelector('.overview');
+    const   controller  = new ScrollMagic.Controller(),
+            check       = document.querySelector('.overview');
 
     if ( check ) {
         // CONTENT FADE IN
         $('.overview section.car').each(function(){
-            var id = '#' + this.id;
+            let id = '#' + this.id;
 
             // TITLE FADE
-            var title = TweenMax.to(id + " .content .title", 0.4, {opacity: 1});
+            let title = TweenMax.to(id + " .content .title", 0.4, {opacity: 1});
             new ScrollMagic.Scene({
                 triggerElement: this,
                 triggerHook: 0.65,
@@ -21,7 +21,7 @@ $.fn.createCar = function()
             .addTo(controller);
 
             // HR FADE
-            var hr = TweenMax.to(id + " .content hr", 0.3, {opacity: 1});
+            let hr = TweenMax.to(id + " .content hr", 0.3, {opacity: 1});
             new ScrollMagic.Scene({
                 triggerElement: this,
                 triggerHook: 0.35,
@@ -31,7 +31,7 @@ $.fn.createCar = function()
             .addTo(controller);
 
             // SVG FADE
-            var svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {opacity: 1}),
+            let svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {opacity: 1}),
                 fade_in_trigger = 0.25;
             new ScrollMagic.Scene({
                 triggerElement: this,
@@ -42,7 +42,7 @@ $.fn.createCar = function()
             .addTo(controller);
 
             // LINK FADE
-            var link = TweenMax.to(id + " .content .model_link", 0.3, {opacity: 1});
+            let link = TweenMax.to(id + " .content .model_link", 0.3, {opacity: 1});
             new ScrollMagic.Scene({
                 triggerElement: this,
                 triggerHook: 0.15
@@ -62,7 +62,7 @@ $.fn.createCar = function()
              * Create tween and add to timeline
              */
 
-            var numberTimeline  = new TimelineMax(),
+            let numberTimeline  = new TimelineMax(),
                 loopLength      = $(this).find('.svg_container > .svg').length,
                 data            = {},
                 duration        = f.rnd(1.4, 1.8),
@@ -70,9 +70,9 @@ $.fn.createCar = function()
                 delaySVG        = "-=" + duration;
 
 
-            for(var i = 0; i < loopLength; i++){
+            for(let i = 0; i < loopLength; i++){
 
-                var element = $(this).find('.svg_container > .svg:nth-child(' + (i+1) +') .value');
+                let element = $(this).find('.svg_container > .svg:nth-child(' + (i+1) +') .value');
 
                 //skip to next loop if element doesn't exist
                 if (element.length == 0) continue; 
@@ -88,7 +88,7 @@ $.fn.createCar = function()
                     'easing'      : Linear.easeNone
                 };
 
-                var updateHandler = function(){
+                let updateHandler = function(){
                     console.log('no function for element ' + i);
                 }
 
@@ -100,7 +100,7 @@ $.fn.createCar = function()
                     data[i].strokeEnd   = (data[i].animateTo) /515 + ", 1000";
                     data[i].easing      = Power1.easeOut;
 
-                    var updateHandler = function(){
+                    updateHandler = function(){
                         data[0].txt.html(f.thousandSeparator(data[0].startAt.val.toFixed(0)));
                     }
                 }
@@ -108,14 +108,14 @@ $.fn.createCar = function()
                     data[i].strokeEnd   = (parseInt(data[i].animateTo) - 125 )/0.635 + ", 1000";
                     data[i].easing      = Sine.easeOut;
 
-                    var updateHandler = function(){
+                    updateHandler = function(){
                         data[1].txt.html(data[1].startAt.val.toFixed(0));
                     }
                 }
                 else if ( i == 2) { // ACCELERATION
                     data[i].strokeEnd   = (8.5 - data[i].animateTo)/0.018 + ", 1000";
 
-                    var updateHandler = function(){
+                    updateHandler = function(){
                         data[2].txt.html(data[2].startAt.val.toFixed(1).split('.').join(","));
                     }
                 }

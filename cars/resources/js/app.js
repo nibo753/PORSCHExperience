@@ -9,7 +9,8 @@ require('./lib/jpreloader');
 
 /*
  * Create export functions for page-transition.js
- * required for files that use $(document).ready()
+ * Required for files that use $(document).ready()
+ * Only use the required JS for the page
  * 
  */
 
@@ -28,6 +29,7 @@ export function home()
 			if (home) { home.style.backgroundImage = "url(../img/bg.jpg) " }
 		});
 
+		
 		$('.home').createSmoothScroll();
 		
 		$('.home').createAudio();

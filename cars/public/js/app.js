@@ -39874,7 +39874,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ./lib/jpreloader */ "./resources/js/lib/jpreloader.js");
 /*
  * Create export functions for page-transition.js
- * required for files that use $(document).ready()
+ * Required for files that use $(document).ready()
+ * Only use the required JS for the page
  * 
  */
 
@@ -40012,8 +40013,8 @@ $.fn.createAudio = function () {
   if (home) {
     // AUDIO
     var motorIsOn = false,
-        drivenOff = false,
-        musicVol = 0.5,
+        drivenOff = false;
+    var musicVol = 0.5,
         fadeTime = 1200,
         music = new Audio('sounds/music.mp3'),
         audio_start_motor = new Audio('sounds/start_motor.mp3'),
@@ -40105,6 +40106,8 @@ $.fn.createCar = function () {
   if (check) {
     // CONTENT FADE IN
     $('.overview section.car').each(function () {
+      var _this = this;
+
       var id = '#' + this.id; // TITLE FADE
 
       var title = TweenMax.to(id + " .content .title", 0.4, {
@@ -40160,15 +40163,15 @@ $.fn.createCar = function () {
           delay = "-=" + duration / 2,
           delaySVG = "-=" + duration;
 
-      for (var i = 0; i < loopLength; i++) {
-        var element = $(this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') .value'); //skip to next loop if element doesn't exist
+      var _loop = function _loop(i) {
+        var element = $(_this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') .value'); //skip to next loop if element doesn't exist
 
-        if (element.length == 0) continue; // SET DEFAULTS
+        if (element.length == 0) return "continue"; // SET DEFAULTS
 
         data[i] = {
           'txt': element,
           'animateTo': element.attr('data').split('.').join("").split(',').join("."),
-          'ellipse': $(this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') svg ellipse'),
+          'ellipse': $(_this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') svg ellipse'),
           'startAt': {
             val: 0
           },
@@ -40191,7 +40194,7 @@ $.fn.createCar = function () {
           data[i].strokeEnd = data[i].animateTo / 515 + ", 1000";
           data[i].easing = Power1.easeOut;
 
-          var updateHandler = function updateHandler() {
+          updateHandler = function updateHandler() {
             data[0].txt.html(_functions__WEBPACK_IMPORTED_MODULE_0__["thousandSeparator"](data[0].startAt.val.toFixed(0)));
           };
         } else if (i == 1) {
@@ -40199,14 +40202,14 @@ $.fn.createCar = function () {
           data[i].strokeEnd = (parseInt(data[i].animateTo) - 125) / 0.635 + ", 1000";
           data[i].easing = Sine.easeOut;
 
-          var updateHandler = function updateHandler() {
+          updateHandler = function updateHandler() {
             data[1].txt.html(data[1].startAt.val.toFixed(0));
           };
         } else if (i == 2) {
           // ACCELERATION
           data[i].strokeEnd = (8.5 - data[i].animateTo) / 0.018 + ", 1000";
 
-          var updateHandler = function updateHandler() {
+          updateHandler = function updateHandler() {
             data[2].txt.html(data[2].startAt.val.toFixed(1).split('.').join(","));
           };
         } // CREATE TWEEN AND ADD TO TIMELINE
@@ -40222,6 +40225,12 @@ $.fn.createCar = function () {
         }, {
           strokeDasharray: data[i].strokeEnd
         }, delaySVG);
+      };
+
+      for (var i = 0; i < loopLength; i++) {
+        var _ret = _loop(i);
+
+        if (_ret === "continue") continue;
       }
       /*
        * CREATE SCENE
@@ -40372,7 +40381,7 @@ $.fn.createMissionE = function () {
 /***/ (function(module, exports) {
 
 $.fn.createSlideIn = function () {
-  var c = new ScrollMagic.Controller(),
+  var contr = new ScrollMagic.Controller(),
       check = document.querySelector('.home');
 
   if (check) {
@@ -40382,13 +40391,13 @@ $.fn.createSlideIn = function () {
       offset: -+$('header').outerHeight(true),
       triggerHook: 0.9 //same as marginbot
 
-    }).setClassToggle("header", "visible").addTo(c); // SIDENAV SLIDE IN
+    }).setClassToggle("header", "show").addTo(contr); // SIDENAV SLIDE IN
 
     new ScrollMagic.Scene({
       triggerElement: ".overview",
       offset: -+$('header').outerHeight(true),
       triggerHook: 0.9
-    }).setClassToggle("#sideNav", "visible").addTo(c);
+    }).setClassToggle("#sideNav", "show").addTo(contr);
   }
 };
 
@@ -40441,26 +40450,26 @@ $.fn.createImgSequence = function () {
     var contentTimeline = new TimelineMax(),
         contentContainers = $('#image_sequence .content');
 
-    for (var i = 1; i <= contentContainers.length; i++) {
+    for (var _i = 1; _i <= contentContainers.length; _i++) {
       // SET DEFAULTS
       var yFadeIn = "-10%",
           yFadeOut = "-20%"; // last element
 
-      if (contentContainers.length == i) {
+      if (contentContainers.length == _i) {
         yFadeIn = "0";
       } // fade in if not first element
 
 
-      if (i != 1) {
-        contentTimeline.to("#image_sequence .content.c" + [i], 0.4, {
+      if (_i != 1) {
+        contentTimeline.to("#image_sequence .content.c" + [_i], 0.4, {
           opacity: 1,
           y: yFadeIn
         }, "-=0.08");
       } //fade out if not last element
 
 
-      if (contentContainers.length != i) {
-        contentTimeline.to("#image_sequence .content.c" + [i], 0.4, {
+      if (contentContainers.length != _i) {
+        contentTimeline.to("#image_sequence .content.c" + [_i], 0.4, {
           opacity: 0,
           y: yFadeOut
         });
@@ -40543,7 +40552,7 @@ $(window).bind('resize', function (e) {
   window.RT = setTimeout(function () {
     this.location.reload(false);
     /* false to get page from cache */
-  }, 100);
+  }, 200);
 });
 
 /***/ }),
@@ -42121,22 +42130,49 @@ __webpack_require__.r(__webpack_exports__);
 /*
  * https://github.com/miguel-perez/smoothState.js
  *
- * smoothState.load(url)
- * This loads the contents of a URL into our container.
- *
- * smoothState.fetch(url)
- * This fetches the contents of a URL and caches it.
- *
- * smoothState.clear(url)
- * This clears a given page from the cache. If no URL is provided it will clear the entire cache.
- *
- * smoothState.restartCSSAnimations()
- * This restarts any CSS animations applying to elements within the smoothState container.
- *
+ * prefetch page on link hover
+ * on click play animation
+ * load content during logo
+ * refresh page from cache to reset JS
+ * 
  */
 
 $(function () {
-  var options = {
+  var slideOne = document.querySelector('.page_transition .c1'),
+      slideTwo = document.querySelector('.page_transition .c2'),
+      slideTest = document.querySelector('.page_transition .c2 .test'),
+      slideLogo = document.querySelector('.page_transition .c2 .logo'),
+      duration = 1.6;
+  var SlideIn = new TimelineMax({
+    paused: true
+  }).fromTo(slideOne, duration, {
+    x: "-100%"
+  }, {
+    x: "0%",
+    ease: Power4.easeInOut
+  }).fromTo(slideTwo, duration, {
+    x: "-100%"
+  }, {
+    x: "0%",
+    ease: Power4.easeInOut
+  }, "=-" + (duration - 0.2)).fromTo(slideLogo, duration, {
+    x: "0"
+  }, {
+    x: "-100%",
+    ease: Power4.easeInOut
+  }, "=-" + duration).set(slideOne, {
+    x: "100%"
+  }),
+      SlideOut = new TimelineMax({
+    paused: true
+  }).to(slideTwo, duration, {
+    x: "100%",
+    ease: Power4.easeInOut
+  }).to(slideLogo, duration, {
+    x: "-200%",
+    ease: Power4.easeInOut
+  }, "=-" + duration),
+      options = {
     prefetch: true,
     cacheLength: 5,
     hrefRegex: '/',
@@ -42145,35 +42181,41 @@ $(function () {
     onBefore: function onBefore($container, $currentTarget) {},
     // ANIMATION content exit
     onStart: {
-      duration: 250,
-      render: function render($container) {}
-    },
-    // Loading Indicator
-    onProgress: {
-      duration: 0,
+      duration: SlideIn.duration() * 1000 + 400,
+      //400 for header transition
       render: function render($container) {
-        $('#content:not(.models').destroySlick();
+        $('.page_transition').css({
+          opacity: 1,
+          zIndex: 500
+        });
+        SlideIn.play(0);
+        setTimeout(function () {
+          $('header').removeClass('show');
+        }, SlideIn.duration() * 1000);
       }
     },
     // ANIMATION content in
     onReady: {
-      duration: 250,
+      duration: SlideOut.duration() * 1000,
       render: function render($container, $newContent) {
-        // Inject the new content
+        console.log('change content'); // Inject the new content
+
         $container.html($newContent);
+        $('#content').removeClass('animate').css({
+          opacity: 0
+        });
+        console.log('slide out');
+        SlideOut.play(0);
       }
     },
     // re-initialize JS files
     onAfter: function onAfter($container, $newContent) {
-      if ($('.home').length) {
-        _app__WEBPACK_IMPORTED_MODULE_0__["home"]();
-      }
-
-      if ($('.models').length) {
-        _app__WEBPACK_IMPORTED_MODULE_0__["models"]();
-      }
+      //if ( $('.home').length) 		{ app.home(); 	}
+      //if ( $('.models').length) 	{ app.models(); }
+      location.reload(false);
     }
-  }; //smoothState = $('#smoothState').smoothState(options).data('smoothState');
+  },
+      smoothState = $('#smoothState').smoothState(options).data('smoothState');
 });
 
 /***/ }),

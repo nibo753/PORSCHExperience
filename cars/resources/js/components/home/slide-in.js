@@ -1,7 +1,7 @@
 $.fn.createSlideIn = function()
 {
-    var c     = new ScrollMagic.Controller(),
-        check = document.querySelector('.home');
+    const   contr = new ScrollMagic.Controller(),
+            check = document.querySelector('.home');
 
     if ( check ) {
         // HEADER SLIDE IN
@@ -10,8 +10,8 @@ $.fn.createSlideIn = function()
             offset: - + $('header').outerHeight(true),
             triggerHook: 0.9, //same as marginbot
         })
-        .setClassToggle("header", "visible")
-        .addTo(c);
+        .setClassToggle("header", "show")
+        .addTo(contr);
 
         // SIDENAV SLIDE IN
         new ScrollMagic.Scene({
@@ -19,7 +19,7 @@ $.fn.createSlideIn = function()
             offset: - + $('header').outerHeight(true),
             triggerHook: 0.9,
         })
-        .setClassToggle("#sideNav", "visible")
-        .addTo(c);
+        .setClassToggle("#sideNav", "show")
+        .addTo(contr);
     }
 }

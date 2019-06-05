@@ -2,12 +2,13 @@ import * as f from './../../functions';
 
 $.fn.createAudio = function()
 {
-	var home = document.querySelector('.home .intro #start');
+	const home = document.querySelector('.home .intro #start');
 	if (home) {
 		// AUDIO
-		var motorIsOn = false,
-			drivenOff = false,
-			musicVol = 0.5,
+		let motorIsOn = false,
+			drivenOff = false;
+			
+		const musicVol = 0.5,
 			fadeTime = 1200,
 			music 				= new Audio('sounds/music.mp3'),
 			audio_start_motor 	= new Audio('sounds/start_motor.mp3'),

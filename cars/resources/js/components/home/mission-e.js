@@ -1,12 +1,12 @@
 $.fn.createMissionE = function()
 {
-    var controllerX = new ScrollMagic.Controller(),
-        controllerY = new ScrollMagic.Controller({vertical: false}),
-        check = document.querySelector('#mission-e');
+    const   controllerX = new ScrollMagic.Controller(),
+            controllerY = new ScrollMagic.Controller({vertical: false}),
+            check       = document.querySelector('#mission-e');
 
     if ( check ) {
         // BACKGROUND COLOR
-        var bg = new TimelineMax()
+        let bg = new TimelineMax()
         .to("#mission-e", 0.4, {backgroundColor: '#000'})
         .to(".home .overview", 0.4, {backgroundColor: '#000'}, 0);
 
@@ -18,7 +18,7 @@ $.fn.createMissionE = function()
         .addTo(controllerX);
 
         // FADE IN TEASER TXT
-        var fadeAnimation = new TimelineMax()
+        let fadeAnimation = new TimelineMax()
         .staggerTo("#mission-e .title .fade", 0.3, {opacity: 1, ease:Linear.easeNone}, 0.4);
 
         new ScrollMagic.Scene({
@@ -31,7 +31,7 @@ $.fn.createMissionE = function()
 
         // MOVEMENT PANELS
         // number at end => moves at same time as prev tween
-        var wipeAnimation = new TimelineMax()
+        let wipeAnimation = new TimelineMax()
         .fromTo("#sequence .panel.p1", 1, {x: "100%"}, {x: "0%", ease: Linear.easeNone})
         .fromTo("#sequence .panel.p1 img", 1, {x: "0"}, {x: "100%", ease: Linear.easeNone}, 0)
         .fromTo("#sequence .panel.p2", 1, {x: "-100%"}, {x: "0%", ease: Linear.easeNone})

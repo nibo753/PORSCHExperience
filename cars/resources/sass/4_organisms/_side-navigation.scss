@@ -5,7 +5,7 @@
 	z-index: 10;
 	transition: 0.4s transform ease-in-out;
 
-	&.visible { transform: translateX(calc(-100% + 95px)) translateY(-50%); }
+	&.show { transform: translateX(calc(-100% + 95px)) translateY(-50%); }
 
 	ul li  {
 		display: table;

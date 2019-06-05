@@ -10686,7 +10686,7 @@ body {
 
 html main,
 body main {
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 /* calc width */
@@ -10904,7 +10904,7 @@ ul {
 
 .noscroll {
   position: fixed;
-  width: 100%;
+  overflow-y: scroll;
 }
 
 .audio ~ div {
@@ -11023,10 +11023,23 @@ ul {
   text-decoration: none;
 }
 
+.logo.white {
+  color: #F1F1F1;
+}
+
+.logo.white:hover,
+.logo.white:focus {
+  color: #F1F1F1;
+}
+
 .slogan {
   color: #7D7D7D;
   letter-spacing: 0.5px;
   font-weight: bold;
+}
+
+.slogan.white {
+  color: #F1F1F1;
 }
 
 header .menu {
@@ -11141,7 +11154,7 @@ header {
   transition: 0.4s transform ease-in-out, 0.4s -webkit-transform ease-in-out;
 }
 
-header.visible {
+header.show {
   -webkit-transform: translateY(0%);
           transform: translateY(0%);
 }
@@ -11199,17 +11212,68 @@ header.visible {
   background-color: white;
 }
 
+body {
+  background-color: black;
+}
+
+#content:not(.home) main {
+  padding-top: 65px;
+  background-color: #F1F1F1;
+}
+
+#content.animate {
+  /*
+   * ONLY on page refresh
+   * class removed before page transition
+   * in smoothState.onReady
+   * location.reload -> animation plays
+   */
+  -webkit-animation: fadeInContent 1s;
+          animation: fadeInContent 1s;
+}
+
+@-webkit-keyframes fadeInContent {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .page_transition {
-  position: absolute;
-  left: 0;
+  overflow: hidden;
+  position: fixed;
   top: 0;
-  width: 100vw;
+  left: 0;
+  width: 100%;
   height: 100vh;
+  opacity: 0;
+}
+
+.page_transition div {
+  position: absolute;
+  width: 100%;
 }
 
 .page_transition .color {
-  width: 100%;
-  height: 100%;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
 }
 
 .page_transition .c1 {
@@ -11217,7 +11281,17 @@ header.visible {
 }
 
 .page_transition .c2 {
-  background-color: #32313c;
+  background-color: black;
+  color: white;
+}
+
+.page_transition .logo {
+  top: 50%;
+  left: 100%;
+  text-align: center;
+  font-size: 3em;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 #sideNav {
@@ -11232,7 +11306,7 @@ header.visible {
   transition: 0.4s transform ease-in-out, 0.4s -webkit-transform ease-in-out;
 }
 
-#sideNav.visible {
+#sideNav.show {
   -webkit-transform: translateX(calc(-100% + 95px)) translateY(-50%);
           transform: translateX(calc(-100% + 95px)) translateY(-50%);
 }
@@ -11398,11 +11472,6 @@ header.visible {
   display: none;
 }
 
-#content:not(.home) main {
-  padding-top: 65px;
-  background-color: #F1F1F1;
-}
-
 .home {
   background-color: black;
   background-size: cover;
@@ -11438,19 +11507,6 @@ header.visible {
 .home .intro .container .txt .col {
   padding-top: 10%;
   padding-left: calc(15px + 10%);
-}
-
-.home .intro .container .logo {
-  color: #F1F1F1;
-}
-
-.home .intro .container .logo:hover,
-.home .intro .container .logo:focus {
-  color: #F1F1F1;
-}
-
-.home .intro .container .slogan {
-  color: #F1F1F1;
 }
 
 .home .intro .container .start_btn {

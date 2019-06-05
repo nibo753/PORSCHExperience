@@ -5,7 +5,7 @@ export function scrollTo(target, duration) {
 }
 
 export function audioFadeOut(element, duration) {
-	var x = $(element);
+	const x = $(element);
 	x.animate({volume: 0}, duration);
 	setTimeout(function(){
 		x.trigger('pause');
@@ -13,7 +13,7 @@ export function audioFadeOut(element, duration) {
 }
 
 export function audioFadeIn(element, volume, duration) {
-	var x = $(element);
+	const x = $(element);
 	x.animate({volume: 0}, 0);
 	x.animate({volume: volume}, duration);
 }

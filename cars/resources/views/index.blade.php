@@ -13,8 +13,8 @@
                     <div class="bar"></div>
                 </div>
                 <div>
-                    <div class="logo"><span>Porsche</span>xperience</div>
-                    <div class="slogan">Designed to experience</div>
+                    <div class="logo white"><span>Porsche</span>xperience</div>
+                    <div class="slogan white">Designed to experience</div>
                 </div>
             </div>
         </div>

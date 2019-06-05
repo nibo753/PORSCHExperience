@@ -1,21 +1,21 @@
 $.fn.createImgSequence = function()
 {
-	var c	= new ScrollMagic.Controller(),
-	check 	= document.querySelector('.models #image_sequence');
+	const 	c		= new ScrollMagic.Controller(),
+			check 	= document.querySelector('.models #image_sequence');
 
 	if ( check ) {
-		var images 			= [],
+		let images 			= [],
 			obj 			= {curImg: 0},
 			sceneDuration 	= (imageSequenceCounter * 50);
 
 		// fill image array
-		for ( var i = 1; i <= imageSequenceCounter; i++) {
-			var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
+		for ( let i = 1; i <= imageSequenceCounter; i++) {
+			let img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
 			images.push(img);
 		}
 
 		// ANIMATE IMG
-		var imageTween = TweenMax.to(obj, 0.5,
+		let imageTween = TweenMax.to(obj, 0.5,
 			{
 				curImg: images.length - 1,	// animate propery curImg to number of images
 				roundProps: "curImg",	// round to integers so it can be used as an array index
@@ -38,12 +38,12 @@ $.fn.createImgSequence = function()
 
 
 		// ANIMATE CONTENT INSIDE IMG
-		var contentTimeline = new TimelineMax(),
+		let contentTimeline = new TimelineMax(),
 			contentContainers = $('#image_sequence .content');
 
-		for (var i = 1; i <= contentContainers.length; i++) {
+		for (let i = 1; i <= contentContainers.length; i++) {
 			// SET DEFAULTS
-			var yFadeIn = "-10%",
+			let yFadeIn = "-10%",
 				yFadeOut = "-20%";
 
 			// last element
