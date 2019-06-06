@@ -11,7 +11,7 @@
 						<a class="mp-back" href="#">back</a>
 						<ul>
 							@foreach ($category->cars as $name)
-								<li><a href="#">{{ $name }}</a></li>
+								<li><a href="#">{{ $name != "" ? $name : "Standard" }}</a></li>
 							@endforeach
 						</ul>
 					</div>

@@ -39966,8 +39966,7 @@ $(function () {
 });
 $('.home').createParallax();
 new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('mp-trigger'), {
-  type: 'cover' // cover or overlap
-  //levelSpacing : 40 // space on overlap
+  type: 'cover' // cover or overlap(not styled)
 
 });
 
@@ -41470,7 +41469,7 @@ jQuery.extend(jQuery.easing, {
       var levelFactor = (this.level - 1) * this.options.levelSpacing,
           translateVal = this.options.type === 'overlap' ? this.el.offsetWidth + levelFactor : this.el.offsetWidth;
 
-      this._setTransform('translate3d(' + translateVal + 'px,0,0)');
+      this._setTransform(translateVal);
 
       if (subLevel) {
         // reset transform for sublevel
@@ -41481,7 +41480,7 @@ jQuery.extend(jQuery.easing, {
           var levelEl = this.levels[i];
 
           if (levelEl != subLevel && !levelEl.classList.contains('mp-level-open')) {
-            this._setTransform('translate3d(-100%,0,0) translate3d(' + -1 * levelFactor + 'px,0,0)', levelEl);
+            this._setTransform(-1 * levelFactor, levelEl);
           }
         }
       } // add class mp-pushed to main wrapper if opening the first time
@@ -41497,7 +41496,7 @@ jQuery.extend(jQuery.easing, {
     },
     // close the menu
     _resetMenu: function _resetMenu() {
-      this._setTransform('translate3d(0,0,0)');
+      this._setTransform('0');
 
       this.level = 0; // remove class mp-pushed from main wrapper
 
@@ -41511,16 +41510,13 @@ jQuery.extend(jQuery.easing, {
     _closeMenu: function _closeMenu() {
       var translateVal = this.options.type === 'overlap' ? this.el.offsetWidth + (this.level - 1) * this.options.levelSpacing : this.el.offsetWidth;
 
-      this._setTransform('translate3d(' + translateVal + 'px,0,0)');
+      this._setTransform(translateVal);
 
       this._toggleLevels();
     },
     // translate the el
-    _setTransform: function _setTransform(val, el) {
-      el = el || this.wrapper;
-      el.style.WebkitTransform = val;
-      el.style.MozTransform = val;
-      el.style.transform = val;
+    _setTransform: function _setTransform(val, el) {//el = el || this.wrapper;
+      //el.style.transform = 'translateX(' + val + 'px)';
     },
     // removes classes mp-level-open from closing levels
     _toggleLevels: function _toggleLevels() {

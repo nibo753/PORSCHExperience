@@ -46,7 +46,7 @@
 </head>
 <body class="{{ ( $isHome ) ? 'no-scroll dark' : '' }}">
     <div id="smoothState">
-        <div id="content" class="mp-pusher animate {{ ( $isHome ) ? 'home' : Request::segment(1) }}">
+        <div id="content" class="mp-fade animate {{ ( $isHome ) ? 'home' : Request::segment(1) }}">
             <header class="{{ ($isHome ) ? '' : 'show' }}">
                 <div class="container">
                     <div class="row">
@@ -65,10 +65,8 @@
                 </div>
             </header>
             @include('inc.nav')
-            <main class="scroller">
-                <div class="scroller-inner">
-                    @yield('content')
-                </div>
+            <main>
+                @yield('content')
             </main>
         </div>
     </div>

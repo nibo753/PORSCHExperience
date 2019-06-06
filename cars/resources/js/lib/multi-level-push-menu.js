@@ -175,7 +175,7 @@
 			var levelFactor = ( this.level - 1 ) * this.options.levelSpacing,
 				translateVal = this.options.type === 'overlap' ? this.el.offsetWidth + levelFactor : this.el.offsetWidth;
 			
-			this._setTransform( 'translate3d(' + translateVal + 'px,0,0)' );
+			this._setTransform( translateVal );
 
 			if( subLevel ) {
 				// reset transform for sublevel
@@ -184,7 +184,7 @@
 				for( var i = 0, len = this.levels.length; i < len; ++i ) {
 					var levelEl = this.levels[i];
 					if( levelEl != subLevel && !levelEl.classList.contains('mp-level-open') ) {
-						this._setTransform( 'translate3d(-100%,0,0) translate3d(' + -1*levelFactor + 'px,0,0)', levelEl );
+						this._setTransform( -1*levelFactor , levelEl );
 					}
 				}
 			}
@@ -198,7 +198,7 @@
 		},
 		// close the menu
 		_resetMenu : function() {
-			this._setTransform('translate3d(0,0,0)');
+			this._setTransform('0');
 			this.level = 0;
 			// remove class mp-pushed from main wrapper
 			this.wrapper.classList.remove('mp-pushed');
@@ -208,15 +208,13 @@
 		// close sub menus
 		_closeMenu : function() {
 			var translateVal = this.options.type === 'overlap' ? this.el.offsetWidth + ( this.level - 1 ) * this.options.levelSpacing : this.el.offsetWidth;
-			this._setTransform( 'translate3d(' + translateVal + 'px,0,0)' );
+			this._setTransform( translateVal );
 			this._toggleLevels();
 		},
 		// translate the el
 		_setTransform : function( val, el ) {
-			el = el || this.wrapper;
-			el.style.WebkitTransform = val;
-			el.style.MozTransform = val;
-			el.style.transform = val;
+			//el = el || this.wrapper;
+			//el.style.transform = 'translateX(' + val + 'px)';
 		},
 		// removes classes mp-level-open from closing levels
 		_toggleLevels : function() {

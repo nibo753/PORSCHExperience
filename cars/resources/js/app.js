@@ -99,6 +99,5 @@ $(function(){
 $('.home').createParallax();
 
 new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'mp-trigger' ), {
-	type : 'cover' 		// cover or overlap
-	//levelSpacing : 40 // space on overlap
+	type : 'cover' 		// cover or overlap(not styled)
 } );
