@@ -12,3 +12,9 @@ export function _openMenu() {
 export function _closeMenu() {
 	nav._closeMenu();
 }
+
+
+$('.mp-level a.active').on('click', function(e){
+	e.preventDefault();
+	nav._resetMenu();
+})

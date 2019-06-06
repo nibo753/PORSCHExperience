@@ -40522,10 +40522,22 @@ $.fn.createImgSequence = function () {
 /***/ (function(module, exports) {
 
 $.fn.createSlick = function () {
-  var check = document.querySelector('.models');
+  var check = document.querySelector('.models'),
+      modelSlider = $('.model_slider'),
+      modelInfo = $('.model_info');
 
-  if (check) {
-    $('.model_slider').slick({
+  if (check && modelSlider.length && modelInfo.length) {
+    var url = new URL(window.location.href);
+    var index = parseInt(url.searchParams.get("slide")),
+        amount = document.querySelectorAll('#model_nav .model_slider li').length; // if index undefined or not within slider range
+
+    if (!index || amount < index && index > amount) {
+      index = 0;
+    } // INITIALIZE SLICK SLIDERS
+
+
+    modelSlider.slick({
+      initialSlide: index,
       asNavFor: '.model_info',
       slidesToScroll: 1,
       slidesToShow: 3,
@@ -40546,7 +40558,8 @@ $.fn.createSlick = function () {
         }
       }]
     });
-    $('.model_info').slick({
+    modelInfo.slick({
+      initialSlide: index,
       asNavFor: '.model_slider',
       lazyLoad: 'ondemand',
       slidesToShow: 1,
@@ -40556,6 +40569,16 @@ $.fn.createSlick = function () {
       touchMove: false,
       speed: 0,
       fade: true
+    }); //update class slick-current
+
+    modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGE
+    // not added to history to prevent back/forward failing
+
+    modelSlider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
+      if (window.history.replaceState) {
+        var updateUrl = url.origin + url.pathname + '?slide=' + currentSlide;
+        window.history.replaceState(currentSlide, 'slide', updateUrl);
+      }
     });
   }
 };
@@ -40593,6 +40616,11 @@ function _openMenu() {
 function _closeMenu() {
   nav._closeMenu();
 }
+$('.mp-level a.active').on('click', function (e) {
+  e.preventDefault();
+
+  nav._resetMenu();
+});
 
 /***/ }),
 
@@ -40732,8 +40760,6 @@ $(window).bind('resize', function (e) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions */ "./resources/js/functions.js");
-/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nav */ "./resources/js/components/nav.js");
-
 
 
 $.fn.createSmoothScroll = function () {
@@ -40744,8 +40770,6 @@ $.fn.createSmoothScroll = function () {
     if (target.length) {
       event.preventDefault();
       _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
-
-      _nav__WEBPACK_IMPORTED_MODULE_1__["_resetMenu"]();
     }
   }); //home start button
 

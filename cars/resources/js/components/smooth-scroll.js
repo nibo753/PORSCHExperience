@@ -1,5 +1,4 @@
 import * as f from './../functions';
-import * as nav from './nav';
 
 $.fn.createSmoothScroll = function()
 {   
@@ -10,7 +9,6 @@ $.fn.createSmoothScroll = function()
             event.preventDefault();
 
             f.scrollTo(target, 1500);
-            nav._resetMenu();
         }
     });
 

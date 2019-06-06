@@ -11166,6 +11166,12 @@ header.show {
           transform: translateY(0%);
 }
 
+@media only screen and (max-width: 630px) {
+  header .model_name {
+    display: none;
+  }
+}
+
 #mission-e {
   overflow: hidden;
   position: relative;
@@ -11227,20 +11233,19 @@ header.show {
 
 .mp-fade-content:after {
   position: fixed;
+  z-index: -1;
   top: 0;
   right: 0;
-  width: 0;
-  height: 0;
+  width: 100%;
+  height: 100%;
   content: "";
   opacity: 0;
-  z-index: 15;
   transition: opacity 0.4s;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .mp-fade-content.mp-active:after {
-  width: 100%;
-  height: 100%;
+  z-index: 10;
   opacity: 1;
 }
 
@@ -11304,7 +11309,7 @@ nav.mp-menu .mp-level:before {
   height: 100%;
   content: "";
   opacity: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   transition: opacity 0.3s;
 }
 
@@ -11315,6 +11320,12 @@ nav.mp-menu .mp-level.mp-level-overlay:before {
 
 nav.mp-menu > .mp-level {
   padding-top: 13px;
+}
+
+@media only screen and (max-width: 630px) {
+  nav.mp-menu > .mp-level {
+    padding-top: 11px;
+  }
 }
 
 /*
@@ -11332,6 +11343,7 @@ nav.mp-menu h2 {
   padding: 1em;
   text-transform: uppercase;
   font-size: 1em;
+  text-align: center;
 }
 
 nav.mp-menu h2:not(.logo) {
@@ -11515,6 +11527,12 @@ body.dark {
   transition: 0.4s -webkit-transform ease-in-out;
   transition: 0.4s transform ease-in-out;
   transition: 0.4s transform ease-in-out, 0.4s -webkit-transform ease-in-out;
+}
+
+@media only screen and (max-width: 630px) {
+  #sideNav {
+    display: none;
+  }
 }
 
 #sideNav.show {

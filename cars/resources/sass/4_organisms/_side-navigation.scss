@@ -1,4 +1,6 @@
 #sideNav {
+	@include respond-to(phone) { display: none; }
+	
 	position: fixed;
 	top: 50%; left: 0;
 	transform: translateX(-100%) translateY(-50%);

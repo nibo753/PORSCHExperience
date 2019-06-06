@@ -10,4 +10,8 @@ header {
 	transition: 0.4s transform ease-in-out;
 
 	&.show { transform: translateY(0%); }
+
+	.model_name {
+		@include respond-to(phone) { display: none; }
+	}
 }
