@@ -46,7 +46,7 @@
 </head>
 <body class="{{ ( $isHome ) ? 'no-scroll dark' : '' }}">
     <div id="smoothState">
-        <div id="content" class="mp-fade animate {{ ( $isHome ) ? 'home' : Request::segment(1) }}">
+        <div id="content" class="animate {{ ( $isHome ) ? 'home' : Request::segment(1) }} mp-fade-content">
             <header class="{{ ($isHome ) ? '' : 'show' }}">
                 <div class="container">
                     <div class="row">
@@ -58,8 +58,8 @@
                             <span class="model_header">{{$cars[0]->category->name}}</span>
                         </div>
                         @endif
-                        <div class="col hamburger" id="mp-trigger">
-                            MENU
+                        <div class="col flex">
+                            <div class="hamburger" id="mp-trigger">MENU</div>
                         </div>
                     </div>
                 </div>

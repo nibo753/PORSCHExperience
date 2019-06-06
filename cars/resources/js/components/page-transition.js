@@ -30,7 +30,7 @@ $(function() {
 
 	options = {
 		prefetch: true,
-		cacheLength: 5,
+		cacheLength: 6,
 		hrefRegex: '/', //required for smooth scroll on #ids
 
 		// on link click

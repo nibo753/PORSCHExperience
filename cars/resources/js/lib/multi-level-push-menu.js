@@ -188,9 +188,9 @@
 					}
 				}
 			}
-			// add class mp-pushed to main wrapper if opening the first time
+			// add class mp-active to main wrapper if opening the first time
 			if( this.level === 1 ) {
-				this.wrapper.classList.add('mp-pushed');
+				this.wrapper.classList.add('mp-active');
 				this.open = true;
 			}
 			// add class mp-level-open to the opening level element
@@ -200,8 +200,8 @@
 		_resetMenu : function() {
 			this._setTransform('0');
 			this.level = 0;
-			// remove class mp-pushed from main wrapper
-			this.wrapper.classList.remove('mp-pushed');
+			// remove class mp-active from main wrapper
+			this.wrapper.classList.remove('mp-active');
 			this._toggleLevels();
 			this.open = false;
 		},

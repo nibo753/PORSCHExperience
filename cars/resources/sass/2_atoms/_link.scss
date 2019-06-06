@@ -1,9 +1,10 @@
 a {
-	text-decoration: underline;
+	outline: none;
+	text-decoration: none;
 	transition: color 0.2s ease-in-out;
 
 	&:hover,
 	&:focus {
-		
+		text-decoration: none;
 	}
 }

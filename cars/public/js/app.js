@@ -39930,6 +39930,8 @@ __webpack_require__(/*! ./lib/multi-level-push-menu */ "./resources/js/lib/multi
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js"); // Components
 
 
+__webpack_require__(/*! ./components/nav */ "./resources/js/components/nav.js");
+
 __webpack_require__(/*! ./components/page-transition */ "./resources/js/components/page-transition.js");
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
@@ -39965,10 +39967,6 @@ $(function () {
   }
 });
 $('.home').createParallax();
-new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('mp-trigger'), {
-  type: 'cover' // cover or overlap(not styled)
-
-});
 
 /***/ }),
 
@@ -40387,27 +40385,46 @@ $.fn.createMissionE = function () {
 /*!**************************************************!*\
   !*** ./resources/js/components/home/slide-in.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../nav */ "./resources/js/components/nav.js");
+
 
 $.fn.createSlideIn = function () {
   var contr = new ScrollMagic.Controller(),
       check = document.querySelector('.home');
 
   if (check) {
-    // HEADER SLIDE IN
-    new ScrollMagic.Scene({
-      triggerElement: ".overview",
-      offset: -+$('header').outerHeight(true),
-      triggerHook: 0.9 //same as marginbot
+    var el = ".overview",
+        navbar = -+$('header').outerHeight(true),
+        startAt = 0.9,
+        //same as marginbot
+    navVar = _nav__WEBPACK_IMPORTED_MODULE_0__; // HEADER SLIDE IN
 
+    new ScrollMagic.Scene({
+      triggerElement: el,
+      offset: navbar,
+      triggerHook: startAt
     }).setClassToggle("header", "show").addTo(contr); // SIDENAV SLIDE IN
 
     new ScrollMagic.Scene({
-      triggerElement: ".overview",
-      offset: -+$('header').outerHeight(true),
-      triggerHook: 0.9
-    }).setClassToggle("#sideNav", "show").addTo(contr);
+      triggerElement: el,
+      offset: navbar,
+      triggerHook: startAt
+    }).setClassToggle("#sideNav", "show").addTo(contr); // resetNAV if scrolling up
+
+    new ScrollMagic.Scene({
+      triggerElement: el,
+      offset: navbar,
+      triggerHook: startAt
+    }).addTo(contr).on("start", function (e) {
+      if (e.type == "start") {
+        _nav__WEBPACK_IMPORTED_MODULE_0__["_resetMenu"]();
+      }
+    });
   }
 };
 
@@ -40550,6 +40567,35 @@ $.fn.destroySlick = function () {
 
 /***/ }),
 
+/***/ "./resources/js/components/nav.js":
+/*!****************************************!*\
+  !*** ./resources/js/components/nav.js ***!
+  \****************************************/
+/*! exports provided: _resetMenu, _openMenu, _closeMenu */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_resetMenu", function() { return _resetMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_openMenu", function() { return _openMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_closeMenu", function() { return _closeMenu; });
+var menu = document.getElementById('mp-menu'),
+    hamburger = document.getElementById('mp-trigger');
+var nav = new mlPushMenu(menu, hamburger, {
+  type: 'cover'
+});
+function _resetMenu() {
+  nav._resetMenu();
+}
+function _openMenu() {
+  nav._openMenu();
+}
+function _closeMenu() {
+  nav._closeMenu();
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/page-transition.js":
 /*!****************************************************!*\
   !*** ./resources/js/components/page-transition.js ***!
@@ -40607,7 +40653,7 @@ $(function () {
   }, "=-" + duration),
       options = {
     prefetch: true,
-    cacheLength: 5,
+    cacheLength: 6,
     hrefRegex: '/',
     //required for smooth scroll on #ids
     // on link click
@@ -40686,16 +40732,20 @@ $(window).bind('resize', function (e) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions */ "./resources/js/functions.js");
+/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nav */ "./resources/js/components/nav.js");
+
 
 
 $.fn.createSmoothScroll = function () {
-  // #sideNav + home .logo
-  $('#sideNav a[href^="#"], .home header a[href^="#"].logo').on('click', function (event) {
+  // #sidenav + home logo
+  $('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
     var target = $(this.getAttribute('href'));
 
     if (target.length) {
       event.preventDefault();
       _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+
+      _nav__WEBPACK_IMPORTED_MODULE_1__["_resetMenu"]();
     }
   }); //home start button
 
@@ -40703,8 +40753,8 @@ $.fn.createSmoothScroll = function () {
     e.preventDefault();
     var target = $(this).attr('data-car');
     target = $('.car[data-car="' + target + '"]');
-    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
     $('.home').removeClass('noscroll');
+    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
   });
 };
 
@@ -41483,11 +41533,11 @@ jQuery.extend(jQuery.easing, {
             this._setTransform(-1 * levelFactor, levelEl);
           }
         }
-      } // add class mp-pushed to main wrapper if opening the first time
+      } // add class mp-active to main wrapper if opening the first time
 
 
       if (this.level === 1) {
-        this.wrapper.classList.add('mp-pushed');
+        this.wrapper.classList.add('mp-active');
         this.open = true;
       } // add class mp-level-open to the opening level element
 
@@ -41498,9 +41548,9 @@ jQuery.extend(jQuery.easing, {
     _resetMenu: function _resetMenu() {
       this._setTransform('0');
 
-      this.level = 0; // remove class mp-pushed from main wrapper
+      this.level = 0; // remove class mp-active from main wrapper
 
-      this.wrapper.classList.remove('mp-pushed');
+      this.wrapper.classList.remove('mp-active');
 
       this._toggleLevels();
 

@@ -1,30 +1,10 @@
-nav.mp-menu {
-	position: fixed;
-	top: 0;
-	right: 0;
-	z-index: 20;
-	width: 300px;
-	height: 100%;
-	transform: translateX(100%);
+/*
+ *
+ * STYLING STRUCTURE
+ *
+ */
 
-	.mp-level {
-		position: absolute;
-		z-index: 1;
-		top: 0;
-		padding-top: 65px;
-		right: 0;
-		width: 100%;
-		height: 100%;
-		background: $dark;
-		transform: translateX(100%);
-	}
-
-	> .mp-level { padding-top: 13px; }
-}
-
-
-
-.mp-fade {
+.mp-fade-content {
 	&:after {
 		position: fixed;
 		top: 0;
@@ -33,173 +13,158 @@ nav.mp-menu {
 		height: 0;
 		content: '';
 		opacity: 0;
-		z-index: 5;
+		z-index: 15;
 		transition: opacity .4s;
 		background: rgba(0,0,0,0.3);
 	}
-	&.mp-pushed:after{
+	&.mp-active:after{
 		width: 100%;
 		height: 100%;
 		opacity: 1;
 	}
 }
 
-
-/* overlays for pusher and for level that gets covered */
-.mp-level::after,
-.mp-level::before {
+nav.mp-menu {
 	position: fixed;
 	top: 0;
 	right: 0;
-	width: 0;
-	height: 0;
-	content: '';
-	opacity: 0;
-	z-index: 1;
-}
-
-.mp-level::after {
-	background: rgba(0,0,0,0.3);
-	transition: opacity 0.3s;
-}
-
-.mp-level::after {
-	z-index: -1;
-}
-
-
-
-
-
-
-
-
-.mp-level.mp-level-overlay::after {
-	width: 100%;
+	z-index: 20;
+	width: 340px;
+	@include respond-to(phone) { width: 300px; }
 	height: 100%;
-	opacity: 1;
-	transition: opacity 0.3s;
-	position: fixed;
-}
-
-.mp-level.mp-level-overlay.mp-level::before {
-	width: 100%;
-	height: 100%;
-	background: transparent;
-	opacity: 1;
-}
-
-.mp-level {
-	transition: all 0.5s;
-}
-
-/* First level */
-.mp-menu > .mp-level,
-.mp-menu > .mp-level.mp-level-open {
-	box-shadow: none;
-	transform: translateX(0);
-}
-
-/* cover */
-.mp-cover .mp-level.mp-level-open {
-	transform: translateX(-300px);
-}
-
-.mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
 	transform: translateX(100%);
-}
-.mp-cover .mp-level.mp-level-open > ul > li > .mp-level.mp-level-open {
-	transform: translateX(0);
-}
 
-/* content style */
-.mp-menu ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
+	.mp-level {
+		padding-top: 65px;
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		background: $dark;
+		transform: translateX(0);
+		transition: transform .3s ease-in-out;
 
-.mp-menu h2 {
-	margin: 0;
-	padding: 1em;
-	color: rgba(0,0,0,0.4);
-	text-shadow: 0 0 1px rgba(0,0,0,0.1);
-	font-weight: 300;
-	font-size: 2em;
-}
+		&.mp-level-open {
+			transform: translateX(-100%);
+			
+			/* second or deeper lvl transform to right if not open */
+			> ul > li > .mp-level {
+				&.mp-level-open 		{ transform: translateX(0); }
+				&:not(.mp-level-open) 	{ transform: translateX(100%); }
+			}
+		}
+		
+		/* fade out menu when sublevel is triggered */
+		&:before {
+			position: fixed;
+			z-index: -1; // still clickable
+			top: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			content: '';
+			opacity: 0;
+			background: rgba(0,0,0,0.3);
+			transition: opacity 0.3s;
+		}
 
-.mp-menu.mp-cover h2 {
-	text-transform: uppercase;
-	font-weight: 700;
-	letter-spacing: 1px;
-	font-size: 1em;
-}
-
-.mp-menu ul li > a {
-	display: block;
-	padding: 0.7em 1em 0.7em 1.8em;
-	outline: none;
-	box-shadow: inset 0 -1px rgba(0,0,0,0.2);
-	text-shadow: 0 0 1px rgba(255,255,255,0.1);
-	font-size: 1.4em;
-	transition: background 0.3s, box-shadow 0.3s;
-}
-
-.mp-menu ul li::before {
-	position: absolute;
-	left: 10px;
-	z-index: -1;
-	color: rgba(0,0,0,0.2);
-	line-height: 3.5;
-}
-
-.mp-level > ul > li:first-child > a {
-	box-shadow: inset 0 -1px rgba(0,0,0,0.2), inset 0 1px rgba(0,0,0,0.2);
-}
-
-.mp-menu ul li a:hover,
-.mp-level > ul > li:first-child > a:hover {
-	background: rgba(0,0,0,0.2);
-	box-shadow: inset 0 -1px rgba(0,0,0,0);
+		&.mp-level-overlay:before {
+			z-index: 1;
+			opacity: 1;
+		}
+	}
+	
+	/* First level */
+	> .mp-level {
+		padding-top: 13px;
+	}
 }
 
-.mp-menu .mp-level.mp-level-overlay > ul > li > a,
-.mp-level.mp-level-overlay > ul > li:first-child > a {
-	box-shadow: inset 0 -1px rgba(0,0,0,0);
-}
 
-.mp-level > ul > li:first-child > a:hover,
-.mp-level.mp-level-overlay > ul > li:first-child > a {
-	box-shadow: inset 0 -1px rgba(0,0,0,0), inset 0 1px rgba(0,0,0,0);
-} /* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
+/*
+ *
+ * STYLING CONTENT
+ *
+ */
 
-.mp-back {
-	background: rgba(0,0,0,0.1);
-	outline: none;
-	color: #fff;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	font-weight: 700;
-	display: block;
-	font-size: 0.8em;
-	padding: 1em;
-	position: relative;
-	box-shadow: inset 0 1px rgba(0,0,0,0.1);
-	transition: background 0.3s;
-}
+nav.mp-menu {
+	h2 {
+		margin: 0;
+		padding: 1em;
+		text-transform: uppercase;
+		font-size: 1em;
 
-.mp-back::after {
-	font-family: 'linecons';
-	position: absolute;
-	content: "\e037";
-	right: 10px;
-	font-size: 1.3em;
-	color: rgba(0,0,0,0.3);
-}
+		&:not(.logo) { color: darken($light, 40%); }
 
-.mp-menu .mp-level.mp-level-overlay > .mp-back,
-.mp-menu .mp-level.mp-level-overlay > .mp-back::after {
-	background: transparent;
-	box-shadow: none;
-	color: transparent;
+		@include respond-to(phone) { display: none; }
+	}
+
+	h2, a { font-weight: 700; }
+
+	ul li a {
+		color: $white;
+		display: block;
+		transition: background-color .2s;
+
+		&.arrow {
+			position: relative;
+
+			&:before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				width: 8px;
+				height: 8px;
+				border-left: 1px solid $white;
+				border-bottom: 1px solid $white;
+			}
+
+			&.left:before {
+				left: 15px;
+				transform: translateY(-50%) rotate(45deg);
+			}
+
+			&.right:before {
+				right: 15px;
+				transform: translateY(-50%) rotate(-135deg);
+			}
+		}
+	}
+
+	ul li > a { /* excludes back btn */
+		padding: 15px 22px 15px 40px;
+		border-bottom: 1px solid rgba($black, 0.3);
+
+		&:hover,
+		&.active {
+			background-color: $brandPrimaryDark;
+			color: $white;
+		}
+	}
+
+	.mp-back {
+		background-color: darken($dark, 2%);
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-size: $size-xxxs;
+		padding: 12px;
+		border-top: 1px solid rgba($black, 0.3);
+		border-bottom: 1px solid rgba($black, 0.3);
+
+		&:hover,
+		&.active {
+			background-color: $white;
+			color: $black;
+		}
+
+		&.arrow:hover:before,
+		&.arrow.active:before { border-color: $black; }
+	}
+	
+	/* 2nd lvl or deeper */
+	.mp-level > ul > li > .mp-level {
+		ul li > a { padding-top: 8px; padding-bottom: 8px; }
+	}
 }

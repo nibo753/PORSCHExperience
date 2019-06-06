@@ -71,6 +71,7 @@ require('slick-carousel');
 
 
 // Components
+require('./components/nav');
 require('./components/page-transition');
 require('./components/refresh');
 require('./components/smooth-scroll');
@@ -97,7 +98,3 @@ $(function(){
 })
 
 $('.home').createParallax();
-
-new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'mp-trigger' ), {
-	type : 'cover' 		// cover or overlap(not styled)
-} );

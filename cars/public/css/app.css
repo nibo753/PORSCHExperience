@@ -10892,8 +10892,14 @@ option {
 }
 
 a {
-  text-decoration: underline;
+  outline: none;
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
 }
 
 ul {
@@ -11000,7 +11006,8 @@ ul {
 }
 
 .hamburger {
-  text-align: right;
+  margin-left: auto;
+  cursor: pointer;
 }
 
 .logo {
@@ -11210,6 +11217,206 @@ header.show {
 
 #mission-e #sequence .panel.p4 {
   background-color: white;
+}
+
+/*
+ *
+ * STYLING STRUCTURE
+ *
+ */
+
+.mp-fade-content:after {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  content: "";
+  opacity: 0;
+  z-index: 15;
+  transition: opacity 0.4s;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.mp-fade-content.mp-active:after {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+nav.mp-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  width: 340px;
+  height: 100%;
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+  /* First level */
+}
+
+@media only screen and (max-width: 630px) {
+  nav.mp-menu {
+    width: 300px;
+  }
+}
+
+nav.mp-menu .mp-level {
+  padding-top: 65px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #32313c;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  /* fade out menu when sublevel is triggered */
+}
+
+nav.mp-menu .mp-level.mp-level-open {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  /* second or deeper lvl transform to right if not open */
+}
+
+nav.mp-menu .mp-level.mp-level-open > ul > li > .mp-level.mp-level-open {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+nav.mp-menu .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+}
+
+nav.mp-menu .mp-level:before {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s;
+}
+
+nav.mp-menu .mp-level.mp-level-overlay:before {
+  z-index: 1;
+  opacity: 1;
+}
+
+nav.mp-menu > .mp-level {
+  padding-top: 13px;
+}
+
+/*
+ *
+ * STYLING CONTENT
+ *
+ */
+
+nav.mp-menu {
+  /* 2nd lvl or deeper */
+}
+
+nav.mp-menu h2 {
+  margin: 0;
+  padding: 1em;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+nav.mp-menu h2:not(.logo) {
+  color: #707070;
+}
+
+@media only screen and (max-width: 630px) {
+  nav.mp-menu h2 {
+    display: none;
+  }
+}
+
+nav.mp-menu h2,
+nav.mp-menu a {
+  font-weight: 700;
+}
+
+nav.mp-menu ul li a {
+  color: #F1F1F1;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+nav.mp-menu ul li a.arrow {
+  position: relative;
+}
+
+nav.mp-menu ul li a.arrow:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-left: 1px solid #F1F1F1;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+nav.mp-menu ul li a.arrow.left:before {
+  left: 15px;
+  -webkit-transform: translateY(-50%) rotate(45deg);
+          transform: translateY(-50%) rotate(45deg);
+}
+
+nav.mp-menu ul li a.arrow.right:before {
+  right: 15px;
+  -webkit-transform: translateY(-50%) rotate(-135deg);
+          transform: translateY(-50%) rotate(-135deg);
+}
+
+nav.mp-menu ul li > a {
+  /* excludes back btn */
+  padding: 15px 22px 15px 40px;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.3);
+}
+
+nav.mp-menu ul li > a:hover,
+nav.mp-menu ul li > a.active {
+  background-color: #8b2f2f;
+  color: #F1F1F1;
+}
+
+nav.mp-menu .mp-back {
+  background-color: #2d2c36;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875em;
+  padding: 12px;
+  border-top: 1px solid rgba(21, 21, 21, 0.3);
+  border-bottom: 1px solid rgba(21, 21, 21, 0.3);
+}
+
+nav.mp-menu .mp-back:hover,
+nav.mp-menu .mp-back.active {
+  background-color: #F1F1F1;
+  color: #151515;
+}
+
+nav.mp-menu .mp-back.arrow:hover:before,
+nav.mp-menu .mp-back.arrow.active:before {
+  border-color: #151515;
+}
+
+nav.mp-menu .mp-level > ul > li > .mp-level ul li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 body {
@@ -11766,215 +11973,5 @@ body.dark {
 .models #model_container .model_slider .slick-slide.slick-current li,
 .models #model_container .model_slider .slick-slide:hover li {
   background: linear-gradient(to bottom, #f1f1f1 50%, #d6d6d6 100%);
-}
-
-nav.mp-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 20;
-  width: 300px;
-  height: 100%;
-  -webkit-transform: translateX(100%);
-          transform: translateX(100%);
-}
-
-nav.mp-menu .mp-level {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  padding-top: 65px;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: #32313c;
-  -webkit-transform: translateX(100%);
-          transform: translateX(100%);
-}
-
-nav.mp-menu > .mp-level {
-  padding-top: 13px;
-}
-
-.mp-fade:after {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  content: "";
-  opacity: 0;
-  z-index: 5;
-  transition: opacity 0.4s;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.mp-fade.mp-pushed:after {
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-}
-
-/* overlays for pusher and for level that gets covered */
-
-.mp-level::after,
-.mp-level::before {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  content: "";
-  opacity: 0;
-  z-index: 1;
-}
-
-.mp-level::after {
-  background: rgba(0, 0, 0, 0.3);
-  transition: opacity 0.3s;
-}
-
-.mp-level::after {
-  z-index: -1;
-}
-
-.mp-level.mp-level-overlay::after {
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  transition: opacity 0.3s;
-  position: fixed;
-}
-
-.mp-level.mp-level-overlay.mp-level::before {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  opacity: 1;
-}
-
-.mp-level {
-  transition: all 0.5s;
-}
-
-/* First level */
-
-.mp-menu > .mp-level,
-.mp-menu > .mp-level.mp-level-open {
-  box-shadow: none;
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-
-/* cover */
-
-.mp-cover .mp-level.mp-level-open {
-  -webkit-transform: translateX(-300px);
-          transform: translateX(-300px);
-}
-
-.mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
-  -webkit-transform: translateX(100%);
-          transform: translateX(100%);
-}
-
-.mp-cover .mp-level.mp-level-open > ul > li > .mp-level.mp-level-open {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-
-/* content style */
-
-.mp-menu ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.mp-menu h2 {
-  margin: 0;
-  padding: 1em;
-  color: rgba(0, 0, 0, 0.4);
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-  font-weight: 300;
-  font-size: 2em;
-}
-
-.mp-menu.mp-cover h2 {
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-size: 1em;
-}
-
-.mp-menu ul li > a {
-  display: block;
-  padding: 0.7em 1em 0.7em 1.8em;
-  outline: none;
-  box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2);
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
-  font-size: 1.4em;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-
-.mp-menu ul li::before {
-  position: absolute;
-  left: 10px;
-  z-index: -1;
-  color: rgba(0, 0, 0, 0.2);
-  line-height: 3.5;
-}
-
-.mp-level > ul > li:first-child > a {
-  box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2), inset 0 1px rgba(0, 0, 0, 0.2);
-}
-
-.mp-menu ul li a:hover,
-.mp-level > ul > li:first-child > a:hover {
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 -1px rgba(0, 0, 0, 0);
-}
-
-.mp-menu .mp-level.mp-level-overlay > ul > li > a,
-.mp-level.mp-level-overlay > ul > li:first-child > a {
-  box-shadow: inset 0 -1px rgba(0, 0, 0, 0);
-}
-
-.mp-level > ul > li:first-child > a:hover,
-.mp-level.mp-level-overlay > ul > li:first-child > a {
-  box-shadow: inset 0 -1px rgba(0, 0, 0, 0), inset 0 1px rgba(0, 0, 0, 0);
-}
-
-/* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
-
-.mp-back {
-  background: rgba(0, 0, 0, 0.1);
-  outline: none;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 700;
-  display: block;
-  font-size: 0.8em;
-  padding: 1em;
-  position: relative;
-  box-shadow: inset 0 1px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s;
-}
-
-.mp-back::after {
-  font-family: "linecons";
-  position: absolute;
-  content: "\E037";
-  right: 10px;
-  font-size: 1.3em;
-  color: rgba(0, 0, 0, 0.3);
-}
-
-.mp-menu .mp-level.mp-level-overlay > .mp-back,
-.mp-menu .mp-level.mp-level-overlay > .mp-back::after {
-  background: transparent;
-  box-shadow: none;
-  color: transparent;
 }
 

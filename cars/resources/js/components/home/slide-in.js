@@ -1,25 +1,45 @@
+import * as nav from './../nav'
+
 $.fn.createSlideIn = function()
 {
     const   contr = new ScrollMagic.Controller(),
             check = document.querySelector('.home');
 
     if ( check ) {
+        const   el          = ".overview",
+                navbar      = - + $('header').outerHeight(true),
+                startAt     = 0.9, //same as marginbot
+                navVar      = nav;
+
         // HEADER SLIDE IN
         new ScrollMagic.Scene({
-            triggerElement: ".overview",
-            offset: - + $('header').outerHeight(true),
-            triggerHook: 0.9, //same as marginbot
+            triggerElement: el,
+            offset: navbar,
+            triggerHook: startAt
         })
         .setClassToggle("header", "show")
         .addTo(contr);
 
         // SIDENAV SLIDE IN
         new ScrollMagic.Scene({
-            triggerElement: ".overview",
-            offset: - + $('header').outerHeight(true),
-            triggerHook: 0.9,
+            triggerElement: el,
+            offset: navbar,
+            triggerHook: startAt
         })
         .setClassToggle("#sideNav", "show")
         .addTo(contr);
+
+        // resetNAV if scrolling up
+        new ScrollMagic.Scene({
+            triggerElement: el,
+            offset: navbar,
+            triggerHook: startAt
+        })
+        .addTo(contr)
+        .on("start", function (e) {
+            if (e.type == "start") {
+                nav._resetMenu();
+            }
+        });
     }
 }
