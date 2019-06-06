@@ -1,4 +1,4 @@
-import * as f from './../functions';
+import * as f from './../../functions';
 
 $.fn.createSmoothScroll = function()
 {   

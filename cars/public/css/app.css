@@ -10767,20 +10767,50 @@ h1 {
   font-size: 3em;
 }
 
+@media only screen and (max-width: 630px) {
+  h1 {
+    font-size: 2em;
+  }
+}
+
 h2 {
   font-size: 2.5em;
+}
+
+@media only screen and (max-width: 630px) {
+  h2 {
+    font-size: 1.5em;
+  }
 }
 
 h3 {
   font-size: 2em;
 }
 
+@media only screen and (max-width: 630px) {
+  h3 {
+    font-size: 1.25em;
+  }
+}
+
 h4 {
   font-size: 1.5em;
 }
 
+@media only screen and (max-width: 630px) {
+  h4 {
+    font-size: 1.125em;
+  }
+}
+
 h5 {
   font-size: 1.25em;
+}
+
+@media only screen and (max-width: 630px) {
+  h5 {
+    font-size: 1em;
+  }
 }
 
 h6 {
@@ -10796,6 +10826,12 @@ h6 {
   color: #F1F1F1;
   background-color: #32313c;
   transition: all 0.2s ease-in-out;
+}
+
+@media only screen and (max-width: 630px) {
+  .btn {
+    max-width: 100%;
+  }
 }
 
 .btn.active,
@@ -10825,12 +10861,18 @@ h6 {
 }
 
 .btn.CTA {
-  font-size: 1.5em;
   padding: 15px 25px;
   text-transform: uppercase;
   color: #F1F1F1;
   background-color: transparent;
   border: 1px solid #F1F1F1;
+  font-size: 1.5em;
+}
+
+@media only screen and (max-width: 630px) {
+  .btn.CTA {
+    font-size: 1.125em;
+  }
 }
 
 .btn.CTA.active,
@@ -11016,6 +11058,12 @@ ul {
   font-size: 1.25em;
 }
 
+@media only screen and (max-width: 630px) {
+  .logo {
+    font-size: 1.125em;
+  }
+}
+
 .logo span {
   color: #B13C3C;
   font-weight: bold;
@@ -11112,6 +11160,12 @@ ul {
   height: 100%;
 }
 
+@media only screen and (max-width: 630px) {
+  .svg svg.speedometer {
+    display: none;
+  }
+}
+
 .svg svg.speedometer * {
   -webkit-transform-origin: center;
           transform-origin: center;
@@ -11164,6 +11218,12 @@ header {
 header.show {
   -webkit-transform: translateY(0%);
           transform: translateY(0%);
+}
+
+header .model_name {
+  font-size: 1.25em;
+  text-align: center;
+  font-weight: bold;
 }
 
 @media only screen and (max-width: 630px) {
@@ -11515,6 +11575,12 @@ body.dark {
   font-size: 3em;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 630px) {
+  .page_transition .logo {
+    font-size: 2em;
+  }
 }
 
 #sideNav {
@@ -11894,12 +11960,6 @@ body.dark {
 
 .home #_Cayenne .parallax {
   background-image: url(/img/overview/cayenne.png);
-}
-
-.models .model_name {
-  font-size: 1.25em;
-  text-align: center;
-  font-weight: bold;
 }
 
 .models .not_found .msg {

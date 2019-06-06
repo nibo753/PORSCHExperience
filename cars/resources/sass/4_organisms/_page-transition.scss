@@ -56,5 +56,7 @@ body {
 		text-align: center;
 		font-size: $size-xxl;
 		transform: translateY(-50%);
+
+		@include respond-to(phone) { font-size: $size-l; }
 	}
 }

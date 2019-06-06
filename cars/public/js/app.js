@@ -39936,8 +39936,6 @@ __webpack_require__(/*! ./components/page-transition */ "./resources/js/componen
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
 
-__webpack_require__(/*! ./components/smooth-scroll */ "./resources/js/components/smooth-scroll.js");
-
 __webpack_require__(/*! ./components/home/audio */ "./resources/js/components/home/audio.js");
 
 __webpack_require__(/*! ./components/home/car */ "./resources/js/components/home/car.js");
@@ -39948,6 +39946,8 @@ __webpack_require__(/*! ./components/home/mission-e */ "./resources/js/component
 
 __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components/home/slide-in.js");
 
+__webpack_require__(/*! ./components/home/smooth-scroll */ "./resources/js/components/home/smooth-scroll.js");
+
 __webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
 __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/models/slick.js");
@@ -39957,16 +39957,14 @@ __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/
  */
 
 
-$(function () {
-  if ($('.home').length) {
-    home();
-  }
+if ($('.home').length) {
+  home();
+  $('.home').createParallax();
+}
 
-  if ($('.models').length) {
-    models();
-  }
-});
-$('.home').createParallax();
+if ($('.models').length) {
+  models();
+}
 
 /***/ }),
 
@@ -40430,6 +40428,40 @@ $.fn.createSlideIn = function () {
 
 /***/ }),
 
+/***/ "./resources/js/components/home/smooth-scroll.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/home/smooth-scroll.js ***!
+  \*******************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+
+
+$.fn.createSmoothScroll = function () {
+  // #sidenav + home logo
+  $('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
+    var target = $(this.getAttribute('href'));
+
+    if (target.length) {
+      event.preventDefault();
+      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+    }
+  }); //home start button
+
+  $('.home .intro #start').click(function (e) {
+    e.preventDefault();
+    var target = $(this).attr('data-car');
+    target = $('.car[data-car="' + target + '"]');
+    $('.home').removeClass('noscroll');
+    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/models/img-sequence.js":
 /*!********************************************************!*\
   !*** ./resources/js/components/models/img-sequence.js ***!
@@ -40747,40 +40779,6 @@ $(window).bind('resize', function (e) {
     /* false to get page from cache */
   }, 200);
 });
-
-/***/ }),
-
-/***/ "./resources/js/components/smooth-scroll.js":
-/*!**************************************************!*\
-  !*** ./resources/js/components/smooth-scroll.js ***!
-  \**************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions */ "./resources/js/functions.js");
-
-
-$.fn.createSmoothScroll = function () {
-  // #sidenav + home logo
-  $('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
-    var target = $(this.getAttribute('href'));
-
-    if (target.length) {
-      event.preventDefault();
-      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
-    }
-  }); //home start button
-
-  $('.home .intro #start').click(function (e) {
-    e.preventDefault();
-    var target = $(this).attr('data-car');
-    target = $('.car[data-car="' + target + '"]');
-    $('.home').removeClass('noscroll');
-    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
-  });
-};
 
 /***/ }),
 
