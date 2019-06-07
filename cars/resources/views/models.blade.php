@@ -37,11 +37,25 @@
         </div>
     </div>
     @endif
+    
+    
+    <?php
+        function startsWithNumber($str) {
+            return preg_match('/^\d/', $str) === 1;
+        }
+    ?>
 
     <nav class="" id="model_nav">
         <ul class="model_slider">
             @foreach ($cars as $model)
-            <li class="{{$model->name}}">
+            <?php
+                // FIX MODEL NAMES THAT START WITH NUMBER
+                $name = $model->name;
+                if (startsWithNumber($name)){
+                    $name = substr_replace($name, '_', 0, 0);
+                }
+            ?>
+            <li class="{{$name}}">
                 <img src="/img/{{$model->category->name}}/{{$model->category->name}}_{{str_replace(' ', '_', $model->name)}}.png" alt="{{$model->name}}">
                 <span>{{$model->category->name}}</span>
                 @if ($model->name != '')

@@ -40563,8 +40563,9 @@ var url = new URL(window.location.href),
 
 $.fn.createSlick = function () {
   if (check && modelSlider.length && modelInfo.length) {
+    // GET URL PARAMETER SLIDE
     var index = parseInt(url.searchParams.get("slide")),
-        amount = document.querySelectorAll('#model_nav .model_slider li').length; // if index undefined or not within slider range
+        amount = document.querySelectorAll('#model_nav .model_slider li').length; // IF NOT OK SET SLIDE PARAMETER TO 0 
 
     if (!index || amount < index && index > amount) {
       index = 0;
@@ -40581,6 +40582,7 @@ $.fn.createSlick = function () {
       centerMode: true,
       centerPadding: '0px',
       focusOnSelect: true,
+      swipeToSlide: true,
       responsive: [{
         breakpoint: 1024,
         settings: {
@@ -40606,9 +40608,9 @@ $.fn.createSlick = function () {
       touchMove: false,
       speed: 0,
       fade: true
-    }); // UPDATE CLASS .slick-current TO GET VARIABLE
+    }); // UPDATE CLASS .slick-current TO URL SLIDE PARAMETER
 
-    modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGE
+    modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGING SLIDE
 
     updateSlickUrl(modelSlider); // FILTER ON BUTTON CLICK
 
@@ -40620,8 +40622,10 @@ $.fn.createSlick = function () {
       modelInfo[0].slick.slickGoTo(slide, true);
     });
     /*
-     * slick filter is bugging slickGoTo
-     * manually fix it
+     *
+     * slick filter is bugging the slider occiasonally
+     * manually fix it when clicked or swiping
+     *
      */
 
     $('.model_slider .slick-slide').on('click', function (event) {
@@ -40631,11 +40635,21 @@ $.fn.createSlick = function () {
 
       for (var i = 0; i < div.length; i++) {
         if (div[i].classList.contains('slick-current')) {
-          break; //add current i to slickGoTo
+          modelSlider[0].slick.slickGoTo(i);
+          break;
         }
       }
+    });
+    modelSlider.on('afterChange', function (event, slick, currentSlide) {
+      var div = $(this).children().children().children();
+      div.removeClass('slick-current');
 
-      modelSlider[0].slick.slickGoTo(i);
+      for (var i = 0; i < div.length; i++) {
+        if (currentSlide == i) {
+          div[i].classList.add('slick-current');
+          break;
+        }
+      }
     });
   }
 };
