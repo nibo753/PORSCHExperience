@@ -8,6 +8,9 @@
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
+
+import * as smoothState from './../components/page-transition';
+
 ;( function( window ) {
 	
 	'use strict';
@@ -138,6 +141,31 @@
 							self._openMenu( subLevel );
 						}
 					} );
+				}
+				else {
+					/*
+					 * clicking link happens here
+					 *
+					 * if active link click resetMenu()
+					 * else if eventype is click -> smoothState fails -> add manually
+					 * smoothState doesnt fail on touchstart strangely enough ..
+					 * use manually exported smoothstate.clickAnchor function
+					 * -> starts ajax call + animation
+					 */
+					el = el.querySelector( 'a' );
+					if (el.classList.contains('active')) {
+				 		el.addEventListener( self.eventtype, function( ev ) {
+					 		ev.stopPropagation();
+					 		ev.preventDefault();
+					 		self._resetMenu();
+				 		});
+				 	}
+				 	else if (self.eventtype == 'click') {
+				 		el.addEventListener( self.eventtype, function( ev ) {
+					 		ev.preventDefault();
+					 		smoothState.clickAnchor(ev);
+				 		});
+					 }
 				}
 			} );
 

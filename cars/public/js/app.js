@@ -39912,6 +39912,22 @@ function models() {
   }
 }
 /*
+ * Load functions on $(document).ready()
+ * required to wait for vars like createImgSequence
+ *
+ * should callback in page-transition after animation, currently abusing reload
+ */
+
+$(function () {
+  if ($('.home').length) {
+    home();
+  }
+
+  if ($('.models').length) {
+    models();
+  }
+});
+/*
  *
  * IMPORT JS FILES
  *
@@ -39924,8 +39940,9 @@ __webpack_require__(/*! ./lib/smooth-state */ "./resources/js/lib/smooth-state.j
 
 __webpack_require__(/*! ./lib/universal-parallax */ "./resources/js/lib/universal-parallax.js");
 
-__webpack_require__(/*! ./lib/multi-level-push-menu */ "./resources/js/lib/multi-level-push-menu.js"); // NPM Libraries
+__webpack_require__(/*! ./lib/multi-level-push-menu */ "./resources/js/lib/multi-level-push-menu.js");
 
+$('.home').createParallax(); // NPM Libraries
 
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js"); // Components
 
@@ -39951,20 +39968,6 @@ __webpack_require__(/*! ./components/home/smooth-scroll */ "./resources/js/compo
 __webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
 __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/models/slick.js");
-/*
- * Load functions on $(document).ready()
- * callback in page-transition after animation
- */
-
-
-if ($('.home').length) {
-  home();
-  $('.home').createParallax();
-}
-
-if ($('.models').length) {
-  models();
-}
 
 /***/ }),
 
@@ -40451,7 +40454,7 @@ $.fn.createSmoothScroll = function () {
     }
   }); //home start button
 
-  $('.home .intro #start').click(function (e) {
+  $('.home .intro #start').on('click', function (e) {
     e.preventDefault();
     var target = $(this).attr('data-car');
     target = $('.car[data-car="' + target + '"]');
@@ -40648,11 +40651,6 @@ function _openMenu() {
 function _closeMenu() {
   nav._closeMenu();
 }
-$('.mp-level a.active').on('click', function (e) {
-  e.preventDefault();
-
-  nav._resetMenu();
-});
 
 /***/ }),
 
@@ -40660,11 +40658,12 @@ $('.mp-level a.active').on('click', function (e) {
 /*!****************************************************!*\
   !*** ./resources/js/components/page-transition.js ***!
   \****************************************************/
-/*! no exports provided */
+/*! exports provided: clickAnchor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clickAnchor", function() { return clickAnchor; });
 /* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../app */ "./resources/js/app.js");
 /*
  * https://github.com/miguel-perez/smoothState.js
@@ -40676,92 +40675,104 @@ __webpack_require__.r(__webpack_exports__);
  * 
  */
 
-$(function () {
-  var slideOne = document.querySelector('.page_transition .c1'),
-      slideTwo = document.querySelector('.page_transition .c2'),
-      slideTest = document.querySelector('.page_transition .c2 .test'),
-      slideLogo = document.querySelector('.page_transition .c2 .logo'),
-      duration = 1.1;
-  var SlideIn = new TimelineMax({
-    paused: true
-  }).fromTo(slideOne, duration, {
-    x: "-100%"
-  }, {
-    x: "0%",
-    ease: Power4.easeInOut
-  }).fromTo(slideTwo, duration, {
-    x: "-100%"
-  }, {
-    x: "0%",
-    ease: Power4.easeInOut
-  }, "=-" + (duration - 0.2)).fromTo(slideLogo, duration, {
-    x: "0"
-  }, {
-    x: "-100%",
-    ease: Power4.easeInOut
-  }, "=-" + duration).set(slideOne, {
-    x: "100%"
-  }),
-      SlideOut = new TimelineMax({
-    paused: true
-  }).to(slideTwo, duration, {
-    x: "100%",
-    ease: Power3.easeInOut
-  }).to(slideLogo, duration, {
-    x: "-200%",
-    ease: Power3.easeInOut
-  }, "=-" + duration),
-      options = {
-    prefetch: true,
-    cacheLength: 6,
-    hrefRegex: '/',
-    //required for smooth scroll on #ids
-    // on link click
-    // doesn't trigger on going a page back/forward
-    onBefore: function onBefore($container, $currentTarget) {},
-    // ANIMATION exit
-    onStart: {
-      duration: SlideIn.duration() * 1000 + 400,
-      //400 for header transition
-      render: function render($container) {
-        $('.page_transition').css({
-          display: 'block',
-          zIndex: 500
-        });
-        SlideIn.play(0);
-        setTimeout(function () {
-          $('header').removeClass('show');
-        }, SlideIn.duration() * 1000);
-      }
-    },
-    // Inject the new content
-    onReady: {
-      duration: SlideOut.duration() * 1000,
-      render: function render($container, $newContent) {
-        $container.html($newContent);
-        $('#content').removeClass('animate').css({
-          opacity: 0
-        }); //if target is home page, use black bg
-
-        if ($newContent.hasClass('home')) {
-          document.body.style.backgroundColor = '#000';
-        } else {
-          //overwrite class 'dark'
-          document.body.style.backgroundColor = '#FFF';
-        }
-
-        SlideOut.play(0);
-      }
-    },
-    // re-initialize JS files
-    onAfter: function onAfter($container, $newContent) {
-      //if ( $('.home').length) 		{ app.home(); 	}
-      //if ( $('.models').length) 	{ app.models(); }
-      location.reload(false);
+var slideOne = document.querySelector('.page_transition .c1'),
+    slideTwo = document.querySelector('.page_transition .c2'),
+    slideTest = document.querySelector('.page_transition .c2 .test'),
+    slideLogo = document.querySelector('.page_transition .c2 .logo'),
+    duration = 1.1;
+var SlideIn = new TimelineMax({
+  paused: true
+}).fromTo(slideOne, duration, {
+  x: "-100%"
+}, {
+  x: "0%",
+  ease: Power4.easeInOut
+}).fromTo(slideTwo, duration, {
+  x: "-100%"
+}, {
+  x: "0%",
+  ease: Power4.easeInOut
+}, "=-" + (duration - 0.2)).fromTo(slideLogo, duration, {
+  x: "0"
+}, {
+  x: "-100%",
+  ease: Power4.easeInOut
+}, "=-" + duration).set(slideOne, {
+  x: "100%"
+}),
+    SlideOut = new TimelineMax({
+  paused: true
+}).to(slideTwo, duration, {
+  x: "100%",
+  ease: Power3.easeInOut
+}).to(slideLogo, duration, {
+  x: "-200%",
+  ease: Power3.easeInOut
+}, "=-" + duration),
+    SlideInDuration = SlideIn.duration() * 1000 + 400,
+    // 400 = header
+SlideOutDuration = SlideOut.duration() * 1000,
+    options = {
+  prefetch: true,
+  cacheLength: 6,
+  hrefRegex: '/',
+  //required for smooth scroll on #ids
+  repeatDelay: SlideInDuration,
+  //disable 2nd animation start
+  // on link click
+  // doesn't trigger on going a page back/forward
+  onBefore: function onBefore($container, $currentTarget) {},
+  // ANIMATION exit
+  onStart: {
+    duration: SlideInDuration,
+    render: function render($container) {
+      $('.page_transition').css({
+        display: 'block',
+        zIndex: 500
+      });
+      SlideIn.play(0);
+      setTimeout(function () {
+        $('header').removeClass('show');
+      }, SlideIn.duration() * 1000);
     }
   },
-      smoothState = $('#smoothState').smoothState(options).data('smoothState');
-});
+  // smoothState scrolls to top after onStart
+  // Run if the page request is still pending and onStart has finished animating
+  onProgress: {
+    duration: 0,
+    render: function render($container) {}
+  },
+  // Inject the new content
+  onReady: {
+    duration: SlideOutDuration,
+    render: function render($container, $newContent) {
+      $container.html($newContent);
+      $('#content').removeClass('animate').css({
+        opacity: 0
+      }); //if target is home page, use black bg
+
+      if ($newContent.hasClass('home')) {
+        document.body.style.backgroundColor = '#000';
+      } else {
+        //overwrite class 'dark'
+        document.body.style.backgroundColor = '#FFF';
+      }
+
+      SlideOut.play(0);
+    }
+  },
+  //smoothState scrolls to #hash after onReady
+  // re-initialize JS files
+  onAfter: function onAfter($container, $newContent) {
+    //if ( $('.home').length) 		{ app.home(); 	}
+    //if ( $('.models').length) 	{ app.models(); }
+    location.reload(false);
+  }
+},
+    smoothState = $('#smoothState').smoothState(options).data('smoothState');
+function clickAnchor(e) {
+  smoothState.clickAnchor(e);
+}
 
 /***/ }),
 
@@ -41343,9 +41354,12 @@ jQuery.extend(jQuery.easing, {
 /*!***************************************************!*\
   !*** ./resources/js/lib/multi-level-push-menu.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_page_transition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../components/page-transition */ "./resources/js/components/page-transition.js");
 /**
  * mlpushmenu.js v1.0.0
  * http://www.codrops.com
@@ -41356,6 +41370,7 @@ jQuery.extend(jQuery.easing, {
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
+
 ;
 
 (function (window) {
@@ -41504,6 +41519,31 @@ jQuery.extend(jQuery.easing, {
               self._openMenu(subLevel);
             }
           });
+        } else {
+          /*
+           * clicking link happens here
+           *
+           * if active link click resetMenu()
+           * else if eventype is click -> smoothState fails -> add manually
+           * smoothState doesnt fail on touchstart strangely enough ..
+           * use manually exported smoothstate.clickAnchor function
+           * -> starts ajax call + animation
+           */
+          el = el.querySelector('a');
+
+          if (el.classList.contains('active')) {
+            el.addEventListener(self.eventtype, function (ev) {
+              ev.stopPropagation();
+              ev.preventDefault();
+
+              self._resetMenu();
+            });
+          } else if (self.eventtype == 'click') {
+            el.addEventListener(self.eventtype, function (ev) {
+              ev.preventDefault();
+              _components_page_transition__WEBPACK_IMPORTED_MODULE_0__["clickAnchor"](ev);
+            });
+          }
         }
       }); // closing the sub levels :
       // by clicking on the visible part of the level element
@@ -42400,6 +42440,7 @@ jQuery.extend(jQuery.easing, {
       clear: clear,
       load: load,
       fetch: fetch,
+      clickAnchor: clickAnchor,
       restartCSSAnimations: restartCSSAnimations
     };
   },

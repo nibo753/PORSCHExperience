@@ -52,6 +52,17 @@ export function models()
 	}
 }
 
+/*
+ * Load functions on $(document).ready()
+ * required to wait for vars like createImgSequence
+ *
+ * should callback in page-transition after animation, currently abusing reload
+ */
+
+$(function(){
+	if ( $('.home').length) 	{ home(); 	}
+	if ( $('.models').length) 	{ models(); }
+});
 
 
 /*
@@ -65,6 +76,7 @@ require('./lib/jquery.easing');
 require('./lib/smooth-state');
 require('./lib/universal-parallax');
 require('./lib/multi-level-push-menu');
+$('.home').createParallax();
 
 // NPM Libraries
 require('slick-carousel');
@@ -82,15 +94,5 @@ require('./components/home/mission-e');
 require('./components/home/slide-in');
 require('./components/home/smooth-scroll');
 
-
 require('./components/models/img-sequence');
 require('./components/models/slick');
-
-
-/*
- * Load functions on $(document).ready()
- * callback in page-transition after animation
- */
-
-if ( $('.home').length) 	{ home(); 	$('.home').createParallax();}
-if ( $('.models').length) 	{ models(); }

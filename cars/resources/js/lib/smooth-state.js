@@ -801,6 +801,7 @@
         clear: clear,
         load: load,
         fetch: fetch,
+        clickAnchor: clickAnchor,
         restartCSSAnimations: restartCSSAnimations
       };
     },

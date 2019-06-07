@@ -10,72 +10,89 @@
 
 import * as app from './../app';
 
-$(function() {
-	const slideOne  = document.querySelector('.page_transition .c1'),
-		  slideTwo  = document.querySelector('.page_transition .c2'),
-		  slideTest  = document.querySelector('.page_transition .c2 .test'),
-		  slideLogo = document.querySelector('.page_transition .c2 .logo'),
-		  duration = 1.1;
 
-	let
-	SlideIn = new TimelineMax({paused:true})
-		.fromTo(slideOne , duration, {x: "-100%"},{x: "0%", ease: Power4.easeInOut} )
-		.fromTo(slideTwo , duration, {x: "-100%"},{x: "0%", ease: Power4.easeInOut}, ("=-"+(duration - 0.2)) )
-		.fromTo(slideLogo , duration, {x: "0"},{x: "-100%", ease: Power4.easeInOut}, ("=-"+duration) )
-		.set(slideOne, {x: "100%"}),
+const slideOne  = document.querySelector('.page_transition .c1'),
+	  slideTwo  = document.querySelector('.page_transition .c2'),
+	  slideTest  = document.querySelector('.page_transition .c2 .test'),
+	  slideLogo = document.querySelector('.page_transition .c2 .logo'),
+	  duration = 1.1;
 
-	SlideOut = new TimelineMax({paused:true})
-		.to(slideTwo , duration,  {x: "100%", ease: Power3.easeInOut} )
-		.to(slideLogo , duration, {x: "-200%", ease: Power3.easeInOut }, ("=-"+duration)),
+let
+SlideIn = new TimelineMax({paused:true})
+	.fromTo(slideOne , duration, {x: "-100%"},{x: "0%", ease: Power4.easeInOut} )
+	.fromTo(slideTwo , duration, {x: "-100%"},{x: "0%", ease: Power4.easeInOut}, ("=-"+(duration - 0.2)) )
+	.fromTo(slideLogo , duration, {x: "0"},{x: "-100%", ease: Power4.easeInOut}, ("=-"+duration) )
+	.set(slideOne, {x: "100%"}),
 
-	options = {
-		prefetch: true,
-		cacheLength: 6,
-		hrefRegex: '/', //required for smooth scroll on #ids
+SlideOut = new TimelineMax({paused:true})
+	.to(slideTwo , duration,  {x: "100%", ease: Power3.easeInOut} )
+	.to(slideLogo , duration, {x: "-200%", ease: Power3.easeInOut }, ("=-"+duration)),
 
-		// on link click
-		// doesn't trigger on going a page back/forward
-		onBefore: function($container, $currentTarget){
-			
-		},
+SlideInDuration = (SlideIn.duration() * 1000 + 400), // 400 = header
+SlideOutDuration = (SlideOut.duration() * 1000),
 
-		// ANIMATION exit
-		onStart: {
-			duration: (SlideIn.duration() * 1000 + 400), //400 for header transition
-			render: function ($container) {
-				$('.page_transition').css({display: 'block', zIndex: 500});
-				SlideIn.play(0);
-				setTimeout(function(){
-					$('header').removeClass('show');
-				}, (SlideIn.duration() * 1000));
-			}
-		},
+options = {
+	prefetch: true,
+	cacheLength: 6,
+	hrefRegex: '/', //required for smooth scroll on #ids
+	repeatDelay: SlideInDuration, //disable 2nd animation start
 
-		// Inject the new content
-		onReady: {
-			duration: (SlideOut.duration() * 1000),
-			render: function ($container, $newContent) {
-				$container.html($newContent);
-				$('#content').removeClass('animate').css({opacity: 0});
+	// on link click
+	// doesn't trigger on going a page back/forward
+	onBefore: function($container, $currentTarget){
+		
+	},
 
-				//if target is home page, use black bg
-				if ($newContent.hasClass('home')) {
-					document.body.style.backgroundColor = '#000';
-				} else { //overwrite class 'dark'
-					document.body.style.backgroundColor = '#FFF';
-				}
-
-				SlideOut.play(0);
-			}
-		},
-
-		// re-initialize JS files
-		onAfter: function($container, $newContent){
-			//if ( $('.home').length) 		{ app.home(); 	}
-			//if ( $('.models').length) 	{ app.models(); }
-			location.reload(false);
+	// ANIMATION exit
+	onStart: {
+		duration: SlideInDuration, 
+		render: function ($container) {
+			$('.page_transition').css({display: 'block', zIndex: 500});
+			SlideIn.play(0);
+			setTimeout(function(){
+				$('header').removeClass('show');
+			}, (SlideIn.duration() * 1000));
 		}
 	},
 
-	smoothState = $('#smoothState').smoothState(options).data('smoothState');
-});
+	// smoothState scrolls to top after onStart
+
+	// Run if the page request is still pending and onStart has finished animating
+	onProgress: {
+		duration: 0,
+		render: function ($container) {}
+	},
+
+	// Inject the new content
+	onReady: {
+		duration: SlideOutDuration,
+		render: function ($container, $newContent) {
+			$container.html($newContent);
+			$('#content').removeClass('animate').css({opacity: 0});
+
+			//if target is home page, use black bg
+			if ($newContent.hasClass('home')) {
+				document.body.style.backgroundColor = '#000';
+			} else { //overwrite class 'dark'
+				document.body.style.backgroundColor = '#FFF';
+			}
+
+			SlideOut.play(0);
+		}
+	},
+
+	//smoothState scrolls to #hash after onReady
+
+	// re-initialize JS files
+	onAfter: function($container, $newContent){
+		//if ( $('.home').length) 		{ app.home(); 	}
+		//if ( $('.models').length) 	{ app.models(); }
+		location.reload(false);
+	}
+},
+
+smoothState = $('#smoothState').smoothState(options).data('smoothState');
+
+export function clickAnchor(e){
+	smoothState.clickAnchor(e);
+}

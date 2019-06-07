@@ -7,11 +7,11 @@
 				<?php
 				/*
 				 * if category is current page
-				 * create li > a
+				 * create li > a.active
 				 * stop loop (no submenu)
 				 */
 				if (isset($cars) && !$cars->isEmpty() && $cars[0]->category->name == $category->name): ?>
-		 			<li><a href="" class="active">{{ $category->name }}</a></li>
+		 			<li><a href="/models/{{ $category->name }}" class="active">{{ $category->name }}</a></li>
 		 			<?php continue;
 	 			endif ?>
 				<li>

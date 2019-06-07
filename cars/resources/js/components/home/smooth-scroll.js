@@ -13,7 +13,7 @@ $.fn.createSmoothScroll = function()
     });
 
     //home start button
-    $('.home .intro #start').click(function (e) {
+    $('.home .intro #start').on('click', function (e) {
         e.preventDefault();
         let target = $(this).attr('data-car');
         target = $('.car[data-car="' + target + '"]');
