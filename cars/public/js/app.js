@@ -40574,6 +40574,7 @@ $.fn.createSlick = function () {
     modelSlider.slick({
       initialSlide: index,
       asNavFor: '.model_info',
+      infinite: false,
       slidesToScroll: 1,
       slidesToShow: 3,
       arrows: false,
@@ -40583,7 +40584,8 @@ $.fn.createSlick = function () {
       responsive: [{
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3
+          slidesToShow: 2,
+          arrows: true
         }
       }, {
         breakpoint: 600,
@@ -40604,12 +40606,37 @@ $.fn.createSlick = function () {
       touchMove: false,
       speed: 0,
       fade: true
-    }); //update class .slick-current
+    }); // UPDATE CLASS .slick-current TO GET VARIABLE
 
     modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGE
 
-    updateSlickUrl(modelSlider);
-    checkboxFilterSlick(modelSlider, '.model_filter input[type="checkbox"]');
+    updateSlickUrl(modelSlider); // FILTER ON BUTTON CLICK
+
+    buttonFilterSlick(modelSlider, '.model_filter button', modelInfo); // IF CAR OUT OF VIEW DUE TO FILTER, GO TO SLIDE
+
+    modelSlider.on('reInit', function (event) {
+      var slide = modelSlider.slick('slickCurrentSlide');
+      modelSlider[0].slick.slickGoTo(slide, true);
+      modelInfo[0].slick.slickGoTo(slide, true);
+    });
+    /*
+     * slick filter is bugging slickGoTo
+     * manually fix it
+     */
+
+    $('.model_slider .slick-slide').on('click', function (event) {
+      $('.model_slider .slick-current').removeClass('slick-current');
+      $(this).addClass('slick-current');
+      var div = $(this).parent().children();
+
+      for (var i = 0; i < div.length; i++) {
+        if (div[i].classList.contains('slick-current')) {
+          break; //add current i to slickGoTo
+        }
+      }
+
+      modelSlider[0].slick.slickGoTo(i);
+    });
   }
 };
 
@@ -40620,7 +40647,7 @@ $.fn.destroySlick = function () {
 
 
 function updateSlickUrl(slick) {
-  $(slick).on('afterChange', function (event, slick, currentSlide, nextSlide) {
+  $(slick).on('afterChange', function (event, slick, currentSlide) {
     if (window.history.replaceState) {
       var updateUrl = url.origin + url.pathname + '?slide=' + currentSlide;
       window.history.replaceState(currentSlide, 'slide', updateUrl);
@@ -40628,19 +40655,25 @@ function updateSlickUrl(slick) {
   });
 }
 
-function checkboxFilterSlick(slick, checkbox) {
-  var checkboxes = document.querySelectorAll(checkbox);
+function buttonFilterSlick(slick, input, syncSlick) {
+  var buttons = document.querySelectorAll(input);
 
-  for (var i = checkboxes.length - 1; i >= 0; i--) {
-    checkboxes[i].addEventListener('change', function (e) {
-      console.log($(slick));
+  for (var i = buttons.length - 1; i >= 0; i--) {
+    buttons[i].addEventListener('click', function (e) {
+      var slider = $(slick);
 
-      if (!this.checked) {
-        //slickfilter uses jquery selector
-        $(slick).slick('slickUnfilter');
-        $(slick).slick('slickFilter', ':not(:has(.' + this.value + '))');
+      if (!this.classList.contains('active')) {
+        //remove other filter
+        slider.slick('slickUnfilter');
+        $(buttons).removeClass('active'); // apply current target
+
+        var className = this.value.split(" ").join(", .");
+        slider.slick('slickFilter', ':has(.' + className + ')');
+        this.classList.add('active');
       } else {
-        $(slick).slick('slickUnfilter');
+        //unfilter
+        slider.slick('slickUnfilter');
+        this.classList.remove('active');
       }
     });
   }

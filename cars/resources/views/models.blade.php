@@ -38,7 +38,6 @@
     </div>
     @endif
 
-
     <nav class="" id="model_nav">
         <ul class="model_slider">
             @foreach ($cars as $model)
@@ -56,24 +55,23 @@
         </ul>
     </nav>
     
-    <?php
-    $allClasses = array();
-    foreach ($cars as $model) {
-        $classes = explode(" ", $model->name);
-        foreach ($classes as $className) {
-            if (!in_array($className, $allClasses)) {
-                array_push($allClasses, $className);
-            }
-        }
-    } ?>
-    <form class="model_filter" action="" method="">
-    @foreach($allClasses as $className)
-        <input type="checkbox" name="{{$className}}" value="{{$className}}" checked>{{$className}}<br>
-    @endforeach
-    </form>
-    
-
-
+    <div class="model_filter">
+    @if ($cars[0]->category->name == '718')
+        <button class="btn" value="Boxster">Boxster</button>
+        <button class="btn" value="Cayman">Cayman</button>
+    @endif
+    @if ($cars[0]->category->name == '911')
+        <button class="btn" value="S 4S">Carrera S</button>
+        <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
+        <button class="btn" value="RS">Racing Sport</button>
+    @endif
+    @if ($cars[0]->category->name == 'Panamera')
+        <button class="btn" value="Sport Turismo">Sport Turismo</button>
+        <button class="btn" value="Executive">Executive</button>
+        <button class="btn" value="Turbo">Turbo</button>
+        <button class="btn" value="E-Hybrid">E-Hybrid</button>
+    @endif
+    </div>
 
     <div class="model_info">
         @foreach ($cars as $model)

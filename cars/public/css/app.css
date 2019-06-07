@@ -10834,9 +10834,16 @@ h6 {
   }
 }
 
+.btn:focus {
+  color: #F1F1F1;
+  background-color: #32313c;
+  outline: none;
+  box-shadow: none;
+}
+
 .btn.active,
 .btn:hover,
-.btn:focus,
+.btn:not(:disabled):not(.disabled).active,
 .btn:not(:disabled):not(.disabled):active,
 .btn:not(:disabled):not(.disabled):active:focus {
   outline: none;
@@ -10849,9 +10856,13 @@ h6 {
   background-color: #8b2f2f;
 }
 
+.btn.btn-primary:focus {
+  background-color: #8b2f2f;
+}
+
 .btn.btn-primary.active,
 .btn.btn-primary:hover,
-.btn.btn-primary:focus,
+.btn.btn-primary:not(:disabled):not(.disabled).active,
 .btn.btn-primary:not(:disabled):not(.disabled):active,
 .btn.btn-primary:not(:disabled):not(.disabled):active:focus {
   outline: none;

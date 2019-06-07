@@ -9,9 +9,16 @@
     transition: all .2s ease-in-out;
     @include respond-to(phone) { max-width: 100%; }
 
+    &:focus {
+        color: $white;
+        background-color: $dark;
+        outline: none;
+        box-shadow: none;
+    }
+
     &.active,
     &:hover, 
-    &:focus,
+    &:not(:disabled):not(.disabled).active,
     &:not(:disabled):not(.disabled):active,
     &:not(:disabled):not(.disabled):active:focus {
         outline: none;
@@ -23,9 +30,13 @@
     &.btn-primary {
         background-color: $brandPrimaryDark;
 
+        &:focus {
+            background-color: $brandPrimaryDark;
+        }
+
         &.active,
         &:hover, 
-        &:focus,
+        &:not(:disabled):not(.disabled).active,
         &:not(:disabled):not(.disabled):active,
         &:not(:disabled):not(.disabled):active:focus {
             outline: none;
