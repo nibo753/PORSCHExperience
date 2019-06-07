@@ -41,8 +41,8 @@
 
     <nav class="" id="model_nav">
         <ul class="model_slider">
-            @foreach ($cars as $key => $model)
-            <li>
+            @foreach ($cars as $model)
+            <li class="{{$model->name}}">
                 <img src="/img/{{$model->category->name}}/{{$model->category->name}}_{{str_replace(' ', '_', $model->name)}}.png" alt="{{$model->name}}">
                 <span>{{$model->category->name}}</span>
                 @if ($model->name != '')
@@ -55,8 +55,28 @@
             @endforeach
         </ul>
     </nav>
+    
+    <?php
+    $allClasses = array();
+    foreach ($cars as $model) {
+        $classes = explode(" ", $model->name);
+        foreach ($classes as $className) {
+            if (!in_array($className, $allClasses)) {
+                array_push($allClasses, $className);
+            }
+        }
+    } ?>
+    <form class="model_filter" action="" method="">
+    @foreach($allClasses as $className)
+        <input type="checkbox" name="{{$className}}" value="{{$className}}" checked>{{$className}}<br>
+    @endforeach
+    </form>
+    
+
+
+
     <div class="model_info">
-        @foreach ($cars as $key => $model)
+        @foreach ($cars as $model)
         <section class="model" id="car_{{$model->id}}">
             <p>{{$model->name}}</p>
             <p>{{$model->price}}</p>

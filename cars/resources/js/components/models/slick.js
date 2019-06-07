@@ -1,12 +1,11 @@
-$.fn.createSlick = function()
-{
-	const check = document.querySelector('.models'),
+const url		= new URL(window.location.href),
+	check 		= document.querySelector('.models'),
 	modelSlider = $('.model_slider'),
 	modelInfo 	= $('.model_info');
 
+$.fn.createSlick = function()
+{
 	if ( check && modelSlider.length && modelInfo.length ) {
-		const url	= new URL(window.location.href);
-
 		let index 	= parseInt(url.searchParams.get("slide")),
 			amount 	= document.querySelectorAll('#model_nav .model_slider li').length;
 
@@ -55,17 +54,13 @@ $.fn.createSlick = function()
 			fade: true
 		});
 
-		//update class slick-current
+		//update class .slick-current
 		modelSlider[0].slick.slickGoTo(index);
 
 		// UPDATE URL ON CHANGE
-		// not added to history to prevent back/forward failing
-		modelSlider.on('afterChange', function(event, slick,  currentSlide, nextSlide) {		
-			if (window.history.replaceState) {
-				let updateUrl 		= url.origin + url.pathname + '?slide=' + currentSlide;
-				window.history.replaceState(currentSlide, 'slide', updateUrl);
-			}
-		});
+		updateSlickUrl(modelSlider);
+		checkboxFilterSlick(modelSlider, '.model_filter input[type="checkbox"]');
+		
 	}
 }
 
@@ -73,4 +68,33 @@ $.fn.destroySlick = function()
 {
 	$('.model_slider').slick('unslick');
 	$('.model_info').slick('unslick');
+}
+
+
+// not added to history to prevent back/forward failing
+function updateSlickUrl(slick){
+	$(slick).on('afterChange', function(event, slick,  currentSlide, nextSlide) {
+		if (window.history.replaceState) {
+			const updateUrl 	= url.origin + url.pathname + '?slide=' + currentSlide;
+			window.history.replaceState(currentSlide, 'slide', updateUrl);
+		}
+	});
+}
+
+function checkboxFilterSlick(slick, checkbox){
+	let checkboxes = document.querySelectorAll(checkbox);
+
+	for (var i = checkboxes.length - 1; i >= 0; i--) {
+		checkboxes[i].addEventListener('change', function(e) {
+			console.log($(slick));
+			if (!this.checked) {
+				//slickfilter uses jquery selector
+				$(slick).slick('slickUnfilter');
+				$(slick).slick('slickFilter', ':not(:has(.' + this.value + '))' );
+			}
+			else {
+				$(slick).slick('slickUnfilter');
+			}
+		});
+	}
 }
