@@ -40665,11 +40665,12 @@ $.fn.createSlick = function () {
         index = 0;
       }
 
-      modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGING SLIDE
+      modelSlider[0].slick.slickGoTo(index); // UPDATE URL SLIDE PARAMETER
 
       modelSlider.on('afterChange', function (event, slick, currentSlide) {
         updateURLParameter("s", currentSlide);
       }); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
+      // UPDATE URL MODEL PARAMETER
 
       var _loop = function _loop(_i) {
         buttons[_i].addEventListener('click', function (e) {
@@ -40702,19 +40703,21 @@ $.fn.destroySlick = function () {
 
 function updateURLParameter(parameter, value) {
   if (window.history.replaceState) {
-    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](url.href, parameter, value);
+    var _url = window.location,
+        updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](_url.href, parameter, value);
     window.history.replaceState({
       'id': 'smoothState'
-    }, url.pathname, updatedUrl);
+    }, _url.pathname, updatedUrl);
   }
 }
 
 function removeURLParameter(parameter) {
   if (window.history.replaceState) {
-    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](url.href, parameter);
+    var _url = window.location,
+        updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](_url.href, parameter);
     window.history.replaceState({
       'id': 'smoothState'
-    }, url.pathname, updatedUrl);
+    }, _url.pathname, updatedUrl);
   }
 }
 

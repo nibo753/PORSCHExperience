@@ -113,13 +113,13 @@ $.fn.createSlick = function()
 		}
 		modelSlider[0].slick.slickGoTo(index);
 
-
-		// UPDATE URL ON CHANGING SLIDE
+		// UPDATE URL SLIDE PARAMETER
 		modelSlider.on('afterChange', function(event, slick,  currentSlide){
 			updateURLParameter("s", currentSlide);
 		});
 
 		// FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
+		// UPDATE URL MODEL PARAMETER
 		for (let i = buttons.length - 1; i >= 0; i--) {
 			buttons[i].addEventListener('click', function(e) {
 				filterSlick(this, modelSlider, modelInfo);
@@ -152,15 +152,17 @@ $.fn.destroySlick = function()
 // not added to history to prevent back/forward failing
 function updateURLParameter(parameter, value){
 	if (window.history.replaceState) {
-		let updatedUrl = f.updateURLParameter(url.href, parameter, value)
-		window.history.replaceState({'id': 'smoothState'}, url.pathname, updatedUrl);
+		const _url 	= window.location,
+		updatedUrl 	= f.updateURLParameter(_url.href, parameter, value)
+		window.history.replaceState({'id': 'smoothState'}, _url.pathname, updatedUrl);
 	}
 }
 
 function removeURLParameter(parameter){
 	if (window.history.replaceState) {
-		let updatedUrl = f.removeURLParameter(url.href, parameter);
-		window.history.replaceState({'id': 'smoothState'}, url.pathname, updatedUrl);
+		const _url 	= window.location,
+		updatedUrl 	= f.removeURLParameter(_url.href, parameter);
+		window.history.replaceState({'id': 'smoothState'}, _url.pathname, updatedUrl);
 	}
 }
 

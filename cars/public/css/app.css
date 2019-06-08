@@ -12102,7 +12102,6 @@ body.dark {
   transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
-.models #model_container #model_nav .model_slider .slick-slide.slick-current li img,
 .models #model_container #model_nav .model_slider .slick-slide:hover li img {
   -webkit-transform: scale(1.01);
           transform: scale(1.01);

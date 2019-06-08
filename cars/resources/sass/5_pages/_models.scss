@@ -104,7 +104,10 @@ $bgColor: white;
 						transition: transform .2s;
 					}
 
-					&.slick-current li,
+					
+
+
+					//&.slick-current li,
 					&:hover li {
 						img { transform: scale(1.01);}
 					}
