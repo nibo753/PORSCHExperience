@@ -45,7 +45,26 @@
         }
     ?>
 
-    <nav class="" id="model_nav">
+    <nav id="model_nav">
+        <div class="model_filter container">
+            <div class="row">
+            @if ($cars[0]->category->name == '718')
+                <button class="btn" value="Boxster">Boxster</button>
+                <button class="btn" value="Cayman">Cayman</button>
+            @endif
+            @if ($cars[0]->category->name == '911')
+                <button class="btn" value="S 4S">Carrera S</button>
+                <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
+                <button class="btn" value="RS">Racing Sport</button>
+            @endif
+            @if ($cars[0]->category->name == 'Panamera')
+                <button class="btn" value="Sport Turismo">Sport Turismo</button>
+                <button class="btn" value="Executive">Executive</button>
+                <button class="btn" value="Turbo">Turbo</button>
+                <button class="btn" value="E-Hybrid">E-Hybrid</button>
+            @endif
+            </div>
+        </div>
         <ul class="model_slider">
             @foreach ($cars as $model)
             <?php
@@ -68,28 +87,17 @@
             @endforeach
         </ul>
     </nav>
-    
-    <div class="model_filter">
-    @if ($cars[0]->category->name == '718')
-        <button class="btn" value="Boxster">Boxster</button>
-        <button class="btn" value="Cayman">Cayman</button>
-    @endif
-    @if ($cars[0]->category->name == '911')
-        <button class="btn" value="S 4S">Carrera S</button>
-        <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
-        <button class="btn" value="RS">Racing Sport</button>
-    @endif
-    @if ($cars[0]->category->name == 'Panamera')
-        <button class="btn" value="Sport Turismo">Sport Turismo</button>
-        <button class="btn" value="Executive">Executive</button>
-        <button class="btn" value="Turbo">Turbo</button>
-        <button class="btn" value="E-Hybrid">E-Hybrid</button>
-    @endif
-    </div>
 
     <div class="model_info">
         @foreach ($cars as $model)
-        <section class="model" id="car_{{$model->id}}">
+        <?php
+            // FIX MODEL NAMES THAT START WITH NUMBER
+            $name = $model->name;
+            if (startsWithNumber($name)){
+                $name = substr_replace($name, '_', 0, 0);
+            }
+        ?>
+        <section class="model {{$name}}" id="car_{{$model->id}}">
             <p>{{$model->name}}</p>
             <p>{{$model->price}}</p>
             <p>{{$model->pk}}</p>

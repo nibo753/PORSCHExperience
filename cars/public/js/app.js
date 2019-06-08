@@ -40575,13 +40575,13 @@ $.fn.createSlick = function () {
     modelSlider.slick({
       initialSlide: index,
       asNavFor: '.model_info',
+      lazyLoad: 'ondemand',
       infinite: false,
       slidesToScroll: 1,
       slidesToShow: 3,
       arrows: false,
       centerMode: true,
       centerPadding: '0px',
-      focusOnSelect: true,
       swipeToSlide: true,
       responsive: [{
         breakpoint: 1024,
@@ -40601,6 +40601,7 @@ $.fn.createSlick = function () {
       initialSlide: index,
       asNavFor: '.model_slider',
       lazyLoad: 'ondemand',
+      infinite: false,
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
@@ -40612,7 +40613,7 @@ $.fn.createSlick = function () {
 
     modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGING SLIDE
 
-    updateSlickUrl(modelSlider); // FILTER ON BUTTON CLICK
+    updateSlickUrl(modelSlider); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
 
     buttonFilterSlick(modelSlider, '.model_filter button', modelInfo); // IF CAR OUT OF VIEW DUE TO FILTER, GO TO SLIDE
 
@@ -40622,15 +40623,15 @@ $.fn.createSlick = function () {
       modelInfo[0].slick.slickGoTo(slide, true);
     });
     /*
-     *
+     * SLICK BUG FIXING
      * slick filter is bugging the slider occiasonally
      * manually fix it when clicked or swiping
      *
      */
 
     $('.model_slider .slick-slide').on('click', function (event) {
-      $('.model_slider .slick-current').removeClass('slick-current');
-      $(this).addClass('slick-current');
+      $('.model_slider .slick-current').removeClass('slick-current slick-center');
+      $(this).addClass('slick-current slick-center');
       var div = $(this).parent().children();
 
       for (var i = 0; i < div.length; i++) {
@@ -40642,10 +40643,11 @@ $.fn.createSlick = function () {
     });
     modelSlider.on('afterChange', function (event, slick, currentSlide) {
       var div = $(this).children().children().children();
-      div.removeClass('slick-current');
+      div.removeClass('slick-current slick-center');
 
       for (var i = 0; i < div.length; i++) {
         if (currentSlide == i) {
+          div[i].classList.add('slick-center');
           div[i].classList.add('slick-current');
           break;
         }
@@ -40674,19 +40676,24 @@ function buttonFilterSlick(slick, input, syncSlick) {
 
   for (var i = buttons.length - 1; i >= 0; i--) {
     buttons[i].addEventListener('click', function (e) {
-      var slider = $(slick);
+      var slider = $(slick),
+          syncSlider = $(syncSlick);
 
       if (!this.classList.contains('active')) {
         //remove other filter
         slider.slick('slickUnfilter');
+        syncSlider.slick('slickUnfilter');
         $(buttons).removeClass('active'); // apply current target
 
         var className = this.value.split(" ").join(", .");
         slider.slick('slickFilter', ':has(.' + className + ')');
+        syncSlider.slick('slickFilter', ':has(.' + className + ')');
         this.classList.add('active');
+        slider[0].slick.slickGoTo(0, true);
       } else {
         //unfilter
         slider.slick('slickUnfilter');
+        syncSlider.slick('slickUnfilter');
         this.classList.remove('active');
       }
     });

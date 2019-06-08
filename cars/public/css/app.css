@@ -11986,6 +11986,18 @@ body.dark {
   border-right: none;
 }
 
+.models #model_container > .scrollmagic-pin-spacer {
+  background-color: white;
+}
+
+.models #model_container > div:first-child {
+  margin-bottom: 24px;
+}
+
+.models #model_container #model_nav {
+  margin-top: 24px;
+}
+
 .models #model_container #image_sequence {
   position: relative;
   max-height: 100vh;
@@ -12048,6 +12060,20 @@ body.dark {
   color: #F1F1F1;
 }
 
+.models #model_container .model_filter {
+  position: relative;
+}
+
+.models #model_container .model_filter .row {
+  position: absolute;
+  top: -24px;
+  z-index: 1;
+}
+
+.models #model_container .model_slider {
+  background-color: white;
+}
+
 .models #model_container .model_slider .slick-slide {
   text-align: center;
   cursor: pointer;
@@ -12057,10 +12083,18 @@ body.dark {
   max-width: 90%;
   max-height: 100%;
   margin: 0 auto;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
-.models #model_container .model_slider .slick-slide.slick-current li,
-.models #model_container .model_slider .slick-slide:hover li {
-  background: linear-gradient(to bottom, #f1f1f1 50%, #d6d6d6 100%);
+.models #model_container .model_slider .slick-slide.slick-current li img,
+.models #model_container .model_slider .slick-slide:hover li img {
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+}
+
+.models #model_container .model_info {
+  min-height: 500px;
 }
 
