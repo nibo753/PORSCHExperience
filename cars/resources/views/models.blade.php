@@ -53,7 +53,7 @@
                 <button class="btn" value="Cayman">Cayman</button>
             @endif
             @if ($cars[0]->category->name == '911')
-                <button class="btn" value="S 4S">Carrera S</button>
+                <button class="btn" value="Carrera">Carrera</button>
                 <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
                 <button class="btn" value="RS">Racing Sport</button>
             @endif
@@ -63,6 +63,7 @@
                 <button class="btn" value="Turbo">Turbo</button>
                 <button class="btn" value="E-Hybrid">E-Hybrid</button>
             @endif
+            <?php // NO MACAN OR CAYENNE FILTER ?>
             </div>
         </div>
         <ul class="model_slider">
