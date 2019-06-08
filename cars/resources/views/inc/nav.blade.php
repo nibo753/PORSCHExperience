@@ -21,9 +21,10 @@
 						<h2>{{ $category->name }}</h2>
 						<a class="mp-back arrow right" href="">Back</a>
 						<ul>
-							@foreach ($category->cars as $key => $name)
-								<li><a href="/models/{{$category->name}}?slide={{$key}}">{{ $name != "" ? $name : $category->name }}</a></li>
-							@endforeach
+							@if ($category->name == '718')
+								<li><a href="/models/{{$category->name}}?m=Boxster">Boxster</a></li>
+								<li><a href="/models/{{$category->name}}?m=Cayman">Cayman</a></li>
+							@endif
 						</ul>
 					</div>
 					@endif

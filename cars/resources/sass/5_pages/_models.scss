@@ -14,7 +14,9 @@ $bgColor: white;
 	#model_container {
 
 		> .scrollmagic-pin-spacer { background-color: $bgColor; }
-		> div:first-child { margin-bottom: 24px; }
+
+		// leave space if no img sequence
+		> div:first-child { margin-bottom: -24px; }
 		#model_nav { margin-top: 24px; }
 
 		#image_sequence {

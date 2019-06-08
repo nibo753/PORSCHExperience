@@ -40553,8 +40553,12 @@ $.fn.createImgSequence = function () {
 /*!*************************************************!*\
   !*** ./resources/js/components/models/slick.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
 var url = new URL(window.location.href),
     check = document.querySelector('.models'),
@@ -40563,140 +40567,173 @@ var url = new URL(window.location.href),
 
 $.fn.createSlick = function () {
   if (check && modelSlider.length && modelInfo.length) {
-    // GET URL PARAMETER SLIDE
-    var index = parseInt(url.searchParams.get("slide")),
-        amount = document.querySelectorAll('#model_nav .model_slider li').length; // IF NOT OK SET SLIDE PARAMETER TO 0 
+    (function () {
+      // GET URL PARAMETER SLIDE
+      var index = parseInt(url.searchParams.get("s")),
+          modelParameter = "m",
+          model = url.searchParams.get(modelParameter),
+          buttons = document.querySelectorAll('.model_filter button'); // INITIALIZE SLICK SLIDERS
 
-    if (!index || amount < index && index > amount) {
-      index = 0;
-    } // INITIALIZE SLICK SLIDERS
+      modelSlider.slick({
+        //initialSlide: index,
+        asNavFor: '.model_info',
+        lazyLoad: 'ondemand',
+        infinite: false,
+        slidesToScroll: 1,
+        slidesToShow: 3,
+        arrows: false,
+        centerMode: true,
+        centerPadding: '0px',
+        swipeToSlide: true,
+        responsive: [{
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2,
+            arrows: true
+          }
+        }, {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            centerPadding: '50px'
+          }
+        }]
+      });
+      modelInfo.slick({
+        //initialSlide: index,
+        asNavFor: '.model_slider',
+        lazyLoad: 'ondemand',
+        infinite: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        draggable: false,
+        touchMove: false,
+        speed: 0,
+        fade: true
+      });
+      /*
+       * slick filter is bugging the slider occiasonally
+       * create events on slides before filtering
+       *
+       * ON CLICK AND SWIPE:
+       * 	remove classes on old slide
+       * 	add classes to current slide
+       * 
+       * ON CLICK:
+       * 	swipe to current slide
+       */
+      // SLICK BUG FIX
 
+      $('.model_slider .slick-slide').on('click', function (event) {
+        $('.model_slider .slick-current').removeClass('slick-current slick-center');
+        $(this).addClass('slick-current slick-center');
+        var div = $(this).parent().children();
 
-    modelSlider.slick({
-      initialSlide: index,
-      asNavFor: '.model_info',
-      lazyLoad: 'ondemand',
-      infinite: false,
-      slidesToScroll: 1,
-      slidesToShow: 3,
-      arrows: false,
-      centerMode: true,
-      centerPadding: '0px',
-      swipeToSlide: true,
-      responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          arrows: true
+        for (var i = 0; i < div.length; i++) {
+          if (div[i].classList.contains('slick-current')) {
+            modelSlider[0].slick.slickGoTo(i);
+            break;
+          }
         }
-      }, {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          centerPadding: '50px'
+      }); // SLICK BUG FIX
+
+      modelSlider.on('afterChange', function (event, slick, currentSlide) {
+        var div = $(this).children().children().children();
+        div.removeClass('slick-current slick-center');
+
+        for (var i = 0; i < div.length; i++) {
+          if (currentSlide == i) {
+            div[i].classList.add('slick-center');
+            div[i].classList.add('slick-current');
+            break;
+          }
         }
-      }]
-    });
-    modelInfo.slick({
-      initialSlide: index,
-      asNavFor: '.model_slider',
-      lazyLoad: 'ondemand',
-      infinite: false,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      draggable: false,
-      touchMove: false,
-      speed: 0,
-      fade: true
-    }); // UPDATE CLASS .slick-current TO URL SLIDE PARAMETER
+      }); // FILTER ON MODEL IN URL AFTER CREATING CLICKEVENTS ON ALL SLIDES
 
-    modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGING SLIDE
-
-    updateSlickUrl(modelSlider); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
-
-    buttonFilterSlick(modelSlider, '.model_filter button', modelInfo); // IF CAR OUT OF VIEW DUE TO FILTER, GO TO SLIDE
-
-    modelSlider.on('reInit', function (event) {
-      var slide = modelSlider.slick('slickCurrentSlide');
-      modelSlider[0].slick.slickGoTo(slide, true);
-      modelInfo[0].slick.slickGoTo(slide, true);
-    });
-    /*
-     * SLICK BUG FIXING
-     * slick filter is bugging the slider occiasonally
-     * manually fix it when clicked or swiping
-     *
-     */
-
-    $('.model_slider .slick-slide').on('click', function (event) {
-      $('.model_slider .slick-current').removeClass('slick-current slick-center');
-      $(this).addClass('slick-current slick-center');
-      var div = $(this).parent().children();
-
-      for (var i = 0; i < div.length; i++) {
-        if (div[i].classList.contains('slick-current')) {
-          modelSlider[0].slick.slickGoTo(i);
+      for (var i = buttons.length - 1; i >= 0; i--) {
+        if (model == buttons[i].value) {
+          filterSlick(buttons[i], modelSlider, modelInfo);
           break;
         }
-      }
-    });
-    modelSlider.on('afterChange', function (event, slick, currentSlide) {
-      var div = $(this).children().children().children();
-      div.removeClass('slick-current slick-center');
+      } // GO TO SLIDE PARAMETER, SET TO 0 IF NOT OK
 
-      for (var i = 0; i < div.length; i++) {
-        if (currentSlide == i) {
-          div[i].classList.add('slick-center');
-          div[i].classList.add('slick-current');
-          break;
-        }
+
+      var amount = document.querySelectorAll('#model_nav .model_slider li').length;
+
+      if (!index || amount < index && index > amount) {
+        index = 0;
       }
-    });
+
+      modelSlider[0].slick.slickGoTo(index); // UPDATE URL ON CHANGING SLIDE
+
+      modelSlider.on('afterChange', function (event, slick, currentSlide) {
+        updateURLParameter("s", currentSlide);
+      }); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
+
+      var _loop = function _loop(_i) {
+        buttons[_i].addEventListener('click', function (e) {
+          filterSlick(this, modelSlider, modelInfo); // change URL depending on button state
+
+          if (buttons[_i].classList.contains('active')) {
+            updateURLParameter(modelParameter, this.value);
+          } else {
+            removeURLParameter(modelParameter);
+          }
+        });
+      };
+
+      for (var _i = buttons.length - 1; _i >= 0; _i--) {
+        _loop(_i);
+      }
+    })();
   }
 };
 
 $.fn.destroySlick = function () {
   $('.model_slider').slick('unslick');
   $('.model_info').slick('unslick');
-}; // not added to history to prevent back/forward failing
+};
+/*
+ * HELPER FUNCTIONS
+ */
+// not added to history to prevent back/forward failing
 
 
-function updateSlickUrl(slick) {
-  $(slick).on('afterChange', function (event, slick, currentSlide) {
-    if (window.history.replaceState) {
-      var updateUrl = url.origin + url.pathname + '?slide=' + currentSlide;
-      window.history.replaceState(currentSlide, 'slide', updateUrl);
-    }
-  });
+function updateURLParameter(parameter, value) {
+  if (window.history.replaceState) {
+    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](window.location.href, parameter, value);
+    window.history.replaceState('', '', updatedUrl);
+  }
 }
 
-function buttonFilterSlick(slick, input, syncSlick) {
-  var buttons = document.querySelectorAll(input);
+function removeURLParameter(parameter) {
+  if (window.history.replaceState) {
+    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](window.location.href, parameter);
+    window.history.replaceState('', '', updatedUrl);
+  }
+}
 
-  for (var i = buttons.length - 1; i >= 0; i--) {
-    buttons[i].addEventListener('click', function (e) {
-      var slider = $(slick),
-          syncSlider = $(syncSlick);
+function filterSlick(input, slick, syncSlick) {
+  var slider = $(slick),
+      syncSlider = $(syncSlick);
 
-      if (!this.classList.contains('active')) {
-        //remove other filter
-        slider.slick('slickUnfilter');
-        syncSlider.slick('slickUnfilter');
-        $(buttons).removeClass('active'); // apply current target
+  if (!input.classList.contains('active')) {
+    //remove other filter
+    slider.slick('slickUnfilter');
+    syncSlider.slick('slickUnfilter');
+    $(input.parentNode.children).removeClass('active'); // apply current target
 
-        var className = this.value.split(" ").join(", .");
-        slider.slick('slickFilter', ':has(.' + className + ')');
-        syncSlider.slick('slickFilter', ':has(.' + className + ')');
-        this.classList.add('active');
-        slider[0].slick.slickGoTo(0, true);
-      } else {
-        //unfilter
-        slider.slick('slickUnfilter');
-        syncSlider.slick('slickUnfilter');
-        this.classList.remove('active');
-      }
-    });
+    var className = input.value.split(" ").join(", .");
+    slider.slick('slickFilter', ':has(.' + className + ')');
+    syncSlider.slick('slickFilter', ':has(.' + className + ')');
+    input.classList.add('active');
+    slider[0].slick.slickGoTo(0, true);
+  } else {
+    //unfilter
+    slider.slick('slickUnfilter');
+    syncSlider.slick('slickUnfilter');
+    input.classList.remove('active');
   }
 }
 
@@ -40874,7 +40911,7 @@ $(window).bind('resize', function (e) {
 /*!***********************************!*\
   !*** ./resources/js/functions.js ***!
   \***********************************/
-/*! exports provided: scrollTo, audioFadeOut, audioFadeIn, isPlaying, thousandSeparator, rnd */
+/*! exports provided: scrollTo, audioFadeOut, audioFadeIn, isPlaying, thousandSeparator, rnd, updateURLParameter, removeURLParameter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40885,6 +40922,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlaying", function() { return isPlaying; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thousandSeparator", function() { return thousandSeparator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rnd", function() { return rnd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateURLParameter", function() { return updateURLParameter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeURLParameter", function() { return removeURLParameter; });
 function scrollTo(target, duration) {
   $('html,body').stop().animate({
     scrollTop: target.offset().top
@@ -40918,6 +40957,60 @@ function rnd(min, max) {
   return Math.random() * (max - min) + min;
 }
 ;
+function updateURLParameter(url, param, paramVal) {
+  var TheAnchor = null;
+  var newAdditionalURL = "";
+  var tempArray = url.split("?");
+  var baseURL = tempArray[0];
+  var additionalURL = tempArray[1];
+  var temp = "";
+
+  if (additionalURL) {
+    var tmpAnchor = additionalURL.split("#");
+    var TheParams = tmpAnchor[0];
+    TheAnchor = tmpAnchor[1];
+    if (TheAnchor) additionalURL = TheParams;
+    tempArray = additionalURL.split("&");
+
+    for (var i = 0; i < tempArray.length; i++) {
+      if (tempArray[i].split('=')[0] != param) {
+        newAdditionalURL += temp + tempArray[i];
+        temp = "&";
+      }
+    }
+  } else {
+    var tmpAnchor = baseURL.split("#");
+    var TheParams = tmpAnchor[0];
+    TheAnchor = tmpAnchor[1];
+    if (TheParams) baseURL = TheParams;
+  }
+
+  if (TheAnchor) paramVal += "#" + TheAnchor;
+  var rows_txt = temp + "" + param + "=" + paramVal;
+  return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+function removeURLParameter(sourceURL, key) {
+  var rtn = sourceURL.split("?")[0],
+      param,
+      params_arr = [],
+      queryString = sourceURL.indexOf("?") !== -1 ? sourceURL.split("?")[1] : "";
+
+  if (queryString !== "") {
+    params_arr = queryString.split("&");
+
+    for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+      param = params_arr[i].split("=")[0];
+
+      if (param === key) {
+        params_arr.splice(i, 1);
+      }
+    }
+
+    rtn = rtn + "?" + params_arr.join("&");
+  }
+
+  return rtn;
+}
 
 /***/ }),
 

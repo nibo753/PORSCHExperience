@@ -11991,7 +11991,7 @@ body.dark {
 }
 
 .models #model_container > div:first-child {
-  margin-bottom: 24px;
+  margin-bottom: -24px;
 }
 
 .models #model_container #model_nav {
