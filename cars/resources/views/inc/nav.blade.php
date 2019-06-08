@@ -5,19 +5,15 @@
 			<li><a href="{{ ( $isHome ) ? '#intro' : '/' }}" class="{{ ( $isHome ) ? 'active' : '' }}">Home</a></li>
 			@foreach ($categories as $category)
 				<?php
-				/*
-				 * if category is current page
-				 * OR if category = Macan or Cayenne
-				 * create li > a.active
-				 * stop loop (no submenu)
+				/* 
+				 * IF category name is current page OR if category = 'macan' or IF category = 'cayenne'
+				 * create li > a
+				 * if isset($cars) > if current page add .active
+				 * stop current foreach loop -> no submenu is added
 				 */
 				if (isset($cars) && !$cars->isEmpty() && $cars[0]->category->name == $category->name || $category->name == 'Macan' || $category->name == 'Cayenne'): ?>
-					@if (isset($cars))
-		 				<li><a href="/models/{{ $category->name }}" class="{{ ($cars[0]->category->name == $category->name) ? 'active' : '' }}">{{ $category->name }}</a></li>
-					@else
-						<li><a href="/models/{{ $category->name }}">{{ $category->name }}</a></li>
-					@endif
-		 			<?php // if on model page, else on home page
+		 				<li><a href="/models/{{ $category->name }}" class="{{ (isset($cars[0]['category']['name'])) ? ( ($cars[0]['category']['name'] == $category->name) ? 'active' : '' ) : '' }}">{{$category->name}}</a></li>
+					<?php
 		 			continue;
 	 			endif ?>
 				<li>
