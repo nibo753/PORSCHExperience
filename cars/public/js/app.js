@@ -39942,6 +39942,8 @@ __webpack_require__(/*! ./lib/universal-parallax */ "./resources/js/lib/universa
 
 __webpack_require__(/*! ./lib/multi-level-push-menu */ "./resources/js/lib/multi-level-push-menu.js");
 
+__webpack_require__(/*! ./lib/segment.min */ "./resources/js/lib/segment.min.js");
+
 $('.home').createParallax(); // NPM Libraries
 
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js"); // Components
@@ -40403,7 +40405,8 @@ $.fn.createSlideIn = function () {
         navbar = -+$('header').outerHeight(true),
         startAt = 0.9,
         //same as marginbot
-    navVar = _nav__WEBPACK_IMPORTED_MODULE_0__; // HEADER SLIDE IN
+    navVar = _nav__WEBPACK_IMPORTED_MODULE_0__,
+        hamburger = document.getElementById('mp-trigger'); // HEADER SLIDE IN
 
     new ScrollMagic.Scene({
       triggerElement: el,
@@ -40424,6 +40427,11 @@ $.fn.createSlideIn = function () {
     }).addTo(contr).on("start", function (e) {
       if (e.type == "start") {
         _nav__WEBPACK_IMPORTED_MODULE_0__["_resetMenu"]();
+
+        if (hamburger.classList.contains('active')) {
+          _nav__WEBPACK_IMPORTED_MODULE_0__["animation"]();
+          hamburger.classList.remove('active');
+        }
       }
     });
   }
@@ -40750,7 +40758,7 @@ function filterSlick(input, slick, syncSlick) {
 /*!****************************************!*\
   !*** ./resources/js/components/nav.js ***!
   \****************************************/
-/*! exports provided: _resetMenu, _openMenu, _closeMenu */
+/*! exports provided: _resetMenu, _openMenu, _closeMenu, animation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40758,6 +40766,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_resetMenu", function() { return _resetMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_openMenu", function() { return _openMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_closeMenu", function() { return _closeMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "animation", function() { return animation; });
 var menu = document.getElementById('mp-menu'),
     hamburger = document.getElementById('mp-trigger');
 var nav = new mlPushMenu(menu, hamburger, {
@@ -40771,6 +40780,105 @@ function _openMenu() {
 }
 function _closeMenu() {
   nav._closeMenu();
+}
+var beginAC = 80,
+    endAC = 320,
+    beginB = 80,
+    endB = 320,
+    path1 = document.getElementById('hamburger-path-1'),
+    path2 = document.getElementById('hamburger-path-2'),
+    path3 = document.getElementById('hamburger-path-3'),
+    segment1 = new Segment(path1, beginAC, endAC),
+    segment2 = new Segment(path2, beginB, endB),
+    segment3 = new Segment(path3, beginAC, endAC),
+    toCloseIcon = true,
+    duration = 0.1;
+hamburger.classList.remove('hidden'); // draw(begin, end, duration, options)
+// options {delay, easing, circular, callback}
+// In animations (burger to cross)
+
+function inAC(s) {
+  s.draw('80% - 240', '80%', duration * 3, {
+    delay: 0.1,
+    callback: function callback() {
+      inAC2(s);
+    }
+  });
+}
+
+function inAC2(s) {
+  s.draw('100% - 545', '100% - 305', duration, {
+    easing: Elastic.easeOut.config(1, 0.3)
+  });
+}
+
+function inB(s) {
+  s.draw(beginB - 60, endB + 60, duration, {
+    callback: function callback() {
+      inB2(s);
+    }
+  });
+}
+
+function inB2(s) {
+  s.draw(beginB + 120, endB - 120, duration * 2, {
+    easing: Bounce.easeOut
+  });
+} // Out animations (cross to burger)
+
+
+function outAC(s) {
+  s.draw('90% - 240', '90%', duration, {
+    easing: Elastic.easeIn.config(1, 0.3),
+    callback: function callback() {
+      outAC2(s);
+    }
+  });
+}
+
+function outAC2(s) {
+  s.draw('20% - 240', '20%', duration * 3, {
+    callback: function callback() {
+      outAC3(s);
+    }
+  });
+}
+
+function outAC3(s) {
+  s.draw(beginAC, endAC, duration * 1.5, {
+    easing: Elastic.easeOut.config(1, 0.3)
+  });
+}
+
+function outB(s) {
+  s.draw(beginB, endB, duration * 3, {
+    delay: 0.1,
+    easing: Elastic.easeOut.config(2, 0.4)
+  });
+}
+
+hamburger.onclick = function () {
+  animation();
+  hamburger.classList.toggle('active');
+};
+
+function animation() {
+  hamburger.classList.add('scaled');
+
+  if (toCloseIcon) {
+    inAC(segment1);
+    inB(segment2);
+    inAC(segment3);
+  } else {
+    outAC(segment1);
+    outB(segment2);
+    outAC(segment3);
+  }
+
+  toCloseIcon = !toCloseIcon;
+  setTimeout(function () {
+    hamburger.classList.remove('scaled');
+  }, 450);
 }
 
 /***/ }),
@@ -41824,6 +41932,72 @@ __webpack_require__.r(__webpack_exports__);
   };
   window.mlPushMenu = mlPushMenu;
 })(window);
+
+/***/ }),
+
+/***/ "./resources/js/lib/segment.min.js":
+/*!*****************************************!*\
+  !*** ./resources/js/lib/segment.min.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * segment - A little JavaScript class (without dependencies) to draw and animate SVG path strokes
+ * @version v0.0.2
+ * @link https://github.com/lmgonzalves/segment
+ * @license MIT
+ */
+function Segment(t, e, n) {
+  this.path = t, this.length = t.getTotalLength(), this.path.style.strokeDashoffset = 2 * this.length, this.begin = e ? this.valueOf(e) : 0, this.end = n ? this.valueOf(n) : this.length, this.timer = null, this.draw(this.begin, this.end);
+}
+
+Segment.prototype = {
+  draw: function draw(t, e, n, i) {
+    if (n) {
+      var s = i.hasOwnProperty("delay") ? 1e3 * parseFloat(i.delay) : 0,
+          a = i.hasOwnProperty("easing") ? i.easing : null,
+          h = i.hasOwnProperty("callback") ? i.callback : null,
+          r = this;
+      if (this.stop(), s) return delete i.delay, this.timer = setTimeout(function () {
+        r.draw(t, e, n, i);
+      }, s), this.timer;
+      var l = new Date(),
+          o = 1e3 / 60,
+          g = this.begin,
+          f = this.end,
+          u = this.valueOf(t),
+          d = this.valueOf(e);
+      !function p() {
+        var t = new Date(),
+            e = (t - l) / 1e3,
+            i = e / parseFloat(n),
+            s = i;
+        return "function" == typeof a && (s = a(s)), i > 1 ? (r.stop(), s = 1) : r.timer = setTimeout(p, o), r.begin = g + (u - g) * s, r.end = f + (d - f) * s, r.begin < 0 && (r.begin = 0), r.end > r.length && (r.end = r.length), r.begin < r.end ? r.draw(r.begin, r.end) : r.draw(r.begin + (r.end - r.begin), r.end - (r.end - r.begin)), i > 1 && "function" == typeof h ? h.call(r.context) : void 0;
+      }();
+    } else this.path.style.strokeDasharray = this.strokeDasharray(t, e);
+  },
+  strokeDasharray: function strokeDasharray(t, e) {
+    return this.begin = this.valueOf(t), this.end = this.valueOf(e), [this.length, this.length + this.begin, this.end - this.begin].join(" ");
+  },
+  valueOf: function valueOf(t) {
+    var e = parseFloat(t);
+
+    if (("string" == typeof t || t instanceof String) && ~t.indexOf("%")) {
+      var n;
+      ~t.indexOf("+") ? (n = t.split("+"), e = this.percent(n[0]) + parseFloat(n[1])) : ~t.indexOf("-") ? (n = t.split("-"), e = this.percent(n[0]) - parseFloat(n[1])) : e = this.percent(t);
+    }
+
+    return e;
+  },
+  stop: function stop() {
+    clearTimeout(this.timer), this.timer = null;
+  },
+  percent: function percent(t) {
+    return parseFloat(t) / 100 * this.length;
+  }
+};
+window.Segment = Segment;
 
 /***/ }),
 

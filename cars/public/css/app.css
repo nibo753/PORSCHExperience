@@ -11058,9 +11058,38 @@ ul {
   }
 }
 
-.hamburger {
+.menu-icon-wrapper {
   margin-left: auto;
+  margin-right: 15px;
   cursor: pointer;
+  position: relative;
+}
+
+.menu-icon-wrapper.hidden {
+  opacity: 0;
+}
+
+.menu-icon-wrapper.scaled {
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
+
+.menu-icon-wrapper svg {
+  position: absolute;
+  top: -32px;
+  left: -32px;
+  -webkit-transform: scale(0.064);
+          transform: scale(0.064);
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+}
+
+.menu-icon-wrapper svg path {
+  stroke: #151515;
+  stroke-width: 60px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: transparent;
 }
 
 .logo {
@@ -12073,11 +12102,12 @@ body.dark {
   position: absolute;
   top: -24px;
   z-index: 1;
+  margin: 0;
 }
 
 .models #model_container #model_nav .name_bg {
   position: absolute;
-  top: 10px;
+  top: 15px;
 }
 
 .models #model_container #model_nav .name_bg h1 {

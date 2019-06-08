@@ -9,7 +9,8 @@ $.fn.createSlideIn = function()
         const   el          = ".overview",
                 navbar      = - + $('header').outerHeight(true),
                 startAt     = 0.9, //same as marginbot
-                navVar      = nav;
+                navVar      = nav,
+                hamburger   = document.getElementById( 'mp-trigger' );
 
         // HEADER SLIDE IN
         new ScrollMagic.Scene({
@@ -39,6 +40,11 @@ $.fn.createSlideIn = function()
         .on("start", function (e) {
             if (e.type == "start") {
                 nav._resetMenu();
+
+                if (hamburger.classList.contains('active')) {
+                    nav.animation();
+                    hamburger.classList.remove('active');
+                }
             }
         });
     }

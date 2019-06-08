@@ -38,7 +38,6 @@
     </div>
     @endif
     
-    
     <?php
         function startsWithNumber($str) {
             return preg_match('/^\d/', $str) === 1;

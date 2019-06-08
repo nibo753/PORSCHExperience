@@ -77,12 +77,13 @@ $bgColor: white;
 					position: absolute;
 					top: -24px;
 					z-index: 1;
+					margin: 0;
 				}
 			}
 
 			.name_bg {
 				position: absolute;
-				top: 10px;
+				top: 15px;
 				h1 {
 					font-size: em(96px);
 					color: $white;

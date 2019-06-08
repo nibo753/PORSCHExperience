@@ -76,6 +76,7 @@ require('./lib/jquery.easing');
 require('./lib/smooth-state');
 require('./lib/universal-parallax');
 require('./lib/multi-level-push-menu');
+require('./lib/segment.min');
 $('.home').createParallax();
 
 // NPM Libraries

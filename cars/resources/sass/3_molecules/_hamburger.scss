@@ -1,4 +1,28 @@
-.hamburger {
+.menu-icon-wrapper {
+	&.hidden { opacity: 0;}
+	
 	margin-left: auto;
+	margin-right: 15px;
 	cursor: pointer;
+	position: relative;
+
+	&.scaled{
+		transform: scale(0.5);
+	}
+
+	svg {
+		position: absolute;
+		top: -32px;
+		left: -32px;
+		transform: scale(0.064); // 1000x1000 * scale
+		transform-origin: 0 0;
+
+		path {
+			stroke: $black;
+			stroke-width: 60px;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			fill: transparent;
+		}
+	}
 }
