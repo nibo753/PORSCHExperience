@@ -13,11 +13,11 @@ $bgColor: white;
 
 	#model_container {
 
-		> .scrollmagic-pin-spacer { background-color: $bgColor; }
-
 		// leave space if no img sequence
 		> div:first-child { margin-bottom: -24px; }
-		#model_nav { margin-top: 24px; }
+		.model_filter { margin-top: 24px; }
+
+		.scrollmagic-pin-spacer { background-color: $bgColor; }
 
 		#image_sequence {
 			position: relative;
@@ -66,32 +66,48 @@ $bgColor: white;
 				h1, h2 { color: $white; }
 			}
 		}
-		
-		.model_filter {
+
+		#model_nav {
 			position: relative;
-			.row {
-				position: absolute;
-				top: -24px;
-				z-index: 1;
-			}
-		}
-
-		.model_slider {
 			background-color: $bgColor;
-			.slick-slide {
-				text-align: center;
-				cursor: pointer;
-
-				img {
-					max-width: 90%;
-					max-height: 100%;
-					margin: 0 auto;
-					transition: transform .2s;
+		
+			.model_filter {
+				position: relative;
+				.row {
+					position: absolute;
+					top: -24px;
+					z-index: 1;
 				}
+			}
 
-				&.slick-current li,
-				&:hover li {
-					img { transform: translateY(-2px);}
+			.name_bg {
+				position: absolute;
+				top: 10px;
+				h1 {
+					font-size: em(96px);
+					color: $white;
+					font-weight: 700;
+				}
+			}
+
+			.model_slider {
+				.slick-slide {
+					position: relative;
+					z-index: 2;
+					text-align: center;
+					cursor: pointer;
+
+					img {
+						max-width: 90%;
+						max-height: 100%;
+						margin: 0 auto;
+						transition: transform .2s;
+					}
+
+					&.slick-current li,
+					&:hover li {
+						img { transform: scale(1.01);}
+					}
 				}
 			}
 		}

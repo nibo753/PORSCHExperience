@@ -46,26 +46,37 @@
     ?>
 
     <nav id="model_nav">
-        <div class="model_filter container">
-            <div class="row">
-            @if ($cars[0]->category->name == '718')
-                <button class="btn" value="Boxster">Boxster</button>
-                <button class="btn" value="Cayman">Cayman</button>
-            @endif
-            @if ($cars[0]->category->name == '911')
-                <button class="btn" value="Carrera">Carrera</button>
-                <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
-                <button class="btn" value="RS">Racing Sport</button>
-            @endif
-            @if ($cars[0]->category->name == 'Panamera')
-                <button class="btn" value="Sport Turismo">Sport Turismo</button>
-                <button class="btn" value="Executive">Executive</button>
-                <button class="btn" value="Turbo">Turbo</button>
-                <button class="btn" value="E-Hybrid">E-Hybrid</button>
-            @endif
-            <?php // NO MACAN OR CAYENNE FILTER ?>
+        @if (($cars[0]->category->name == '718') ||
+            ($cars[0]->category->name == '911') ||
+            ($cars[0]->category->name == 'Panamera'))
+            <div class="model_filter container">
+                <div class="row">
+                @if ($cars[0]->category->name == '718')
+                    <button class="btn" value="Boxster">Boxster</button>
+                    <button class="btn" value="Cayman">Cayman</button>
+                @endif
+                @if ($cars[0]->category->name == '911')
+                    <button class="btn" value="Carrera">Carrera</button>
+                    <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
+                    <button class="btn" value="RS">Racing Sport</button>
+                @endif
+                @if ($cars[0]->category->name == 'Panamera')
+                    <button class="btn" value="Sport Turismo">Sport Turismo</button>
+                    <button class="btn" value="Executive">Executive</button>
+                    <button class="btn" value="Turbo">Turbo</button>
+                    <button class="btn" value="E-Hybrid">E-Hybrid</button>
+                @endif
+                <?php // NO MACAN OR CAYENNE FILTER ?>
+                </div>
+            </div>
+        @endif
+
+        <div class="container">
+            <div class="name_bg">
+                <h1>{{$cars[0]->category->name}}</h1>
             </div>
         </div>
+
         <ul class="model_slider">
             @foreach ($cars as $model)
             <?php

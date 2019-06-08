@@ -152,15 +152,15 @@ $.fn.destroySlick = function()
 // not added to history to prevent back/forward failing
 function updateURLParameter(parameter, value){
 	if (window.history.replaceState) {
-		let updatedUrl = f.updateURLParameter(window.location.href, parameter, value)
-		window.history.replaceState('', '', updatedUrl);
+		let updatedUrl = f.updateURLParameter(url.href, parameter, value)
+		window.history.replaceState({'id': 'smoothState'}, url.pathname, updatedUrl);
 	}
 }
 
 function removeURLParameter(parameter){
 	if (window.history.replaceState) {
-		let updatedUrl = f.removeURLParameter(window.location.href, parameter);
-		window.history.replaceState('', '', updatedUrl);
+		let updatedUrl = f.removeURLParameter(url.href, parameter);
+		window.history.replaceState({'id': 'smoothState'}, url.pathname, updatedUrl);
 	}
 }
 

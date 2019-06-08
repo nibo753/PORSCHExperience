@@ -18,7 +18,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Roboto:400&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

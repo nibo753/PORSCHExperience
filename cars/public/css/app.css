@@ -10753,7 +10753,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0 0 10px;
   letter-spacing: 1.5px;
   color: #32313c;
@@ -11986,16 +11986,16 @@ body.dark {
   border-right: none;
 }
 
-.models #model_container > .scrollmagic-pin-spacer {
-  background-color: white;
-}
-
 .models #model_container > div:first-child {
   margin-bottom: -24px;
 }
 
-.models #model_container #model_nav {
+.models #model_container .model_filter {
   margin-top: 24px;
+}
+
+.models #model_container .scrollmagic-pin-spacer {
+  background-color: white;
 }
 
 .models #model_container #image_sequence {
@@ -12060,26 +12060,40 @@ body.dark {
   color: #F1F1F1;
 }
 
-.models #model_container .model_filter {
+.models #model_container #model_nav {
+  position: relative;
+  background-color: white;
+}
+
+.models #model_container #model_nav .model_filter {
   position: relative;
 }
 
-.models #model_container .model_filter .row {
+.models #model_container #model_nav .model_filter .row {
   position: absolute;
   top: -24px;
   z-index: 1;
 }
 
-.models #model_container .model_slider {
-  background-color: white;
+.models #model_container #model_nav .name_bg {
+  position: absolute;
+  top: 10px;
 }
 
-.models #model_container .model_slider .slick-slide {
+.models #model_container #model_nav .name_bg h1 {
+  font-size: 6em;
+  color: #F1F1F1;
+  font-weight: 700;
+}
+
+.models #model_container #model_nav .model_slider .slick-slide {
+  position: relative;
+  z-index: 2;
   text-align: center;
   cursor: pointer;
 }
 
-.models #model_container .model_slider .slick-slide img {
+.models #model_container #model_nav .model_slider .slick-slide img {
   max-width: 90%;
   max-height: 100%;
   margin: 0 auto;
@@ -12088,10 +12102,10 @@ body.dark {
   transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
-.models #model_container .model_slider .slick-slide.slick-current li img,
-.models #model_container .model_slider .slick-slide:hover li img {
-  -webkit-transform: translateY(-2px);
-          transform: translateY(-2px);
+.models #model_container #model_nav .model_slider .slick-slide.slick-current li img,
+.models #model_container #model_nav .model_slider .slick-slide:hover li img {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
 }
 
 .models #model_container .model_info {

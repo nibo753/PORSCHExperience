@@ -40702,15 +40702,19 @@ $.fn.destroySlick = function () {
 
 function updateURLParameter(parameter, value) {
   if (window.history.replaceState) {
-    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](window.location.href, parameter, value);
-    window.history.replaceState('', '', updatedUrl);
+    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](url.href, parameter, value);
+    window.history.replaceState({
+      'id': 'smoothState'
+    }, url.pathname, updatedUrl);
   }
 }
 
 function removeURLParameter(parameter) {
   if (window.history.replaceState) {
-    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](window.location.href, parameter);
-    window.history.replaceState('', '', updatedUrl);
+    var updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](url.href, parameter);
+    window.history.replaceState({
+      'id': 'smoothState'
+    }, url.pathname, updatedUrl);
   }
 }
 
