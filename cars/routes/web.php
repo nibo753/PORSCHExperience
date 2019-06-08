@@ -12,5 +12,5 @@
 */
 
 
-Route::get('/', 					'Controller@index');
-Route::get('models/{category}', 	'Controller@models');
+Route::get('/', 					'RouteController@index');
+Route::get('models/{category}', 	'RouteController@models');
