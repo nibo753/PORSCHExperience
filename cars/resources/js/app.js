@@ -7,61 +7,13 @@ window.h = Math.max(document.documentElement.clientHeight, window.innerHeight ||
 require('./bootstrap');
 require('./lib/jpreloader');
 
-/*
- * Create export functions for page-transition.js
- * Required for files that use $(document).ready()
- * Only use the required JS for the page
- * 
- */
-
-export let loaded_home       = false;
-export let loaded_models     = false;
-
-export function home()
-{
-	if (!loaded_home) {
-		$('.home').jpreLoader({
-			showSplash: false,
-			autoClose: false,
-			closeBtnText: "Experience Porsche",
-		}, function onComplete() {	
-			var home = document.querySelector('.home');
-			if (home) { home.style.backgroundImage = "url(../img/bg.jpg) " }
-		});
-
-		
-		$('.home').createSmoothScroll();
-		
-		$('.home').createAudio();
-		$('.home').createCar();
-		$('.home').createDataOffset();
-		$('.home').createMissionE();
-		$('.home').createSlideIn();
-
-		loaded_home = true;
-	}
-}
-
-export function models()
-{
-	if (!loaded_models) {
-		$('.models').createImgSequence();
-		$('.models').createSlick();
-
-		loaded_models = true;
-	}
-}
-
-/*
- * Load functions on $(document).ready()
- * required to wait for vars like createImgSequence
- *
- * should callback in page-transition after animation, currently abusing reload
- */
-
-$(function(){
-	if ( $('.home').length) 	{ home(); 	}
-	if ( $('.models').length) 	{ models(); }
+$('.home').jpreLoader({
+	showSplash: false,
+	autoClose: false,
+	closeBtnText: "Experience Porsche",
+}, function onComplete() {	
+	var home = document.querySelector('.home');
+	if (home) { home.style.backgroundImage = "url(../img/bg.jpg) " }
 });
 
 

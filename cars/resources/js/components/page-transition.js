@@ -8,9 +8,6 @@
  * 
  */
 
-import * as app from './../app';
-
-
 const slideOne  = document.querySelector('.page_transition .c1'),
 	  slideTwo  = document.querySelector('.page_transition .c2'),
 	  slideTest  = document.querySelector('.page_transition .c2 .test'),
@@ -85,8 +82,6 @@ options = {
 
 	// re-initialize JS files
 	onAfter: function($container, $newContent){
-		//if ( $('.home').length) 		{ app.home(); 	}
-		//if ( $('.models').length) 	{ app.models(); }
 		location.reload(false);
 	}
 },

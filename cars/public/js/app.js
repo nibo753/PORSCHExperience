@@ -39854,15 +39854,9 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! exports provided: loaded_home, loaded_models, home, models */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loaded_home", function() { return loaded_home; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loaded_models", function() { return loaded_models; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "home", function() { return home; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "models", function() { return models; });
 window.w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 window.h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 /*
@@ -39872,59 +39866,16 @@ window.h = Math.max(document.documentElement.clientHeight, window.innerHeight ||
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./lib/jpreloader */ "./resources/js/lib/jpreloader.js");
-/*
- * Create export functions for page-transition.js
- * Required for files that use $(document).ready()
- * Only use the required JS for the page
- * 
- */
 
+$('.home').jpreLoader({
+  showSplash: false,
+  autoClose: false,
+  closeBtnText: "Experience Porsche"
+}, function onComplete() {
+  var home = document.querySelector('.home');
 
-var loaded_home = false;
-var loaded_models = false;
-function home() {
-  if (!loaded_home) {
-    $('.home').jpreLoader({
-      showSplash: false,
-      autoClose: false,
-      closeBtnText: "Experience Porsche"
-    }, function onComplete() {
-      var home = document.querySelector('.home');
-
-      if (home) {
-        home.style.backgroundImage = "url(../img/bg.jpg) ";
-      }
-    });
-    $('.home').createSmoothScroll();
-    $('.home').createAudio();
-    $('.home').createCar();
-    $('.home').createDataOffset();
-    $('.home').createMissionE();
-    $('.home').createSlideIn();
-    loaded_home = true;
-  }
-}
-function models() {
-  if (!loaded_models) {
-    $('.models').createImgSequence();
-    $('.models').createSlick();
-    loaded_models = true;
-  }
-}
-/*
- * Load functions on $(document).ready()
- * required to wait for vars like createImgSequence
- *
- * should callback in page-transition after animation, currently abusing reload
- */
-
-$(function () {
-  if ($('.home').length) {
-    home();
-  }
-
-  if ($('.models').length) {
-    models();
+  if (home) {
+    home.style.backgroundImage = "url(../img/bg.jpg) ";
   }
 });
 /*
@@ -40140,84 +40091,81 @@ observer.observe($div[0], {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
+var home = document.querySelector('.home .intro #start');
 
-$.fn.createAudio = function () {
-  var home = document.querySelector('.home .intro #start');
+if (home) {
+  // AUDIO
+  var motorIsOn = false,
+      drivenOff = false;
+  var musicVol = 0.5,
+      fadeTime = 1200,
+      music = new Audio('sounds/music.mp3'),
+      audio_start_motor = new Audio('sounds/start_motor.mp3'),
+      audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
+      audio_drive_off = new Audio('sounds/drive_off.mp3');
+  music.volume = musicVol;
+  music.loop = true; //if (!f.isPlaying(music)) {music.play();}
+  // START BUTTON CLICK
 
-  if (home) {
-    // AUDIO
-    var motorIsOn = false,
-        drivenOff = false;
-    var musicVol = 0.5,
-        fadeTime = 1200,
-        music = new Audio('sounds/music.mp3'),
-        audio_start_motor = new Audio('sounds/start_motor.mp3'),
-        audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
-        audio_drive_off = new Audio('sounds/drive_off.mp3');
-    music.volume = musicVol;
-    music.loop = true; //if (!f.isPlaying(music)) {music.play();}
-    // START BUTTON CLICK
+  $('.home .intro #start').click(function (e) {
+    e.preventDefault();
 
-    $('.home .intro #start').click(function (e) {
-      e.preventDefault();
+    if (!drivenOff) {
+      $('.intro .parallax.light').addClass('on');
+      $('.intro .audio').removeClass('active');
+      $('.intro .audio').addClass('disabled');
+      $(music).animate({
+        volume: 0
+      }, 3000);
+      setTimeout(function () {
+        music.pause();
+      }, 3000);
+      audio_drive_off.play();
+      _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, 300);
+      _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_gas_pedal, 300);
+      drivenOff = true;
+    }
+  }); // START BUTTON HOVER
 
-      if (!drivenOff) {
-        $('.intro .parallax.light').addClass('on');
-        $('.intro .audio').removeClass('active');
-        $('.intro .audio').addClass('disabled');
-        $(music).animate({
-          volume: 0
-        }, 3000);
-        setTimeout(function () {
-          music.pause();
-        }, 3000);
-        audio_drive_off.play();
+  $('.home .intro #start #discover').hover( // onMouseEnter
+  function () {
+    if (!$(this).hasClass('.disabled')) {
+      // check if loading finished
+      $('.home .intro .parallax.light').addClass('show');
+
+      if (!motorIsOn && !drivenOff) {
+        audio_start_motor.play();
+      } else if (!drivenOff) {
         _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, 300);
-        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_gas_pedal, 300);
-        drivenOff = true;
+        audio_gas_pedal.play();
       }
-    }); // START BUTTON HOVER
 
-    $('.home .intro #start #discover').hover( // onMouseEnter
-    function () {
-      if (!$(this).hasClass('.disabled')) {
-        // check if loading finished
-        $('.home .intro .parallax.light').addClass('show');
+      motorIsOn = true;
+    }
+  }, // onMouseLeave
+  function () {
+    $('.home .intro .parallax.light').removeClass('show');
+  }); // AUDIO BUTTON CLICK
 
-        if (!motorIsOn && !drivenOff) {
-          audio_start_motor.play();
-        } else if (!drivenOff) {
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, 300);
-          audio_gas_pedal.play();
-        }
+  $('.home .intro .audio').click(function (e) {
+    if (!drivenOff) {
+      $(this).toggleClass('active');
 
-        motorIsOn = true;
+      if ($(this).hasClass('active')) {
+        music.play();
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](music, musicVol, fadeTime);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_start_motor, 1, fadeTime);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_gas_pedal, 1, fadeTime);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_drive_off, 1, fadeTime);
+      } else {
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](music, fadeTime);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, fadeTime);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_gas_pedal, fadeTime);
+        _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_drive_off, fadeTime);
       }
-    }, // onMouseLeave
-    function () {
-      $('.home .intro .parallax.light').removeClass('show');
-    }); // AUDIO BUTTON CLICK
-
-    $('.home .intro .audio').click(function (e) {
-      if (!drivenOff) {
-        $(this).toggleClass('active');
-
-        if ($(this).hasClass('active')) {
-          music.play();
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](music, musicVol, fadeTime);
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_start_motor, 1, fadeTime);
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_gas_pedal, 1, fadeTime);
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeIn"](audio_drive_off, 1, fadeTime);
-        } else {
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](music, fadeTime);
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_start_motor, fadeTime);
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_gas_pedal, fadeTime);
-          _functions__WEBPACK_IMPORTED_MODULE_0__["audioFadeOut"](audio_drive_off, fadeTime);
-        }
-      }
-    });
-  }
-};
+    }
+  });
+}
 
 /***/ }),
 
@@ -40232,136 +40180,133 @@ $.fn.createAudio = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
+var controller = new ScrollMagic.Controller(),
+    check = document.querySelector('.overview');
 
-$.fn.createCar = function () {
-  var controller = new ScrollMagic.Controller(),
-      check = document.querySelector('.overview');
+if (check) {
+  // CONTENT FADE IN
+  $('.overview section.car').each(function () {
+    var _this = this;
 
-  if (check) {
-    // CONTENT FADE IN
-    $('.overview section.car').each(function () {
-      var _this = this;
+    var id = '#' + this.id; // TITLE FADE
 
-      var id = '#' + this.id; // TITLE FADE
+    var title = TweenMax.to(id + " .content .title", 0.4, {
+      opacity: 1
+    });
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: 0.65,
+      duration: "8%"
+    }).setTween(title).addTo(controller); // SVG FADE
 
-      var title = TweenMax.to(id + " .content .title", 0.4, {
-        opacity: 1
-      });
-      new ScrollMagic.Scene({
-        triggerElement: this,
-        triggerHook: 0.65,
-        duration: "8%"
-      }).setTween(title).addTo(controller); // SVG FADE
+    var svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {
+      opacity: 1
+    }),
+        fade_in_trigger = 0.20;
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: fade_in_trigger,
+      duration: "10%"
+    }).setTween(svg_container).addTo(controller);
+    /*
+     * 
+     * ANIMATE CAR NUMBERS
+     * 
+     * Loop through .svg_container
+     * Retrieve data and store in variable data[i]
+     * Overwrite default settings where neccesary
+     * Overwrite updateHandler function as data[i] becomes undefined
+     * Create tween and add to timeline
+     */
 
-      var svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {
-        opacity: 1
-      }),
-          fade_in_trigger = 0.20;
-      new ScrollMagic.Scene({
-        triggerElement: this,
-        triggerHook: fade_in_trigger,
-        duration: "10%"
-      }).setTween(svg_container).addTo(controller);
-      /*
-       * 
-       * ANIMATE CAR NUMBERS
-       * 
-       * Loop through .svg_container
-       * Retrieve data and store in variable data[i]
-       * Overwrite default settings where neccesary
-       * Overwrite updateHandler function as data[i] becomes undefined
-       * Create tween and add to timeline
-       */
+    var numberTimeline = new TimelineMax(),
+        loopLength = $(this).find('.svg_container > .svg').length,
+        data = {},
+        duration = _functions__WEBPACK_IMPORTED_MODULE_0__["rnd"](1.4, 1.8),
+        delay = "-=" + duration / 2,
+        delaySVG = "-=" + duration;
 
-      var numberTimeline = new TimelineMax(),
-          loopLength = $(this).find('.svg_container > .svg').length,
-          data = {},
-          duration = _functions__WEBPACK_IMPORTED_MODULE_0__["rnd"](1.4, 1.8),
-          delay = "-=" + duration / 2,
-          delaySVG = "-=" + duration;
+    var _loop = function _loop(i) {
+      var element = $(_this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') .value'); //skip to next loop if element doesn't exist
 
-      var _loop = function _loop(i) {
-        var element = $(_this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') .value'); //skip to next loop if element doesn't exist
+      if (element.length == 0) return "continue"; // SET DEFAULTS
 
-        if (element.length == 0) return "continue"; // SET DEFAULTS
-
-        data[i] = {
-          'txt': element,
-          'animateTo': element.attr('data').split('.').join("").split(',').join("."),
-          'ellipse': $(_this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') svg ellipse'),
-          'startAt': {
-            val: 0
-          },
-          'strokeStart': "0, 1000",
-          'strokeEnd': "220, 1000",
-          'easing': Linear.easeNone
-        };
-
-        var updateHandler = function updateHandler() {
-          console.log('no function for element ' + i);
-        }; // OVERWRITE DEFAULTS
-
-
-        if (i == 0) {
-          // PRICE
-          data[i].startAt = {
-            val: parseFloat(data[i].animateTo) + 15000
-          };
-          data[i].strokeStart = "300, 1000";
-          data[i].strokeEnd = data[i].animateTo / 515 + ", 1000";
-          data[i].easing = Power1.easeOut;
-
-          updateHandler = function updateHandler() {
-            data[0].txt.html(_functions__WEBPACK_IMPORTED_MODULE_0__["thousandSeparator"](data[0].startAt.val.toFixed(0)));
-          };
-        } else if (i == 1) {
-          // SPEED
-          data[i].strokeEnd = (parseInt(data[i].animateTo) - 125) / 0.635 + ", 1000";
-          data[i].easing = Sine.easeOut;
-
-          updateHandler = function updateHandler() {
-            data[1].txt.html(data[1].startAt.val.toFixed(0));
-          };
-        } else if (i == 2) {
-          // ACCELERATION
-          data[i].strokeEnd = (8.5 - data[i].animateTo) / 0.018 + ", 1000";
-
-          updateHandler = function updateHandler() {
-            data[2].txt.html(data[2].startAt.val.toFixed(1).split('.').join(","));
-          };
-        } // CREATE TWEEN AND ADD TO TIMELINE
-
-
-        numberTimeline.to(data[i].startAt, duration, {
-          val: data[i].animateTo,
-          ease: data[i].easing,
-          onUpdate: updateHandler
-        }, delay);
-        numberTimeline.fromTo(data[i].ellipse, duration, {
-          strokeDasharray: data[i].strokeStart
-        }, {
-          strokeDasharray: data[i].strokeEnd
-        }, delaySVG);
+      data[i] = {
+        'txt': element,
+        'animateTo': element.attr('data').split('.').join("").split(',').join("."),
+        'ellipse': $(_this).find('.svg_container > .svg:nth-child(' + (i + 1) + ') svg ellipse'),
+        'startAt': {
+          val: 0
+        },
+        'strokeStart': "0, 1000",
+        'strokeEnd': "220, 1000",
+        'easing': Linear.easeNone
       };
 
-      for (var i = 0; i < loopLength; i++) {
-        var _ret = _loop(i);
-
-        if (_ret === "continue") continue;
-      }
-      /*
-       * CREATE SCENE
-       */
+      var updateHandler = function updateHandler() {
+        console.log('no function for element ' + i);
+      }; // OVERWRITE DEFAULTS
 
 
-      new ScrollMagic.Scene({
-        triggerElement: id,
-        triggerHook: fade_in_trigger //reverse: false
+      if (i == 0) {
+        // PRICE
+        data[i].startAt = {
+          val: parseFloat(data[i].animateTo) + 15000
+        };
+        data[i].strokeStart = "300, 1000";
+        data[i].strokeEnd = data[i].animateTo / 515 + ", 1000";
+        data[i].easing = Power1.easeOut;
 
-      }).setTween(numberTimeline).addTo(controller);
-    });
-  }
-};
+        updateHandler = function updateHandler() {
+          data[0].txt.html(_functions__WEBPACK_IMPORTED_MODULE_0__["thousandSeparator"](data[0].startAt.val.toFixed(0)));
+        };
+      } else if (i == 1) {
+        // SPEED
+        data[i].strokeEnd = (parseInt(data[i].animateTo) - 125) / 0.635 + ", 1000";
+        data[i].easing = Sine.easeOut;
+
+        updateHandler = function updateHandler() {
+          data[1].txt.html(data[1].startAt.val.toFixed(0));
+        };
+      } else if (i == 2) {
+        // ACCELERATION
+        data[i].strokeEnd = (8.5 - data[i].animateTo) / 0.018 + ", 1000";
+
+        updateHandler = function updateHandler() {
+          data[2].txt.html(data[2].startAt.val.toFixed(1).split('.').join(","));
+        };
+      } // CREATE TWEEN AND ADD TO TIMELINE
+
+
+      numberTimeline.to(data[i].startAt, duration, {
+        val: data[i].animateTo,
+        ease: data[i].easing,
+        onUpdate: updateHandler
+      }, delay);
+      numberTimeline.fromTo(data[i].ellipse, duration, {
+        strokeDasharray: data[i].strokeStart
+      }, {
+        strokeDasharray: data[i].strokeEnd
+      }, delaySVG);
+    };
+
+    for (var i = 0; i < loopLength; i++) {
+      var _ret = _loop(i);
+
+      if (_ret === "continue") continue;
+    }
+    /*
+     * CREATE SCENE
+     */
+
+
+    new ScrollMagic.Scene({
+      triggerElement: id,
+      triggerHook: fade_in_trigger //reverse: false
+
+    }).setTween(numberTimeline).addTo(controller);
+  });
+}
 
 /***/ }),
 
@@ -40372,16 +40317,14 @@ $.fn.createCar = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.createDataOffset = function () {
-  var home = document.querySelector('.home');
+var home = document.querySelector('.home');
 
-  if (home) {
-    $('body').scrollspy({
-      target: '#sideNav',
-      offset: window.h * 0.62
-    });
-  }
-};
+if (home) {
+  $('body').scrollspy({
+    target: '#sideNav',
+    offset: window.h * 0.62
+  });
+}
 
 /***/ }),
 
@@ -40392,104 +40335,102 @@ $.fn.createDataOffset = function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$.fn.createMissionE = function () {
-  var controllerX = new ScrollMagic.Controller(),
-      controllerY = new ScrollMagic.Controller({
-    vertical: false
-  }),
-      check = document.querySelector('#mission-e');
+var controllerX = new ScrollMagic.Controller(),
+    controllerY = new ScrollMagic.Controller({
+  vertical: false
+}),
+    check = document.querySelector('#mission-e');
 
-  if (check) {
-    // BACKGROUND COLOR
-    var bg = new TimelineMax().to("#mission-e", 0.4, {
-      backgroundColor: '#000'
-    }).to(".home .overview", 0.4, {
-      backgroundColor: '#000'
-    }, 0);
-    new ScrollMagic.Scene({
-      triggerElement: "#mission-e",
-      triggerHook: 0.8
-    }).setTween(bg).addTo(controllerX); // FADE IN TEASER TXT
+if (check) {
+  // BACKGROUND COLOR
+  var bg = new TimelineMax().to("#mission-e", 0.4, {
+    backgroundColor: '#000'
+  }).to(".home .overview", 0.4, {
+    backgroundColor: '#000'
+  }, 0);
+  new ScrollMagic.Scene({
+    triggerElement: "#mission-e",
+    triggerHook: 0.8
+  }).setTween(bg).addTo(controllerX); // FADE IN TEASER TXT
 
-    var fadeAnimation = new TimelineMax().staggerTo("#mission-e .title .fade", 0.3, {
-      opacity: 1,
-      ease: Linear.easeNone
-    }, 0.4);
-    new ScrollMagic.Scene({
-      triggerElement: "#mission-e .title",
-      triggerHook: 0.7
-    }).setTween(fadeAnimation).addTo(controllerX); // MOVEMENT PANELS
-    // number at end => moves at same time as prev tween
+  var fadeAnimation = new TimelineMax().staggerTo("#mission-e .title .fade", 0.3, {
+    opacity: 1,
+    ease: Linear.easeNone
+  }, 0.4);
+  new ScrollMagic.Scene({
+    triggerElement: "#mission-e .title",
+    triggerHook: 0.7
+  }).setTween(fadeAnimation).addTo(controllerX); // MOVEMENT PANELS
+  // number at end => moves at same time as prev tween
 
-    var wipeAnimation = new TimelineMax().fromTo("#sequence .panel.p1", 1, {
-      x: "100%"
-    }, {
-      x: "0%",
-      ease: Linear.easeNone
-    }).fromTo("#sequence .panel.p1 img", 1, {
-      x: "0"
-    }, {
-      x: "100%",
-      ease: Linear.easeNone
-    }, 0).fromTo("#sequence .panel.p2", 1, {
-      x: "-100%"
-    }, {
-      x: "0%",
-      ease: Linear.easeNone
-    }).fromTo("#sequence .panel.p2 img", 1, {
-      x: "0"
-    }, {
-      x: "-100%",
-      ease: Linear.easeNone
-    }, 1).fromTo("#sequence .panel.p3", 1, {
-      x: "-100%"
-    }, {
-      x: "0%",
-      ease: Linear.easeNone
-    }).fromTo("#sequence .panel.p3 img", 1, {
-      x: "0%"
-    }, {
-      x: "-100%",
-      ease: Linear.easeNone
-    }, 2).fromTo("#sequence .panel.p4", 1, {
-      x: "-100%"
-    }, {
-      x: "0%",
-      ease: Linear.easeNone
-    }).fromTo("#sequence .panel.p4 img", 1, {
-      x: "0%"
-    }, {
-      x: "-100%",
-      ease: Linear.easeNone
-    }, 3).fromTo("#sequence .panel.p5", 1, {
-      x: "100%"
-    }, {
-      x: "0%",
-      ease: Linear.easeNone
-    }).fromTo("#sequence .panel.p5 img", 1, {
-      x: "0%"
-    }, {
-      x: "100%",
-      ease: Linear.easeNone
-    }, 4).fromTo("#sequence .panel.p6", 1, {
-      x: "100%"
-    }, {
-      x: "0%",
-      ease: Linear.easeNone
-    }).fromTo("#sequence .panel.p6 img", 1, {
-      x: "0%"
-    }, {
-      x: "100%",
-      ease: Linear.easeNone
-    }, 5); // create scene to pin and link animation
+  var wipeAnimation = new TimelineMax().fromTo("#sequence .panel.p1", 1, {
+    x: "100%"
+  }, {
+    x: "0%",
+    ease: Linear.easeNone
+  }).fromTo("#sequence .panel.p1 img", 1, {
+    x: "0"
+  }, {
+    x: "100%",
+    ease: Linear.easeNone
+  }, 0).fromTo("#sequence .panel.p2", 1, {
+    x: "-100%"
+  }, {
+    x: "0%",
+    ease: Linear.easeNone
+  }).fromTo("#sequence .panel.p2 img", 1, {
+    x: "0"
+  }, {
+    x: "-100%",
+    ease: Linear.easeNone
+  }, 1).fromTo("#sequence .panel.p3", 1, {
+    x: "-100%"
+  }, {
+    x: "0%",
+    ease: Linear.easeNone
+  }).fromTo("#sequence .panel.p3 img", 1, {
+    x: "0%"
+  }, {
+    x: "-100%",
+    ease: Linear.easeNone
+  }, 2).fromTo("#sequence .panel.p4", 1, {
+    x: "-100%"
+  }, {
+    x: "0%",
+    ease: Linear.easeNone
+  }).fromTo("#sequence .panel.p4 img", 1, {
+    x: "0%"
+  }, {
+    x: "-100%",
+    ease: Linear.easeNone
+  }, 3).fromTo("#sequence .panel.p5", 1, {
+    x: "100%"
+  }, {
+    x: "0%",
+    ease: Linear.easeNone
+  }).fromTo("#sequence .panel.p5 img", 1, {
+    x: "0%"
+  }, {
+    x: "100%",
+    ease: Linear.easeNone
+  }, 4).fromTo("#sequence .panel.p6", 1, {
+    x: "100%"
+  }, {
+    x: "0%",
+    ease: Linear.easeNone
+  }).fromTo("#sequence .panel.p6 img", 1, {
+    x: "0%"
+  }, {
+    x: "100%",
+    ease: Linear.easeNone
+  }, 5); // create scene to pin and link animation
 
-    new ScrollMagic.Scene({
-      triggerElement: "#mission-e #sequence",
-      triggerHook: "onLeave",
-      duration: "400%"
-    }).setPin("#mission-e #sequence").setTween(wipeAnimation).addTo(controllerX);
-  }
-};
+  new ScrollMagic.Scene({
+    triggerElement: "#mission-e #sequence",
+    triggerHook: "onLeave",
+    duration: "400%"
+  }).setPin("#mission-e #sequence").setTween(wipeAnimation).addTo(controllerX);
+}
 
 /***/ }),
 
@@ -40504,42 +40445,39 @@ $.fn.createMissionE = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../nav */ "./resources/js/components/nav.js");
 
+var contr = new ScrollMagic.Controller(),
+    check = document.querySelector('.home');
 
-$.fn.createSlideIn = function () {
-  var contr = new ScrollMagic.Controller(),
-      check = document.querySelector('.home');
+if (check) {
+  var el = ".overview",
+      navbar = -+$('header').outerHeight(true),
+      startAt = 0.9,
+      //same as marginbot
+  navVar = _nav__WEBPACK_IMPORTED_MODULE_0__,
+      hamburger = document.getElementById('mp-trigger'); // HEADER SLIDE IN
 
-  if (check) {
-    var el = ".overview",
-        navbar = -+$('header').outerHeight(true),
-        startAt = 0.9,
-        //same as marginbot
-    navVar = _nav__WEBPACK_IMPORTED_MODULE_0__,
-        hamburger = document.getElementById('mp-trigger'); // HEADER SLIDE IN
+  new ScrollMagic.Scene({
+    triggerElement: el,
+    offset: navbar,
+    triggerHook: startAt
+  }).setClassToggle("header", "show").addTo(contr); // SIDENAV SLIDE IN
 
-    new ScrollMagic.Scene({
-      triggerElement: el,
-      offset: navbar,
-      triggerHook: startAt
-    }).setClassToggle("header", "show").addTo(contr); // SIDENAV SLIDE IN
+  new ScrollMagic.Scene({
+    triggerElement: el,
+    offset: navbar,
+    triggerHook: startAt
+  }).setClassToggle("#sideNav", "show").addTo(contr); // resetNAV if scrolling up
 
-    new ScrollMagic.Scene({
-      triggerElement: el,
-      offset: navbar,
-      triggerHook: startAt
-    }).setClassToggle("#sideNav", "show").addTo(contr); // resetNAV if scrolling up
-
-    new ScrollMagic.Scene({
-      triggerElement: el,
-      offset: navbar,
-      triggerHook: startAt
-    }).addTo(contr).on("start", function (e) {
-      if (e.type == "start") {
-        _nav__WEBPACK_IMPORTED_MODULE_0__["_resetMenu"]();
-      }
-    });
-  }
-};
+  new ScrollMagic.Scene({
+    triggerElement: el,
+    offset: navbar,
+    triggerHook: startAt
+  }).addTo(contr).on("start", function (e) {
+    if (e.type == "start") {
+      _nav__WEBPACK_IMPORTED_MODULE_0__["_resetMenu"]();
+    }
+  });
+}
 
 /***/ }),
 
@@ -40554,27 +40492,24 @@ $.fn.createSlideIn = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
+_functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"](); // #sidenav + home logo
 
-$.fn.createSmoothScroll = function () {
-  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"](); // #sidenav + home logo
+$('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
+  var target = $(this.getAttribute('href'));
 
-  $('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
-    var target = $(this.getAttribute('href'));
-
-    if (target.length) {
-      event.preventDefault();
-      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
-    }
-  }); //home start button
-
-  $('.home .intro #start').on('click', function (e) {
-    e.preventDefault();
-    var target = $(this).attr('data-car');
-    target = $('.car[data-car="' + target + '"]');
-    $('.home').removeClass('noscroll');
+  if (target.length) {
+    event.preventDefault();
     _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
-  });
-};
+  }
+}); //home start button
+
+$('.home .intro #start').on('click', function (e) {
+  e.preventDefault();
+  var target = $(this).attr('data-car');
+  target = $('.car[data-car="' + target + '"]');
+  $('.home').removeClass('noscroll');
+  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
+});
 
 /***/ }),
 
@@ -40589,101 +40524,98 @@ $.fn.createSmoothScroll = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
+var c = new ScrollMagic.Controller(),
+    check = document.querySelector('.models #image_sequence');
 
-$.fn.createImgSequence = function () {
-  var c = new ScrollMagic.Controller(),
-      check = document.querySelector('.models #image_sequence');
+if (check) {
+  var images = [],
+      obj = {
+    curImg: 0
+  },
+      sceneDuration = imageSequenceCounter * 50,
+      scrollPosition = 0; // fill image array
 
-  if (check) {
-    var images = [],
-        obj = {
-      curImg: 0
-    },
-        sceneDuration = imageSequenceCounter * 50,
-        scrollPosition = 0; // fill image array
-
-    for (var i = 1; i <= imageSequenceCounter; i++) {
-      var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
-      images.push(img);
-    } // ANIMATE IMG
+  for (var i = 1; i <= imageSequenceCounter; i++) {
+    var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
+    images.push(img);
+  } // ANIMATE IMG
 
 
-    var imageTween = TweenMax.to(obj, 0.5, {
-      curImg: images.length - 1,
-      // animate propery curImg to number of images
-      roundProps: "curImg",
-      // round to integers so it can be used as an array index
-      immediateRender: true,
-      // load first image automatically
-      onUpdate: function onUpdate() {
-        $("#image_sequence img").attr("src", images[obj.curImg]);
-      }
-    });
-    new ScrollMagic.Scene({
-      triggerElement: "#image_sequence",
-      triggerHook: 0,
-      duration: sceneDuration,
-      offset: -+$('header').outerHeight(true)
-    }).setTween(imageTween).setPin('#image_sequence', {
-      pushFollowers: true
-    }).addTo(c).on("progress", function (e) {
-      scrollPosition = e.progress.toFixed(3);
-    }); // ANIMATE CONTENT INSIDE IMG
+  var imageTween = TweenMax.to(obj, 0.5, {
+    curImg: images.length - 1,
+    // animate propery curImg to number of images
+    roundProps: "curImg",
+    // round to integers so it can be used as an array index
+    immediateRender: true,
+    // load first image automatically
+    onUpdate: function onUpdate() {
+      $("#image_sequence img").attr("src", images[obj.curImg]);
+    }
+  });
+  new ScrollMagic.Scene({
+    triggerElement: "#image_sequence",
+    triggerHook: 0,
+    duration: sceneDuration,
+    offset: -+$('header').outerHeight(true)
+  }).setTween(imageTween).setPin('#image_sequence', {
+    pushFollowers: true
+  }).addTo(c).on("progress", function (e) {
+    scrollPosition = e.progress.toFixed(3);
+  }); // ANIMATE CONTENT INSIDE IMG
 
-    var contentTimeline = new TimelineMax(),
-        contentContainers = $('#image_sequence .content');
+  var contentTimeline = new TimelineMax(),
+      contentContainers = $('#image_sequence .content');
 
-    for (var _i = 1; _i <= contentContainers.length; _i++) {
-      // SET DEFAULTS
-      var yFadeIn = "-10%",
-          yFadeOut = "-20%"; // last element
+  for (var _i = 1; _i <= contentContainers.length; _i++) {
+    // SET DEFAULTS
+    var yFadeIn = "-10%",
+        yFadeOut = "-20%"; // last element
 
-      if (contentContainers.length == _i) {
-        yFadeIn = "0";
-      } // fade in if not first element
-
-
-      if (_i != 1) {
-        contentTimeline.to("#image_sequence .content.c" + [_i], 0.4, {
-          opacity: 1,
-          y: yFadeIn
-        }, "-=0.08");
-      } //fade out if not last element
+    if (contentContainers.length == _i) {
+      yFadeIn = "0";
+    } // fade in if not first element
 
 
-      if (contentContainers.length != _i) {
-        contentTimeline.to("#image_sequence .content.c" + [_i], 0.4, {
-          opacity: 0,
-          y: yFadeOut
-        });
+    if (_i != 1) {
+      contentTimeline.to("#image_sequence .content.c" + [_i], 0.4, {
+        opacity: 1,
+        y: yFadeIn
+      }, "-=0.08");
+    } //fade out if not last element
+
+
+    if (contentContainers.length != _i) {
+      contentTimeline.to("#image_sequence .content.c" + [_i], 0.4, {
+        opacity: 0,
+        y: yFadeOut
+      });
+    }
+  }
+
+  new ScrollMagic.Scene({
+    triggerElement: "#image_sequence",
+    triggerHook: 0,
+    duration: sceneDuration * 1.1,
+    offset: -+$('header').outerHeight(true)
+  }).setTween(contentTimeline).addTo(c); // SCROLL INDICATOR
+
+  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"]();
+  var page = $('home, body');
+  $('#scroll_indicator a[href^="#"]').on('click', function (event) {
+    var target = $(this.getAttribute('href'));
+
+    if (target.length) {
+      event.preventDefault();
+
+      if (!page.is(':animated')) {
+        var height = $('.scrollmagic-pin-spacer').outerHeight(true),
+            offset = h - $('#model_nav').outerHeight(true),
+            duration = (1 - scrollPosition) * height;
+        _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
       }
     }
-
-    new ScrollMagic.Scene({
-      triggerElement: "#image_sequence",
-      triggerHook: 0,
-      duration: sceneDuration * 1.1,
-      offset: -+$('header').outerHeight(true)
-    }).setTween(contentTimeline).addTo(c); // SCROLL INDICATOR
-
-    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"]();
-    var page = $('home, body');
-    $('#scroll_indicator a[href^="#"]').on('click', function (event) {
-      var target = $(this.getAttribute('href'));
-
-      if (target.length) {
-        event.preventDefault();
-
-        if (!page.is(':animated')) {
-          var height = $('.scrollmagic-pin-spacer').outerHeight(true),
-              offset = h - $('#model_nav').outerHeight(true),
-              duration = (1 - scrollPosition) * height;
-          _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
-        }
-      }
-    });
-  }
-};
+  });
+}
 
 /***/ }),
 
@@ -40703,131 +40635,129 @@ var url = new URL(window.location.href),
     modelSlider = $('.model_slider'),
     modelInfo = $('.model_info');
 
-$.fn.createSlick = function () {
-  if (check && modelSlider.length && modelInfo.length) {
-    (function () {
-      // GET URL PARAMETER SLIDE
-      var index = parseInt(url.searchParams.get("s")),
-          modelParameter = "m",
-          model = url.searchParams.get(modelParameter),
-          buttons = document.querySelectorAll('.model_filter button'); // INITIALIZE SLICK SLIDERS
+if (check && modelSlider.length && modelInfo.length) {
+  (function () {
+    // GET URL PARAMETER SLIDE
+    var index = parseInt(url.searchParams.get("s")),
+        modelParameter = "m",
+        model = url.searchParams.get(modelParameter),
+        buttons = document.querySelectorAll('.model_filter button'); // INITIALIZE SLICK SLIDERS
 
-      modelSlider.slick({
-        //initialSlide: index,
-        asNavFor: '.model_info',
-        lazyLoad: 'ondemand',
-        infinite: false,
-        slidesToScroll: 1,
-        slidesToShow: 3,
-        arrows: false,
-        centerMode: true,
-        centerPadding: '0px',
-        swipeToSlide: true,
-        responsive: [{
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 2,
-            arrows: true
-          }
-        }, {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 1,
-            centerPadding: '50px'
-          }
-        }]
-      });
-      modelInfo.slick({
-        //initialSlide: index,
-        asNavFor: '.model_slider',
-        lazyLoad: 'ondemand',
-        infinite: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        draggable: false,
-        touchMove: false,
-        speed: 0,
-        fade: true
-      });
-      /*
-       * slick filter is bugging the slider occiasonally
-       * create events on slides before filtering
-       *
-       * ON CLICK AND SWIPE:
-       * 	remove classes on old slide
-       * 	add classes to current slide
-       * 
-       * ON CLICK:
-       * 	swipe to current slide
-       */
-      // SLICK BUG FIX
-
-      $('.model_slider .slick-slide').on('click', function (event) {
-        $('.model_slider .slick-current').removeClass('slick-current slick-center');
-        $(this).addClass('slick-current slick-center');
-        var div = $(this).parent().children();
-
-        for (var i = 0; i < div.length; i++) {
-          if (div[i].classList.contains('slick-current')) {
-            modelSlider[0].slick.slickGoTo(i);
-            break;
-          }
+    modelSlider.slick({
+      //initialSlide: index,
+      asNavFor: '.model_info',
+      lazyLoad: 'ondemand',
+      infinite: false,
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      arrows: false,
+      centerMode: true,
+      centerPadding: '0px',
+      swipeToSlide: true,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          arrows: true
         }
-      }); // SLICK BUG FIX
-
-      modelSlider.on('afterChange', function (event, slick, currentSlide) {
-        var div = $(this).children().children().children();
-        div.removeClass('slick-current slick-center');
-
-        for (var i = 0; i < div.length; i++) {
-          if (currentSlide == i) {
-            div[i].classList.add('slick-center');
-            div[i].classList.add('slick-current');
-            break;
-          }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: '50px'
         }
-      }); // FILTER ON MODEL IN URL AFTER CREATING CLICKEVENTS ON ALL SLIDES
+      }]
+    });
+    modelInfo.slick({
+      //initialSlide: index,
+      asNavFor: '.model_slider',
+      lazyLoad: 'ondemand',
+      infinite: false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      draggable: false,
+      touchMove: false,
+      speed: 0,
+      fade: true
+    });
+    /*
+     * slick filter is bugging the slider occiasonally
+     * create events on slides before filtering
+     *
+     * ON CLICK AND SWIPE:
+     * 	remove classes on old slide
+     * 	add classes to current slide
+     * 
+     * ON CLICK:
+     * 	swipe to current slide
+     */
+    // SLICK BUG FIX
 
-      for (var i = buttons.length - 1; i >= 0; i--) {
-        if (model == buttons[i].value) {
-          filterSlick(buttons[i], modelSlider, modelInfo);
+    $('.model_slider .slick-slide').on('click', function (event) {
+      $('.model_slider .slick-current').removeClass('slick-current slick-center');
+      $(this).addClass('slick-current slick-center');
+      var div = $(this).parent().children();
+
+      for (var i = 0; i < div.length; i++) {
+        if (div[i].classList.contains('slick-current')) {
+          modelSlider[0].slick.slickGoTo(i);
           break;
         }
-      } // GO TO SLIDE PARAMETER, SET TO 0 IF NOT OK
-
-
-      var amount = document.querySelectorAll('#model_nav .model_slider li').length;
-
-      if (!index || amount < index && index > amount) {
-        index = 0;
       }
+    }); // SLICK BUG FIX
 
-      modelSlider[0].slick.slickGoTo(index); // UPDATE URL SLIDE PARAMETER
+    modelSlider.on('afterChange', function (event, slick, currentSlide) {
+      var div = $(this).children().children().children();
+      div.removeClass('slick-current slick-center');
 
-      modelSlider.on('afterChange', function (event, slick, currentSlide) {
-        updateURLParameter("s", currentSlide);
-      }); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
-      // UPDATE URL MODEL PARAMETER
-
-      var _loop = function _loop(_i) {
-        buttons[_i].addEventListener('click', function (e) {
-          filterSlick(this, modelSlider, modelInfo); // change URL depending on button state
-
-          if (buttons[_i].classList.contains('active')) {
-            updateURLParameter(modelParameter, this.value);
-          } else {
-            removeURLParameter(modelParameter);
-          }
-        });
-      };
-
-      for (var _i = buttons.length - 1; _i >= 0; _i--) {
-        _loop(_i);
+      for (var i = 0; i < div.length; i++) {
+        if (currentSlide == i) {
+          div[i].classList.add('slick-center');
+          div[i].classList.add('slick-current');
+          break;
+        }
       }
-    })();
-  }
-};
+    }); // FILTER ON MODEL IN URL AFTER CREATING CLICKEVENTS ON ALL SLIDES
+
+    for (var i = buttons.length - 1; i >= 0; i--) {
+      if (model == buttons[i].value) {
+        filterSlick(buttons[i], modelSlider, modelInfo);
+        break;
+      }
+    } // GO TO SLIDE PARAMETER, SET TO 0 IF NOT OK
+
+
+    var amount = document.querySelectorAll('#model_nav .model_slider li').length;
+
+    if (!index || amount < index && index > amount) {
+      index = 0;
+    }
+
+    modelSlider[0].slick.slickGoTo(index); // UPDATE URL SLIDE PARAMETER
+
+    modelSlider.on('afterChange', function (event, slick, currentSlide) {
+      updateURLParameter("s", currentSlide);
+    }); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
+    // UPDATE URL MODEL PARAMETER
+
+    var _loop = function _loop(_i) {
+      buttons[_i].addEventListener('click', function (e) {
+        filterSlick(this, modelSlider, modelInfo); // change URL depending on button state
+
+        if (buttons[_i].classList.contains('active')) {
+          updateURLParameter(modelParameter, this.value);
+        } else {
+          removeURLParameter(modelParameter);
+        }
+      });
+    };
+
+    for (var _i = buttons.length - 1; _i >= 0; _i--) {
+      _loop(_i);
+    }
+  })();
+}
 
 $.fn.destroySlick = function () {
   $('.model_slider').slick('unslick');
@@ -40923,7 +40853,6 @@ function _closeMenu() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clickAnchor", function() { return clickAnchor; });
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../app */ "./resources/js/app.js");
 /*
  * https://github.com/miguel-perez/smoothState.js
  *
@@ -40933,7 +40862,6 @@ __webpack_require__.r(__webpack_exports__);
  * refresh page from cache to reset JS
  * 
  */
-
 var slideOne = document.querySelector('.page_transition .c1'),
     slideTwo = document.querySelector('.page_transition .c2'),
     slideTest = document.querySelector('.page_transition .c2 .test'),
@@ -41023,8 +40951,6 @@ SlideOutDuration = SlideOut.duration() * 1000,
   //smoothState scrolls to #hash after onReady
   // re-initialize JS files
   onAfter: function onAfter($container, $newContent) {
-    //if ( $('.home').length) 		{ app.home(); 	}
-    //if ( $('.models').length) 	{ app.models(); }
     location.reload(false);
   }
 },
