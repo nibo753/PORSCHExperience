@@ -2,6 +2,7 @@
     color: $brandSecondary;
     text-decoration: none;
     font-size: $size_s;
+    font-weight: normal;
     @include respond-to(phone) { font-size: $size-xs; }
 
     span {

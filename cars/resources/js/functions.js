@@ -1,7 +1,14 @@
-export function scrollTo(target, duration) {
+export function scrollTo(target, duration, easing, offset) {
 	$('html,body').stop().animate({
-		scrollTop: target.offset().top
-	}, duration, 'easeInOutQuint');
+		scrollTop: (target.offset().top - offset)
+	}, duration, easing);
+}
+
+export function scrollStopEventlistener(){
+    let page = $('html,body');
+    page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+       page.stop();
+   });
 }
 
 export function audioFadeOut(element, duration) {

@@ -1,3 +1,5 @@
+import * as f from './../../functions';
+
 $.fn.createImgSequence = function()
 {
 	const 	c		= new ScrollMagic.Controller(),
@@ -6,7 +8,8 @@ $.fn.createImgSequence = function()
 	if ( check ) {
 		let images 			= [],
 			obj 			= {curImg: 0},
-			sceneDuration 	= (imageSequenceCounter * 50);
+			sceneDuration 	= (imageSequenceCounter * 50),
+			scrollPosition  = 0;
 
 		// fill image array
 		for ( let i = 1; i <= imageSequenceCounter; i++) {
@@ -34,7 +37,11 @@ $.fn.createImgSequence = function()
 		})
 		.setTween(imageTween)
 		.setPin('#image_sequence', {pushFollowers: true})
-		.addTo(c);
+		.addTo(c)
+		.on("progress", function (e) {
+			scrollPosition = e.progress.toFixed(3);
+		});
+
 
 
 		// ANIMATE CONTENT INSIDE IMG
@@ -68,5 +75,24 @@ $.fn.createImgSequence = function()
 		})
 		.setTween(contentTimeline)
 		.addTo(c);
+
+
+
+		// SCROLL INDICATOR
+		f.scrollStopEventlistener();
+		const page = $('home, body');
+
+		$('#scroll_indicator a[href^="#"]').on('click', function(event) {
+			let target = $(this.getAttribute('href'));
+			if( target.length ) {
+				event.preventDefault();
+				if (!page.is(':animated')) {
+					let height = $('.scrollmagic-pin-spacer').outerHeight(true),
+						offset = h - $('#model_nav').outerHeight(true),
+						duration = (1-scrollPosition)*height;
+					f.scrollTo(target, duration, 'linear', offset );
+				}
+			}
+		});
 	}
 }

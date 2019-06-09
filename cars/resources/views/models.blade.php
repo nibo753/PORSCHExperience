@@ -36,6 +36,9 @@
             </div>
         </div>
     </div>
+    <div id="scroll_indicator">
+        <a href="#model_nav" data-hover="Start Exploring >" class="hover_effect h_dark">Start Exploring</a>
+    </div>
     @endif
     
     <?php

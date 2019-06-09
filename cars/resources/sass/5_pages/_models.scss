@@ -67,6 +67,14 @@ $bgColor: white;
 			}
 		}
 
+		#scroll_indicator {
+			text-align: center;
+			position: fixed;
+			bottom: 10%;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
 		#model_nav {
 			position: relative;
 			background-color: $bgColor;
@@ -118,6 +126,7 @@ $bgColor: white;
 
 		.model_info {
 			min-height: 500px;
+			background-color: $light;
 
 			.model {
 

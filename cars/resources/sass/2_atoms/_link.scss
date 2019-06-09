@@ -1,10 +1,71 @@
 a {
 	outline: none;
 	text-decoration: none;
+	color: $brandPrimary;
 	transition: color 0.2s ease-in-out;
+	font-weight: bold;
 
 	&:hover,
 	&:focus {
 		text-decoration: none;
+		color: $brandPrimaryDark;
+	}
+
+	&.hover_effect {
+		position: relative;
+		font-size: $size-s;
+		white-space: nowrap;
+		color: $dark;
+		border-bottom: 2px solid $dark;
+		padding: 5px 0;
+
+		&:hover {
+			color: $brandSecondary;
+		}
+
+		/* before is text + arrow, after is border */
+
+		&:before,
+		&:after {
+			position: absolute;
+			left: 0;
+			overflow: hidden;
+			width: 0;
+		}
+
+		&:before {
+			content: attr(data-hover);
+			top: 0;
+			color: #fff;
+			text-align: left;
+			padding: 7px 0 0;
+			transition: width .6s;
+		}
+
+		&:after {
+			content: "";
+			bottom: -2px;
+			width: 0;
+			height: 2px;
+			background-color: #fff;
+			transition: width .5s;
+		}
+
+		&:hover::before {
+			width: calc(100% + 20px);
+		}
+
+		&:hover::after{
+			width: 100%;
+		}
+
+
+		&.h_dark {
+			color: $brandSecondary;
+			border-color: $brandSecondary;
+
+			&:before { color: $dark; }
+			&:after { background-color: $dark; }
+		}
 	}
 }

@@ -2,13 +2,15 @@ import * as f from './../../functions';
 
 $.fn.createSmoothScroll = function()
 {   
+    f.scrollStopEventlistener();
+
     // #sidenav + home logo
     $('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function(event) {
         let target = $(this.getAttribute('href'));
         if( target.length ) {
             event.preventDefault();
 
-            f.scrollTo(target, 1500);
+            f.scrollTo(target, 1500, 'easeInOutQuint', 0);
         }
     });
 
@@ -19,6 +21,6 @@ $.fn.createSmoothScroll = function()
         target = $('.car[data-car="' + target + '"]');
 
         $('.home').removeClass('noscroll');
-        f.scrollTo(target, 1500);
+        f.scrollTo(target, 1500, 'easeInOutQuint', 0);
     });
 }

@@ -85,6 +85,7 @@ require('slick-carousel');
 
 // Components
 require('./components/nav');
+require('./components/hamburger');
 require('./components/page-transition');
 require('./components/refresh');
 

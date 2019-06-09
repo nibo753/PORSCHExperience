@@ -10,9 +10,9 @@ html, body {
 	height: 100%;
 	
 	/* fix fonts cross browser */
-    -webkit-font-smoothing: antialiased; /* safari same as chrome */
-    -moz-osx-font-smoothing: grayscale; /* fix bold firefox mac */
-    text-transform: none; /* mac firefox fix */
+	-webkit-font-smoothing: antialiased; /* safari same as chrome */
+	-moz-osx-font-smoothing: grayscale; /* fix bold firefox mac */
+	text-transform: none; /* mac firefox fix */
 
-    main { min-height: 100vh;}
+	main { min-height: 100vh;}
 }

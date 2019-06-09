@@ -20,34 +20,15 @@ $.fn.createCar = function()
             .setTween(title)
             .addTo(controller);
 
-            // HR FADE
-            let hr = TweenMax.to(id + " .content hr", 0.3, {opacity: 1});
-            new ScrollMagic.Scene({
-                triggerElement: this,
-                triggerHook: 0.35,
-                duration: "8%"
-            })
-            .setTween(hr)
-            .addTo(controller);
-
             // SVG FADE
-            let svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {opacity: 1}),
-                fade_in_trigger = 0.25;
+            let svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {opacity: 1}),
+                fade_in_trigger = 0.20;
             new ScrollMagic.Scene({
                 triggerElement: this,
                 triggerHook: fade_in_trigger,
-                duration: "8%"
+                duration: "10%"
             })
             .setTween(svg_container)
-            .addTo(controller);
-
-            // LINK FADE
-            let link = TweenMax.to(id + " .content .model_link", 0.3, {opacity: 1});
-            new ScrollMagic.Scene({
-                triggerElement: this,
-                triggerHook: 0.15
-            })
-            .setTween(link)
             .addTo(controller);
 
 

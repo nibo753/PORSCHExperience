@@ -39951,6 +39951,8 @@ __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/s
 
 __webpack_require__(/*! ./components/nav */ "./resources/js/components/nav.js");
 
+__webpack_require__(/*! ./components/hamburger */ "./resources/js/components/hamburger.js");
+
 __webpack_require__(/*! ./components/page-transition */ "./resources/js/components/page-transition.js");
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
@@ -40000,6 +40002,130 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/hamburger.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/hamburger.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var hamburger = document.getElementById('mp-trigger'),
+    beginAC = 80,
+    endAC = 320,
+    beginB = 80,
+    endB = 320,
+    path1 = document.getElementById('hamburger-path-1'),
+    path2 = document.getElementById('hamburger-path-2'),
+    path3 = document.getElementById('hamburger-path-3'),
+    segment1 = new Segment(path1, beginAC, endAC),
+    segment2 = new Segment(path2, beginB, endB),
+    segment3 = new Segment(path3, beginAC, endAC),
+    duration = 0.1;
+hamburger.classList.remove('hidden'); // draw(begin, end, duration, options)
+// options {delay, easing, circular, callback}
+// In animations (burger to cross)
+
+function inAC(s) {
+  s.draw('80% - 240', '80%', duration * 3, {
+    delay: 0.1,
+    callback: function callback() {
+      inAC2(s);
+    }
+  });
+}
+
+function inAC2(s) {
+  s.draw('100% - 545', '100% - 305', duration, {
+    easing: Elastic.easeOut.config(1, 0.3)
+  });
+}
+
+function inB(s) {
+  s.draw(beginB - 60, endB + 60, duration, {
+    callback: function callback() {
+      inB2(s);
+    }
+  });
+}
+
+function inB2(s) {
+  s.draw(beginB + 120, endB - 120, duration * 2, {
+    easing: Bounce.easeOut
+  });
+} // Out animations (cross to burger)
+
+
+function outAC(s) {
+  s.draw('90% - 240', '90%', duration, {
+    easing: Elastic.easeIn.config(1, 0.3),
+    callback: function callback() {
+      outAC2(s);
+    }
+  });
+}
+
+function outAC2(s) {
+  s.draw('20% - 240', '20%', duration * 3, {
+    callback: function callback() {
+      outAC3(s);
+    }
+  });
+}
+
+function outAC3(s) {
+  s.draw(beginAC, endAC, duration * 1.5, {
+    easing: Elastic.easeOut.config(1, 0.3)
+  });
+}
+
+function outB(s) {
+  s.draw(beginB, endB, duration * 3, {
+    delay: 0.1,
+    easing: Elastic.easeOut.config(2, 0.4)
+  });
+}
+/*
+ * EVENTS
+ */
+
+
+hamburger.onclick = function () {
+  animation();
+};
+
+function animation() {
+  if ($('#content').hasClass('mp-active')) {
+    inAC(segment1);
+    inB(segment2);
+    inAC(segment3);
+    hamburger.classList.add('active');
+  } else if (hamburger.classList.contains('active')) {
+    outAC(segment1);
+    outB(segment2);
+    outAC(segment3);
+    hamburger.classList.remove('active');
+  }
+} // ON CLASS CHANGE OF mp-active
+
+
+var $div = $("#content"),
+    observer = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+    if (mutation.attributeName === "class") {
+      var attributeValue = $(mutation.target).prop(mutation.attributeName);
+
+      if (!attributeValue.includes('mp-active')) {
+        animation();
+      }
+    }
+  });
+});
+observer.observe($div[0], {
+  attributes: true
+});
 
 /***/ }),
 
@@ -40125,34 +40251,17 @@ $.fn.createCar = function () {
         triggerElement: this,
         triggerHook: 0.65,
         duration: "8%"
-      }).setTween(title).addTo(controller); // HR FADE
+      }).setTween(title).addTo(controller); // SVG FADE
 
-      var hr = TweenMax.to(id + " .content hr", 0.3, {
-        opacity: 1
-      });
-      new ScrollMagic.Scene({
-        triggerElement: this,
-        triggerHook: 0.35,
-        duration: "8%"
-      }).setTween(hr).addTo(controller); // SVG FADE
-
-      var svg_container = TweenMax.to(id + " .content .svg_container", 0.3, {
+      var svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {
         opacity: 1
       }),
-          fade_in_trigger = 0.25;
+          fade_in_trigger = 0.20;
       new ScrollMagic.Scene({
         triggerElement: this,
         triggerHook: fade_in_trigger,
-        duration: "8%"
-      }).setTween(svg_container).addTo(controller); // LINK FADE
-
-      var link = TweenMax.to(id + " .content .model_link", 0.3, {
-        opacity: 1
-      });
-      new ScrollMagic.Scene({
-        triggerElement: this,
-        triggerHook: 0.15
-      }).setTween(link).addTo(controller);
+        duration: "10%"
+      }).setTween(svg_container).addTo(controller);
       /*
        * 
        * ANIMATE CAR NUMBERS
@@ -40427,11 +40536,6 @@ $.fn.createSlideIn = function () {
     }).addTo(contr).on("start", function (e) {
       if (e.type == "start") {
         _nav__WEBPACK_IMPORTED_MODULE_0__["_resetMenu"]();
-
-        if (hamburger.classList.contains('active')) {
-          _nav__WEBPACK_IMPORTED_MODULE_0__["animation"]();
-          hamburger.classList.remove('active');
-        }
       }
     });
   }
@@ -40452,13 +40556,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 $.fn.createSmoothScroll = function () {
-  // #sidenav + home logo
+  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"](); // #sidenav + home logo
+
   $('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
     var target = $(this.getAttribute('href'));
 
     if (target.length) {
       event.preventDefault();
-      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
     }
   }); //home start button
 
@@ -40467,7 +40572,7 @@ $.fn.createSmoothScroll = function () {
     var target = $(this).attr('data-car');
     target = $('.car[data-car="' + target + '"]');
     $('.home').removeClass('noscroll');
-    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500);
+    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
   });
 };
 
@@ -40477,8 +40582,13 @@ $.fn.createSmoothScroll = function () {
 /*!********************************************************!*\
   !*** ./resources/js/components/models/img-sequence.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+
 
 $.fn.createImgSequence = function () {
   var c = new ScrollMagic.Controller(),
@@ -40489,7 +40599,8 @@ $.fn.createImgSequence = function () {
         obj = {
       curImg: 0
     },
-        sceneDuration = imageSequenceCounter * 50; // fill image array
+        sceneDuration = imageSequenceCounter * 50,
+        scrollPosition = 0; // fill image array
 
     for (var i = 1; i <= imageSequenceCounter; i++) {
       var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
@@ -40515,7 +40626,9 @@ $.fn.createImgSequence = function () {
       offset: -+$('header').outerHeight(true)
     }).setTween(imageTween).setPin('#image_sequence', {
       pushFollowers: true
-    }).addTo(c); // ANIMATE CONTENT INSIDE IMG
+    }).addTo(c).on("progress", function (e) {
+      scrollPosition = e.progress.toFixed(3);
+    }); // ANIMATE CONTENT INSIDE IMG
 
     var contentTimeline = new TimelineMax(),
         contentContainers = $('#image_sequence .content');
@@ -40551,7 +40664,24 @@ $.fn.createImgSequence = function () {
       triggerHook: 0,
       duration: sceneDuration * 1.1,
       offset: -+$('header').outerHeight(true)
-    }).setTween(contentTimeline).addTo(c);
+    }).setTween(contentTimeline).addTo(c); // SCROLL INDICATOR
+
+    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"]();
+    var page = $('home, body');
+    $('#scroll_indicator a[href^="#"]').on('click', function (event) {
+      var target = $(this.getAttribute('href'));
+
+      if (target.length) {
+        event.preventDefault();
+
+        if (!page.is(':animated')) {
+          var height = $('.scrollmagic-pin-spacer').outerHeight(true),
+              offset = h - $('#model_nav').outerHeight(true),
+              duration = (1 - scrollPosition) * height;
+          _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
+        }
+      }
+    });
   }
 };
 
@@ -40758,7 +40888,7 @@ function filterSlick(input, slick, syncSlick) {
 /*!****************************************!*\
   !*** ./resources/js/components/nav.js ***!
   \****************************************/
-/*! exports provided: _resetMenu, _openMenu, _closeMenu, animation */
+/*! exports provided: _resetMenu, _openMenu, _closeMenu */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40766,7 +40896,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_resetMenu", function() { return _resetMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_openMenu", function() { return _openMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_closeMenu", function() { return _closeMenu; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "animation", function() { return animation; });
 var menu = document.getElementById('mp-menu'),
     hamburger = document.getElementById('mp-trigger');
 var nav = new mlPushMenu(menu, hamburger, {
@@ -40780,105 +40909,6 @@ function _openMenu() {
 }
 function _closeMenu() {
   nav._closeMenu();
-}
-var beginAC = 80,
-    endAC = 320,
-    beginB = 80,
-    endB = 320,
-    path1 = document.getElementById('hamburger-path-1'),
-    path2 = document.getElementById('hamburger-path-2'),
-    path3 = document.getElementById('hamburger-path-3'),
-    segment1 = new Segment(path1, beginAC, endAC),
-    segment2 = new Segment(path2, beginB, endB),
-    segment3 = new Segment(path3, beginAC, endAC),
-    toCloseIcon = true,
-    duration = 0.1;
-hamburger.classList.remove('hidden'); // draw(begin, end, duration, options)
-// options {delay, easing, circular, callback}
-// In animations (burger to cross)
-
-function inAC(s) {
-  s.draw('80% - 240', '80%', duration * 3, {
-    delay: 0.1,
-    callback: function callback() {
-      inAC2(s);
-    }
-  });
-}
-
-function inAC2(s) {
-  s.draw('100% - 545', '100% - 305', duration, {
-    easing: Elastic.easeOut.config(1, 0.3)
-  });
-}
-
-function inB(s) {
-  s.draw(beginB - 60, endB + 60, duration, {
-    callback: function callback() {
-      inB2(s);
-    }
-  });
-}
-
-function inB2(s) {
-  s.draw(beginB + 120, endB - 120, duration * 2, {
-    easing: Bounce.easeOut
-  });
-} // Out animations (cross to burger)
-
-
-function outAC(s) {
-  s.draw('90% - 240', '90%', duration, {
-    easing: Elastic.easeIn.config(1, 0.3),
-    callback: function callback() {
-      outAC2(s);
-    }
-  });
-}
-
-function outAC2(s) {
-  s.draw('20% - 240', '20%', duration * 3, {
-    callback: function callback() {
-      outAC3(s);
-    }
-  });
-}
-
-function outAC3(s) {
-  s.draw(beginAC, endAC, duration * 1.5, {
-    easing: Elastic.easeOut.config(1, 0.3)
-  });
-}
-
-function outB(s) {
-  s.draw(beginB, endB, duration * 3, {
-    delay: 0.1,
-    easing: Elastic.easeOut.config(2, 0.4)
-  });
-}
-
-hamburger.onclick = function () {
-  animation();
-  hamburger.classList.toggle('active');
-};
-
-function animation() {
-  hamburger.classList.add('scaled');
-
-  if (toCloseIcon) {
-    inAC(segment1);
-    inB(segment2);
-    inAC(segment3);
-  } else {
-    outAC(segment1);
-    outB(segment2);
-    outAC(segment3);
-  }
-
-  toCloseIcon = !toCloseIcon;
-  setTimeout(function () {
-    hamburger.classList.remove('scaled');
-  }, 450);
 }
 
 /***/ }),
@@ -41026,12 +41056,13 @@ $(window).bind('resize', function (e) {
 /*!***********************************!*\
   !*** ./resources/js/functions.js ***!
   \***********************************/
-/*! exports provided: scrollTo, audioFadeOut, audioFadeIn, isPlaying, thousandSeparator, rnd, updateURLParameter, removeURLParameter */
+/*! exports provided: scrollTo, scrollStopEventlistener, audioFadeOut, audioFadeIn, isPlaying, thousandSeparator, rnd, updateURLParameter, removeURLParameter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollTo", function() { return scrollTo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollStopEventlistener", function() { return scrollStopEventlistener; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "audioFadeOut", function() { return audioFadeOut; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "audioFadeIn", function() { return audioFadeIn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlaying", function() { return isPlaying; });
@@ -41039,10 +41070,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rnd", function() { return rnd; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateURLParameter", function() { return updateURLParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeURLParameter", function() { return removeURLParameter; });
-function scrollTo(target, duration) {
+function scrollTo(target, duration, easing, offset) {
   $('html,body').stop().animate({
-    scrollTop: target.offset().top
-  }, duration, 'easeInOutQuint');
+    scrollTop: target.offset().top - offset
+  }, duration, easing);
+}
+function scrollStopEventlistener() {
+  var page = $('html,body');
+  page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function () {
+    page.stop();
+  });
 }
 function audioFadeOut(element, duration) {
   var x = $(element);

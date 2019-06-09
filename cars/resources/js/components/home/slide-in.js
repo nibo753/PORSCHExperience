@@ -40,11 +40,6 @@ $.fn.createSlideIn = function()
         .on("start", function (e) {
             if (e.type == "start") {
                 nav._resetMenu();
-
-                if (hamburger.classList.contains('active')) {
-                    nav.animation();
-                    hamburger.classList.remove('active');
-                }
             }
         });
     }

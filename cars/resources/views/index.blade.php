@@ -48,9 +48,8 @@
             <div class="row">
                 <div class="col">
                     <div class="desc">
-                        <h1 class="title">{{ $value->name }}</h1>
+                        <h1 class="title"><a href="/models/{{ $value->name }}" data-hover="{{ $value->name }} >" class="hover_effect model_link">{{ $value->name }}</a></h1>
                         @if ($value->price != 0)
-                        <hr>
                         <div class="content-inner">
                             <div class="flex svg_container">
                                 <?php $svg = file_get_contents( URL::to('/') . "/img/svg/speedometer.svg") ?>
@@ -74,13 +73,12 @@
                                 <div class="acc svg">
                                     <span class="svg_content">
                                         <div class="value" data="{{ $value->acceleration_sport }}">0</div>
-                                        <div class="unit">0 - 100<br>km/h</div>
+                                        <div class="unit">0-100 km/h</div>
                                     </span>
                                     <?= $svg ?>
                                 </div>
                                 @endif
                             </div>
-                            <a href="/models/{{ $value->name }}" class="model_link">Show all {{ $value->name }} models</a>
                         </div>
                         @endif
                     </div>

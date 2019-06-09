@@ -108,30 +108,6 @@ nav.mp-menu {
 		color: $white;
 		display: block;
 		transition: background-color .2s;
-
-		&.arrow {
-			position: relative;
-
-			&:before {
-				content: '';
-				position: absolute;
-				top: 50%;
-				width: 8px;
-				height: 8px;
-				border-left: 1px solid $white;
-				border-bottom: 1px solid $white;
-			}
-
-			&.left:before {
-				left: 15px;
-				transform: translateY(-50%) rotate(45deg);
-			}
-
-			&.right:before {
-				right: 15px;
-				transform: translateY(-50%) rotate(-135deg);
-			}
-		}
 	}
 
 	ul li > a { /* excludes back btn */
