@@ -1,4 +1,5 @@
-import * as f from './../../functions';
+import * as f from './../functions';
+import * as imgSeq from './models/img-sequence';
 
 f.scrollStopEventlistener();
 
@@ -20,4 +21,18 @@ $('.home .intro #start').on('click', function (e) {
 
     $('.home').removeClass('noscroll');
     f.scrollTo(target, 1500, 'easeInOutQuint', 0);
+});
+
+
+$('#scroll_indicator a[href^="#"]').on('click', function(event) {
+    let target = $(this.getAttribute('href'));
+    if( target.length ) {
+        event.preventDefault();
+        if (!$('home, body').is(':animated')) {
+            let height = $('.scrollmagic-pin-spacer').outerHeight(true),
+                offset = h - $('#model_nav').outerHeight(true),
+                duration = (1-imgSeq.scrollPosition)*height;
+            f.scrollTo(target, duration, 'linear', offset );
+        }
+    }
 });

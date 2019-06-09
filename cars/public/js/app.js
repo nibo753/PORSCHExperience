@@ -39908,6 +39908,8 @@ __webpack_require__(/*! ./components/page-transition */ "./resources/js/componen
 
 __webpack_require__(/*! ./components/refresh */ "./resources/js/components/refresh.js");
 
+__webpack_require__(/*! ./components/smooth-scroll */ "./resources/js/components/smooth-scroll.js");
+
 __webpack_require__(/*! ./components/home/audio */ "./resources/js/components/home/audio.js");
 
 __webpack_require__(/*! ./components/home/car */ "./resources/js/components/home/car.js");
@@ -39917,8 +39919,6 @@ __webpack_require__(/*! ./components/home/data-offset */ "./resources/js/compone
 __webpack_require__(/*! ./components/home/mission-e */ "./resources/js/components/home/mission-e.js");
 
 __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components/home/slide-in.js");
-
-__webpack_require__(/*! ./components/home/smooth-scroll */ "./resources/js/components/home/smooth-scroll.js");
 
 __webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
@@ -40481,59 +40481,28 @@ if (check) {
 
 /***/ }),
 
-/***/ "./resources/js/components/home/smooth-scroll.js":
-/*!*******************************************************!*\
-  !*** ./resources/js/components/home/smooth-scroll.js ***!
-  \*******************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
-
-_functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"](); // #sidenav + home logo
-
-$('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
-  var target = $(this.getAttribute('href'));
-
-  if (target.length) {
-    event.preventDefault();
-    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
-  }
-}); //home start button
-
-$('.home .intro #start').on('click', function (e) {
-  e.preventDefault();
-  var target = $(this).attr('data-car');
-  target = $('.car[data-car="' + target + '"]');
-  $('.home').removeClass('noscroll');
-  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
-});
-
-/***/ }),
-
 /***/ "./resources/js/components/models/img-sequence.js":
 /*!********************************************************!*\
   !*** ./resources/js/components/models/img-sequence.js ***!
   \********************************************************/
-/*! no exports provided */
+/*! exports provided: scrollPosition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollPosition", function() { return scrollPosition; });
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
 var c = new ScrollMagic.Controller(),
     check = document.querySelector('.models #image_sequence');
+var scrollPosition = 0;
 
 if (check) {
   var images = [],
       obj = {
     curImg: 0
   },
-      sceneDuration = imageSequenceCounter * 50,
-      scrollPosition = 0; // fill image array
+      sceneDuration = imageSequenceCounter * 50; // fill image array
 
   for (var i = 1; i <= imageSequenceCounter; i++) {
     var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
@@ -40597,24 +40566,7 @@ if (check) {
     triggerHook: 0,
     duration: sceneDuration * 1.1,
     offset: -+$('header').outerHeight(true)
-  }).setTween(contentTimeline).addTo(c); // SCROLL INDICATOR
-
-  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"]();
-  var page = $('home, body');
-  $('#scroll_indicator a[href^="#"]').on('click', function (event) {
-    var target = $(this.getAttribute('href'));
-
-    if (target.length) {
-      event.preventDefault();
-
-      if (!page.is(':animated')) {
-        var height = $('.scrollmagic-pin-spacer').outerHeight(true),
-            offset = h - $('#model_nav').outerHeight(true),
-            duration = (1 - scrollPosition) * height;
-        _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
-      }
-    }
-  });
+  }).setTween(contentTimeline).addTo(c);
 }
 
 /***/ }),
@@ -40974,6 +40926,54 @@ $(window).bind('resize', function (e) {
     this.location.reload(false);
     /* false to get page from cache */
   }, 200);
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/smooth-scroll.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/smooth-scroll.js ***!
+  \**************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../functions */ "./resources/js/functions.js");
+/* harmony import */ var _models_img_sequence__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./models/img-sequence */ "./resources/js/components/models/img-sequence.js");
+
+
+_functions__WEBPACK_IMPORTED_MODULE_0__["scrollStopEventlistener"](); // #sidenav + home logo
+
+$('#sideNav a[href^="#"], .home a[href^="#intro"]').on('click', function (event) {
+  var target = $(this.getAttribute('href'));
+
+  if (target.length) {
+    event.preventDefault();
+    _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
+  }
+}); //home start button
+
+$('.home .intro #start').on('click', function (e) {
+  e.preventDefault();
+  var target = $(this).attr('data-car');
+  target = $('.car[data-car="' + target + '"]');
+  $('.home').removeClass('noscroll');
+  _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
+});
+$('#scroll_indicator a[href^="#"]').on('click', function (event) {
+  var target = $(this.getAttribute('href'));
+
+  if (target.length) {
+    event.preventDefault();
+
+    if (!$('home, body').is(':animated')) {
+      var height = $('.scrollmagic-pin-spacer').outerHeight(true),
+          offset = h - $('#model_nav').outerHeight(true),
+          duration = (1 - _models_img_sequence__WEBPACK_IMPORTED_MODULE_1__["scrollPosition"]) * height;
+      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
+    }
+  }
 });
 
 /***/ }),

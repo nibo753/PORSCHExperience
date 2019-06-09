@@ -40,13 +40,13 @@ require('./components/nav');
 require('./components/hamburger');
 require('./components/page-transition');
 require('./components/refresh');
+require('./components/smooth-scroll');
 
 require('./components/home/audio');
 require('./components/home/car');
 require('./components/home/data-offset');
 require('./components/home/mission-e');
 require('./components/home/slide-in');
-require('./components/home/smooth-scroll');
 
 require('./components/models/img-sequence');
 require('./components/models/slick');

@@ -3,11 +3,12 @@ import * as f from './../../functions';
 const 	c		= new ScrollMagic.Controller(),
 		check 	= document.querySelector('.models #image_sequence');
 
+export let scrollPosition  = 0;
+
 if ( check ) {
 	let images 			= [],
 		obj 			= {curImg: 0},
-		sceneDuration 	= (imageSequenceCounter * 50),
-		scrollPosition  = 0;
+		sceneDuration 	= (imageSequenceCounter * 50);
 
 	// fill image array
 	for ( let i = 1; i <= imageSequenceCounter; i++) {
@@ -73,23 +74,4 @@ if ( check ) {
 	})
 	.setTween(contentTimeline)
 	.addTo(c);
-
-
-
-	// SCROLL INDICATOR
-	f.scrollStopEventlistener();
-	const page = $('home, body');
-
-	$('#scroll_indicator a[href^="#"]').on('click', function(event) {
-		let target = $(this.getAttribute('href'));
-		if( target.length ) {
-			event.preventDefault();
-			if (!page.is(':animated')) {
-				let height = $('.scrollmagic-pin-spacer').outerHeight(true),
-					offset = h - $('#model_nav').outerHeight(true),
-					duration = (1-scrollPosition)*height;
-				f.scrollTo(target, duration, 'linear', offset );
-			}
-		}
-	});
 }
