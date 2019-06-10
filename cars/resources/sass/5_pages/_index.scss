@@ -79,8 +79,9 @@
 					&.hover_effect {
 						padding: 7px 0;
 
-						&:hover::before,
-						&:focus::before {
+						&:before { transition: width .5s; }
+
+						&:hover::before {
 							width: calc(100% + 42px);
 						}
 					}

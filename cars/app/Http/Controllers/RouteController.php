@@ -66,6 +66,9 @@ class RouteController extends Controller
 			(isset($arr['fuel_consumption'])) ? $arr['fuel_consumption']=number_format((float)$arr['fuel_consumption'], 1, ',', '.') : '';
 			(isset($arr['power_consumption'])) ? $arr['power_consumption']=number_format((float)$arr['power_consumption'], 1, ',', '.') : '';
 			(isset($arr['emission'])) ? $arr['emission']=number_format((float)$arr['emission'], 1, ',', '.') : '';
+			(isset($arr['width'])) ? $arr['width']=number_format((float)$arr['width'], 0, ',', '.') : '';
+			(isset($arr['height'])) ? $arr['height']=number_format((float)$arr['height'], 0, ',', '.') : '';
+			(isset($arr['length'])) ? $arr['length']=number_format((float)$arr['length'], 0, ',', '.') : '';
 		}
 		return $data;
 	}

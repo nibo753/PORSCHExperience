@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="col">
                     <div class="desc">
-                        <h1 class="title"><a href="/models/{{ $value->name }}" data-hover="{{ $value->name }} >" class="hover_effect model_link">{{ $value->name }}</a></h1>
+                        <h1 class="title"><a href="/models/{{ $value->name }}" data-hover="{{ $value->name }}" class="hover_effect model_link">{{ $value->name }}</a></h1>
                         @if ($value->price != 0)
                         <div class="content-inner">
                             <div class="flex svg_container">

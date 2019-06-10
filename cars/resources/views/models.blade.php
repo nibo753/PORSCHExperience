@@ -13,6 +13,7 @@
 </div>
 
 @else
+
 <div id="model_container">
     @if ( $imgCount != 0)
     <div id="image_sequence">
@@ -20,19 +21,26 @@
             var imageSequenceCounter = <?= json_encode($imgCount); ?>;
             var imageSequenceModel = <?= json_encode($cars[0]->category->name); ?>;
         </script>
+
         <img src="/img/{{ $cars[0]->category->name }}/sequence/1.webp" alt="image of {{ $cars[0]->category->name }}">
         <div class="img_cover left">
+            @if ( $cars[0]->category->title_1 != '' && $cars[0]->category->desc_1 != '')
             <div class="content c1 flex">
-                <h1>Design</h1>
-                <p>Tijdloos en eigentijds waren nog nooit zo dicht bij elkaar.</p>
+                <h1>{{ $cars[0]->category->title_1 }}</h1>
+                <p>{{ $cars[0]->category->desc_1 }}</p>
             </div>
+            @endif
+            @if ( $cars[0]->category->title_2 != '' && $cars[0]->category->desc_2 != '')
             <div class="content c2 flex">
-                <h1>Tijdloos</h1>
-                <p>De nieuwe 911 is het resultaat van alle voorgangers – en zodoende zowel retrospectief als een toekomstvisie. Het silhouet: iconisch. Het design: tijdloos. De technologie: geïnspireerd op grote overwinningen en altijd een stap vooruit. Met de 8e generatie van de 911 stevenen we af op de toekomst.</p>
+                <h1>{{ $cars[0]->category->title_2 }}</h1>
+                <p>{{ $cars[0]->category->desc_2 }}</p>
             </div>
+            @endif
             <div class="content c3 flex">
-                <h1>{{ $cars[0]->category->name }} Modellen</h1>
-                <p>Vanaf &euro;{{ $cars[0]->price }} incl. BTW</p>
+                <h1>{{ $cars[0]->category->name }} Models</h1>
+                @if ( $cars[0]->price != '')
+                <p>From &euro;{{ $cars[0]->price }} incl. tax</p>
+                @endif
             </div>
         </div>
     </div>
@@ -90,13 +98,11 @@
             ?>
             <li class="{{$name}}">
                 <img src="/img/{{$model->category->name}}/{{$model->category->name}}_{{str_replace(' ', '_', $model->name)}}.png" alt="{{$model->name}}">
-                <span>{{$model->category->name}}</span>
+                <p class="m"><span>{{$model->category->name}}</span>
                 @if ($model->name != '')
                 <span>{{$model->name}}</span>
                 @endif
-                @if ($model->price != 0)
-                <p>Vanaf {{ $model->price }} incl. BTW</p>
-                @endif
+                </p>
             </li>
             @endforeach
         </ul>
@@ -111,23 +117,49 @@
                 $name = substr_replace($name, '_', 0, 0);
             }
         ?>
-        <section class="model {{$name}}" id="car_{{$model->id}}">
-            <p>{{$model->name}}</p>
-            <p>{{$model->price}}</p>
-            <p>{{$model->pk}}</p>
-            <p>{{$model->kw}}</p>
-            <p>{{$model->topspeed}}</p>
-            <p>{{$model->acceleration}}</p>
-            <p>{{$model->acceleration_sport}}</p>
-            <p>{{$model->fuel_consuption}}</p>
-            <p>{{$model->emission}}</p>
-            <p>{{$model->drive}}</p>
-            <p>{{$model->height}}</p>
-            <p>{{$model->width}}</p>
-            <p>{{$model->length}}</p>
-            <p>{{$model->weight}}</p>
-            <p>{{$model->luggage}}</p>
-            
+        <section class="model_section {{$name}}" id="car_{{$model->id}}">
+            <div class="dark">
+                <div class="container flex">
+                    <div class="dimensions">
+                        @if ($model->height != 0)
+                        <div class="height dim">{{$model->height}} mm</div>
+                        @endif
+                        <img src="/img/{{$model->category->name}}/{{$model->category->name}}_{{str_replace(' ', '_', $model->name)}}.png">
+                        @if ($model->height != 0)
+                        <div class="length dim">{{$model->length}} mm</div>
+                        @endif
+                        @if ($model->height != 0)
+                        <div class="width dim"></div>
+                        <span class="width_txt">{{$model->width}} mm</span>
+                        @endif
+                    </div>
+                    <div class="model_intro">
+                        <h2>{{$cars[0]->category->name}} {{$model->name}}</h2>
+                        <p>From &euro;{{$model->price}} incl. tax</p>
+
+                        <a href="https://www.porsche.com/belgium/nl/models/{{$model->category->name}}/" target="_blank">Official Porsche Site</a>
+                    </div>
+                </div>
+            </div>
+            <div class="light">
+                <div class="container details">
+                    <p>{{$model->name}}</p>
+                    <p>{{$model->price}}</p>
+                    <p>{{$model->pk}}</p>
+                    <p>{{$model->kw}}</p>
+                    <p>{{$model->topspeed}}</p>
+                    <p>{{$model->acceleration}}</p>
+                    <p>{{$model->acceleration_sport}}</p>
+                    <p>{{$model->fuel_consuption}}</p>
+                    <p>{{$model->emission}}</p>
+                    <p>{{$model->drive}}</p>
+                    <p>{{$model->height}}</p>
+                    <p>{{$model->width}}</p>
+                    <p>{{$model->length}}</p>
+                    <p>{{$model->weight}}</p>
+                    <p>{{$model->luggage}}</p>
+                </div>
+            </div>            
             <!--<img data-lazy="img/lazyfonz1.png"/> -->
         </section>
         @endforeach

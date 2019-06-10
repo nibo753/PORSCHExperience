@@ -6,7 +6,7 @@ export function scrollTo(target, duration, easing, offset) {
 
 export function scrollStopEventlistener(){
     let page = $('html,body');
-    page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+    page.on("scroll wheel DOMMouseScroll mousewheel keyup touchmove", function(){
        page.stop();
    });
 }

@@ -49,4 +49,5 @@ require('./components/home/mission-e');
 require('./components/home/slide-in');
 
 require('./components/models/img-sequence');
+require('./components/models/specs'); // apply JS before filter
 require('./components/models/slick');

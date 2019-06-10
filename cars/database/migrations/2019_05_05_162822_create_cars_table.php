@@ -16,7 +16,7 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('category_id');
-            $table->string('name')->nullable();
+            $table->string('name', 255)->nullable();
             $table->float('price')->nullable();
             $table->integer('pk')->nullable();
             $table->integer('kw')->nullable();
@@ -26,7 +26,7 @@ class CreateCarsTable extends Migration
             $table->float('fuel_consumption')->nullable();
             $table->float('power_consumption')->nullable();
             $table->float('emission')->nullable();
-            $table->string('drive')->nullable();
+            $table->string('drive', 255)->nullable();
             $table->integer('height')->nullable();
             $table->integer('width')->nullable();
             $table->integer('length')->nullable();

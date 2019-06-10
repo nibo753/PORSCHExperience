@@ -39922,6 +39922,9 @@ __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components
 
 __webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
+__webpack_require__(/*! ./components/models/specs */ "./resources/js/components/models/specs.js"); // apply JS before filter
+
+
 __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/models/slick.js");
 
 /***/ }),
@@ -40766,6 +40769,51 @@ function filterSlick(input, slick, syncSlick) {
 
 /***/ }),
 
+/***/ "./resources/js/components/models/specs.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/models/specs.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+
+var check = document.querySelector('.models'),
+    modelInfo = $('.model_info');
+
+if (check && modelInfo.length) {
+  var imgs = document.querySelectorAll('.dimensions img'),
+      lengthDiv = document.querySelectorAll('.dimensions .length'),
+      widthDiv = document.querySelectorAll('.dimensions .width'),
+      widthTxt = document.querySelectorAll('.dimensions .width_txt'),
+      heightDiv = document.querySelectorAll('.dimensions .height');
+
+  for (var i = imgs.length - 1; i >= 0; i--) {
+    var offset = imgs[i].offsetWidth,
+        height = imgs[i].offsetHeight;
+
+    if (lengthDiv[i]) {
+      lengthDiv[i].style.width = .9 * offset + 'px';
+      lengthDiv[i].style.left = .05 * offset + 'px';
+    }
+
+    if (widthDiv[i]) {
+      widthDiv[i].style.width = 1.45 * offset + 'px';
+      widthDiv[i].style.left = .25 * offset + 'px';
+      widthTxt[i].style.width = .9 * offset + 'px';
+      widthTxt[i].style.left = .55 * offset + 'px';
+    }
+
+    if (heightDiv[i]) {
+      heightDiv[i].style.width = .5 * height + 'px';
+    }
+  }
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/nav.js":
 /*!****************************************!*\
   !*** ./resources/js/components/nav.js ***!
@@ -41003,7 +41051,7 @@ function scrollTo(target, duration, easing, offset) {
 }
 function scrollStopEventlistener() {
   var page = $('html,body');
-  page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function () {
+  page.on("scroll wheel DOMMouseScroll mousewheel keyup touchmove", function () {
     page.stop();
   });
 }
