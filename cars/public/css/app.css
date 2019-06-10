@@ -12190,12 +12190,12 @@ body.dark {
   }
 }
 
-.models #model_container .name_bg.Panamera {
+.models #model_container .name_bg.Panamera,
+.models #model_container .name_bg.Cayenne {
   top: 0px;
 }
 
-.models #model_container .name_bg.Macan,
-.models #model_container .name_bg.Cayenne {
+.models #model_container .name_bg.Macan {
   top: -15px;
 }
 

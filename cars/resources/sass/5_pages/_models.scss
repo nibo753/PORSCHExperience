@@ -89,9 +89,9 @@ $bgColor: white;
 
 			position: absolute;
 			top: 15px;
-			&.Panamera { top: 0px; }
-			&.Macan,
-			&.Cayenne { top: -15px; }
+			&.Panamera,
+			&.Cayenne { top: 0px; }
+			&.Macan { top: -15px; }
 		}
 
 		#model_nav {

@@ -58,7 +58,8 @@
     <nav id="model_nav">
         @if (($cars[0]->category->name == '718') ||
             ($cars[0]->category->name == '911') ||
-            ($cars[0]->category->name == 'Panamera'))
+            ($cars[0]->category->name == 'Panamera') ||
+            ($cars[0]->category->name == 'Cayenne'))
             <div class="model_filter container">
                 <div class="row">
                 @if ($cars[0]->category->name == '718')
@@ -76,7 +77,12 @@
                     <button class="btn" value="Turbo">Turbo</button>
                     <button class="btn" value="E-Hybrid">E-Hybrid</button>
                 @endif
-                <?php // NO MACAN OR CAYENNE FILTER ?>
+                <?php // NO MACAN FILTER ?>
+                @if ($cars[0]->category->name == 'Cayenne')
+                    <button class="btn" value="S">Sport</button>
+                    <button class="btn" value="Turbo">Turbo</button>
+                    <button class="btn" value="Coupé">Coupé</button>
+                @endif
                 </div>
             </div>
         @endif

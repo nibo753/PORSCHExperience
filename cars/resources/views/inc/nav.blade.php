@@ -6,12 +6,12 @@
 			@foreach ($categories as $category)
 				<?php
 				/* 
-				 * IF category name is current page OR if category = 'macan' or IF category = 'cayenne'
+				 * IF category name is current page OR if category = 'macan'
 				 * create li > a
 				 * if isset($cars) > if current page add .active
 				 * stop current foreach loop -> no submenu is added
 				 */
-				if (isset($cars) && !$cars->isEmpty() && $cars[0]->category->name == $category->name || $category->name == 'Macan' || $category->name == 'Cayenne'): ?>
+				if (isset($cars) && !$cars->isEmpty() && $cars[0]->category->name == $category->name || $category->name == 'Macan'): ?>
 		 				<li><a href="/models/{{ $category->name }}" class="{{ (isset($cars[0]['category']['name'])) ? ( ($cars[0]['category']['name'] == $category->name) ? 'active' : '' ) : '' }}">{{$category->name}}</a></li>
 					<?php
 		 			continue;
@@ -37,6 +37,11 @@
 								<li><a href="/models/{{$category->name}}?m=Executive">Executive</a></li>
 								<li><a href="/models/{{$category->name}}?m=Turbo">Turbo</a></li>
 								<li><a href="/models/{{$category->name}}?m=E-Hybrid">E-Hybrid</a></li>
+							@endif
+							@if ($category->name == 'Cayenne')
+								<li><a href="/models/{{$category->name}}?m=S">Sport</a></li>
+								<li><a href="/models/{{$category->name}}?m=Turbo">Turbo</a></li>
+								<li><a href="/models/{{$category->name}}?m=Coupé">Coupé</a></li>
 							@endif
 						</ul>
 					</div>
