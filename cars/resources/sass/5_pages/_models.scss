@@ -76,8 +76,6 @@ $bgColor: white;
 		}
 
 		.name_bg {
-			position: absolute;
-			top: 40px;
 			h1 {
 				font-size: $size_big;
 				@include respond-to(phone) {font-size: $size-l;}
@@ -87,12 +85,17 @@ $bgColor: white;
 				margin: 0;
 				line-height: 1em;
 			}
+
+			position: absolute;
+			top: 15px;
+			&.Panamera { top: 0px; }
+			&.Macan,
+			&.Cayenne { top: -15px; }
 		}
 
 		#model_nav {
 			position: relative;
 			background-color: $bgColor;
-			overflow: hidden;
 		
 			.model_filter {
 				position: relative;
@@ -133,22 +136,16 @@ $bgColor: white;
 		}
 
 		.model_info {
-			//min-height: 500px;
+			background-color: white;
 			.dark {
 				background-color: $black;
 				color: $white;
 				position: relative;
 			}
-			.light {
-				background-color: $white;
-				color: $black;
-				position: relative;
-			}
 		}
 
 		.model_section {
-			.dark,
-			.light {
+			.container {
 				padding-top: 100px;
 				padding-bottom: 80px;
 			}
@@ -223,7 +220,17 @@ $bgColor: white;
 			.model_intro {
 				position: relative;
 				text-align: right;
+				width: 40%;
+				
 				h2{ color: $white; }
+				a, p {
+					position: absolute;
+					right: 0;
+					top: 50%;
+				}
+				p { margin-top: 1.5em; }
+
+				
 			}
 		}
 	}

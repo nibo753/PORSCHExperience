@@ -52,7 +52,8 @@ if ( check && modelSlider.length && modelInfo.length ) {
 		draggable: false,
 		touchMove: false,
 		speed: 0,
-		fade: true
+		fade: true,
+		adaptiveHeight: true
 	});
 
 	/*

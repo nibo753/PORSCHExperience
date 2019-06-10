@@ -12171,7 +12171,7 @@ body.dark {
 
 .models #model_container .name_bg {
   position: absolute;
-  top: 40px;
+  top: 15px;
 }
 
 .models #model_container .name_bg h1 {
@@ -12189,10 +12189,18 @@ body.dark {
   }
 }
 
+.models #model_container .name_bg.Panamera {
+  top: 0px;
+}
+
+.models #model_container .name_bg.Macan,
+.models #model_container .name_bg.Cayenne {
+  top: -15px;
+}
+
 .models #model_container #model_nav {
   position: relative;
   background-color: white;
-  overflow: hidden;
 }
 
 .models #model_container #model_nav .model_filter {
@@ -12235,20 +12243,17 @@ body.dark {
           transform: scale(1.01);
 }
 
+.models #model_container .model_info {
+  background-color: white;
+}
+
 .models #model_container .model_info .dark {
   background-color: #151515;
   color: #F1F1F1;
   position: relative;
 }
 
-.models #model_container .model_info .light {
-  background-color: #F1F1F1;
-  color: #151515;
-  position: relative;
-}
-
-.models #model_container .model_section .dark,
-.models #model_container .model_section .light {
+.models #model_container .model_section .container {
   padding-top: 100px;
   padding-bottom: 80px;
 }
@@ -12339,9 +12344,21 @@ body.dark {
 .models #model_container .model_section .model_intro {
   position: relative;
   text-align: right;
+  width: 40%;
 }
 
 .models #model_container .model_section .model_intro h2 {
   color: #F1F1F1;
+}
+
+.models #model_container .model_section .model_intro a,
+.models #model_container .model_section .model_intro p {
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+
+.models #model_container .model_section .model_intro p {
+  margin-top: 1.5em;
 }
 

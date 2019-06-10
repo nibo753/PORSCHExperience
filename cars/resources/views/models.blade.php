@@ -82,7 +82,7 @@
         @endif
 
         <div class="container">
-            <div class="name_bg">
+            <div class="name_bg {{ (startsWithNumber($cars[0]->category->name)) ? '_'.$cars[0]->category->name : $cars[0]->category->name }}">
                 <h1>{{$cars[0]->category->name}}</h1>
             </div>
         </div>
@@ -135,30 +135,30 @@
                     </div>
                     <div class="model_intro">
                         <h2>{{$cars[0]->category->name}} {{$model->name}}</h2>
-                        <p>From &euro;{{$model->price}} incl. tax</p>
-
                         <a href="https://www.porsche.com/belgium/nl/models/{{$model->category->name}}/" target="_blank">Official Porsche Site</a>
+                        <p>From &euro;{{$model->price}} incl. tax</p>
                     </div>
                 </div>
             </div>
-            <div class="light">
-                <div class="container details">
-                    <p>{{$model->name}}</p>
-                    <p>{{$model->price}}</p>
-                    <p>{{$model->pk}}</p>
-                    <p>{{$model->kw}}</p>
-                    <p>{{$model->topspeed}}</p>
-                    <p>{{$model->acceleration}}</p>
-                    <p>{{$model->acceleration_sport}}</p>
-                    <p>{{$model->fuel_consuption}}</p>
-                    <p>{{$model->emission}}</p>
-                    <p>{{$model->drive}}</p>
-                    <p>{{$model->height}}</p>
-                    <p>{{$model->width}}</p>
-                    <p>{{$model->length}}</p>
-                    <p>{{$model->weight}}</p>
-                    <p>{{$model->luggage}}</p>
-                </div>
+            <div class="container details">
+                <p>{{$model->name}}</p>
+                <p>{{$model->price}}</p>
+                <p>{{$model->pk}}</p>
+                <p>{{$model->topspeed}}</p>
+                <p>{{$model->acceleration}}</p>
+                <p>{{$model->acceleration_sport}}</p>
+                <p>{{$model->fuel_consuption}}</p>
+                <p>{{$model->emission}}</p>
+                <p>{{$model->drive}}</p>
+                <p>{{$model->height}}</p>
+                <p>{{$model->width}}</p>
+                <p>{{$model->length}}</p>
+                <p>{{$model->weight}}</p>
+                <p>{{$model->luggage}}</p>
+                <p>{{$model->name}}</p>
+                <p>{{$model->name}}</p>
+                <p>{{$model->name}}</p>
+                <p>{{$model->name}}</p>
             </div>            
             <!--<img data-lazy="img/lazyfonz1.png"/> -->
         </section>
