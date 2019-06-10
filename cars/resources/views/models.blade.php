@@ -22,7 +22,7 @@
             var imageSequenceModel = <?= json_encode($cars[0]->category->name); ?>;
         </script>
 
-        <img src="/img/{{ $cars[0]->category->name }}/sequence/1.webp" alt="image of {{ $cars[0]->category->name }}">
+        <img src="/img/{{ $cars[0]->category->name }}/sequence/1.webp" alt="360 view of {{ $cars[0]->category->name }}">
         <div class="img_cover left">
             @if ( $cars[0]->category->title_1 != '' && $cars[0]->category->desc_1 != '')
             <div class="content c1 flex">

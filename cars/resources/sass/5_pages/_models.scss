@@ -27,7 +27,8 @@ $bgColor: white;
 			img {
 				min-width: 100%;
 				max-width: 125%;
-				max-height: 80vh;
+				max-height: calc(80vh - 65px);
+				background-color: $light; //fallback
 			}
 
 			.img_cover {

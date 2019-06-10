@@ -12106,7 +12106,8 @@ body.dark {
 .models #model_container #image_sequence img {
   min-width: 100%;
   max-width: 125%;
-  max-height: 80vh;
+  max-height: calc(80vh - 65px);
+  background-color: #D6D6D6;
 }
 
 .models #model_container #image_sequence .img_cover {
