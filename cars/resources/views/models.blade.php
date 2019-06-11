@@ -147,24 +147,24 @@
                 </div>
             </div>
             <div class="container details">
-                <p>{{$model->name}}</p>
-                <p>{{$model->price}}</p>
-                <p>{{$model->pk}}</p>
-                <p>{{$model->topspeed}}</p>
-                <p>{{$model->acceleration}}</p>
-                <p>{{$model->acceleration_sport}}</p>
-                <p>{{$model->fuel_consuption}}</p>
-                <p>{{$model->emission}}</p>
-                <p>{{$model->drive}}</p>
-                <p>{{$model->height}}</p>
-                <p>{{$model->width}}</p>
-                <p>{{$model->length}}</p>
-                <p>{{$model->weight}}</p>
-                <p>{{$model->luggage}}</p>
-                <p>{{$model->name}}</p>
-                <p>{{$model->name}}</p>
-                <p>{{$model->name}}</p>
-                <p>{{$model->name}}</p>
+                <div class="row">
+                    <div class="col">
+                    <p>{{$model->name}}</p>
+                    <p>{{$model->price}}</p>
+                    <p>{{$model->pk}}</p>
+                    <p>{{$model->topspeed}}</p>
+                    <p>{{$model->acceleration}}</p>
+                    <p>{{$model->acceleration_sport}}</p>
+                    <p>{{$model->fuel_consuption}}</p>
+                    <p>{{$model->emission}}</p>
+                    <p>{{$model->drive}}</p>
+                    <p>{{$model->height}}</p>
+                    <p>{{$model->width}}</p>
+                    <p>{{$model->length}}</p>
+                    <p>{{$model->weight}}</p>
+                    <p>{{$model->luggage}}</p> 
+                    </div>
+                </div>
             </div>            
             <!--<img data-lazy="img/lazyfonz1.png"/> -->
         </section>

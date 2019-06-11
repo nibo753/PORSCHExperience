@@ -152,8 +152,8 @@ $bgColor: white;
 			}
 			.dimensions {
 				height: 350px;
-				margin: -100px 30px 20px 0;
-				width: calc(60% - 30px);
+				margin: -100px 30px 20px 15px;
+				width: calc(60% - 45px);
 				position: relative;
 
 				h2 { font-size: $size_big; }
