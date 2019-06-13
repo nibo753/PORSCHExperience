@@ -7,7 +7,7 @@
     <p class="msg">Model not found!</p>
     <ul class="flex">
         @foreach ($categories as $category)
-        <li><a href="/models/{{ $category->name }}" class="models">{{ $category->name }}</a></li>
+        <li><a href="/models/{{ strtolower($category->name) }}" class="models">{{ $category->name }}</a></li>
         @endforeach
     </ul>
 </div>
@@ -22,7 +22,7 @@
             var imageSequenceModel = <?= json_encode($cars[0]->category->name); ?>;
         </script>
 
-        <img src="/img/{{ $cars[0]->category->name }}/sequence/1.webp" alt="360 view of {{ $cars[0]->category->name }}">
+        <img src="/img/{{ strtolower($cars[0]->category->name) }}/sequence/1.webp" alt="360 view of {{ $cars[0]->category->name }}">
         <div class="img_cover left">
             @if ( $cars[0]->category->title_1 != '' && $cars[0]->category->desc_1 != '')
             <div class="content c1 flex">
@@ -58,30 +58,30 @@
     <nav id="model_nav">
         @if (($cars[0]->category->name == '718') ||
             ($cars[0]->category->name == '911') ||
-            ($cars[0]->category->name == 'Panamera') ||
-            ($cars[0]->category->name == 'Cayenne'))
+            (strtolower($cars[0]->category->name) == 'panamera') ||
+            (strtolower($cars[0]->category->name) == 'cayenne'))
             <div class="model_filter container">
                 <div class="row">
                 @if ($cars[0]->category->name == '718')
-                    <button class="btn" value="Boxster">Boxster</button>
-                    <button class="btn" value="Cayman">Cayman</button>
+                    <button class="btn" value="boxster">Boxster</button>
+                    <button class="btn" value="cayman">Cayman</button>
                 @endif
                 @if ($cars[0]->category->name == '911')
-                    <button class="btn" value="Carrera">Carrera</button>
-                    <button class="btn" value="Cabriolet Speedster">Cabriolet</button>
-                    <button class="btn" value="RS">Racing Sport</button>
+                    <button class="btn" value="carrera">Carrera</button>
+                    <button class="btn" value="cabriolet speedster">Cabriolet</button>
+                    <button class="btn" value="rs">Racing Sport</button>
                 @endif
-                @if ($cars[0]->category->name == 'Panamera')
-                    <button class="btn" value="Sport Turismo">Sport Turismo</button>
-                    <button class="btn" value="Executive">Executive</button>
-                    <button class="btn" value="Turbo">Turbo</button>
-                    <button class="btn" value="E-Hybrid">E-Hybrid</button>
+                @if (strtolower($cars[0]->category->name) == 'panamera')
+                    <button class="btn" value="sport turismo">Sport Turismo</button>
+                    <button class="btn" value="executive">Executive</button>
+                    <button class="btn" value="turbo">Turbo</button>
+                    <button class="btn" value="e-hybrid">E-Hybrid</button>
                 @endif
                 <?php // NO MACAN FILTER ?>
-                @if ($cars[0]->category->name == 'Cayenne')
-                    <button class="btn" value="S">Sport</button>
-                    <button class="btn" value="Turbo">Turbo</button>
-                    <button class="btn" value="Coupé">Coupé</button>
+                @if (strtolower($cars[0]->category->name) == 'cayenne')
+                    <button class="btn" value="s">Sport</button>
+                    <button class="btn" value="turbo">Turbo</button>
+                    <button class="btn" value="coupé">Coupé</button>
                 @endif
                 </div>
             </div>
@@ -97,13 +97,13 @@
             @foreach ($cars as $model)
             <?php
                 // FIX MODEL NAMES THAT START WITH NUMBER
-                $name = $model->name;
+                $name = strtolower($model->name);
                 if (startsWithNumber($name)){
                     $name = substr_replace($name, '_', 0, 0);
                 }
             ?>
             <li class="{{$name}}">
-                <img src="/img/{{$model->category->name}}/{{$model->category->name}}_{{str_replace(' ', '_', $model->name)}}.png" alt="{{$model->name}}">
+                <img src="/img/{{strtolower($model->category->name)}}/{{strtolower($model->category->name)}}_{{strtolower(str_replace(' ', '_', $model->name))}}.png" alt="{{$cars[0]->category->name}} {{$model->name}}">
                 <p class="m"><span>{{$model->category->name}}</span>
                 @if ($model->name != '')
                 <span>{{$model->name}}</span>
@@ -118,7 +118,7 @@
         @foreach ($cars as $model)
         <?php
             // FIX MODEL NAMES THAT START WITH NUMBER
-            $name = $model->name;
+            $name = strtolower($model->name);
             if (startsWithNumber($name)){
                 $name = substr_replace($name, '_', 0, 0);
             }
@@ -130,7 +130,7 @@
                         @if ($model->height != 0)
                         <div class="height dim">{{$model->height}} mm</div>
                         @endif
-                        <img src="/img/{{$model->category->name}}/{{$model->category->name}}_{{str_replace(' ', '_', $model->name)}}.png">
+                        <img src="/img/{{strtolower($model->category->name)}}/{{strtolower($model->category->name)}}_{{strtolower(str_replace(' ', '_', $model->name))}}.png">
                         @if ($model->height != 0)
                         <div class="length dim">{{$model->length}} mm</div>
                         @endif

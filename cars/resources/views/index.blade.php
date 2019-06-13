@@ -32,7 +32,7 @@
     <ul>
         @foreach ($categories as $category => $value)
         <li>
-            <a href="#_{{ $value->name }}" data-car="{{ $value->id }}" class="list-group-item"><span>{{ $value->name }}</span><img src="/img/overview/{{ $value->name }}.png"></a>
+            <a href="#_{{ strtolower($value->name) }}" data-car="{{ $value->id }}" class="list-group-item"><span>{{ $value->name }}</span><img src="/img/overview/{{ strtolower($value->name) }}.png"></a>
         </li>
         @endforeach
         <li>
@@ -43,12 +43,12 @@
 
 <div class="overview">
     @foreach ($categories as $category => $value)
-    <section class="car" id="_{{ $value->name }}" data-car="{{ $value->id }}">
+    <section class="car" id="_{{ strtolower($value->name) }}" data-car="{{ $value->id }}">
         <div class="container content">
             <div class="row">
                 <div class="col">
                     <div class="desc">
-                        <h1 class="title"><a href="/models/{{ $value->name }}" data-hover="{{ $value->name }}" class="hover_effect model_link">{{ $value->name }}</a></h1>
+                        <h1 class="title"><a href="/models/{{ strtolower($value->name) }}" data-hover="{{ $value->name }}" class="hover_effect model_link">{{ $value->name }}</a></h1>
                         @if ($value->price != 0)
                         <div class="content-inner">
                             <div class="flex svg_container">

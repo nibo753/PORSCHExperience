@@ -24,24 +24,24 @@
 						<a class="mp-back arrow right" href="">Back</a>
 						<ul>
 							@if ($category->name == '718')
-								<li><a href="/models/{{$category->name}}?m=Boxster">Boxster</a></li>
-								<li><a href="/models/{{$category->name}}?m=Cayman">Cayman</a></li>
+								<li><a href="/models/{{$category->name}}?m=boxster">Boxster</a></li>
+								<li><a href="/models/{{$category->name}}?m=cayman">Cayman</a></li>
 							@endif
 							@if ($category->name == '911')
-								<li><a href="/models/{{$category->name}}?m=Carrera">Carrera S</a></li>
-								<li><a href="/models/{{$category->name}}?m=Cabriolet%20Speedster">Cabriolet</a></li>
-								<li><a href="/models/{{$category->name}}?m=RS">Racing Sport</a></li>
+								<li><a href="/models/{{$category->name}}?m=carrera">Carrera S</a></li>
+								<li><a href="/models/{{$category->name}}?m=cabriolet%20speedster">Cabriolet</a></li>
+								<li><a href="/models/{{$category->name}}?m=rs">Racing Sport</a></li>
 							@endif
-							@if ($category->name == 'Panamera')
-								<li><a href="/models/{{$category->name}}?m=Sport%20Turismo">Sport Turismo</a></li>
-								<li><a href="/models/{{$category->name}}?m=Executive">Executive</a></li>
-								<li><a href="/models/{{$category->name}}?m=Turbo">Turbo</a></li>
-								<li><a href="/models/{{$category->name}}?m=E-Hybrid">E-Hybrid</a></li>
+							@if (strtolower($category->name) == 'panamera')
+								<li><a href="/models/{{$category->name}}?m=sport%20turismo">Sport Turismo</a></li>
+								<li><a href="/models/{{$category->name}}?m=executive">Executive</a></li>
+								<li><a href="/models/{{$category->name}}?m=turbo">Turbo</a></li>
+								<li><a href="/models/{{$category->name}}?m=e-hybrid">E-Hybrid</a></li>
 							@endif
-							@if ($category->name == 'Cayenne')
-								<li><a href="/models/{{$category->name}}?m=S">Sport</a></li>
-								<li><a href="/models/{{$category->name}}?m=Turbo">Turbo</a></li>
-								<li><a href="/models/{{$category->name}}?m=Coupé">Coupé</a></li>
+							@if (strtolower($category->name) == 'cayenne')
+								<li><a href="/models/{{$category->name}}?m=s">Sport</a></li>
+								<li><a href="/models/{{$category->name}}?m=turbo">Turbo</a></li>
+								<li><a href="/models/{{$category->name}}?m=coupé">Coupé</a></li>
 							@endif
 						</ul>
 					</div>
