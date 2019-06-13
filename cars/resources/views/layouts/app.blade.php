@@ -48,7 +48,7 @@
     <div id="smoothState">
         <div id="content" class="animate {{ ( $isHome ) ? 'home' : Request::segment(1) }} mp-fade-content">
             <header class="{{ ($isHome ) ? '' : 'show' }}">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
                         <div class="col">
                             <a href="{{ ( $isHome ) ? '#intro' : '/' }}" class="logo"><span>Porsche</span>xperience</a>

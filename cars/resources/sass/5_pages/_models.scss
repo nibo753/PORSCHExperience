@@ -29,6 +29,7 @@ $bgColor: white;
 				max-width: 125%;
 				max-height: calc(80vh - 65px);
 				background-color: $light; //fallback
+				object-fit: contain;
 			}
 
 			.img_cover {

@@ -8,7 +8,7 @@ export let scrollPosition  = 0;
 if ( check ) {
 	let images 			= [],
 		obj 			= {curImg: 0},
-		sceneDuration 	= (imageSequenceCounter * 50);
+		sceneDuration 	= (imageSequenceCounter * 35);
 
 	// fill image array
 	for ( let i = 1; i <= imageSequenceCounter; i++) {

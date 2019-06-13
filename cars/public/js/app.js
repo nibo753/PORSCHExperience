@@ -40509,7 +40509,7 @@ if (check) {
       obj = {
     curImg: 0
   },
-      sceneDuration = imageSequenceCounter * 50; // fill image array
+      sceneDuration = imageSequenceCounter * 35; // fill image array
 
   for (var i = 1; i <= imageSequenceCounter; i++) {
     // preload images by create new Img, setting src and pushing it to an object

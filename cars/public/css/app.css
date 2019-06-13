@@ -12108,6 +12108,8 @@ body.dark {
   max-width: 125%;
   max-height: calc(80vh - 65px);
   background-color: #D6D6D6;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .models #model_container #image_sequence .img_cover {
