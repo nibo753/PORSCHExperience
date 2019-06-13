@@ -7,7 +7,7 @@ if (home) {
 		drivenOff = false;
 		
 	const musicVol = 0.5,
-		fadeTime = 1200,
+		fadeTime = 400,
 		music 				= new Audio('sounds/music.mp3'),
 		audio_start_motor 	= new Audio('sounds/start_motor.mp3'),
 		audio_gas_pedal 	= new Audio('sounds/gas_pedal.mp3'),
@@ -15,7 +15,7 @@ if (home) {
 
  	music.volume = musicVol;
 	music.loop = true;
-	//if (!f.isPlaying(music)) {music.play();}
+	if (!f.isPlaying(music)) {music.play();}
 
 	// START BUTTON CLICK
 	$('.home .intro #start').click(function (e) {

@@ -12,9 +12,22 @@ if ( check ) {
 
 	// fill image array
 	for ( let i = 1; i <= imageSequenceCounter; i++) {
-		let img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
+		// preload images by setting .src
+		let img = new Image()
+		img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
 		images.push(img);
 	}
+
+	// allow to continue once all imgs are loaded
+	images[images.length - 1].onload = function(){
+		$('body').removeClass('noscroll');
+
+		let loading = document.querySelector('#scroll_indicator a');
+		loading.classList.remove('disabled');
+		loading.setAttribute('data-hover', 'Start Exploring >');
+		loading.innerHTML = 'Start Exploring';
+	}
+
 
 	// ANIMATE IMG
 	let imageTween = TweenMax.to(obj, 0.5,
@@ -23,7 +36,7 @@ if ( check ) {
 			roundProps: "curImg",	// round to integers so it can be used as an array index
 			immediateRender: true,	// load first image automatically
 			onUpdate: function () {
-				$("#image_sequence img").attr("src", images[obj.curImg]);
+				$("#image_sequence img").attr("src", images[obj.curImg].src);
 			}
 		}
 	);

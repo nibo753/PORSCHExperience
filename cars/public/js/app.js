@@ -40101,14 +40101,18 @@ if (home) {
   var motorIsOn = false,
       drivenOff = false;
   var musicVol = 0.5,
-      fadeTime = 1200,
+      fadeTime = 400,
       music = new Audio('sounds/music.mp3'),
       audio_start_motor = new Audio('sounds/start_motor.mp3'),
       audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
       audio_drive_off = new Audio('sounds/drive_off.mp3');
   music.volume = musicVol;
-  music.loop = true; //if (!f.isPlaying(music)) {music.play();}
-  // START BUTTON CLICK
+  music.loop = true;
+
+  if (!_functions__WEBPACK_IMPORTED_MODULE_0__["isPlaying"](music)) {
+    music.play();
+  } // START BUTTON CLICK
+
 
   $('.home .intro #start').click(function (e) {
     e.preventDefault();
@@ -40508,9 +40512,20 @@ if (check) {
       sceneDuration = imageSequenceCounter * 50; // fill image array
 
   for (var i = 1; i <= imageSequenceCounter; i++) {
-    var img = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
+    // preload images by setting .src
+    var img = new Image();
+    img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
     images.push(img);
-  } // ANIMATE IMG
+  } // allow to continue once all imgs are loaded
+
+
+  images[images.length - 1].onload = function () {
+    $('body').removeClass('noscroll');
+    var loading = document.querySelector('#scroll_indicator a');
+    loading.classList.remove('disabled');
+    loading.setAttribute('data-hover', 'Start Exploring >');
+    loading.innerHTML = 'Start Exploring';
+  }; // ANIMATE IMG
 
 
   var imageTween = TweenMax.to(obj, 0.5, {
@@ -40521,7 +40536,7 @@ if (check) {
     immediateRender: true,
     // load first image automatically
     onUpdate: function onUpdate() {
-      $("#image_sequence img").attr("src", images[obj.curImg]);
+      $("#image_sequence img").attr("src", images[obj.curImg].src);
     }
   });
   new ScrollMagic.Scene({
@@ -41001,20 +41016,22 @@ $('.home .intro #start').on('click', function (e) {
   e.preventDefault();
   var target = $(this).attr('data-car');
   target = $('.car[data-car="' + target + '"]');
-  $('.home').removeClass('noscroll');
+  $('body').removeClass('noscroll');
   _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
 });
 $('#scroll_indicator a[href^="#"]').on('click', function (event) {
-  var target = $(this.getAttribute('href'));
+  event.preventDefault();
 
-  if (target.length) {
-    event.preventDefault();
+  if (!$(this).hasClass('disabled')) {
+    var target = $(this.getAttribute('href'));
 
-    if (!$('home, body').is(':animated')) {
-      var height = $('.scrollmagic-pin-spacer').outerHeight(true),
-          offset = h - $('#model_nav').outerHeight(true),
-          duration = (1 - _models_img_sequence__WEBPACK_IMPORTED_MODULE_1__["scrollPosition"]) * height;
-      _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
+    if (target.length) {
+      if (!$('home, body').is(':animated')) {
+        var height = $('.scrollmagic-pin-spacer').outerHeight(true),
+            offset = h - $('#model_nav').outerHeight(true),
+            duration = (1 - _models_img_sequence__WEBPACK_IMPORTED_MODULE_1__["scrollPosition"]) * height;
+        _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
+      }
     }
   }
 });
