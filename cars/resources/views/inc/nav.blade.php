@@ -17,31 +17,32 @@
 		 			continue;
 	 			endif ?>
 				<li>
-					<a href="/models/{{ $category->name }}" class="{{ !empty($category->cars) ? 'arrow left' : '' }}">{{ $category->name }}</a>
+					<?php $nameLowerCase = strtolower($category->name); ?>
+					<a href="/models/{{ $nameLowerCase }}" class="{{ !empty($category->cars) ? 'arrow left' : '' }}">{{ $category->name }}</a>
 					@if (!empty($category->cars))
 					<div class="mp-level">
 						<h2>{{ $category->name }}</h2>
 						<a class="mp-back arrow right" href="">Back</a>
 						<ul>
-							@if ($category->name == '718')
-								<li><a href="/models/{{$category->name}}?m=boxster">Boxster</a></li>
-								<li><a href="/models/{{$category->name}}?m=cayman">Cayman</a></li>
+							@if ($nameLowerCase == '718')
+								<li><a href="/models/{{$nameLowerCase}}?m=boxster">Boxster</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=cayman">Cayman</a></li>
 							@endif
-							@if ($category->name == '911')
-								<li><a href="/models/{{$category->name}}?m=carrera">Carrera S</a></li>
-								<li><a href="/models/{{$category->name}}?m=cabriolet%20speedster">Cabriolet</a></li>
-								<li><a href="/models/{{$category->name}}?m=rs">Racing Sport</a></li>
+							@if ($nameLowerCase == '911')
+								<li><a href="/models/{{$nameLowerCase}}?m=carrera">Carrera S</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=cabriolet%20speedster">Cabriolet</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=rs">Racing Sport</a></li>
 							@endif
-							@if (strtolower($category->name) == 'panamera')
-								<li><a href="/models/{{$category->name}}?m=sport%20turismo">Sport Turismo</a></li>
-								<li><a href="/models/{{$category->name}}?m=executive">Executive</a></li>
-								<li><a href="/models/{{$category->name}}?m=turbo">Turbo</a></li>
-								<li><a href="/models/{{$category->name}}?m=e-hybrid">E-Hybrid</a></li>
+							@if ($nameLowerCase == 'panamera')
+								<li><a href="/models/{{$nameLowerCase}}?m=sport%20turismo">Sport Turismo</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=executive">Executive</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=turbo">Turbo</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=e-hybrid">E-Hybrid</a></li>
 							@endif
-							@if (strtolower($category->name) == 'cayenne')
-								<li><a href="/models/{{$category->name}}?m=s">Sport</a></li>
-								<li><a href="/models/{{$category->name}}?m=turbo">Turbo</a></li>
-								<li><a href="/models/{{$category->name}}?m=coupé">Coupé</a></li>
+							@if ($nameLowerCase == 'cayenne')
+								<li><a href="/models/{{$nameLowerCase}}?m=s">Sport</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=turbo">Turbo</a></li>
+								<li><a href="/models/{{$nameLowerCase}}?m=coupé">Coupé</a></li>
 							@endif
 						</ul>
 					</div>
