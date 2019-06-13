@@ -12170,6 +12170,10 @@ body.dark {
           transform: translateX(-50%);
 }
 
+.models #model_container #scroll_indicator a {
+  transition: opacity 0.2s;
+}
+
 .models #model_container .name_bg {
   position: absolute;
   top: 20px;

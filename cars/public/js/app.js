@@ -40512,7 +40512,7 @@ if (check) {
       sceneDuration = imageSequenceCounter * 50; // fill image array
 
   for (var i = 1; i <= imageSequenceCounter; i++) {
-    // preload images by setting .src
+    // preload images by create new Img, setting src and pushing it to an object
     var img = new Image();
     img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
     images.push(img);
@@ -40520,11 +40520,15 @@ if (check) {
 
 
   images[images.length - 1].onload = function () {
-    $('body').removeClass('noscroll');
     var loading = document.querySelector('#scroll_indicator a');
-    loading.classList.remove('disabled');
-    loading.setAttribute('data-hover', 'Start Exploring >');
-    loading.innerHTML = 'Start Exploring';
+    loading.style.opacity = 0;
+    setTimeout(function () {
+      $('body').removeClass('noscroll');
+      loading.classList.remove('disabled');
+      loading.setAttribute('data-hover', 'Start Exploring >');
+      loading.innerHTML = 'Start Exploring';
+      loading.style.opacity = 1;
+    }, 200);
   }; // ANIMATE IMG
 
 

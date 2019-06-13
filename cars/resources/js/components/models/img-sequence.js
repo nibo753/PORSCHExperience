@@ -12,7 +12,7 @@ if ( check ) {
 
 	// fill image array
 	for ( let i = 1; i <= imageSequenceCounter; i++) {
-		// preload images by setting .src
+		// preload images by create new Img, setting src and pushing it to an object
 		let img = new Image()
 		img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
 		images.push(img);
@@ -20,12 +20,16 @@ if ( check ) {
 
 	// allow to continue once all imgs are loaded
 	images[images.length - 1].onload = function(){
-		$('body').removeClass('noscroll');
-
 		let loading = document.querySelector('#scroll_indicator a');
-		loading.classList.remove('disabled');
-		loading.setAttribute('data-hover', 'Start Exploring >');
-		loading.innerHTML = 'Start Exploring';
+		loading.style.opacity = 0;
+
+		setTimeout(function(){
+			$('body').removeClass('noscroll');
+			loading.classList.remove('disabled');
+			loading.setAttribute('data-hover', 'Start Exploring >');
+			loading.innerHTML = 'Start Exploring';
+			loading.style.opacity = 1;
+		}, 200);
 	}
 
 
