@@ -42,7 +42,7 @@ class RouteController extends Controller
 		$cars = $this->formatNumbers($cars);
 
 		//count images for image sequence
-		$path = public_path('/img/'.$name.'/sequence/');
+		$path = public_path('/img/'.strtolower($name).'/sequence/');
 		$imgCount = 0;
 
 		if (File::exists($path)) { $images = File::files($path); }
