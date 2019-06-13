@@ -88,10 +88,10 @@ $bgColor: white;
 			}
 
 			position: absolute;
-			top: 15px;
+			top: 20px;
 			&.Panamera,
-			&.Cayenne { top: 0px; }
-			&.Macan { top: -15px; }
+			&.Cayenne { top: 5px; }
+			&.Macan { top: -10px; }
 		}
 
 		#model_nav {

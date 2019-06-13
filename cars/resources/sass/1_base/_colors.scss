@@ -1,15 +1,15 @@
-$brandPrimary:			#B13C3C;
-$brandPrimaryDark:		darken( $brandPrimary, 10% );
-$brandPrimaryLight:		lighten( $brandPrimary, 10% );
+$brandPrimary:			#B13C3C;						//rgb(177,60,60)
+$brandPrimaryDark:		darken( $brandPrimary, 10% );	// #CB5656
+$brandPrimaryLight:		lighten( $brandPrimary, 10% );	// #982323
 
-$brandSecondary:		#7D7D7D;
-$brandSecondaryDark:	darken( $brandSecondary, 10% );
-$brandSecondaryLight:	lighten( $brandSecondary, 10% );
+$brandSecondary:		#7D7D7D;						// rgb(125,125,125)
+$brandSecondaryDark:	darken( $brandSecondary, 10% );	// #646464
+$brandSecondaryLight:	lighten( $brandSecondary, 10% );// #979797
 
 
-$black:					#151515;
-$dark:					#32313c;
-$light:					#D6D6D6;
-$white:					#F1F1F1;
+$black:					#151515; 						// rgb(21,21,21)
+$dark:					#32313c;						// rgb(50,49,60)
+$light:					#D6D6D6;						// rgb(214,214,214)
+$white:					#F1F1F1;						// rgb(241,241,241)
 
-$accent:				#F49F29;
+$accent:				#F49F29;						// rgb(244,159,41)

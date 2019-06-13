@@ -26,13 +26,6 @@ if ( check && modelSlider.length && modelInfo.length ) {
 		swipeToSlide: true,
 		responsive: [
 		{
-		breakpoint: 1024,
-			settings: {
-				slidesToShow: 2,
-				arrows: true
-			}
-		},
-		{
 		breakpoint: 600,
 			settings: {
 				slidesToShow: 1,
@@ -168,6 +161,7 @@ function filterSlick(input, slick, syncSlick){
 	let slider = $(slick),
 		syncSlider = $(syncSlick);
 
+	//if clicked another filter button
 	if (!input.classList.contains('active')) {
 		//remove other filter
 		slider.slick('slickUnfilter');
