@@ -52,13 +52,12 @@
                         @if ($value->price != 0)
                         <div class="content-inner">
                             <div class="flex svg_container">
-                                <?php $svg = file_get_contents( URL::to('/') . "/img/svg/speedometer.svg") ?>
                                 <div class="price svg">
                                     <span class="svg_content">
                                         <div class="value" data="{{ $value->price }}">0</div>
                                         <div class="unit">EURO</div>
                                     </span>
-                                    <?= $svg ?>
+                                    @include('inc.speedometer')
                                 </div>
                                 @if ($value->topspeed != 0)
                                 <div class="speed svg">
@@ -66,7 +65,7 @@
                                         <div class="value" data="{{ $value->topspeed }}">0</div>
                                         <div class="unit">km/h</div>
                                     </span>
-                                    <?= $svg ?>
+                                    @include('inc.speedometer')
                                 </div>
                                 @endif
                                 @if ($value->acceleration_sport != 0)
@@ -75,7 +74,7 @@
                                         <div class="value" data="{{ $value->acceleration_sport }}">0</div>
                                         <div class="unit">0-100 km/h</div>
                                     </span>
-                                    <?= $svg ?>
+                                    @include('inc.speedometer')
                                 </div>
                                 @endif
                             </div>
