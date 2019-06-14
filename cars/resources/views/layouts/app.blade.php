@@ -44,7 +44,7 @@
 
     <?php ((Request::segment(1) == NULL ) ? $isHome = true : $isHome = false); ?>
 </head>
-<body class="noscroll {{ ( $isHome ) ? 'dark' : '' }}">
+<body class="no-scroll {{ ( $isHome ) ? 'dark' : '' }}">
     <div id="smoothState">
         <div id="content" class="animate {{ ( $isHome ) ? 'home' : Request::segment(1) }} mp-fade-content">
             <header class="{{ ($isHome ) ? '' : 'show' }}">

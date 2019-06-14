@@ -40107,12 +40107,8 @@ if (home) {
       audio_gas_pedal = new Audio('sounds/gas_pedal.mp3'),
       audio_drive_off = new Audio('sounds/drive_off.mp3');
   music.volume = musicVol;
-  music.loop = true;
-
-  if (!_functions__WEBPACK_IMPORTED_MODULE_0__["isPlaying"](music)) {
-    music.play();
-  } // START BUTTON CLICK
-
+  music.loop = true; //if (!f.isPlaying(music)) {music.play();}
+  // START BUTTON CLICK
 
   $('.home .intro #start').click(function (e) {
     e.preventDefault();
@@ -40458,32 +40454,25 @@ var contr = new ScrollMagic.Controller(),
 if (check) {
   var el = ".overview",
       navbar = -+$('header').outerHeight(true),
-      startAt = 0.9,
-      //same as marginbot
-  navVar = _nav__WEBPACK_IMPORTED_MODULE_0__,
-      hamburger = document.getElementById('mp-trigger'); // HEADER SLIDE IN
+      startAt = 0.9; //same as margin-bottom
+  // HEADER SLIDE IN
+  // reset NAV if scrolling up
 
   new ScrollMagic.Scene({
     triggerElement: el,
     offset: navbar,
     triggerHook: startAt
-  }).setClassToggle("header", "show").addTo(contr); // SIDENAV SLIDE IN
-
-  new ScrollMagic.Scene({
-    triggerElement: el,
-    offset: navbar,
-    triggerHook: startAt
-  }).setClassToggle("#sideNav", "show").addTo(contr); // resetNAV if scrolling up
-
-  new ScrollMagic.Scene({
-    triggerElement: el,
-    offset: navbar,
-    triggerHook: startAt
-  }).addTo(contr).on("start", function (e) {
+  }).setClassToggle("header", "show").addTo(contr).on("start", function (e) {
     if (e.type == "start") {
       _nav__WEBPACK_IMPORTED_MODULE_0__["_resetMenu"]();
     }
-  });
+  }); // SIDENAV SLIDE IN
+
+  new ScrollMagic.Scene({
+    triggerElement: el,
+    offset: navbar,
+    triggerHook: startAt
+  }).setClassToggle("#sideNav", "show").addTo(contr);
 }
 
 /***/ }),
@@ -40509,10 +40498,10 @@ if (check) {
       obj = {
     curImg: 0
   },
-      sceneDuration = imageSequenceCounter * 35; // fill image array
+      sceneDuration = imageSequenceCounter * 25; // fill image array
 
   for (var i = 1; i <= imageSequenceCounter; i++) {
-    // preload images by create new Img, setting src and pushing it to an object
+    // preload images by creating new Img and setting src. Keep in memory by pushing it to an object
     var img = new Image();
     img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
     images.push(img);
@@ -40615,7 +40604,7 @@ if (check && modelSlider.length && modelInfo.length) {
     var index = parseInt(url.searchParams.get("s")),
         modelParameter = "m",
         model = url.searchParams.get(modelParameter),
-        buttons = document.querySelectorAll('.model_filter button'); // INITIALIZE SLICK SLIDERS
+        filterBtns = document.querySelectorAll('.model_filter button'); // INITIALIZE SLICK SLIDERS
 
     modelSlider.slick({
       //initialSlide: index,
@@ -40689,9 +40678,9 @@ if (check && modelSlider.length && modelInfo.length) {
       }
     }); // FILTER ON MODEL IN URL AFTER CREATING CLICKEVENTS ON ALL SLIDES
 
-    for (var i = buttons.length - 1; i >= 0; i--) {
-      if (model == buttons[i].value) {
-        filterSlick(buttons[i], modelSlider, modelInfo);
+    for (var i = filterBtns.length - 1; i >= 0; i--) {
+      if (model == filterBtns[i].value) {
+        filterSlick(filterBtns[i], modelSlider, modelInfo);
         break;
       }
     } // GO TO SLIDE PARAMETER, SET TO 0 IF NOT OK
@@ -40703,18 +40692,18 @@ if (check && modelSlider.length && modelInfo.length) {
       index = 0;
     }
 
-    modelSlider[0].slick.slickGoTo(index); // UPDATE URL SLIDE PARAMETER
+    modelSlider[0].slick.slickGoTo(index); // UPDATE URL PARAMETER 's'
 
     modelSlider.on('afterChange', function (event, slick, currentSlide) {
       updateURLParameter("s", currentSlide);
-    }); // FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
-    // UPDATE URL MODEL PARAMETER
+    }); // FILTER ON BUTTON CLICK (filter both sliders to sync index)
+    // UPDATE URL PARAMETER 'm'
 
     var _loop = function _loop(_i) {
-      buttons[_i].addEventListener('click', function (e) {
+      filterBtns[_i].addEventListener('click', function (e) {
         filterSlick(this, modelSlider, modelInfo); // change URL depending on button state
 
-        if (buttons[_i].classList.contains('active')) {
+        if (filterBtns[_i].classList.contains('active')) {
           updateURLParameter(modelParameter, this.value);
         } else {
           removeURLParameter(modelParameter);
@@ -40722,7 +40711,7 @@ if (check && modelSlider.length && modelInfo.length) {
       });
     };
 
-    for (var _i = buttons.length - 1; _i >= 0; _i--) {
+    for (var _i = filterBtns.length - 1; _i >= 0; _i--) {
       _loop(_i);
     }
   })();
@@ -41022,7 +41011,10 @@ $('.home .intro #start').on('click', function (e) {
   target = $('.car[data-car="' + target + '"]');
   $('body').removeClass('noscroll');
   _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, 1500, 'easeInOutQuint', 0);
-});
+}); // start exploring @ model page
+// use scrollposition generated in img-sequence.js
+//to create a constant speed regardless of when when scroll is trigger
+
 $('#scroll_indicator a[href^="#"]').on('click', function (event) {
   event.preventDefault();
 
@@ -41033,7 +41025,7 @@ $('#scroll_indicator a[href^="#"]').on('click', function (event) {
       if (!$('home, body').is(':animated')) {
         var height = $('.scrollmagic-pin-spacer').outerHeight(true),
             offset = h - $('#model_nav').outerHeight(true),
-            duration = (1 - _models_img_sequence__WEBPACK_IMPORTED_MODULE_1__["scrollPosition"]) * height;
+            duration = (1 - _models_img_sequence__WEBPACK_IMPORTED_MODULE_1__["scrollPosition"]) * height * 1.8;
         _functions__WEBPACK_IMPORTED_MODULE_0__["scrollTo"](target, duration, 'linear', offset);
       }
     }
@@ -41067,7 +41059,7 @@ function scrollTo(target, duration, easing, offset) {
 }
 function scrollStopEventlistener() {
   var page = $('html,body');
-  page.on("scroll wheel DOMMouseScroll mousewheel keyup touchmove", function () {
+  page.on("scroll wheel mousedown DOMMouseScroll mousewheel keyup touchmove", function () {
     page.stop();
   });
 }
@@ -41920,7 +41912,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // close the menu
     _resetMenu: function _resetMenu() {
-      this._setTransform('0');
+      this._setTransform(0);
 
       this.level = 0; // remove class mp-active from main wrapper
 

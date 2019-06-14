@@ -1,4 +1,4 @@
-import * as nav from './../nav'
+import * as nav from './../nav';
 
 const   contr = new ScrollMagic.Controller(),
         check = document.querySelector('.home');
@@ -6,18 +6,22 @@ const   contr = new ScrollMagic.Controller(),
 if ( check ) {
     const   el          = ".overview",
             navbar      = - + $('header').outerHeight(true),
-            startAt     = 0.9, //same as marginbot
-            navVar      = nav,
-            hamburger   = document.getElementById( 'mp-trigger' );
+            startAt     = 0.9; //same as margin-bottom
 
     // HEADER SLIDE IN
+    // reset NAV if scrolling up
     new ScrollMagic.Scene({
         triggerElement: el,
         offset: navbar,
         triggerHook: startAt
     })
     .setClassToggle("header", "show")
-    .addTo(contr);
+    .addTo(contr)
+    .on("start", function (e) {
+        if (e.type == "start") {
+            nav._resetMenu();
+        }
+    });
 
     // SIDENAV SLIDE IN
     new ScrollMagic.Scene({
@@ -26,18 +30,5 @@ if ( check ) {
         triggerHook: startAt
     })
     .setClassToggle("#sideNav", "show")
-    .addTo(contr);
-
-    // resetNAV if scrolling up
-    new ScrollMagic.Scene({
-        triggerElement: el,
-        offset: navbar,
-        triggerHook: startAt
-    })
-    .addTo(contr)
-    .on("start", function (e) {
-        if (e.type == "start") {
-            nav._resetMenu();
-        }
-    });
+    .addTo(contr);   
 }

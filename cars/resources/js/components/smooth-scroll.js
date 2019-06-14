@@ -24,6 +24,9 @@ $('.home .intro #start').on('click', function (e) {
 });
 
 
+// start exploring @ model page
+// use scrollposition generated in img-sequence.js
+//to create a constant speed regardless of when when scroll is trigger
 $('#scroll_indicator a[href^="#"]').on('click', function(event) {
     event.preventDefault();
 
@@ -33,7 +36,7 @@ $('#scroll_indicator a[href^="#"]').on('click', function(event) {
             if (!$('home, body').is(':animated')) {
                 let height = $('.scrollmagic-pin-spacer').outerHeight(true),
                     offset = h - $('#model_nav').outerHeight(true),
-                    duration = (1-imgSeq.scrollPosition)*height;
+                    duration = (1-imgSeq.scrollPosition)*height*1.8;
                 f.scrollTo(target, duration, 'linear', offset );
             }
         }

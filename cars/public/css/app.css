@@ -11744,7 +11744,8 @@ body.dark {
 
 #sideNav .list-group-item span {
   margin-right: 90px;
-  transition: 0.4s margin ease-in-out;
+  opacity: 0;
+  transition: 0.4s margin ease-in-out, 0.15s opacity;
 }
 
 #sideNav .list-group-item:hover {
@@ -11759,6 +11760,7 @@ body.dark {
 #sideNav .list-group-item:hover span {
   margin-right: 0;
   margin-left: 90px;
+  opacity: 1;
 }
 
 /* Slider */
@@ -12108,8 +12110,8 @@ body.dark {
   max-width: 125%;
   max-height: calc(80vh - 65px);
   background-color: #D6D6D6;
-  -o-object-fit: contain;
-     object-fit: contain;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .models #model_container #image_sequence .img_cover {

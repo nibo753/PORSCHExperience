@@ -226,7 +226,7 @@ import * as smoothState from './../components/page-transition';
 		},
 		// close the menu
 		_resetMenu : function() {
-			this._setTransform('0');
+			this._setTransform(0);
 			this.level = 0;
 			// remove class mp-active from main wrapper
 			this.wrapper.classList.remove('mp-active');

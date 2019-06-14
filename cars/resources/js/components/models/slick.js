@@ -7,10 +7,10 @@ const url		= new URL(window.location.href),
 
 if ( check && modelSlider.length && modelInfo.length ) {
 	// GET URL PARAMETER SLIDE
-	let index 	= parseInt(url.searchParams.get("s")),
-		modelParameter = "m",
-		model 	= url.searchParams.get(modelParameter),
-		buttons = document.querySelectorAll('.model_filter button');
+	let index 			= parseInt(url.searchParams.get("s")),
+		modelParameter 	= "m",
+		model 			= url.searchParams.get(modelParameter),
+		filterBtns 		= document.querySelectorAll('.model_filter button');
 
 	// INITIALIZE SLICK SLIDERS
 	modelSlider.slick({
@@ -73,7 +73,7 @@ if ( check && modelSlider.length && modelInfo.length ) {
 				break;
 			}
 		}
-	})
+	});
 
 	// SLICK BUG FIX
 	modelSlider.on('afterChange', function(event, slick,  currentSlide){
@@ -91,9 +91,9 @@ if ( check && modelSlider.length && modelInfo.length ) {
 
 
 	// FILTER ON MODEL IN URL AFTER CREATING CLICKEVENTS ON ALL SLIDES
-	for (let i = buttons.length - 1; i >= 0; i--) {
-		if (model == buttons[i].value ) {
-			filterSlick(buttons[i], modelSlider, modelInfo);
+	for (let i = filterBtns.length - 1; i >= 0; i--) {
+		if (model == filterBtns[i].value ) {
+			filterSlick(filterBtns[i], modelSlider, modelInfo);
 			break;
 		}
 	}
@@ -105,19 +105,19 @@ if ( check && modelSlider.length && modelInfo.length ) {
 	}
 	modelSlider[0].slick.slickGoTo(index);
 
-	// UPDATE URL SLIDE PARAMETER
+	// UPDATE URL PARAMETER 's'
 	modelSlider.on('afterChange', function(event, slick,  currentSlide){
 		updateURLParameter("s", currentSlide);
 	});
 
-	// FILTER ON BUTTON CLICK, FILTER SYNCSLIDER TOO TO SYNC SLIDE INDEX
-	// UPDATE URL MODEL PARAMETER
-	for (let i = buttons.length - 1; i >= 0; i--) {
-		buttons[i].addEventListener('click', function(e) {
+	// FILTER ON BUTTON CLICK (filter both sliders to sync index)
+	// UPDATE URL PARAMETER 'm'
+	for (let i = filterBtns.length - 1; i >= 0; i--) {
+		filterBtns[i].addEventListener('click', function(e) {
 			filterSlick(this, modelSlider, modelInfo);
 
 			// change URL depending on button state
-			if (buttons[i].classList.contains('active')) {
+			if (filterBtns[i].classList.contains('active')) {
 				updateURLParameter(modelParameter, this.value);
 			}
 			else {

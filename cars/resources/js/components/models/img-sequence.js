@@ -8,11 +8,11 @@ export let scrollPosition  = 0;
 if ( check ) {
 	let images 			= [],
 		obj 			= {curImg: 0},
-		sceneDuration 	= (imageSequenceCounter * 35);
+		sceneDuration 	= (imageSequenceCounter * 25);
 
 	// fill image array
 	for ( let i = 1; i <= imageSequenceCounter; i++) {
-		// preload images by create new Img, setting src and pushing it to an object
+		// preload images by creating new Img and setting src. Keep in memory by pushing it to an object
 		let img = new Image()
 		img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
 		images.push(img);

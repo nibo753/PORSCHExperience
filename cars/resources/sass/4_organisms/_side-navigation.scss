@@ -46,11 +46,12 @@
 
 		span {
 			margin-right: 90px;
-			transition: .4s margin ease-in-out;
+			opacity: 0;
+			transition: .4s margin ease-in-out, .15s opacity;
 		}
 
 		&:hover { transform: translateX(calc(100% - 95px)); }
 		&:hover img { right: calc(100% - 95px); }
-		&:hover span { margin-right: 0; margin-left: 90px; }
+		&:hover span { margin-right: 0; margin-left: 90px; opacity: 1;}
 	}
 }
