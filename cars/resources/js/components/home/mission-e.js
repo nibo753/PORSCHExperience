@@ -17,11 +17,11 @@ if ( check ) {
 
     // FADE IN TEASER TXT
     let fadeAnimation = new TimelineMax()
-    .staggerTo("#mission-e .title .fade", 0.3, {opacity: 1, ease:Linear.easeNone}, 0.4);
+    .staggerTo("#mission-e .title .fade", 0.3, {opacity: 1}, 0.4);
 
     new ScrollMagic.Scene({
         triggerElement: "#mission-e .title",
-        triggerHook: 0.7,
+        triggerHook: 0.6
     })
     .setTween(fadeAnimation)
     .addTo(controllerX);
@@ -29,8 +29,8 @@ if ( check ) {
      // FADE IN SCROLL MOUSE
     new ScrollMagic.Scene({
         triggerElement: "#mission-e .title",
-        triggerHook: 0.4,
-        duration: "50%"
+        triggerHook: 0.5,
+        duration: "58%"
     })
     .setClassToggle('#mission-e .title .mouse_parent', 'show')
     .addTo(controllerX);

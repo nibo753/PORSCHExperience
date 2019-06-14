@@ -39,15 +39,6 @@ if ( check ) {
         .setTween(txt)
         .addTo(controller);
 
-        // LINK FADE
-        let model_link = TweenMax.to(id + " .model_link", 0.4, {opacity: 1})
-        new ScrollMagic.Scene({
-            triggerElement: this,
-            triggerHook: fade_in_txt
-        })
-        .setTween(model_link)
-        .addTo(controller);
-
         // SVG FADE
         let svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {opacity: 1}),
             fade_in_svg = 0.15;
@@ -57,6 +48,15 @@ if ( check ) {
             duration: "10%"
         })
         .setTween(svg_container)
+        .addTo(controller);
+
+        // LINK FADE
+        let model_link = TweenMax.to(id + " .model_link", 0.4, {opacity: 1})
+        new ScrollMagic.Scene({
+            triggerElement: this,
+            triggerHook: fade_in_svg
+        })
+        .setTween(model_link)
         .addTo(controller);
 
 

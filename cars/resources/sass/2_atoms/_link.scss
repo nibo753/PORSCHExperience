@@ -52,7 +52,7 @@ a {
 		}
 
 		&:hover::before {
-			width: calc(100% + 22px);
+			width: calc(100% + 15px);
 		}
 
 		&:hover::after{
@@ -72,8 +72,8 @@ a {
 			color: $brandPrimary;
 			border-color: $brandPrimary;
 
-			&:before { color: $brandPrimaryDark; }
-			&:after { background-color: $brandPrimaryDark; }
+			&:before { color: white; }
+			&:after { background-color: white; }
 		}
 	}
 }

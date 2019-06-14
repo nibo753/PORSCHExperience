@@ -4,13 +4,13 @@
 
 	.title {
 		position: relative;
-		height: 50vh;
+		height: 40vh;
 		margin-top: calc(65px + 20%);
-		margin-bottom: -30vh;
+		margin-bottom: -25vh;
 
 		.mouse_parent {
 			opacity: 0;
-			transition: .4s opacity;
+			transition: 1s opacity;
 			&.show { opacity: 1;}
 		}
 		

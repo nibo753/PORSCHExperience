@@ -26,7 +26,7 @@ if ( check ) {
 		setTimeout(function(){
 			$('body').removeClass('noscroll');
 			loading.classList.remove('disabled');
-			loading.setAttribute('data-hover', 'Start Exploring >');
+			loading.setAttribute('data-hover', 'Start Exploring ' +String.fromCharCode(187));
 			loading.innerHTML = 'Start Exploring';
 			loading.style.opacity = 1;
 		}, 200);

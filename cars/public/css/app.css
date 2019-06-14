@@ -10953,7 +10953,7 @@ h6 {
 hr {
   width: 3%;
   border-color: #B13C3C;
-  margin: 0 auto;
+  margin: 1.1em auto;
   opacity: 0;
 }
 
@@ -11023,7 +11023,7 @@ a.hover_effect:after {
 }
 
 a.hover_effect:hover::before {
-  width: calc(100% + 22px);
+  width: calc(100% + 15px);
 }
 
 a.hover_effect:hover::after {
@@ -11049,11 +11049,11 @@ a.hover_effect.h_brand {
 }
 
 a.hover_effect.h_brand:before {
-  color: #8b2f2f;
+  color: white;
 }
 
 a.hover_effect.h_brand:after {
-  background-color: #8b2f2f;
+  background-color: white;
 }
 
 ul {
@@ -11083,7 +11083,7 @@ ul {
   border-radius: 50px;
   border: 4px solid #F1F1F1;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .mouse_parent .mouse:after {
@@ -11097,11 +11097,11 @@ ul {
           transform: translate(-50%, 0);
   top: 5px;
   border-radius: 3px;
-  -webkit-animation: scroll 0.8s linear infinite;
-          animation: scroll 0.8s linear infinite;
+  -webkit-animation: scrollwheel 0.8s linear infinite;
+          animation: scrollwheel 0.8s linear infinite;
 }
 
-@-webkit-keyframes scroll {
+@-webkit-keyframes scrollwheel {
   0% {
     -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
@@ -11127,7 +11127,7 @@ ul {
   }
 }
 
-@keyframes scroll {
+@keyframes scrollwheel {
   0% {
     -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
@@ -11150,6 +11150,40 @@ ul {
     -webkit-transform: translate(-50%, 44px);
             transform: translate(-50%, 44px);
     opacity: 0;
+  }
+}
+
+.mouse_parent span {
+  -webkit-animation: scrolltxt 1.6s linear infinite;
+          animation: scrolltxt 1.6s linear infinite;
+  font-size: 0.75em;
+}
+
+@-webkit-keyframes scrolltxt {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes scrolltxt {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
   }
 }
 
@@ -11472,14 +11506,14 @@ header .model_name {
 
 #mission-e .title {
   position: relative;
-  height: 50vh;
+  height: 40vh;
   margin-top: calc(65px + 20%);
-  margin-bottom: -30vh;
+  margin-bottom: -25vh;
 }
 
 #mission-e .title .mouse_parent {
   opacity: 0;
-  transition: 0.4s opacity;
+  transition: 1s opacity;
 }
 
 #mission-e .title .mouse_parent.show {
@@ -12088,7 +12122,7 @@ body.dark {
 
 .home .car .content .desc .content-inner .txt {
   text-align: center;
-  margin: 16px auto 5px;
+  margin: 0 auto 1em;
   max-width: 80%;
   opacity: 0;
 }
@@ -12152,7 +12186,7 @@ body.dark {
 
 .home .car .parallax__container .parallax {
   background-position: 50% 90%;
-  background-size: 55%;
+  background-size: 50%;
 }
 
 @media only screen and (max-width: 630px) {
@@ -12193,7 +12227,7 @@ body.dark {
 
 .home .car .parallax__container .parallax a.model_link.hover_effect {
   padding: 7px 0;
-  border: none;
+  font-size: 1.125em;
 }
 
 .home #_718 .parallax {

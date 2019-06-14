@@ -90,7 +90,7 @@
         </div>
         <div class="parallax">
             <div class="container-fluid">
-                <a href="/models/{{ strtolower($value->name) }}" class="hover_effect h_brand model_link" data-hover="Discover more >">Discover more</a>
+                <a href="/models/{{ strtolower($value->name) }}" class="hover_effect h_brand model_link" data-hover="Discover more &raquo;">Discover more</a>
             </div>
         </div>
     </section>
@@ -102,8 +102,8 @@
         <h1 class="fade">The future is now</h1>
         <h1 class="fade">Welcome to Mission-E</h1>
         <div class="mouse_parent">
-            <div class="mouse down"></div>
-            <span>Scroll Down</span>
+            <div class="mouse"></div>
+            <span>Scroll<br>Down</span>
         </div>
     </div>
     <div id="sequence">

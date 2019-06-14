@@ -40219,15 +40219,7 @@ if (check) {
       triggerElement: this,
       triggerHook: fade_in_txt,
       duration: "10%"
-    }).setTween(txt).addTo(controller); // LINK FADE
-
-    var model_link = TweenMax.to(id + " .model_link", 0.4, {
-      opacity: 1
-    });
-    new ScrollMagic.Scene({
-      triggerElement: this,
-      triggerHook: fade_in_txt
-    }).setTween(model_link).addTo(controller); // SVG FADE
+    }).setTween(txt).addTo(controller); // SVG FADE
 
     var svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {
       opacity: 1
@@ -40237,7 +40229,15 @@ if (check) {
       triggerElement: this,
       triggerHook: fade_in_svg,
       duration: "10%"
-    }).setTween(svg_container).addTo(controller);
+    }).setTween(svg_container).addTo(controller); // LINK FADE
+
+    var model_link = TweenMax.to(id + " .model_link", 0.4, {
+      opacity: 1
+    });
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: fade_in_svg
+    }).setTween(model_link).addTo(controller);
     /*
      * 
      * ANIMATE CAR NUMBERS
@@ -40384,18 +40384,17 @@ if (check) {
   }).setTween(bg).addTo(controllerX); // FADE IN TEASER TXT
 
   var fadeAnimation = new TimelineMax().staggerTo("#mission-e .title .fade", 0.3, {
-    opacity: 1,
-    ease: Linear.easeNone
+    opacity: 1
   }, 0.4);
   new ScrollMagic.Scene({
     triggerElement: "#mission-e .title",
-    triggerHook: 0.7
+    triggerHook: 0.6
   }).setTween(fadeAnimation).addTo(controllerX); // FADE IN SCROLL MOUSE
 
   new ScrollMagic.Scene({
     triggerElement: "#mission-e .title",
-    triggerHook: 0.4,
-    duration: "50%"
+    triggerHook: 0.5,
+    duration: "58%"
   }).setClassToggle('#mission-e .title .mouse_parent', 'show').addTo(controllerX); // MOVEMENT PANELS
   // number at end => moves at same time as prev tween
 
@@ -40547,7 +40546,7 @@ if (check) {
     setTimeout(function () {
       $('body').removeClass('noscroll');
       loading.classList.remove('disabled');
-      loading.setAttribute('data-hover', 'Start Exploring >');
+      loading.setAttribute('data-hover', 'Start Exploring ' + String.fromCharCode(187));
       loading.innerHTML = 'Start Exploring';
       loading.style.opacity = 1;
     }, 200);

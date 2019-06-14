@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Gegenereerd op: 13 jun 2019 om 17:19
+-- Gegenereerd op: 14 jun 2019 om 19:57
 -- Serverversie: 5.7.26-0ubuntu0.18.04.1
 -- PHP-versie: 7.2.19-0ubuntu0.18.04.1
 
@@ -102,6 +102,7 @@ INSERT INTO `cars` (`id`, `category_id`, `name`, `price`, `pk`, `kw`, `topspeed`
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `intro` text COLLATE utf8mb4_unicode_ci,
   `title_1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `desc_1` text COLLATE utf8mb4_unicode_ci,
   `title_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -112,12 +113,12 @@ CREATE TABLE `categories` (
 -- Gegevens worden geëxporteerd voor tabel `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `title_1`, `desc_1`, `title_2`, `desc_2`) VALUES
-(1, '718', '718 Era', 'The Boxster and the Cayman continue the 718 era. In their 4-cylinder turbo boxer engine, the fighters heart is beating, which has already resulted in countless victories. They are determined to surpass and convince standards. So it is only logical that they now also bear these 3 digits in their name and thus continue the legend 718.', 'Personality 718', 'Life is too good for compromise. To leave things behind. Not to pursue your dream. The 718 symbolizes one thing: zest for life.'),
-(2, '911', 'Timeless', 'The new 911 is the result of all predecessors - and therefore both retrospective and a vision of the future. The silhouette: iconic. The design: timeless. The technology: inspired by major victories and always one step ahead. With the 8th generation of the 911 we are heading for the future.', 'Design', 'Timeless and modern times have never been so close together.'),
-(3, 'Panamera', 'Panamera Idea', 'Anyone who sets himself big goals in life must face them with guts and passion. The Panamera has demonstrated this impressively. From the very beginning, it went its own way and united contradictions: performance and comfort, dynamics and efficiency, work and family.', 'The Interior', 'The power of the Panamera to reconcile apparent contradictions is evident from the moment you step in: thoughtful ergonomics and a high level of comfort are combined with clear sportiness.'),
-(4, 'Macan', 'Write your own story', 'We have proven that we do not allow anything to be prescribed. That we do not follow trends, but prefer to write our own adventurous stories. Such as that of a compact SUV that combines sportiness, design and practical ease of use: the new Macan', 'Aesthetics', 'For us, aesthetics is never superficial. But always an expression of personality.'),
-(5, 'Cayenne', 'Dream Sharing.', 'Five doors that are open for every adventure. With a dynamic design and efficient turbo engines. With an excellent digital network with which the whole world is within reach. With versatility, quality and leading-edge assistance systems that offer exceptional comfort to the driver and passengers.\n\nThe Cayenne makes the Porsche experience even more fascinating, even more versatile. And at the same time he remains what he always was: a real sports car.', 'Design', 'SUVs come in all shapes and sizes. But there is only one that gives you the motorsport feeling right on boarding.');
+INSERT INTO `categories` (`id`, `name`, `intro`, `title_1`, `desc_1`, `title_2`, `desc_2`) VALUES
+(1, '718', 'The Boxster and Cayman models were originally 982 models, but have been rebranded to the legendary sports car 718 with the introduction of the fourth generation in 2016.', '718 Era', 'The Boxster and the Cayman continue the 718 era. In their 4-cylinder turbo boxer engine, the fighters heart is beating, which has already resulted in countless victories. They are determined to surpass and convince standards. So it is only logical that they now also bear these 3 digits in their name and thus continue the legend 718.', '718 Personality', 'Life is too good for compromise. To leave things behind. Not to pursue your dream. The 718 symbolizes one thing: zest for life.'),
+(2, '911', 'This iconic sports car celebrates its 55th birthday in 2018. It\'s the big brother of the 718 with crazy good performance.', 'Timeless', 'The new 911 is the result of all predecessors - and therefore both retrospective and a vision of the future. The silhouette: iconic. The design: timeless. The technology: inspired by major victories and always one step ahead. With the 8th generation of the 911 we are heading for the future.', 'Design', 'Timeless and modern times have never been so close together.'),
+(3, 'Panamera', 'One of the newer models in in the Porsche brand with its launch in 2009, a luxurious sedan to expand to expand the market.', 'Panamera Idea', 'Anyone who sets himself big goals in life must face them with guts and passion. The Panamera has demonstrated this impressively. From the very beginning, it went its own way and united contradictions: performance and comfort, dynamics and efficiency, work and family.', 'The Interior', 'The power of the Panamera to reconcile apparent contradictions is evident from the moment you step in: thoughtful ergonomics and a high level of comfort are combined with clear sportiness.'),
+(4, 'Macan', 'The compact SUV that combines sportiness, design and practical ease of use. The first generation was available since 2014, but the Macan has already seen two facelifts.', 'Write your own story', 'We have proven that we do not allow anything to be prescribed. That we do not follow trends, but prefer to write our own adventurous stories. Such as that of a compact SUV that combines sportiness, design and practical ease of use: the new Macan', 'Aesthetics', 'For us, aesthetics is never superficial. But always an expression of personality.'),
+(5, 'Cayenne', 'This SUV is the bigger brother of the Macan, in terms of age, size and performance. The Cayenne makes the Porsche experience even more versatile.', 'Dream Sharing.', 'Five doors that are open for every adventure. With a dynamic design and efficient turbo engines. With an excellent digital network with which the whole world is within reach. With versatility, quality and leading-edge assistance systems that offer exceptional comfort to the driver and passengers.\n\nThe Cayenne makes the Porsche experience even more fascinating, even more versatile. And at the same time he remains what he always was: a real sports car.', 'Design', 'SUVs come in all shapes and sizes. But there is only one that gives you the motorsport feeling right on boarding.');
 
 -- --------------------------------------------------------
 
