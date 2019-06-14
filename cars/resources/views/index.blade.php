@@ -48,9 +48,13 @@
             <div class="row">
                 <div class="col">
                     <div class="desc">
-                        <h1 class="title"><a href="/models/{{ strtolower($value->name) }}" data-hover="{{ $value->name }}" class="hover_effect model_link">{{ $value->name }}</a></h1>
-                        @if ($value->price != 0)
+                        <h1 class="title">{{ $value->name }}</h1>
+                        <hr>
                         <div class="content-inner">
+                            @if ($value->intro != '')
+                            <p class="txt"><b>{{ $value->name }}:</b> {{ $value->intro }}</p>
+                            @endif
+                            @if ($value->price != 0)
                             <div class="flex svg_container">
                                 <div class="price svg">
                                     <span class="svg_content">
@@ -78,13 +82,17 @@
                                 </div>
                                 @endif
                             </div>
+                            @endif
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
-        <div class="parallax"></div>
+        <div class="parallax">
+            <div class="container-fluid">
+                <a href="/models/{{ strtolower($value->name) }}" class="hover_effect h_brand model_link" data-hover="Discover more >">Discover more</a>
+            </div>
+        </div>
     </section>
     @endforeach
 </div>
@@ -92,7 +100,11 @@
 <div id="mission-e">
     <div class="title">
         <h1 class="fade">The future is now</h1>
-        <h1 class="fade">This is Mission-E</h1>
+        <h1 class="fade">Welcome to Mission-E</h1>
+        <div class="mouse_parent">
+            <div class="mouse down"></div>
+            <span>Scroll Down</span>
+        </div>
     </div>
     <div id="sequence">
         <section class="panel p1 right"><img src="/img/mission-e/01.jpg"></section>

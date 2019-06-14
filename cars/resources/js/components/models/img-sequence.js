@@ -12,7 +12,7 @@ if ( check ) {
 
 	// fill image array
 	for ( let i = 1; i <= imageSequenceCounter; i++) {
-		// preload images by creating new Img and setting src. Keep in memory by pushing it to an object
+		// preload imgs by creating new Img + setting src, keep in memory by pushing img to array
 		let img = new Image()
 		img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
 		images.push(img);
@@ -33,12 +33,12 @@ if ( check ) {
 	}
 
 
-	// ANIMATE IMG
+	// ANIMATE IMG SOURCE, loop through images[]
 	let imageTween = TweenMax.to(obj, 0.5,
 		{
 			curImg: images.length - 1,	// animate propery curImg to number of images
-			roundProps: "curImg",	// round to integers so it can be used as an array index
-			immediateRender: true,	// load first image automatically
+			roundProps: "curImg",		// round to integers so it can be used as an array index
+			immediateRender: true,		// load first image automatically
 			onUpdate: function () {
 				$("#image_sequence img").attr("src", images[obj.curImg].src);
 			}

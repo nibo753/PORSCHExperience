@@ -26,6 +26,15 @@ if ( check ) {
     .setTween(fadeAnimation)
     .addTo(controllerX);
 
+     // FADE IN SCROLL MOUSE
+    new ScrollMagic.Scene({
+        triggerElement: "#mission-e .title",
+        triggerHook: 0.4,
+        duration: "50%"
+    })
+    .setClassToggle('#mission-e .title .mouse_parent', 'show')
+    .addTo(controllerX);
+
 
     // MOVEMENT PANELS
     // number at end => moves at same time as prev tween

@@ -40199,16 +40199,43 @@ if (check) {
     new ScrollMagic.Scene({
       triggerElement: this,
       triggerHook: 0.65,
-      duration: "8%"
-    }).setTween(title).addTo(controller); // SVG FADE
+      duration: "15%"
+    }).setTween(title).addTo(controller); // HR FADE
+
+    var hr = TweenMax.to(id + " .content hr", 0.4, {
+      opacity: 1
+    }),
+        fade_in_txt = 0.40;
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: fade_in_txt,
+      duration: "10%"
+    }).setTween(hr).addTo(controller); // INTRO TXT
+
+    var txt = TweenMax.to(id + " .content .txt", 0.4, {
+      opacity: 1
+    });
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: fade_in_txt,
+      duration: "10%"
+    }).setTween(txt).addTo(controller); // LINK FADE
+
+    var model_link = TweenMax.to(id + " .model_link", 0.4, {
+      opacity: 1
+    });
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: fade_in_txt
+    }).setTween(model_link).addTo(controller); // SVG FADE
 
     var svg_container = TweenMax.to(id + " .content .svg_container", 0.4, {
       opacity: 1
     }),
-        fade_in_trigger = 0.20;
+        fade_in_svg = 0.15;
     new ScrollMagic.Scene({
       triggerElement: this,
-      triggerHook: fade_in_trigger,
+      triggerHook: fade_in_svg,
       duration: "10%"
     }).setTween(svg_container).addTo(controller);
     /*
@@ -40305,7 +40332,7 @@ if (check) {
 
     new ScrollMagic.Scene({
       triggerElement: id,
-      triggerHook: fade_in_trigger //reverse: false
+      triggerHook: fade_in_svg //reverse: false
 
     }).setTween(numberTimeline).addTo(controller);
   });
@@ -40363,7 +40390,13 @@ if (check) {
   new ScrollMagic.Scene({
     triggerElement: "#mission-e .title",
     triggerHook: 0.7
-  }).setTween(fadeAnimation).addTo(controllerX); // MOVEMENT PANELS
+  }).setTween(fadeAnimation).addTo(controllerX); // FADE IN SCROLL MOUSE
+
+  new ScrollMagic.Scene({
+    triggerElement: "#mission-e .title",
+    triggerHook: 0.4,
+    duration: "50%"
+  }).setClassToggle('#mission-e .title .mouse_parent', 'show').addTo(controllerX); // MOVEMENT PANELS
   // number at end => moves at same time as prev tween
 
   var wipeAnimation = new TimelineMax().fromTo("#sequence .panel.p1", 1, {
@@ -40501,7 +40534,7 @@ if (check) {
       sceneDuration = imageSequenceCounter * 25; // fill image array
 
   for (var i = 1; i <= imageSequenceCounter; i++) {
-    // preload images by creating new Img and setting src. Keep in memory by pushing it to an object
+    // preload imgs by creating new Img + setting src, keep in memory by pushing img to array
     var img = new Image();
     img.src = "../img/" + imageSequenceModel + "/sequence/" + i + ".webp";
     images.push(img);
@@ -40518,7 +40551,7 @@ if (check) {
       loading.innerHTML = 'Start Exploring';
       loading.style.opacity = 1;
     }, 200);
-  }; // ANIMATE IMG
+  }; // ANIMATE IMG SOURCE, loop through images[]
 
 
   var imageTween = TweenMax.to(obj, 0.5, {
