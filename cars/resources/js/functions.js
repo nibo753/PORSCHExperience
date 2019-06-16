@@ -42,19 +42,20 @@ export function rnd(min, max) {
 };
 
 
-export function updateURLParameter(url, param, paramVal)
+export function updateURLParameter(param, paramVal)
 {
-    var TheAnchor = null;
-    var newAdditionalURL = "";
-    var tempArray = url.split("?");
-    var baseURL = tempArray[0];
-    var additionalURL = tempArray[1];
-    var temp = "";
+    let url             = window.location,
+    TheAnchor           = null,
+    newAdditionalURL    = "",
+    tempArray           = url.href.split("?"),
+    baseURL             = tempArray[0],
+    additionalURL       = tempArray[1],
+    temp                = "";
 
     if (additionalURL) 
     {
-        var tmpAnchor = additionalURL.split("#");
-        var TheParams = tmpAnchor[0];
+        let tmpAnchor = additionalURL.split("#"),
+            TheParams = tmpAnchor[0];
             TheAnchor = tmpAnchor[1];
         if(TheAnchor)
             additionalURL = TheParams;
@@ -72,9 +73,9 @@ export function updateURLParameter(url, param, paramVal)
     }
     else
     {
-        var tmpAnchor = baseURL.split("#");
-        var TheParams = tmpAnchor[0];
-            TheAnchor  = tmpAnchor[1];
+        let tmpAnchor = baseURL.split("#"),
+            TheParams = tmpAnchor[0];
+            TheAnchor = tmpAnchor[1];
 
         if(TheParams)
             baseURL = TheParams;
@@ -83,15 +84,18 @@ export function updateURLParameter(url, param, paramVal)
     if(TheAnchor)
         paramVal += "#" + TheAnchor;
 
-    var rows_txt = temp + "" + param + "=" + paramVal;
-    return baseURL + "?" + newAdditionalURL + rows_txt;
+    let rows_txt = temp + "" + param + "=" + paramVal,
+      updatedUrl = baseURL + "?" + newAdditionalURL + rows_txt;
+
+    window.history.replaceState({'id': 'smoothState'}, url.pathname, updatedUrl);
 }
 
-export function removeURLParameter(sourceURL, key) {
-    var rtn = sourceURL.split("?")[0],
+export function removeURLParameter(key) {
+    let url = window.location,
+        rtn = url.href.split("?")[0],
         param,
         params_arr = [],
-        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+        queryString = (url.href.indexOf("?") !== -1) ? url.href.split("?")[1] : "";
     if (queryString !== "") {
         params_arr = queryString.split("&");
         for (var i = params_arr.length - 1; i >= 0; i -= 1) {
@@ -102,5 +106,5 @@ export function removeURLParameter(sourceURL, key) {
         }
         rtn = rtn + "?" + params_arr.join("&");
     }
-    return rtn;
+    window.history.replaceState({'id': 'smoothState'}, url.pathname, rtn);
 }

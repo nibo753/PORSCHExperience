@@ -107,7 +107,8 @@ if ( check && modelSlider.length && modelInfo.length ) {
 
 	// UPDATE URL PARAMETER 's'
 	modelSlider.on('afterChange', function(event, slick,  currentSlide){
-		updateURLParameter("s", currentSlide);
+		f.updateURLParameter("s", currentSlide);
+
 	});
 
 	// FILTER ON BUTTON CLICK (filter both sliders to sync index)
@@ -118,10 +119,10 @@ if ( check && modelSlider.length && modelInfo.length ) {
 
 			// change URL depending on button state
 			if (filterBtns[i].classList.contains('active')) {
-				updateURLParameter(modelParameter, this.value);
+				f.updateURLParameter(modelParameter, this.value);
 			}
 			else {
-				removeURLParameter(modelParameter);
+				f.removeURLParameter(modelParameter);
 			}
 		});
 	}
@@ -138,24 +139,6 @@ $.fn.destroySlick = function()
 /*
  * HELPER FUNCTIONS
  */
-
-
-// not added to history to prevent back/forward failing
-function updateURLParameter(parameter, value){
-	if (window.history.replaceState) {
-		const _url 	= window.location,
-		updatedUrl 	= f.updateURLParameter(_url.href, parameter, value)
-		window.history.replaceState({'id': 'smoothState'}, _url.pathname, updatedUrl);
-	}
-}
-
-function removeURLParameter(parameter){
-	if (window.history.replaceState) {
-		const _url 	= window.location,
-		updatedUrl 	= f.removeURLParameter(_url.href, parameter);
-		window.history.replaceState({'id': 'smoothState'}, _url.pathname, updatedUrl);
-	}
-}
 
 function filterSlick(input, slick, syncSlick){
 	let slider = $(slick),

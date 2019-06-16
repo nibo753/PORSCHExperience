@@ -40727,7 +40727,7 @@ if (check && modelSlider.length && modelInfo.length) {
     modelSlider[0].slick.slickGoTo(index); // UPDATE URL PARAMETER 's'
 
     modelSlider.on('afterChange', function (event, slick, currentSlide) {
-      updateURLParameter("s", currentSlide);
+      _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"]("s", currentSlide);
     }); // FILTER ON BUTTON CLICK (filter both sliders to sync index)
     // UPDATE URL PARAMETER 'm'
 
@@ -40736,9 +40736,9 @@ if (check && modelSlider.length && modelInfo.length) {
         filterSlick(this, modelSlider, modelInfo); // change URL depending on button state
 
         if (filterBtns[_i].classList.contains('active')) {
-          updateURLParameter(modelParameter, this.value);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](modelParameter, this.value);
         } else {
-          removeURLParameter(modelParameter);
+          _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](modelParameter);
         }
       });
     };
@@ -40756,28 +40756,7 @@ $.fn.destroySlick = function () {
 /*
  * HELPER FUNCTIONS
  */
-// not added to history to prevent back/forward failing
 
-
-function updateURLParameter(parameter, value) {
-  if (window.history.replaceState) {
-    var _url = window.location,
-        updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["updateURLParameter"](_url.href, parameter, value);
-    window.history.replaceState({
-      'id': 'smoothState'
-    }, _url.pathname, updatedUrl);
-  }
-}
-
-function removeURLParameter(parameter) {
-  if (window.history.replaceState) {
-    var _url = window.location,
-        updatedUrl = _functions__WEBPACK_IMPORTED_MODULE_0__["removeURLParameter"](_url.href, parameter);
-    window.history.replaceState({
-      'id': 'smoothState'
-    }, _url.pathname, updatedUrl);
-  }
-}
 
 function filterSlick(input, slick, syncSlick) {
   var slider = $(slick),
@@ -41123,17 +41102,18 @@ function rnd(min, max) {
   return Math.random() * (max - min) + min;
 }
 ;
-function updateURLParameter(url, param, paramVal) {
-  var TheAnchor = null;
-  var newAdditionalURL = "";
-  var tempArray = url.split("?");
-  var baseURL = tempArray[0];
-  var additionalURL = tempArray[1];
-  var temp = "";
+function updateURLParameter(param, paramVal) {
+  var url = window.location,
+      TheAnchor = null,
+      newAdditionalURL = "",
+      tempArray = url.href.split("?"),
+      baseURL = tempArray[0],
+      additionalURL = tempArray[1],
+      temp = "";
 
   if (additionalURL) {
-    var tmpAnchor = additionalURL.split("#");
-    var TheParams = tmpAnchor[0];
+    var tmpAnchor = additionalURL.split("#"),
+        TheParams = tmpAnchor[0];
     TheAnchor = tmpAnchor[1];
     if (TheAnchor) additionalURL = TheParams;
     tempArray = additionalURL.split("&");
@@ -41145,21 +41125,26 @@ function updateURLParameter(url, param, paramVal) {
       }
     }
   } else {
-    var tmpAnchor = baseURL.split("#");
-    var TheParams = tmpAnchor[0];
-    TheAnchor = tmpAnchor[1];
-    if (TheParams) baseURL = TheParams;
+    var _tmpAnchor = baseURL.split("#"),
+        _TheParams = _tmpAnchor[0];
+
+    TheAnchor = _tmpAnchor[1];
+    if (_TheParams) baseURL = _TheParams;
   }
 
   if (TheAnchor) paramVal += "#" + TheAnchor;
-  var rows_txt = temp + "" + param + "=" + paramVal;
-  return baseURL + "?" + newAdditionalURL + rows_txt;
+  var rows_txt = temp + "" + param + "=" + paramVal,
+      updatedUrl = baseURL + "?" + newAdditionalURL + rows_txt;
+  window.history.replaceState({
+    'id': 'smoothState'
+  }, url.pathname, updatedUrl);
 }
-function removeURLParameter(sourceURL, key) {
-  var rtn = sourceURL.split("?")[0],
+function removeURLParameter(key) {
+  var url = window.location,
+      rtn = url.href.split("?")[0],
       param,
       params_arr = [],
-      queryString = sourceURL.indexOf("?") !== -1 ? sourceURL.split("?")[1] : "";
+      queryString = url.href.indexOf("?") !== -1 ? url.href.split("?")[1] : "";
 
   if (queryString !== "") {
     params_arr = queryString.split("&");
@@ -41175,7 +41160,9 @@ function removeURLParameter(sourceURL, key) {
     rtn = rtn + "?" + params_arr.join("&");
   }
 
-  return rtn;
+  window.history.replaceState({
+    'id': 'smoothState'
+  }, url.pathname, rtn);
 }
 
 /***/ }),

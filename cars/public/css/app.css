@@ -11023,7 +11023,7 @@ a.hover_effect:after {
 }
 
 a.hover_effect:hover::before {
-  width: calc(100% + 15px);
+  width: calc(100% + 22px);
 }
 
 a.hover_effect:hover::after {
