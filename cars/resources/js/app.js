@@ -48,6 +48,7 @@ require('./components/home/data-offset');
 require('./components/home/mission-e');
 require('./components/home/slide-in');
 
+require('./components/models/fade-in-content');
 require('./components/models/img-sequence');
-require('./components/models/specs'); // apply JS before filter
 require('./components/models/slick');
+require('./components/models/sticky-slider');

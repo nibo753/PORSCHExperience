@@ -23,7 +23,6 @@ if ( check && modelSlider.length && modelInfo.length ) {
 		arrows: false,
 		centerMode: true,
 		centerPadding: '0px',
-		swipeToSlide: true,
 		responsive: [
 		{
 		breakpoint: 600,

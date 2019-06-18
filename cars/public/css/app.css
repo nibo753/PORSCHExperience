@@ -12285,7 +12285,7 @@ body.dark {
   min-width: 100%;
   max-width: 125%;
   max-height: calc(80vh - 65px);
-  background-color: #D6D6D6;
+  background-color: #F1F1F1;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -12354,9 +12354,13 @@ body.dark {
   transition: opacity 0.2s;
 }
 
+.models #model_container .name_container {
+  position: relative;
+}
+
 .models #model_container .name_bg {
   position: absolute;
-  top: 20px;
+  top: 35px;
 }
 
 .models #model_container .name_bg h1 {
@@ -12374,18 +12378,18 @@ body.dark {
   }
 }
 
-.models #model_container .name_bg.Panamera,
-.models #model_container .name_bg.Cayenne {
-  top: 5px;
-}
-
-.models #model_container .name_bg.Macan {
-  top: -10px;
-}
-
 .models #model_container #model_nav {
   position: relative;
+  z-index: 1;
   background-color: white;
+  transition: -webkit-transform 0.6s;
+  transition: transform 0.6s;
+  transition: transform 0.6s, -webkit-transform 0.6s;
+}
+
+.models #model_container #model_nav.show {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
 }
 
 .models #model_container #model_nav .model_filter {
@@ -12407,7 +12411,8 @@ body.dark {
 }
 
 .models #model_container #model_nav .model_slider .slick-slide li {
-  padding: 0 10% 2em;
+  padding: 0 10% 0;
+  margin-top: -20px;
 }
 
 .models #model_container #model_nav .model_slider .slick-slide img {
@@ -12438,92 +12443,19 @@ body.dark {
   position: relative;
 }
 
-.models #model_container .model_section .container {
+.models #model_container .model_section div:first-child .container {
   padding-top: 100px;
   padding-bottom: 80px;
 }
 
-.models #model_container .model_section .dimensions {
+.models #model_container .model_section .img_container {
   height: 350px;
-  margin: -100px 30px 20px 15px;
-  width: calc(60% - 45px);
-  position: relative;
+  margin: -100px 0px 0px 0px;
+  width: 60%;
 }
 
-.models #model_container .model_section .dimensions h2 {
-  font-size: 6em;
-}
-
-.models #model_container .model_section .dimensions img {
+.models #model_container .model_section .img_container img {
   max-height: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-.models #model_container .model_section .dimensions .dim {
-  position: absolute;
-  background-color: #F1F1F1;
-  width: 100%;
-  height: 2px;
-  text-align: center;
-  white-space: nowrap;
-  margin-bottom: 50px;
-}
-
-.models #model_container .model_section .dimensions .dim:before,
-.models #model_container .model_section .dimensions .dim:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border-left: 2px solid #F1F1F1;
-  border-bottom: 2px solid #F1F1F1;
-  -webkit-transform: translateY(-50%) rotate(45deg);
-          transform: translateY(-50%) rotate(45deg);
-}
-
-.models #model_container .model_section .dimensions .dim:before {
-  left: 0;
-  -webkit-transform: translateY(-50%) rotate(45deg);
-          transform: translateY(-50%) rotate(45deg);
-}
-
-.models #model_container .model_section .dimensions .dim:after {
-  right: 0;
-  -webkit-transform: translateY(-50%) rotate(-135deg);
-          transform: translateY(-50%) rotate(-135deg);
-}
-
-.models #model_container .model_section .dimensions .dim.height {
-  height: 2px;
-  width: 300px;
-  bottom: 3%;
-  left: -15px;
-  -webkit-transform-origin: left;
-          transform-origin: left;
-  -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
-}
-
-.models #model_container .model_section .dimensions .dim.width {
-  top: 75%;
-  -webkit-transform: rotateX(85deg) rotateZ(-85deg);
-          transform: rotateX(85deg) rotateZ(-85deg);
-}
-
-.models #model_container .model_section .dimensions .dim.width div {
-  -webkit-transform: rotateX(-85deg) rotateZ(85deg);
-          transform: rotateX(-85deg) rotateZ(85deg);
-}
-
-.models #model_container .model_section .dimensions .width_txt {
-  display: block;
-  text-align: center;
-  -webkit-transform: rotate(-48deg);
-          transform: rotate(-48deg);
-  position: absolute;
-  top: 71%;
 }
 
 .models #model_container .model_section .model_intro {
@@ -12545,5 +12477,30 @@ body.dark {
 
 .models #model_container .model_section .model_intro p {
   margin-top: 1.5em;
+}
+
+.models #model_container .model_section .details {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #F1F1F1;
+}
+
+.models #model_container .model_section .details h2 {
+  text-align: center;
+}
+
+.models #model_container .model_section .details .row {
+  padding: 30px 0;
+  opacity: 0;
+}
+
+.models #model_container .model_section .details ul li {
+  display: flex;
+  border-bottom: 1px solid #D6D6D6;
+  padding: 15px 15px;
+}
+
+.models #model_container .model_section .details ul li span:last-child {
+  margin-left: auto;
 }
 

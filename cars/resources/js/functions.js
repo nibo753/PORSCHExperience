@@ -69,7 +69,7 @@ export function updateURLParameter(param, paramVal)
                 newAdditionalURL += temp + tempArray[i];
                 temp = "&";
             }
-        }        
+        }
     }
     else
     {

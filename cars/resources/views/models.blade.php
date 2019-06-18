@@ -87,7 +87,7 @@
             </div>
         @endif
 
-        <div class="container">
+        <div class="container name_container">
             <div class="name_bg {{ (startsWithNumber($cars[0]->category->name)) ? '_'.$cars[0]->category->name : $cars[0]->category->name }}">
                 <h1>{{$cars[0]->category->name}}</h1>
             </div>
@@ -126,18 +126,8 @@
         <section class="model_section {{$name}}" id="car_{{$model->id}}">
             <div class="dark">
                 <div class="container flex">
-                    <div class="dimensions">
-                        @if ($model->height != 0)
-                        <div class="height dim">{{$model->height}} mm</div>
-                        @endif
+                    <div class="img_container">
                         <img src="/img/{{strtolower($model->category->name)}}/{{strtolower($model->category->name)}}_{{strtolower(str_replace(' ', '_', $model->name))}}.png">
-                        @if ($model->height != 0)
-                        <div class="length dim">{{$model->length}} mm</div>
-                        @endif
-                        @if ($model->height != 0)
-                        <div class="width dim"></div>
-                        <span class="width_txt">{{$model->width}} mm</span>
-                        @endif
                     </div>
                     <div class="model_intro">
                         <h2>{{$cars[0]->category->name}} {{$model->name}}</h2>
@@ -146,27 +136,100 @@
                     </div>
                 </div>
             </div>
-            <div class="container details">
-                <div class="row">
-                    <div class="col">
-                    <p>{{$model->name}}</p>
-                    <p>{{$model->price}}</p>
-                    <p>{{$model->pk}}</p>
-                    <p>{{$model->topspeed}}</p>
-                    <p>{{$model->acceleration}}</p>
-                    <p>{{$model->acceleration_sport}}</p>
-                    <p>{{$model->fuel_consuption}}</p>
-                    <p>{{$model->emission}}</p>
-                    <p>{{$model->drive}}</p>
-                    <p>{{$model->height}}</p>
-                    <p>{{$model->width}}</p>
-                    <p>{{$model->length}}</p>
-                    <p>{{$model->weight}}</p>
-                    <p>{{$model->luggage}}</p> 
+            <div class="details">
+                <div class="container">
+                    <h2>Technische gegevens</h2>
+                    <div class="row performance">
+                        <div class="col">
+                            <h3>Prestaties</h3>
+                            <ul>
+                                <li>
+                                    <span>Topsnelheid (km/u)</span>
+                                    <span>{{$model->topspeed}}</span>
+                                </li>
+                                <li>
+                                    <span>0 tot 100 km/u (sec)</span>
+                                    <span>{{$model->acceleration}}</span>
+                                </li>
+                                <li>
+                                    <span>0 tot 100 km/u met Sport Chronopakket(sec)</span>
+                                    <span>{{$model->acceleration_sport}}</span>
+                                </li>
+                                <li>
+                                    <span>Vermogen (pk)</span>
+                                    <span>{{$model->pk}}</span>
+                                </li>
+                                <li>
+                                    <span>Vermogen (kW)</span>
+                                    <span>{{$model->kw}}</span>
+                                </li>
+                                <li>
+                                    <span>Aandrijving</span>
+                                    <span>{{$model->drive}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row dimensions">
+                        <div class="col">
+                            <h3>Afmetingen</h3>
+                            <ul>
+                                <li>
+                                    <span>Lengte (mm)</span>
+                                    <span>{{$model->length}}</span>
+                                </li>
+                                <li>
+                                    <span>Breedte (mm)</span>
+                                    <span>{{$model->width}}</span>
+                                </li>
+                                <li>
+                                    <span>Hoogte (mm)</span>
+                                    <span>{{$model->height}}</span>
+                                </li>
+                                <li>
+                                    <span>Leeggewicht (kg)</span>
+                                    <span>{{$model->weight}}</span>
+                                </li>
+                                <li>
+                                    <span>Kofferbakvolume (l)</span>
+                                    <span>{{$model->luggage}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row usage">
+                        <div class="col">
+                            <h3>Verbruik en Uitstoot</h3>
+                            <ul>
+                                <li>
+                                    <span>Brandstofverbruik (l/100km)(NEDC-norm)</span>
+                                    <span>{{$model->fuel_consumption}}</span>
+                                </li>
+                                <li>
+                                    <span>Stroomverbruik (kWh/100km)(NEDC-norm)</span>
+                                    <span>{{$model->power_consumption}}</span>
+                                </li>
+                                <li>
+                                    <span>CO-2 Uitstoot (g/km)</span>
+                                    <span>{{$model->emission}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4>NEDC</h4>
+                            <p>De waarden van het brandstofverbruik en de CO2-uitstoot worden gemeten volgens een nieuwe WLTP-regelgeving (EU-verordening 2017/948) waarna de waarden worden omgezet naar de NEDC-cyclus om ze te vergelijken met andere voertuigen. Neem contact op met uw verkooppunt voor bijkomende informatie. De waarden houden geen rekening met de gebruiksomstandigheden, de rijstijl, de uitrusting of de opties en kunnen variëren naargelang de gebruikte banden. Op de website energievreters is een gids voor brandstofverbruik en CO2-uitstoot met gegevens voor alle nieuwe personenwagens beschikbaar: <a href="http://www.schoneauto.be" target="_blank">www.schoneauto.be</a>.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4>WLTP</h4>
+                            <p>De vermelde waarden van het brandstofverbruik en de CO2-uitstoot zijn conform de WLTP-homologatie (EU-verordening 2017/948). Sinds 1 september 2018 worden nieuwe wagens goedgekeurd op basis van de wereldwijd geharmoniseerde testprocedure voor lichte voertuigen (WLTP), een nieuwe, meer realistische testprocedure om het brandstofverbruik en de CO₂-uitstoot te meten. Deze WLTP-procedure vervangt volledig de nieuwe Europese rijcyclus (NEDC), de vroegere testprocedure. Omdat de testvoorwaarden veel realistischer zijn, liggen het brandstofverbruik en de CO₂-uitstoot volgens de WLTP-procedure in veel gevallen hoger dan de waarden gemeten volgens de NEDC-procedure. De waarden van het brandstofverbruik en de CO2-uitstoot kunnen variëren naargelang specifieke uitrusting, opties en type remmen. Neem contact op met uw verkooppunt voor meer inlichtingen.</p>
+                        </div>
                     </div>
                 </div>
-            </div>            
-            <!--<img data-lazy="img/lazyfonz1.png"/> -->
+            </div>
         </section>
         @endforeach
     </div>

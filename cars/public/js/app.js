@@ -39920,12 +39920,13 @@ __webpack_require__(/*! ./components/home/mission-e */ "./resources/js/component
 
 __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components/home/slide-in.js");
 
+__webpack_require__(/*! ./components/models/fade-in-content */ "./resources/js/components/models/fade-in-content.js");
+
 __webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
-__webpack_require__(/*! ./components/models/specs */ "./resources/js/components/models/specs.js"); // apply JS before filter
-
-
 __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/models/slick.js");
+
+__webpack_require__(/*! ./components/models/sticky-slider */ "./resources/js/components/models/sticky-slider.js");
 
 /***/ }),
 
@@ -40509,6 +40510,41 @@ if (check) {
 
 /***/ }),
 
+/***/ "./resources/js/components/models/fade-in-content.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/models/fade-in-content.js ***!
+  \***********************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+
+var controller = new ScrollMagic.Controller(),
+    check = document.querySelector('.models');
+
+if (check) {
+  // CONTENT FADE IN
+  $('.model_section .details .row').each(function () {
+    var row_tween = TweenMax.fromTo(this, .4, {
+      y: "10%",
+      opacity: 0
+    }, {
+      y: "0%",
+      opacity: 1,
+      immediateRender: false
+    });
+    new ScrollMagic.Scene({
+      triggerElement: this,
+      triggerHook: 0.8,
+      reverse: false
+    }).setTween(row_tween).addTo(controller);
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/models/img-sequence.js":
 /*!********************************************************!*\
   !*** ./resources/js/components/models/img-sequence.js ***!
@@ -40648,7 +40684,6 @@ if (check && modelSlider.length && modelInfo.length) {
       arrows: false,
       centerMode: true,
       centerPadding: '0px',
-      swipeToSlide: true,
       responsive: [{
         breakpoint: 600,
         settings: {
@@ -40783,10 +40818,10 @@ function filterSlick(input, slick, syncSlick) {
 
 /***/ }),
 
-/***/ "./resources/js/components/models/specs.js":
-/*!*************************************************!*\
-  !*** ./resources/js/components/models/specs.js ***!
-  \*************************************************/
+/***/ "./resources/js/components/models/sticky-slider.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/models/sticky-slider.js ***!
+  \*********************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40794,36 +40829,31 @@ function filterSlick(input, slick, syncSlick) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
 
-var check = document.querySelector('.models'),
-    modelInfo = $('.model_info');
+var c = new ScrollMagic.Controller(),
+    nav = document.querySelector('.models #model_nav');
 
-if (check && modelInfo.length) {
-  var imgs = document.querySelectorAll('.dimensions img'),
-      lengthDiv = document.querySelectorAll('.dimensions .length'),
-      widthDiv = document.querySelectorAll('.dimensions .width'),
-      widthTxt = document.querySelectorAll('.dimensions .width_txt'),
-      heightDiv = document.querySelectorAll('.dimensions .height');
-
-  for (var i = imgs.length - 1; i >= 0; i--) {
-    var offset = imgs[i].offsetWidth,
-        height = imgs[i].offsetHeight;
-
-    if (lengthDiv[i]) {
-      lengthDiv[i].style.width = .9 * offset + 'px';
-      lengthDiv[i].style.left = .05 * offset + 'px';
+if (nav) {
+  var navOffset = -+$('header').outerHeight(true) + $('.models #model_nav').outerHeight(true),
+      allowedToShow = false,
+      scene = new ScrollMagic.Scene({
+    triggerElement: nav,
+    triggerHook: 0,
+    offset: navOffset
+  }).setPin(nav, {
+    pushFollowers: false
+  }).addTo(c).on("enter leave", function (e) {
+    if (e.type == "enter") {
+      allowedToShow = true;
+    } else {
+      allowedToShow = false;
     }
-
-    if (widthDiv[i]) {
-      widthDiv[i].style.width = 1.45 * offset + 'px';
-      widthDiv[i].style.left = .25 * offset + 'px';
-      widthTxt[i].style.width = .9 * offset + 'px';
-      widthTxt[i].style.left = .55 * offset + 'px';
+  }).on("update", function (e) {
+    if (allowedToShow && e.target.controller().info("scrollDirection") == 'REVERSE') {
+      nav.classList.add('show');
+    } else {
+      nav.classList.remove('show');
     }
-
-    if (heightDiv[i]) {
-      heightDiv[i].style.width = .5 * height + 'px';
-    }
-  }
+  });
 }
 
 /***/ }),
