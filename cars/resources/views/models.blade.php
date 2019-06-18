@@ -18,8 +18,8 @@
     @if ( $imgCount != 0)
     <div id="image_sequence">
         <script type="text/javascript">
-            var imageSequenceCounter = <?= json_encode($imgCount); ?>;
-            var imageSequenceModel = <?= json_encode(strtolower($cars[0]->category->name)); ?>;
+            let imageSequenceCounter = <?= json_encode($imgCount); ?>;
+            let imageSequenceModel = <?= json_encode(strtolower($cars[0]->category->name)); ?>;
         </script>
 
         <img src="/img/{{ strtolower($cars[0]->category->name) }}/sequence/1.webp" alt="360 view of {{ $cars[0]->category->name }}">
@@ -148,13 +148,15 @@
                                     <span>{{$model->topspeed}}</span>
                                 </li>
                                 <li>
-                                    <span>0 tot 100 km/u (sec)</span>
+                                    <span>0 tot 100 km/u {{ ($model->acceleration_sport == '') ? 'met Sport Pakket ' : '' }}(sec)</span>
                                     <span>{{$model->acceleration}}</span>
                                 </li>
+                                @if ($model->acceleration_sport != '')
                                 <li>
                                     <span>0 tot 100 km/u met Sport Pakket (sec)</span>
                                     <span>{{$model->acceleration_sport}}</span>
                                 </li>
+                                @endif
                                 <li>
                                     <span>Vermogen (pk)</span>
                                     <span>{{$model->pk}}</span>
@@ -205,10 +207,12 @@
                                     <span>Brandstofverbruik (l/100km)</span>
                                     <span>{{$model->fuel_consumption}}</span>
                                 </li>
+                                @if ($model->power_consumption != '')
                                 <li>
                                     <span>Stroomverbruik (kWh/100km)</span>
                                     <span>{{$model->power_consumption}}</span>
                                 </li>
+                                @endif
                                 <li>
                                     <span>CO-2 Uitstoot (g/km)</span>
                                     <span>{{$model->emission}}</span>

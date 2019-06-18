@@ -19,6 +19,8 @@
 			color: $brandSecondaryLight;
 			position: relative;
 			top: 40px;
+
+			@include respond-to(phone){ top: auto; }
 		}
 	}
 

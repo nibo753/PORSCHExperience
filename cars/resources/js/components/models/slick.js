@@ -32,6 +32,13 @@ if ( check && modelSlider.length && modelInfo.length ) {
 			}
 		}]
 	});
+	/* 
+	 * BUG FIX IF USING RESPONSIVE SETTING
+	 *
+	 * node_modules\slick-carousel\slick\slick.js
+	 * slick.prototype.cleanUpRows function
+	 * if _.options.rows > 0 should be > 1
+	 */
 
 	modelInfo.slick({
 		//initialSlide: index,

@@ -29,7 +29,6 @@ require('./lib/smooth-state');
 require('./lib/universal-parallax');
 require('./lib/multi-level-push-menu');
 require('./lib/segment.min');
-$('.home').createParallax();
 
 // NPM Libraries
 require('slick-carousel');
@@ -47,6 +46,7 @@ require('./components/home/car');
 require('./components/home/data-offset');
 require('./components/home/mission-e');
 require('./components/home/slide-in');
+$('.home').createParallax();
 
 require('./components/models/fade-in-content');
 require('./components/models/filter-buttons');

@@ -19,6 +19,11 @@ a {
 		border-bottom: 2px solid $dark;
 		padding: 5px 0;
 
+		@include respond-to(phone){
+			font-size: $size_xxs;
+			padding: 7px 0;
+		}
+
 		&:hover {
 			color: $brandSecondary;
 		}

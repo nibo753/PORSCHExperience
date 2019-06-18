@@ -1,17 +1,18 @@
 $font_title:	'Roboto', sans-serif;
 $font_txt:		'Open Sans', sans-serif;
 
-$size_big:	em(96px);
-$size_xxxl: em(64px);
-$size_xxl: 	em(48px);
-$size_xl: 	em(40px);
-$size_l: 	em(32px);
-$size_m: 	em(24px);
-$size_s: 	em(20px);
-$size_xs:	em(18px);
-$size_xxs: 	em(16px);
-$size_xxxs: em(14px);
-$size_xxxxs: em(12px);
+$size_big:		em(96px);
+$size_xxxl: 	em(64px);
+$size_xxl: 		em(48px);
+$size_xl: 		em(40px);
+$size_l: 		em(32px);
+$size_l_phone: 	em(28px);
+$size_m: 		em(24px);
+$size_s: 		em(20px);
+$size_xs:		em(18px);
+$size_xxs: 		em(16px);
+$size_xxxs: 	em(14px);
+$size_xxxxs: 	em(12px);
 
 
 html, body {
@@ -33,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p { margin: 0 0 1em; }
 
-h1 { font-size: $size_xxl; @include respond-to(phone) { font-size: $size_l; } }
+h1 { font-size: $size_xxl; @include respond-to(phone) { font-size: $size_l_phone; } }
 h2 { font-size: $size_xl;  @include respond-to(phone) { font-size: $size_m; } }
 h3 { font-size: $size_l;   @include respond-to(phone) { font-size: $size_s; } }
 h4 { font-size: $size_m;   @include respond-to(phone) { font-size: $size_xs; } }

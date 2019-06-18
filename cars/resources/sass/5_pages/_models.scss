@@ -33,6 +33,11 @@ $bgColor: white;
 				max-height: calc(80vh - 65px);
 				background-color: $white; //fallback
 				object-fit: cover;
+
+				@include respond-to(phone){
+					height: 80vh;
+					max-width: 100%;
+				}
 			}
 
 			.img_cover {
@@ -43,6 +48,8 @@ $bgColor: white;
 				width: 40%;
 				&.left { left: 0; }
 				&.right { right: 0; }
+
+				@include respond-to(phone){ width: 100%; }
 			}
 
 			.container {
@@ -51,6 +58,11 @@ $bgColor: white;
 				left: 50%;
 				transform: translateX(-50%);
 				color: $white;
+
+				@include respond-to(phone){
+					left: auto;
+					transform: none;
+				}
 			}
 			.content {
 				color: $light;
@@ -78,14 +90,15 @@ $bgColor: white;
 			bottom: 10%;
 			left: 50%;
 			transform: translateX(-50%);
-			a { transition: opacity .2s; }
+			a {transition: opacity .2s; }
+			@include respond-to(phone){ a {padding: 8px 0;}}
 		}
 		
 		.name_container { position: relative; }
 		.name_bg {
 			h1 {
 				font-size: $size_big;
-				@include respond-to(phone) {font-size: $size-l;}
+				@include respond-to(phone) {font-size: $size-xxl;}
 				color: $white;
 				font-weight: 700;
 				text-transform: lowercase;
@@ -105,6 +118,7 @@ $bgColor: white;
 
 			&.show {
 				transform: translateY(100%);
+				@include respond-to(phone){ transform: none; }
 			}
 		
 			.model_filter {
@@ -114,6 +128,19 @@ $bgColor: white;
 					top: -24px;
 					z-index: 1;
 					margin: 0;
+
+					@include respond-to(phone){
+						position: relative;
+						top: 0;
+						margin: 0 -15px;
+
+						.btn { width: 100%; }
+					}
+				}
+				@include respond-to(phone){
+					.btn:not(.active) {
+						background-color: $dark !important;
+					}
 				}
 				.btn.no_active { background-color: $dark !important; }
 			}
@@ -125,7 +152,14 @@ $bgColor: white;
 					text-align: center;
 					cursor: pointer;
 
-					li { padding: 0 10% 0; margin-top: -20px; }
+					li {
+						padding: 0 10% 0; 
+						margin-top: -20px;
+						@include respond-to(phone){
+							padding: 0 10px;
+							margin-top: 0;
+						}
+					}
 
 					img {
 						max-height: 100%;
@@ -159,21 +193,33 @@ $bgColor: white;
 			div:first-child .container {
 				padding-top: 100px;
 				padding-bottom: 80px;
+
+				@include respond-to(phone){
+					padding: 0 15px;
+				}
 			}
+
 			.img_container {
 				height: 350px;
 				margin: -100px 0px 0px 0px;
 				width: 60%;
+				@include respond-to(phone){
+					width: 100%;
+					margin: 0 0 -180px 0;
+				}
 
 				img { 
 					max-height: 100%;
 				}
 			}
+
 			.model_intro {
 				position: relative;
 				text-align: right;
 				width: 40%;
-				min-height: 140px;
+				min-height: 130px;
+
+				@include respond-to(phone){ width: 100%}
 				
 				h2{ color: $white; }
 				a, p {

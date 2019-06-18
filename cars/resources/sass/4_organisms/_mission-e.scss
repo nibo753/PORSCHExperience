@@ -12,6 +12,8 @@
 			opacity: 0;
 			transition: 1s opacity;
 			&.show { opacity: 1;}
+
+			@include respond-to(phone){ display: none; }
 		}
 		
 
@@ -62,13 +64,19 @@
 	.info {
 		background-color: #fff;
 		padding: 0 0 140px;
+		margin-top: -5vw;
+
+		@include respond-to(phone){
+			padding-bottom: 60px;
+			margin-top: -45vw;
+		}
 
 		.row { opacity: 0; }
 		.col {
 			max-width: 80%;
 			margin: 0 auto;
 
-			@include respond-to(phone){ max-width: auto; }
+			@include respond-to(phone){ max-width: none; }
 		}
 	}
 }

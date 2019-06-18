@@ -5,6 +5,11 @@ footer {
 	z-index: 10; //in front of sidenav
 	padding: 80px 0 50px;
 
+	@include respond-to(phone){
+		padding-top: 30px;
+		.row:first-child .col { margin-top: 50px; }
+	}
+
 	font-size: $size_xxxs;
 
 	a {
