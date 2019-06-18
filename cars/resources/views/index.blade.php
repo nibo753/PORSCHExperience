@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row txt">
             <div class="col">
-                <div class="audio flex active">
+                <div class="audio flex">
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
@@ -107,12 +107,27 @@
         </div>
     </div>
     <div id="sequence">
-        <section class="panel p1 right"><img src="/img/mission-e/01.jpg"></section>
-        <section class="panel p2 left"><img src="/img/mission-e/02.jpg"></section>
-        <section class="panel p3 left"><img src="/img/mission-e/03.png"></section>
-        <section class="panel p4 left"><img src="/img/mission-e/04.jpg"></section>
-        <section class="panel p5 right"><img src="/img/mission-e/05.jpg"></section>
-        <section class="panel p6 right"><img src="/img/mission-e/06.jpg"></section>
+        <section class="panel p1 right"><img src="/img/mission-e/01.jpg" alt="Mission E 01"></section>
+        <section class="panel p2 left"><img src="/img/mission-e/02.jpg" alt="Mission E 02"></section>
+        <section class="panel p3 left"><img src="/img/mission-e/03.png" alt="Mission E 03"></section>
+        <section class="panel p4 left"><img src="/img/mission-e/04.jpg" alt="Mission E 04"></section>
+        <section class="panel p5 right"><img src="/img/mission-e/05.jpg" alt="Mission E 05"></section>
+        <section class="panel p6 right"><img src="/img/mission-e/06.jpg" alt="Mission E 06"></section>
+        <div id="mission_reveal">
+            <h2>The Porsche Mission E</h2>
+        </div>
+    </div>
+    <div class="info">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Concept Study</h3>
+                    <hr>
+                    <p>The Mission-E concept study is still an idea. But she indicates what we think electric driving can look like. 4 separate seats, 4 doors, 2 luggage compartments. Electric drive with typical Porsche E-Performance. Combined into a harmonious total concept. The current concept study Mission E is already preparing the way to the future. With its design and technology, it offers answers to the demand for the sports car of the future.</p>
+                    <a href="https://www.porsche.com/microsite/mission-e/belgium.aspx#/design" target="_blank" class="hover_effect h_dark" data-hover="Learn more &raquo;">Learn more</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

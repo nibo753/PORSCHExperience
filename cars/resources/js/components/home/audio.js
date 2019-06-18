@@ -11,11 +11,33 @@ if (home) {
 		music 				= new Audio('sounds/music.mp3'),
 		audio_start_motor 	= new Audio('sounds/start_motor.mp3'),
 		audio_gas_pedal 	= new Audio('sounds/gas_pedal.mp3'),
-		audio_drive_off 	= new Audio('sounds/drive_off.mp3');
+		audio_drive_off 	= new Audio('sounds/drive_off.mp3'),
+		audioBtnSelector 	= $('.intro .audio');
 
  	music.volume = musicVol;
 	music.loop = true;
-	//if (!f.isPlaying(music)) {music.play();}
+
+	// Google Chrome prevents autoplay, sometimes ..
+	// reload page if prevented
+	// music plays after max 1 reload, sometimes noone is needed
+
+	function playMusic(){
+		let promise = music.play();
+		if (promise !== undefined && !f.isPlaying(music) ){
+			promise.then(_ => {
+				// Autoplay started!
+				audioBtnSelector.addClass('active');
+			}).catch(error => {
+				// Autoplay was prevented
+				window.location.reload(false); //always works ..
+				
+				//f.simulate(document.querySelector("#fake_click"), "click");
+				//setTimeout(playMusic, 500); // works after user interaction
+			});
+		}
+	}
+	playMusic();
+	
 
 	// START BUTTON CLICK
 	$('.home .intro #start').click(function (e) {
@@ -23,8 +45,8 @@ if (home) {
 
 		if (!drivenOff) {
 			$('.intro .parallax.light').addClass('on');
-			$('.intro .audio').removeClass('active');
-			$('.intro .audio').addClass('disabled');
+			audioBtnSelector.removeClass('active');
+			audioBtnSelector.addClass('disabled');
 
 			$(music).animate({volume: 0}, 3000);
 			setTimeout(function(){ music.pause() }, 3000);
@@ -42,16 +64,18 @@ if (home) {
 		// onMouseEnter
 		function(){
 			if( !$(this).hasClass('.disabled') ){ // check if loading finished
-
 				$('.home .intro .parallax.light').addClass('show');
-				if (!motorIsOn && !drivenOff) {
-					audio_start_motor.play();
+				// check if sound is enabled when using timeout playMusic
+				if (f.isPlaying(music)) {
+					if (!motorIsOn && !drivenOff) {
+						audio_start_motor.play();
+					}
+					else if(!drivenOff) {
+						f.audioFadeOut(audio_start_motor, 300);
+						audio_gas_pedal.play();
+					}
+					motorIsOn = true;
 				}
-				else if(!drivenOff) {
-					f.audioFadeOut(audio_start_motor, 300);
-					audio_gas_pedal.play();
-				}
-				motorIsOn = true;
 			}
 			
 		},// onMouseLeave
@@ -61,7 +85,7 @@ if (home) {
 	);
 
 	// AUDIO BUTTON CLICK
-	$('.home .intro .audio').click(function (e) {
+	audioBtnSelector.click(function (e) {
 		if (!drivenOff) {
 			$(this).toggleClass('active');
 

@@ -45,5 +45,30 @@
 
 			&.p4 { background-color: white; }
 		}
+
+
+		#mission_reveal {
+			opacity: 0;
+
+			h2 {
+				position: absolute;
+				top: calc(65px + 3%);
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
+
+	.info {
+		background-color: #fff;
+		padding: 0 0 140px;
+
+		.row { opacity: 0; }
+		.col {
+			max-width: 80%;
+			margin: 0 auto;
+
+			@include respond-to(phone){ max-width: auto; }
+		}
 	}
 }

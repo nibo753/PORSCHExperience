@@ -26,11 +26,11 @@ export function audioFadeIn(element, volume, duration) {
 }
 
 export function isPlaying(audio) {
-    return audio.currentAudio
-        && audio.currentAudio.currentTime > 0
-        && !audio.currentAudio.paused
-        && !audio.currentAudio.ended
-        && audio.currentAudio.readyState > 2;
+    return audio
+        && audio.currentTime > 0
+        && !audio.paused
+        && !audio.ended
+        && audio.readyState > 2;
 }
 
 export function thousandSeparator(x) {
@@ -62,7 +62,7 @@ export function updateURLParameter(param, paramVal)
 
         tempArray = additionalURL.split("&");
 
-        for (var i=0; i<tempArray.length; i++)
+        for (let i=0; i<tempArray.length; i++)
         {
             if(tempArray[i].split('=')[0] != param)
             {
@@ -98,7 +98,7 @@ export function removeURLParameter(key) {
         queryString = (url.href.indexOf("?") !== -1) ? url.href.split("?")[1] : "";
     if (queryString !== "") {
         params_arr = queryString.split("&");
-        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+        for (let i = params_arr.length - 1; i >= 0; i -= 1) {
             param = params_arr[i].split("=")[0];
             if (param === key) {
                 params_arr.splice(i, 1);
@@ -107,4 +107,68 @@ export function removeURLParameter(key) {
         rtn = rtn + "?" + params_arr.join("&");
     }
     window.history.replaceState({'id': 'smoothState'}, url.pathname, rtn);
+}
+
+
+
+export function simulate(element, eventName)
+{
+    let defaultOptions = {
+        pointerX: 0,
+        pointerY: 0,
+        button: 0,
+        ctrlKey: false,
+        altKey: false,
+        shiftKey: false,
+        metaKey: false,
+        bubbles: true,
+        cancelable: true
+    },
+    eventMatchers = {
+        'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
+        'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
+    },
+
+    options = extend(defaultOptions, arguments[2] || {}),
+    oEvent, eventType = null;
+
+    for (let name in eventMatchers)
+    {
+        if (eventMatchers[name].test(eventName)) { eventType = name; break; }
+    }
+
+    if (!eventType)
+        throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
+
+    if (document.createEvent)
+    {
+        oEvent = document.createEvent(eventType);
+        if (eventType == 'HTMLEvents')
+        {
+            oEvent.initEvent(eventName, options.bubbles, options.cancelable);
+        }
+        else
+        {
+            oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
+            options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
+            options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
+        }
+        element.dispatchEvent(oEvent);
+    }
+    else
+    {
+        options.clientX = options.pointerX;
+        options.clientY = options.pointerY;
+        let evt = document.createEventObject();
+        oEvent = extend(evt, options);
+        element.fireEvent('on' + eventName, oEvent);
+    }
+    return element;
+}
+
+// USED IN SIMULATE CLICK
+function extend(destination, source) {
+    for (let property in source)
+      destination[property] = source[property];
+    return destination;
 }

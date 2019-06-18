@@ -50,15 +50,43 @@ if ( check ) {
     .fromTo("#sequence .panel.p5", 1, {x:  "100%"}, {x: "0%", ease: Linear.easeNone})
     .fromTo("#sequence .panel.p5 img", 1, {x:  "0%"}, {x: "100%", ease: Linear.easeNone}, 4)
     .fromTo("#sequence .panel.p6", 1, {x:  "100%"}, {x: "0%", ease: Linear.easeNone})
-    .fromTo("#sequence .panel.p6 img", 1, {x:  "0%"}, {x: "100%", ease: Linear.easeNone}, 5);
+    .fromTo("#sequence .panel.p6 img", 1, {x:  "0%"}, {x: "100%", ease: Linear.easeNone}, 5),
+
+    amountOfPanels  = document.querySelectorAll('#sequence .panel').length,
+    showForPercent  = 66.6,
+    wipeDuration    = amountOfPanels * showForPercent + '%';
 
     // create scene to pin and link animation
     new ScrollMagic.Scene({
         triggerElement: "#mission-e #sequence",
         triggerHook: "onLeave",
-        duration: "400%"
+        duration: wipeDuration
     })
     .setPin("#mission-e #sequence")
     .setTween(wipeAnimation)
+    .addTo(controllerX);
+
+
+    // FADE IN TXT AFTER IMG
+    let reveal_txt = TweenMax.to("#mission-e #mission_reveal", 0.4, {opacity: 1});
+
+    new ScrollMagic.Scene({
+        triggerElement: "#mission-e #sequence",
+        triggerHook: 0,
+        offset: h* showForPercent/100 * (amountOfPanels-1),
+        duration: showForPercent + '%'
+    })
+    .setTween(reveal_txt)
+    .addTo(controllerX);
+
+    //CONTENT AFTER FADE IN
+    let infoTween = TweenMax.fromTo("#mission-e .info .row", .5, {y: "10%", opacity: 0}, {y: "0%", opacity: 1, immediateRender: false})
+
+    new ScrollMagic.Scene({
+        triggerElement: "#mission-e .info .row",
+        triggerHook: 0.8,
+        reverse: false
+    })
+    .setTween(infoTween)
     .addTo(controllerX);
 }
