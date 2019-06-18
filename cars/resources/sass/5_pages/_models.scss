@@ -2,12 +2,15 @@ $bgColor: white;
 
 .models {
 	.not_found {
-		.msg { text-align: center; }
 		li {
 			padding: 0 15px;
 			border-right: 1px solid $dark;
 
-			&:last-child { border-right: none; }
+			&:first-child { padding-left: 0; }
+			&:last-child {
+				border-right: none;
+				padding-right: 0;
+			}
 		}
 	}
 
@@ -112,6 +115,7 @@ $bgColor: white;
 					z-index: 1;
 					margin: 0;
 				}
+				.btn.no_active { background-color: $dark !important; }
 			}
 
 			.model_slider {
@@ -169,6 +173,7 @@ $bgColor: white;
 				position: relative;
 				text-align: right;
 				width: 40%;
+				min-height: 140px;
 				
 				h2{ color: $white; }
 				a, p {
@@ -180,8 +185,8 @@ $bgColor: white;
 			}
 
 			.details {
-				padding-top: 50px;
-				padding-bottom: 50px;
+				padding-top: 60px;
+				padding-bottom: 20px;
 				background-color: $white;
 
 				h2 { text-align: center; }

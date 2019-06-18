@@ -48,21 +48,21 @@ class Handler extends ExceptionHandler
     {
         if($this->isHttpException($e))
         {
-            switch ($e->getStatusCode()) 
-                {
+            switch ($e->getStatusCode())
+            {
                 // not found
                 case 404:
-                return redirect()->guest('/');
-                break;
+                    return redirect()->guest('/');
+                    break;
 
                 // internal error
                 case '500':
-                return redirect()->guest('/');
-                break;
+                    return redirect()->guest('/');
+                    break;
 
                 default:
                     return $this->renderHttpException($e);
-                break;
+                    break;
             }
         }
         else

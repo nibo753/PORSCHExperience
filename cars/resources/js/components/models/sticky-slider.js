@@ -1,16 +1,15 @@
-import * as f from './../../functions';
-
 const 	c	= new ScrollMagic.Controller(),
 		nav = document.querySelector('.models #model_nav');
 
 if ( nav ) {
-	let navOffset = - + $('header').outerHeight(true) + $('.models #model_nav').outerHeight(true),
-		allowedToShow = false,
+	let navOffset = - + $('header').outerHeight(true) + $('#model_nav').outerHeight(true) + $('.model_filter').outerHeight(true),
+	allowedToShow = false;
 
-		scene = new ScrollMagic.Scene({
+	new ScrollMagic.Scene({
 		triggerElement: nav,
 		triggerHook: 0,
-		offset: navOffset
+		offset: navOffset,
+		duration: "80%"
 	})
 	.setPin(nav, {pushFollowers: false})
 	.addTo(c)
@@ -31,4 +30,3 @@ if ( nav ) {
 		}
 	});
 }
-

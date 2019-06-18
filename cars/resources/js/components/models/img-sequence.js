@@ -1,5 +1,3 @@
-import * as f from './../../functions';
-
 const 	c		= new ScrollMagic.Controller(),
 		check 	= document.querySelector('.models #image_sequence');
 

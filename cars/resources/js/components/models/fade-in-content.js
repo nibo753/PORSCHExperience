@@ -1,5 +1,3 @@
-import * as f from './../../functions';
-
 const   controller  = new ScrollMagic.Controller(),
         check       = document.querySelector('.models');
 

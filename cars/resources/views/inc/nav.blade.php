@@ -11,13 +11,14 @@
 				 * if isset($cars) > if current page add .active
 				 * stop current foreach loop -> no submenu is added
 				 */
+				$nameLowerCase = strtolower($category->name);
+				
 				if (isset($cars) && !$cars->isEmpty() && $cars[0]->category->name == $category->name || $category->name == 'Macan'): ?>
-		 				<li><a href="/models/{{ $category->name }}" class="{{ (isset($cars[0]['category']['name'])) ? ( ($cars[0]['category']['name'] == $category->name) ? 'active' : '' ) : '' }}">{{$category->name}}</a></li>
+		 				<li><a href="/models/{{ $nameLowerCase }}" class="{{ (isset($cars[0]['category']['name'])) ? ( ($cars[0]['category']['name'] == $category->name) ? 'active' : '' ) : '' }}">{{$category->name}}</a></li>
 					<?php
 		 			continue;
 	 			endif ?>
 				<li>
-					<?php $nameLowerCase = strtolower($category->name); ?>
 					<a href="/models/{{ $nameLowerCase }}" class="{{ !empty($category->cars) ? 'arrow left' : '' }}">{{ $category->name }}</a>
 					@if (!empty($category->cars))
 					<div class="mp-level">

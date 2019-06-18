@@ -11467,6 +11467,71 @@ ul {
   stop-color: #F1F1F1;
 }
 
+footer {
+  background-color: #151515;
+  color: #F1F1F1;
+  position: relative;
+  z-index: 10;
+  padding: 80px 0 50px;
+  font-size: 0.875em;
+}
+
+footer a {
+  display: block;
+  color: #F1F1F1;
+}
+
+footer a:hover,
+footer a:focus {
+  color: #c75959;
+}
+
+footer a.fb:hover,
+footer a.fb:focus {
+  color: #2753a7;
+}
+
+footer a.yt:hover,
+footer a.yt:focus {
+  color: #cd201f;
+}
+
+footer a.tw:hover,
+footer a.tw:focus {
+  color: #55acee;
+}
+
+footer a.pi:hover,
+footer a.pi:focus {
+  color: #cd242b;
+}
+
+footer a.ig:hover,
+footer a.ig:focus {
+  color: #326189;
+}
+
+footer a.li:hover,
+footer a.li:focus {
+  color: #0274b3;
+}
+
+footer ul li a {
+  padding: 5px 0;
+}
+
+footer .row:nth-child(2) p {
+  border-top: 1px solid #32313c;
+  margin-top: 30px;
+  padding-top: 30px;
+}
+
+@media only screen and (max-width: 630px) {
+  footer h4 {
+    min-height: 30px;
+  }
+}
+
 header {
   background: white;
   width: 100%;
@@ -12250,17 +12315,18 @@ body.dark {
   background-image: url(/img/overview/cayenne.png);
 }
 
-.models .not_found .msg {
-  text-align: center;
-}
-
 .models .not_found li {
   padding: 0 15px;
   border-right: 1px solid #32313c;
 }
 
+.models .not_found li:first-child {
+  padding-left: 0;
+}
+
 .models .not_found li:last-child {
   border-right: none;
+  padding-right: 0;
 }
 
 .models #model_container > div:first-child {
@@ -12403,6 +12469,10 @@ body.dark {
   margin: 0;
 }
 
+.models #model_container #model_nav .model_filter .btn.no_active {
+  background-color: #32313c !important;
+}
+
 .models #model_container #model_nav .model_slider .slick-slide {
   position: relative;
   z-index: 2;
@@ -12462,6 +12532,7 @@ body.dark {
   position: relative;
   text-align: right;
   width: 40%;
+  min-height: 140px;
 }
 
 .models #model_container .model_section .model_intro h2 {
@@ -12480,8 +12551,8 @@ body.dark {
 }
 
 .models #model_container .model_section .details {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 20px;
   background-color: #F1F1F1;
 }
 

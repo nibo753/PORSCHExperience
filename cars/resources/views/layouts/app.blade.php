@@ -79,6 +79,9 @@
             <main>
                 @yield('content')
             </main>
+            <footer>
+                @include('inc.footer')
+            </footer>
         </div>
     </div>
     <div class="page_transition">

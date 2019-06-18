@@ -4,7 +4,7 @@
 @if ($cars->isEmpty())
 
 <div class="full-center not_found">
-    <p class="msg">Model not found!</p>
+    <h1>Model not found!</h1>
     <ul class="flex">
         @foreach ($categories as $category)
         <li><a href="/models/{{ strtolower($category->name) }}" class="models">{{ $category->name }}</a></li>
@@ -152,7 +152,7 @@
                                     <span>{{$model->acceleration}}</span>
                                 </li>
                                 <li>
-                                    <span>0 tot 100 km/u met Sport Chronopakket(sec)</span>
+                                    <span>0 tot 100 km/u met Sport Pakket (sec)</span>
                                     <span>{{$model->acceleration_sport}}</span>
                                 </li>
                                 <li>
@@ -199,14 +199,14 @@
                     </div>
                     <div class="row usage">
                         <div class="col">
-                            <h3>Verbruik en Uitstoot</h3>
+                            <h3>Verbruik en Uitstoot (NEDC)</h3>
                             <ul>
                                 <li>
-                                    <span>Brandstofverbruik (l/100km)(NEDC-norm)</span>
+                                    <span>Brandstofverbruik (l/100km)</span>
                                     <span>{{$model->fuel_consumption}}</span>
                                 </li>
                                 <li>
-                                    <span>Stroomverbruik (kWh/100km)(NEDC-norm)</span>
+                                    <span>Stroomverbruik (kWh/100km)</span>
                                     <span>{{$model->power_consumption}}</span>
                                 </li>
                                 <li>

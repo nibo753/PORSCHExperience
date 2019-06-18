@@ -39922,6 +39922,8 @@ __webpack_require__(/*! ./components/home/slide-in */ "./resources/js/components
 
 __webpack_require__(/*! ./components/models/fade-in-content */ "./resources/js/components/models/fade-in-content.js");
 
+__webpack_require__(/*! ./components/models/filter-buttons */ "./resources/js/components/models/filter-buttons.js");
+
 __webpack_require__(/*! ./components/models/img-sequence */ "./resources/js/components/models/img-sequence.js");
 
 __webpack_require__(/*! ./components/models/slick */ "./resources/js/components/models/slick.js");
@@ -40514,12 +40516,8 @@ if (check) {
 /*!***********************************************************!*\
   !*** ./resources/js/components/models/fade-in-content.js ***!
   \***********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 var controller = new ScrollMagic.Controller(),
     check = document.querySelector('.models');
@@ -40545,6 +40543,29 @@ if (check) {
 
 /***/ }),
 
+/***/ "./resources/js/components/models/filter-buttons.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/models/filter-buttons.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var check = document.querySelector('.models .model_filter');
+
+if (check) {
+  // on hover remove active look on other filter buttons
+  $('.model_filter .btn').hover( // onMouseEnter
+  function () {
+    $('.model_filter .btn').addClass('no_active');
+    $(this).removeClass('no_active');
+  }, // onMouseLeave
+  function () {
+    $('.model_filter .btn').removeClass('no_active');
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/models/img-sequence.js":
 /*!********************************************************!*\
   !*** ./resources/js/components/models/img-sequence.js ***!
@@ -40555,8 +40576,6 @@ if (check) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollPosition", function() { return scrollPosition; });
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
-
 var c = new ScrollMagic.Controller(),
     check = document.querySelector('.models #image_sequence');
 var scrollPosition = 0;
@@ -40822,23 +40841,20 @@ function filterSlick(input, slick, syncSlick) {
 /*!*********************************************************!*\
   !*** ./resources/js/components/models/sticky-slider.js ***!
   \*********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../functions */ "./resources/js/functions.js");
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 var c = new ScrollMagic.Controller(),
     nav = document.querySelector('.models #model_nav');
 
 if (nav) {
-  var navOffset = -+$('header').outerHeight(true) + $('.models #model_nav').outerHeight(true),
-      allowedToShow = false,
-      scene = new ScrollMagic.Scene({
+  var navOffset = -+$('header').outerHeight(true) + $('#model_nav').outerHeight(true) + $('.model_filter').outerHeight(true),
+      allowedToShow = false;
+  new ScrollMagic.Scene({
     triggerElement: nav,
     triggerHook: 0,
-    offset: navOffset
+    offset: navOffset,
+    duration: "80%"
   }).setPin(nav, {
     pushFollowers: false
   }).addTo(c).on("enter leave", function (e) {
