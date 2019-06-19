@@ -1,49 +1,44 @@
-const   controller  = new ScrollMagic.Controller(),
-        check       = document.querySelector('.gallery');
+import * as f from './../../functions';
 
-if ( check ) {
-    // build scene
-    var scene = new ScrollMagic.Scene({triggerElement: ".gallery_container #loader", triggerHook: "onEnter"})
-    .addTo(controller)
-    .on("enter", function (e) {
-        if (!$("#loader").hasClass("active")) {
-            $("#loader").addClass("active");
-            // AJAX CALL
-            addImgs(9);
+const check = document.querySelector('.gallery');
+
+function fixImgHeight() {
+    if ( check && !f.isMobile()) {
+        let imgs = document.querySelectorAll('.gallery_container img');
+        let height = $('.img_container').outerHeight(true);
+
+        for (let i = 0; i < imgs.length; i++){
+            imgs[i].style.height = height + 'px';
+        }
+    }
+}
+fixImgHeight();
+
+function placeContentInsideOriginalDiv(){
+    let cols = document.querySelectorAll('.jscroll-added .row > div'),
+    original = document.querySelector('.jscroll-inner .row:first-child');
+
+    for (let i = 0; i < cols.length; i++){
+        let container = document.createElement("div");
+        container.appendChild(cols[i].cloneNode(true));
+        original.insertAdjacentHTML('beforeend', container.innerHTML);
+    }
+    $('.jscroll-added').remove();
+}
+
+
+$('ul.pagination').hide();
+$(function() {
+    $('.gallery_container').jscroll({
+        autoTrigger: true,
+        loadingHtml: '<span>Loading ...</span>',
+        padding: 0,
+        nextSelector: '.pagination li.active + li a',
+        contentSelector: '.gallery_container .row',
+        callback: function() {
+            $('ul.pagination').remove();
+            fixImgHeight();
+            placeContentInsideOriginalDiv();
         }
     });
-
-    // AJAX CALL
-    function addImgs (amount) {
-        /*
-        for (i=1; i<=amount; i++) {
-            var randomColor = '#'+('00000'+(Math.random()*0xFFFFFF<<0).toString(16)).slice(-6);
-            $("<div></div>")
-                .addClass("col-12 col-md-6 col-lg-4")
-                .css("background-color", randomColor)
-                .appendTo(".gallery_container .row");
-        }
-        */
-
-        axios.get('/gallery/newmedia')
-        .then(function (response) {
-            // handle success
-            console.log(response);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .finally(function () {
-            // always executed
-        });
-
-
-        // "loading" done -> revert to normal state
-        scene.update(); // make sure the scene gets the new start position
-        $("#loader").removeClass("active");
-    }
-
-    // add some boxes to start with.
-    addImgs(21);
-}
+});

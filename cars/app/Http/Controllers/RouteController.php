@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Car;
 use App\Category;
 use File;
@@ -52,13 +53,33 @@ class RouteController extends Controller
 	}
 
 	// ROUTE: /gallery
-	public function gallery(){
+	public function gallery(Request $request){
 		$categories = Category::all();
 		$categories = $this->addAllCarsToAllCategories($categories);
 
-		$medias = $this->getNewInstagramMedia(3*40);
+		// get media
+		$medias = '';
+		$paginatedItems = '';
 
-		return view('gallery', ["categories" => $categories, "medias" => $medias]);
+		try {
+			$medias = $this->getNewInstagramMedia(200);
+		} catch (Exception $e) {
+			// most likely hit request limit
+		}
+		
+		if ($medias != ''){
+			// paginate media
+			$perPage = 24; //divides by 2 and 3
+			$currentPage = LengthAwarePaginator::resolveCurrentPage();
+			$mediaCollection = collect($medias);
+			//show only slice of items in current page
+			$currentPageItems = $mediaCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all(); 
+			$paginatedItems = new LengthAwarePaginator($currentPageItems , count($mediaCollection), $perPage);
+			// set url path for generted links
+			$paginatedItems->setPath($request->url());
+		}
+
+		return view('gallery', ["categories" => $categories, "medias" => $paginatedItems]);
 	}
 
 

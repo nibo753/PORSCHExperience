@@ -6,6 +6,8 @@
 	.row > div {
 		position: relative;
 		margin-bottom: 30px;
+		padding: 0 15px;
+		width: col(4);
 
 		@include respond-to(phone){
 			&:last-child{ margin-bottom: 15px }
@@ -114,4 +116,6 @@
 			}
 		}
 	}
+
+	.jscroll-loading { text-align: center; }
 }

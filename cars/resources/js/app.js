@@ -32,6 +32,7 @@ require('./lib/segment.min');
 
 // NPM Libraries
 require('slick-carousel');
+require('jscroll');
 
 
 // Components
@@ -54,5 +55,4 @@ require('./components/models/img-sequence');
 require('./components/models/slick');
 require('./components/models/sticky-slider');
 
-//require('./components/gallery/infinite-scroll'); //not fixed yet
-require('./components/gallery/img');
+require('./components/gallery/infinite-scroll');
