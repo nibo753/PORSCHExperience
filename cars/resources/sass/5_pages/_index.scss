@@ -149,7 +149,7 @@
 
 				@include respond-to(phone) {
 					background-size: 80%;
-					background-position: 50% 88%;
+					background-position: 50% 80%;
 				}
 
 				> div {
@@ -170,9 +170,8 @@
 					@include respond-to(tablet){ right: 7%; }
 
 					@include respond-to(phone){
-						left: 50%;
-						transform: translate(-50%, 50%);
-						right: auto;
+						transform: translate(50%, -50%);
+						right: 50%;
 					}
 
 					&.hover_effect {

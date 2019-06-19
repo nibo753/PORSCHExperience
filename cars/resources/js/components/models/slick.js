@@ -68,7 +68,7 @@ if ( check && modelSlider.length && modelInfo.length ) {
 	 */
 
 	// SLICK BUG FIX
-	let eventtype = f.mobilecheck() ? 'touchend' : 'click';
+	let eventtype = f.isMobile() ? 'touchend' : 'click';
 
 	$('.model_slider .slick-slide').on(eventtype, function(event) {
 		$('.model_slider .slick-current').removeClass('slick-current slick-center');

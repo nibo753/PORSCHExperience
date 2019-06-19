@@ -38,7 +38,7 @@ require('slick-carousel');
 require('./components/nav');
 require('./components/hamburger');
 require('./components/page-transition');
-require('./components/refresh');
+//require('./components/refresh'); //mobile keeps refreshing if url bar disappears
 require('./components/smooth-scroll');
 
 require('./components/home/audio');

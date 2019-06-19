@@ -83,7 +83,7 @@ function outB(s) {
 /*
  * EVENTS
  */
-let eventtype = f.mobilecheck() ? 'touchstart' : 'click';
+let eventtype = f.isMobile() ? 'touchstart' : 'click';
 $(hamburger).on(eventtype, function(e){
     animation();
 })

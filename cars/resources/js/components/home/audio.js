@@ -29,10 +29,12 @@ if (home) {
 				audioBtnSelector.addClass('active');
 			}).catch(error => {
 				// Autoplay was prevented
-				window.location.reload(false); //always works ..
-				
-				//f.simulate(document.querySelector("#fake_click"), "click");
-				//setTimeout(playMusic, 500); // works after user interaction
+				if (!f.isMobile()){
+					window.location.reload(false); //always works ..
+				}
+				else{
+					setTimeout(playMusic, 1000); // works after user interaction
+				}
 			});
 		}
 	}
