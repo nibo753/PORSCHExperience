@@ -11,8 +11,7 @@ header {
 
 	&.show { transform: translateY(0%); }
 
-	.model_name {
-		font-size: $size_s;
+	.center_txt {
 		text-align: center;
 		font-weight: bold;
 		@include respond-to(phone) { display: none; }
