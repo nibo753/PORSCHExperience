@@ -50,6 +50,7 @@
 					@endif
 				</li>
 			@endforeach
+			<li><a href="/gallery" class="{{ ( $isGallery ) ? 'active' : '' }}">Gallery</a></li>
 		</ul>
 	</div>
 </nav>

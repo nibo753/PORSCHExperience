@@ -61,7 +61,7 @@
                                         <div class="value" data="{{ $value->price }}">0</div>
                                         <div class="unit">EURO</div>
                                     </span>
-                                    @include('inc.speedometer')
+                                    @include('inc.svg/speedometer')
                                 </div>
                                 @if ($value->topspeed != 0)
                                 <div class="speed svg">
@@ -69,7 +69,7 @@
                                         <div class="value" data="{{ $value->topspeed }}">0</div>
                                         <div class="unit">km/h</div>
                                     </span>
-                                    @include('inc.speedometer')
+                                    @include('inc.svg/speedometer')
                                 </div>
                                 @endif
                                 @if ($value->acceleration_sport != 0)
@@ -78,7 +78,7 @@
                                         <div class="value" data="{{ $value->acceleration_sport }}">0</div>
                                         <div class="unit">0-100 km/h</div>
                                     </span>
-                                    @include('inc.speedometer')
+                                    @include('inc.svg/speedometer')
                                 </div>
                                 @endif
                             </div>

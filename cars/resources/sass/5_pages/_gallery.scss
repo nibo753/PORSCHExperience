@@ -1,0 +1,117 @@
+.gallery_container {
+	padding: 50px 15px;
+
+	@include respond-to(phone){ padding: 15px 15px 0; }
+
+	.row > div {
+		position: relative;
+		margin-bottom: 30px;
+
+		@include respond-to(phone){
+			&:last-child{ margin-bottom: 15px }
+		}
+
+		a:after,
+		.caption,
+		.counters {
+			opacity: 0;
+			transition: opacity .3s;
+			position: absolute;
+		}
+
+		a {
+			position: relative;
+			color: $white;
+			display: block;
+			height: 100%;
+			overflow: hidden;
+			cursor: pointer;
+
+			&:after {
+				content: "";
+				display: inline-block;
+				top: 0; left: 0;
+				bottom: 0; right: 0;
+				background: $black;
+			}
+
+			&:hover {
+				&:after { opacity: .6; }
+
+				.caption,
+				.counters {
+					opacity: 1;
+				}
+			}
+		}
+
+		img {
+			position: relative;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			min-width: 100%;
+		}
+
+		.caption {
+			z-index: 1;
+		 	top: 10%;
+		 	left: 50%;
+		 	width: 90%;
+		 	transform: translateX(-50%);
+		}
+
+		.counters {
+			z-index: 1;
+			bottom: 10%;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+		}
+
+		.like,
+		.comment {
+			span { width: 60px; }
+			svg {
+				height: 25px;
+				fill: white;
+				margin-right: 10px;
+			}
+		}
+
+		.like { margin-right: 10px; }
+		.comment { margin-left: 10px; }
+
+		@include respond-to(phone){
+			a:after { opacity: 0 !important; }
+			.caption,
+			.counters { opacity: 1; }
+
+			img { top: auto; transform: translateX(-50%);}
+
+			.caption,
+			.counters {
+				position: relative;
+				left: auto;
+				width: 100%;
+				transform: none;
+			 	color: $black;
+			 	padding: 15px;
+			 	background-color: white;
+			}
+
+			.caption {
+			 	top: auto;
+			 	display: block;
+			 	border-bottom: 1px solid $white;
+			}
+
+			.counters {
+				bottom: auto;
+
+				.like svg { fill: $brandSecondaryDark; }
+				.comment svg { fill: $brandSecondaryDark; }
+			}
+		}
+	}
+}

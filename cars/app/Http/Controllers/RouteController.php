@@ -51,11 +51,29 @@ class RouteController extends Controller
 		return view('models', ["categories" => $categories, "cars" => $cars, "imgCount" => $imgCount]);
 	}
 
+	// ROUTE: /gallery
+	public function gallery(){
+		$categories = Category::all();
+		$categories = $this->addAllCarsToAllCategories($categories);
+
+		$medias = $this->getNewInstagramMedia(3*40);
+
+		return view('gallery', ["categories" => $categories, "medias" => $medias]);
+	}
 
 
 	/*
 	 * HELPER FUNCTIONS
 	 */
+
+	public static function getNewInstagramMedia($amount){
+		$instagram 	= new \InstagramScraper\Instagram();
+		$account 	= (new \InstagramScraper\Instagram())->getAccountById('5598638463');
+
+		$rtn = $instagram->getMedias($account->getUsername(), $amount);
+
+		return $rtn;
+	}
 
 	function formatNumbers($data)
 	{

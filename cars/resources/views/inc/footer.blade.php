@@ -3,11 +3,12 @@
         <div class="col">
             <h4>PORSCHExperience</h4>
             <ul>
-                <li><a href="{{ ( $isHome ) ? '#intro' : '/' }}" class="{{ ( $isHome ) ? 'active' : '' }}">Home</a></li>
+                <li><a href="{{ ( $isHome ) ? '#intro' : '/' }}">Home</a></li>
                 @foreach ($categories as $category)
                 <?php $nameLowerCase = strtolower($category->name); ?>
                     <li><a href="/models/{{ $nameLowerCase }}">{{$category->name}}</a></li>
                 @endforeach
+                <li><a href="/gallery">Gallery</a></li>
             </ul>
         </div>
         <div class="col">

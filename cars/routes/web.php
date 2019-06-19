@@ -14,3 +14,4 @@
 
 Route::get('/', 					'RouteController@index');
 Route::get('models/{category}', 	'RouteController@models');
+Route::get('gallery', 				'RouteController@gallery');

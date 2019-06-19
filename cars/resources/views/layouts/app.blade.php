@@ -52,28 +52,13 @@
     <meta name="theme-color" content="#f1f1f1">
 
     <?php ((Request::segment(1) == NULL ) ? $isHome = true : $isHome = false); ?>
+    <?php ((Request::segment(1) == 'gallery' ) ? $isGallery = true : $isGallery = false); ?>
 </head>
-<body class="noscroll {{ ( $isHome ) ? 'dark' : '' }}">
+<body class="{{ ( $isHome ) ? 'dark' : '' }} {{ ( $isGallery ) ? '' : 'noscroll' }}">
     <div id="smoothState">
         <div id="content" class="animate {{ ( $isHome ) ? 'home' : Request::segment(1) }} mp-fade-content">
             <header class="{{ ($isHome ) ? '' : 'show' }}">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <a href="{{ ( $isHome ) ? '#intro' : '/' }}" class="logo"><span>Porsche</span>xperience</a>
-                        </div>
-                        @if (Request::segment(1) == 'models' && !$cars->isEmpty() )
-                        <div class="col model_name">
-                            <span class="model_header">{{$cars[0]->category->name}}</span>
-                        </div>
-                        @endif
-                        <div class="col flex">
-                            <div class="menu-icon-wrapper hidden" id="mp-trigger">
-                                @include('inc.hamburger')
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('inc.header')
             </header>
             @include('inc.nav')
             <main>

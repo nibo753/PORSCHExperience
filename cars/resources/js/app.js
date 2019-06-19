@@ -53,3 +53,6 @@ require('./components/models/filter-buttons');
 require('./components/models/img-sequence');
 require('./components/models/slick');
 require('./components/models/sticky-slider');
+
+//require('./components/gallery/infinite-scroll'); //not fixed yet
+require('./components/gallery/img');
