@@ -68,11 +68,14 @@ if ( check && modelSlider.length && modelInfo.length ) {
 	 */
 
 	// SLICK BUG FIX
-	$('.model_slider .slick-slide').on('click', function(event) {
+	let eventtype = f.mobilecheck() ? 'touchend' : 'click';
+
+	$('.model_slider .slick-slide').on(eventtype, function(event) {
 		$('.model_slider .slick-current').removeClass('slick-current slick-center');
 		$(this).addClass('slick-current slick-center');
 
-		let div = $(this).parent().children();
+		//bugged on mobile as classes get instantly removed again
+		let div = $('.model_slider .slick-slide'); //update values by reselecting
 		for (let i = 0; i < div.length; i++){
 			if (div[i].classList.contains('slick-current')){
 				modelSlider[0].slick.slickGoTo(i);

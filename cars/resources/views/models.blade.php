@@ -18,8 +18,8 @@
     @if ( $imgCount != 0)
     <div id="image_sequence">
         <script type="text/javascript">
-            let imageSequenceCounter = <?= json_encode($imgCount); ?>;
-            let imageSequenceModel = <?= json_encode(strtolower($cars[0]->category->name)); ?>;
+            var imageSequenceCounter = <?= json_encode($imgCount); ?>;
+            var imageSequenceModel = <?= json_encode(strtolower($cars[0]->category->name)); ?>;
         </script>
 
         <img src="/img/{{ strtolower($cars[0]->category->name) }}/sequence/1.webp" alt="360 view of {{ $cars[0]->category->name }}">

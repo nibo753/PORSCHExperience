@@ -29,14 +29,13 @@ $bgColor: white;
 
 			img {
 				min-width: 100%;
-				max-width: 125%;
 				max-height: calc(80vh - 65px);
+				height: 80vh;
 				background-color: $white; //fallback
 				object-fit: cover;
 
-				@include respond-to(phone){
-					height: 80vh;
-					max-width: 100%;
+				@include respond-to(desktop){
+					max-width: 125%;
 				}
 			}
 
@@ -108,6 +107,7 @@ $bgColor: white;
 
 			position: absolute;
 			top: 35px;
+			@include respond-to(tablet){top: 10px;}
 		}
 
 		#model_nav {
@@ -154,11 +154,8 @@ $bgColor: white;
 
 					li {
 						padding: 0 10% 0; 
-						margin-top: -20px;
-						@include respond-to(phone){
-							padding: 0 10px;
-							margin-top: 0;
-						}
+						@include respond-to(phone){ padding: 0 10px; }
+						@include respond-to(desktop){ margin-top: -20px; }
 					}
 
 					img {
@@ -197,6 +194,9 @@ $bgColor: white;
 				@include respond-to(phone){
 					padding: 0 15px;
 				}
+				@include respond-to(tabletPortrait){
+					padding: 0 15px;
+				}
 			}
 
 			.img_container {
@@ -206,6 +206,10 @@ $bgColor: white;
 				@include respond-to(phone){
 					width: 100%;
 					margin: 0 0 -180px 0;
+				}
+				@include respond-to(tabletPortrait){
+					width: 100%;
+					margin: 0 0 -50px 0;
 				}
 
 				img { 
@@ -220,6 +224,7 @@ $bgColor: white;
 				min-height: 130px;
 
 				@include respond-to(phone){ width: 100%}
+				@include respond-to(tabletPortrait){ width: 100%}
 				
 				h2{ color: $white; }
 				a, p {

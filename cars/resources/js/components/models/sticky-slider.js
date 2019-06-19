@@ -2,7 +2,8 @@ const 	c	= new ScrollMagic.Controller(),
 		nav = document.querySelector('.models #model_nav');
 
 if ( nav ) {
-	let navOffset = - + $('header').outerHeight(true) + $('#model_nav').outerHeight(true) + $('.model_filter').outerHeight(true),
+	let btnHeight = $('.model_filter').outerHeight(true) || 0,
+		navOffset = - + $('header').outerHeight(true) + $('#model_nav').outerHeight(true) + btnHeight,
 	allowedToShow = false;
 
 	new ScrollMagic.Scene({

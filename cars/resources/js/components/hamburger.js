@@ -1,3 +1,5 @@
+import * as f from './../functions';
+
 let hamburger  = document.getElementById( 'mp-trigger' ),
     beginAC = 80,
     endAC   = 320,
@@ -81,9 +83,10 @@ function outB(s) {
 /*
  * EVENTS
  */
-hamburger.onclick = function() {
+let eventtype = f.mobilecheck() ? 'touchstart' : 'click';
+$(hamburger).on(eventtype, function(e){
     animation();
-};
+})
 
 function animation(){
     if ($('#content').hasClass('mp-active')) {

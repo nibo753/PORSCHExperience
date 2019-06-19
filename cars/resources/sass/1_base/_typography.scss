@@ -34,9 +34,36 @@ h1, h2, h3, h4, h5, h6 {
 
 p { margin: 0 0 1em; }
 
-h1 { font-size: $size_xxl; @include respond-to(phone) { font-size: $size_l_phone; } }
-h2 { font-size: $size_xl;  @include respond-to(phone) { font-size: $size_m; } }
-h3 { font-size: $size_l;   @include respond-to(phone) { font-size: $size_s; } }
-h4 { font-size: $size_m;   @include respond-to(phone) { font-size: $size_xs; } }
-h5 { font-size: $size_s;   @include respond-to(phone) { font-size: $size_xxs; } }
-h6 { font-size: $size_xs; }
+h1 {
+	font-size: $size_xxl;
+	@include respond-to(tabletPortrait) { font-size: $size_xl; }
+	@include respond-to(phone) { font-size: $size_l_phone; }
+}
+
+h2 {
+	font-size: $size_xl; 
+	@include respond-to(tabletPortrait) { font-size: $size_l; }
+	@include respond-to(phone) { font-size: $size_m; }
+}
+
+h3 {
+	font-size: $size_l;
+	@include respond-to(tabletPortrait) { font-size: $size_l_phone; }
+	@include respond-to(phone) { font-size: $size_s; }
+}
+
+h4 {
+	font-size: $size_m;
+	@include respond-to(tabletPortrait) { font-size: $size_s; }
+	@include respond-to(phone) { font-size: $size_xs; }
+}
+
+h5 {
+	font-size: $size_s;
+	@include respond-to(tabletPortrait) { font-size: $size_xs; }
+	@include respond-to(phone) { font-size: $size_xxs; }
+}
+
+h6 {
+	font-size: $size_xs;
+}

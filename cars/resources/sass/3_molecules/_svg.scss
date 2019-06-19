@@ -13,6 +13,9 @@
 		.value {
 			font-size: $size_s;
 			color: $brandSecondaryDark;
+
+			@include respond-to(tablet){ font-size: $size_xxs; }
+			@include respond-to(phone) { font-size: $size_xxs; }
 		}
 		.unit {
 			font-size: $size_xxxs;
@@ -20,6 +23,7 @@
 			position: relative;
 			top: 40px;
 
+			@include respond-to(tablet){ top: 20px; }
 			@include respond-to(phone){ top: auto; }
 		}
 	}
