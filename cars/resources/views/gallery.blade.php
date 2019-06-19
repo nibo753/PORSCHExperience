@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<?php use App\Http\Controllers\RouteController; ?>
-<script type="text/javascript">
-    //var newMedia = <?= json_encode( RouteController::getNewInstagramMedia(21) ); ?>;
-</script>
 
 @if ($medias != '')
 <div class="gallery_container container">
@@ -14,7 +10,7 @@
             <div class="col-12 col-sm-6 col-lg-4">
                 <a href="{{$media->getLink()}}" target="_blank" class="img_container">
                     <img src="{{$media->getImageThumbnailUrl()}}">
-                    <span class="caption">{{$media->getCaption()}}</span>
+                    <span class="caption">{{mb_strimwidth($media->getCaption(), 0, 290, " ...")}}</span>
                     <div class="counters">
                         <span class="like">@include('inc.svg/like'){{$media->getLikesCount()}}</span>
                         <span class="comment">@include('inc.svg/comments') {{$media->getCommentsCount()}}</span>
